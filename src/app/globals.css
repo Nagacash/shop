@@ -1,0 +1,211 @@
+@import "tailwindcss";
+
+@theme {
+  /* Dark shades */
+  --color-dark-900: #111111;
+  --color-dark-700: #757575;
+  --color-dark-500: #aaaaaa;
+
+  /* Light shades */
+  --color-light-100: #ffffff;
+  --color-light-200: #f5f5f5;
+  --color-light-300: #e5e5e5;
+  --color-light-400: #cccccc;
+
+  /* Supporting colors */
+  --color-green: #007d48;
+  --color-red: #d33918;
+  --color-orange: #d37918;
+  --color-naga-gold: #c9a227;
+  --color-naga-sage: #8a9a5b;
+  --color-naga-sage-light: #a8b07a;
+  --color-naga-wood: #3d3428;
+
+  /* Font family */
+  --font-jost: "Jost", sans-serif;
+
+  /* Heading sizes */
+  --text-heading-1: 72px;
+  --text-heading-1--line-height: 78px;
+  --text-heading-1--font-weight: 700;
+
+  --text-heading-2: 56px;
+  --text-heading-2--line-height: 60px;
+  --text-heading-2--font-weight: 700;
+
+  --text-heading-3: 24px;
+  --text-heading-3--line-height: 30px;
+  --text-heading-3--font-weight: 500;
+
+  /* Lead */
+  --text-lead: 20px;
+  --text-lead--line-height: 28px;
+  --text-lead--font-weight: 500;
+
+  /* Body */
+  --text-body: 16px;
+  --text-body--line-height: 24px;
+  --text-body--font-weight: 400;
+
+  --text-body-medium: 16px;
+  --text-body-medium--line-height: 24px;
+  --text-body-medium--font-weight: 500;
+
+  /* Caption */
+  --text-caption: 14px;
+  --text-caption--line-height: 20px;
+  --text-caption--font-weight: 500;
+
+  /* Footnote */
+  --text-footnote: 12px;
+  --text-footnote--line-height: 18px;
+  --text-footnote--font-weight: 400;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Skip off-screen sections during scroll — faster paint on long pages */
+.scroll-layer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 480px;
+}
+
+/* Contain sticky chrome so scroll doesn't recalc the whole page */
+header[class*="sticky"] {
+  contain: layout style;
+}
+
+/* Product grids: isolate card repaints while scrolling */
+.product-grid {
+  contain: layout style;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@keyframes hero-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-enter {
+    animation: hero-fade-in 500ms var(--ease-out-expo) both;
+  }
+
+  .hero-enter-1 {
+    animation-delay: 0ms;
+  }
+
+  .hero-enter-2 {
+    animation-delay: 70ms;
+  }
+
+  .hero-enter-3 {
+    animation-delay: 140ms;
+  }
+
+  .hero-enter-4 {
+    animation-delay: 210ms;
+  }
+
+  .hero-enter-5 {
+    animation-delay: 280ms;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-enter {
+    animation: hero-fade-in 150ms ease both;
+  }
+}
+
+/* Naga Green / flat-lay product photography */
+.flat-lay-frame {
+  background:
+    radial-gradient(ellipse 80% 70% at 50% 42%, rgba(138, 154, 91, 0.14), transparent 62%),
+    radial-gradient(ellipse 100% 90% at 50% 100%, rgba(61, 52, 40, 0.55), transparent 55%),
+    linear-gradient(168deg, #1a1714 0%, #12100e 48%, #0c0b0a 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    inset 0 -32px 64px rgba(0, 0, 0, 0.35);
+}
+
+.flat-lay-frame--interactive {
+  transition: box-shadow 400ms var(--ease-out-expo);
+}
+
+.flat-lay-frame--interactive:hover {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 -32px 64px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(201, 162, 39, 0.18),
+    0 24px 48px rgba(0, 0, 0, 0.28);
+}
+
+.flat-lay-frame__glow {
+  position: absolute;
+  inset: 8%;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(201, 162, 39, 0.1) 0%, transparent 68%);
+  pointer-events: none;
+}
+
+.flat-lay-frame__grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+@keyframes drop-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .drop-enter {
+    animation: drop-rise 650ms var(--ease-out-expo) both;
+  }
+
+  .drop-enter-1 {
+    animation-delay: 0ms;
+  }
+
+  .drop-enter-2 {
+    animation-delay: 80ms;
+  }
+
+  .drop-enter-3 {
+    animation-delay: 160ms;
+  }
+
+  .drop-enter-4 {
+    animation-delay: 240ms;
+  }
+}

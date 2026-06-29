@@ -1,0 +1,22 @@
+{
+  "hero": "/uploads/naga/brand/hero.png",
+  "collections": {
+    "hustle-hard-drip": "/uploads/naga/brand/collections/hustle-hard-drip.png",
+    "naga-original": "/uploads/naga/brand/collections/naga-original.png",
+    "black-gold-edition": "/uploads/naga/brand/collections/black-gold-edition.png",
+    "naga-square": "/uploads/naga/brand/collections/naga-square.png",
+    "golden-drip": "/uploads/naga/brand/collections/golden-drip.png",
+    "naga-og": "/uploads/naga/brand/collections/naga-og.png"
+  },
+  "generatedAt": "2026-06-23T22:07:16.247Z",
+  "heroGlamour": "/uploads/naga/brand/hero-glamour.png",
+  "pages": {
+    "shop": "/uploads/naga/brand/pages/shop.png",
+    "cart": "/uploads/naga/brand/pages/cart.png",
+    "collections": "/uploads/naga/brand/pages/collections.png",
+    "contact": "/uploads/naga/brand/pages/contact.png",
+    "checkout": "/uploads/naga/brand/pages/checkout.png",
+    "auth": "/uploads/naga/brand/pages/auth.png",
+    "product": "/uploads/naga/brand/pages/product.png"
+  }
+}
