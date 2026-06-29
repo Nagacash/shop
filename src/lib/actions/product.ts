@@ -67,6 +67,7 @@ export async function getAllProducts(filters: NormalizedProductFilters): Promise
   const hasSize = filters.sizeSlugs.length > 0;
   const hasColor = filters.colorSlugs.length > 0;
   const hasPrice = !!(filters.priceMin !== undefined || filters.priceMax !== undefined || filters.priceRanges.length);
+  const needsVariantMatch = hasSize || hasColor || hasPrice;
 
   const variantConds: SQL[] = [];
   if (hasSize) {
@@ -165,20 +166,35 @@ export async function getAllProducts(filters: NormalizedProductFilters): Promise
   const limit = Math.max(1, Math.min(filters.limit, 60));
   const offset = (page - 1) * limit;
 
-  const rows = await db
-    .select({
-      id: products.id,
-      name: products.name,
-      createdAt: products.createdAt,
-      subtitle: genders.label,
-      categoryLabel: categories.name,
-      minPrice: priceAgg.minPrice,
-      maxPrice: priceAgg.maxPrice,
-      maxInStock: priceAgg.maxInStock,
-      imageUrl: imageAgg,
-    })
-    .from(products)
-    .leftJoin(variantJoin, eq(variantJoin.productId, products.id))
+  const rows = await (needsVariantMatch
+    ? db
+        .select({
+          id: products.id,
+          name: products.name,
+          createdAt: products.createdAt,
+          subtitle: genders.label,
+          categoryLabel: categories.name,
+          minPrice: priceAgg.minPrice,
+          maxPrice: priceAgg.maxPrice,
+          maxInStock: priceAgg.maxInStock,
+          imageUrl: imageAgg,
+        })
+        .from(products)
+        .innerJoin(variantJoin, eq(variantJoin.productId, products.id))
+    : db
+        .select({
+          id: products.id,
+          name: products.name,
+          createdAt: products.createdAt,
+          subtitle: genders.label,
+          categoryLabel: categories.name,
+          minPrice: priceAgg.minPrice,
+          maxPrice: priceAgg.maxPrice,
+          maxInStock: priceAgg.maxInStock,
+          imageUrl: imageAgg,
+        })
+        .from(products)
+        .leftJoin(variantJoin, eq(variantJoin.productId, products.id)))
     .leftJoin(imagesJoin, eq(imagesJoin.productId, products.id))
     .leftJoin(genders, eq(genders.id, products.genderId))
     .leftJoin(brands, eq(brands.id, products.brandId))
@@ -188,12 +204,20 @@ export async function getAllProducts(filters: NormalizedProductFilters): Promise
     .orderBy(primaryOrder, desc(products.createdAt), asc(products.id))
     .limit(limit)
     .offset(offset);
-  const countRows = await db
-    .select({
-      cnt: count(sql<number>`distinct ${products.id}`),
-    })
-    .from(products)
-    .leftJoin(variantJoin, eq(variantJoin.productId, products.id))
+
+  const countRows = await (needsVariantMatch
+    ? db
+        .select({
+          cnt: count(sql<number>`distinct ${products.id}`),
+        })
+        .from(products)
+        .innerJoin(variantJoin, eq(variantJoin.productId, products.id))
+    : db
+        .select({
+          cnt: count(sql<number>`distinct ${products.id}`),
+        })
+        .from(products)
+        .leftJoin(variantJoin, eq(variantJoin.productId, products.id)))
     .leftJoin(genders, eq(genders.id, products.genderId))
     .leftJoin(brands, eq(brands.id, products.brandId))
     .leftJoin(categories, eq(categories.id, products.categoryId))

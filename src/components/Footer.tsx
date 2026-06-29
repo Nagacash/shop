@@ -1,4 +1,5 @@
 import ProtectedLogo from "@/components/ProtectedLogo";
+import { SITE_DOMAIN, SITE_ORIGIN } from "@/lib/seo/site";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -53,10 +54,16 @@ const socialLinks = [
 ] as const;
 
 const legalLinks: FooterLink[] = [
-  { label: "Terms of Use", href: "/contact" },
-  { label: "Privacy Policy", href: "/contact" },
-  { label: "naga-apparel.com", href: "https://www.naga-apparel.com" },
+  { label: "Terms of Use", href: "/terms" },
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: SITE_DOMAIN, href: SITE_ORIGIN },
 ];
+
+const footerLinkClass =
+  "focus-ring rounded-sm text-body text-light-300 transition-colors hover:text-[--color-naga-gold] focus-visible:outline-none";
+
+const footerLegalLinkClass =
+  "focus-ring rounded-sm transition-colors hover:text-[--color-naga-gold] focus-visible:outline-none";
 
 export default function Footer() {
   return (
@@ -64,7 +71,11 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-start gap-8 md:grid-cols-12">
           <div className="flex flex-col gap-4 md:col-span-3">
-            <Link href="/" aria-label="Naga Apparel Home" className="flex items-center gap-3">
+            <Link
+              href="/"
+              aria-label="Naga Apparel Home"
+              className="focus-ring flex items-center gap-3 rounded-sm focus-visible:outline-none"
+            >
               <ProtectedLogo className="h-12 w-12" />
               <span className="text-body-medium tracking-tight">Naga Apparel</span>
             </Link>
@@ -80,10 +91,7 @@ export default function Footer() {
                 <ul className="space-y-3">
                   {col.links.map((link) => (
                     <li key={link.label}>
-                      <Link
-                        href={link.href}
-                        className="text-body text-light-400 transition-colors hover:text-light-100"
-                      >
+                      <Link href={link.href} className={footerLinkClass}>
                         {link.label}
                       </Link>
                     </li>
@@ -101,7 +109,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={s.alt}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-light-100 transition-opacity hover:opacity-90"
+                className="focus-ring inline-flex min-h-11 min-w-11 items-center justify-center rounded-full bg-light-100 transition hover:opacity-90 hover:ring-2 hover:ring-[--color-naga-gold]/40 focus-visible:outline-none"
               >
                 <Image src={s.src} alt={s.alt} width={18} height={18} />
               </Link>
@@ -111,7 +119,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-4 text-light-400 sm:flex-row sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-4 text-light-300 sm:flex-row sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 text-caption">
             <Image src="/globe.svg" alt="" width={16} height={16} />
             <span>Germany</span>
@@ -122,7 +130,7 @@ export default function Footer() {
               <li key={link.label}>
                 <Link
                   href={link.href}
-                  className="transition-colors hover:text-light-100"
+                  className={footerLegalLinkClass}
                   {...(link.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                 >
                   {link.label}

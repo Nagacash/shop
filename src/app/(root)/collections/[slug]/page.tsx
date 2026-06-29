@@ -7,8 +7,11 @@ import JsonLd from "@/components/JsonLd";
 import { getCachedCollectionProducts } from "@/lib/queries/collections";
 import { getCollectionCoverUrl } from "@/lib/brand/assets";
 import { FALLBACK_PRODUCT_IMAGE } from "@/lib/utils/images";
+import { formatPriceRange } from "@/lib/utils/currency";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { breadcrumbJsonLd } from "@/lib/seo/jsonld";
+
+export const revalidate = 120;
 
 export async function generateMetadata({
   params,
@@ -84,7 +87,7 @@ export default async function CollectionDetailPage({
                 product.minPrice !== null &&
                 product.maxPrice !== null &&
                 product.minPrice !== product.maxPrice
-                  ? `$${product.minPrice.toFixed(2)} - $${product.maxPrice.toFixed(2)}`
+                  ? formatPriceRange(product.minPrice, product.maxPrice)
                   : product.minPrice !== null
                     ? product.minPrice
                     : undefined;

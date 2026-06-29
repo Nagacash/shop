@@ -15,6 +15,7 @@ const KEEP_NAMES = [
   'Naga Original Grey Sweater',
   'Naga Original Light Brown Sweater',
   'Naga Original Cream Hoodie',
+  'Golden Naga Hoodie',
 ] as const;
 
 async function main() {

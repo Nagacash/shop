@@ -2,6 +2,7 @@ import Link from "next/link";
 import ProductImage from "./ProductImage";
 import FlatLayFrame from "./FlatLayFrame";
 import { isFlatLayProductImage } from "@/lib/utils/images";
+import { formatPrice } from "@/lib/utils/currency";
 
 export type BadgeTone = "red" | "green" | "orange";
 
@@ -37,7 +38,7 @@ export default function Card({
   className = "",
 }: CardProps) {
   const displayPrice =
-    price === undefined ? undefined : typeof price === "number" ? `$${price.toFixed(2)}` : price;
+    price === undefined ? undefined : typeof price === "number" ? formatPrice(price) : price;
   const flatLay = isFlatLayProductImage(imageSrc);
 
   const imageBlock = flatLay ? (
@@ -77,17 +78,16 @@ export default function Card({
 
   const content = (
     <article
-      className={`product-card group overflow-hidden rounded-xl bg-light-100 ring-1 ring-light-300 transition-[box-shadow,ring-color] hover:ring-dark-500 ${flatLay ? "hover:shadow-lg hover:shadow-dark-900/10" : ""} ${className}`}
+      className={`product-card group overflow-hidden rounded-xl bg-light-100 ring-1 ring-light-300 transition-[box-shadow,ring-color] duration-[var(--duration-normal)] hover:ring-dark-500 hover:shadow-[var(--shadow-card-hover)] ${flatLay ? "" : ""} ${className}`}
     >
       {imageBlock}
       <div className="p-4">
         <div className="mb-1 flex items-baseline justify-between gap-3">
           <h3 className="text-heading-3 text-dark-900">{title}</h3>
-          {displayPrice && <span className="shrink-0 text-body-medium text-dark-900">{displayPrice}</span>}
+          {displayPrice && (
+            <span className="price-tabular shrink-0 text-body-medium text-dark-900">{displayPrice}</span>
+          )}
         </div>
-        {flatLay && !subtitle && (
-          <p className="text-caption uppercase tracking-[0.12em] text-dark-700">Tee + shorts set</p>
-        )}
         {description && <p className="text-body text-dark-700">{description}</p>}
         {subtitle && <p className="text-body text-dark-700">{subtitle}</p>}
         {meta && (
@@ -103,7 +103,7 @@ export default function Card({
     <Link
       href={href}
       aria-label={title}
-      className="block product-card rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[--color-dark-500] cursor-pointer"
+      className="product-card block cursor-pointer rounded-xl transition-transform duration-[var(--duration-fast)] focus-visible:outline-none focus-ring active:scale-[0.995]"
     >
       {content}
     </Link>

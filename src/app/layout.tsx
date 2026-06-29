@@ -38,6 +38,7 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     images: [absoluteUrl("/logo2.png")],
   },
+  icons: { icon: "/logo.png" },
   category: "shopping",
 };
 

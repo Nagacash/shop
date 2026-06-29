@@ -35,7 +35,7 @@ export default function AddToBagButton({ variantId, productName, soldOut = false
       type="button"
       onClick={handleClick}
       disabled={loading || soldOut}
-      className="flex items-center justify-center gap-2 rounded-full bg-dark-900 px-6 py-4 text-body-medium text-light-100 transition hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-[--color-dark-500] disabled:cursor-not-allowed disabled:opacity-60"
+      className="flex min-h-11 items-center justify-center gap-2 rounded-full bg-dark-900 px-6 py-4 text-body-medium text-light-100 transition hover:opacity-90 focus-ring focus-visible:outline-none active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
       aria-label={soldOut ? `${productName} is sold out` : `Add ${productName} to bag`}
     >
       {soldOut ? (

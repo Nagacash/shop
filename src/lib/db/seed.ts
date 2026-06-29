@@ -100,6 +100,17 @@ const NAGA_PRODUCTS: NagaProduct[] = [
     imageUrl: '/uploads/naga/naga-hoodie.png',
     colorSlugs: ['cream'],
   },
+  {
+    name: 'Golden Naga Hoodie',
+    description:
+      'Gold pullover hoodie with the Naga cobra graphic on the chest and a bold back print. Soft fleece interior, kangaroo pocket, drawstring hood, relaxed street fit.',
+    categorySlug: 'hoodies',
+    collectionSlug: 'black-gold-edition',
+    genderSlug: 'unisex',
+    basePrice: 72,
+    imageUrl: '/uploads/naga/naga-golden-hoodie-front.jpg',
+    colorSlugs: ['gold'],
+  },
 ];
 
 async function clearProductData() {

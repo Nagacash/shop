@@ -6,13 +6,21 @@ import PageHero from "@/components/PageHero";
 import JsonLd from "@/components/JsonLd";
 import { Heart, Star } from "lucide-react";
 import ColorSwatches from "@/components/ColorSwatches";
-import { getCachedProduct } from "@/lib/queries/products";
-import { getProductReviews, getRecommendedProducts, type Review, type RecommendedProduct } from "@/lib/actions/product";
+import {
+  getCachedProduct,
+  getCachedProductReviews,
+  getCachedRecommendedProducts,
+  type Review,
+  type RecommendedProduct,
+} from "@/lib/queries/products";
 import { normalizeImageUrl, FALLBACK_PRODUCT_IMAGE, isFlatLayProductImage, isSetProduct } from "@/lib/utils/images";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { breadcrumbJsonLd, productJsonLd } from "@/lib/seo/jsonld";
+import { formatPrice, FREE_SHIPPING_THRESHOLD } from "@/lib/utils/currency";
 
 type GalleryVariant = { color: string; images: string[] };
+
+export const revalidate = 120;
 
 export async function generateMetadata({
   params,
@@ -43,11 +51,6 @@ export async function generateMetadata({
   });
 }
 
-function formatPrice(price: number | null | undefined) {
-  if (price === null || price === undefined) return undefined;
-  return `$${price.toFixed(2)}`;
-}
-
 function NotFoundBlock() {
   return (
     <section className="mx-auto max-w-3xl rounded-xl border border-light-300 bg-light-100 p-8 text-center">
@@ -66,7 +69,7 @@ function NotFoundBlock() {
 }
 
 async function ReviewsSection({ productId }: { productId: string }) {
-  const reviews: Review[] = await getProductReviews(productId);
+  const reviews: Review[] = await getCachedProductReviews(productId);
   const count = reviews.length;
   const avg =
     count > 0 ? (reviews.reduce((s, r) => s + r.rating, 0) / count) : 0;
@@ -108,7 +111,7 @@ async function ReviewsSection({ productId }: { productId: string }) {
 }
 
 async function AlsoLikeSection({ productId }: { productId: string }) {
-  const recs: RecommendedProduct[] = await getRecommendedProducts(productId);
+  const recs: RecommendedProduct[] = await getCachedRecommendedProducts(productId);
   if (!recs.length) return null;
   return (
     <section className="mt-16">
@@ -336,7 +339,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           </CollapsibleSection>
 
           <CollapsibleSection title="Shipping & Returns">
-            <p>Free standard shipping on orders over $75. 30-day returns on unworn items with tags attached.</p>
+            <p>Free standard shipping on orders over {formatPrice(FREE_SHIPPING_THRESHOLD)}. 30-day returns on unworn items with tags attached.</p>
           </CollapsibleSection>
 
           <Suspense

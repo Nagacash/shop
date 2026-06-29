@@ -20,7 +20,8 @@ export default function Sort() {
 
   const onChange = (value: string) => {
     const withSort = setParam(pathname, search, "sort", value);
-    const withPageReset = setParam(pathname, new URL(withSort, "http://dummy").search, "page", "1");
+    const query = withSort.slice(pathname.length) || "";
+    const withPageReset = setParam(pathname, query, "page", "1");
     router.push(withPageReset, { scroll: false });
   };
 

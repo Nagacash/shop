@@ -1,3 +1,5 @@
+import { SUPPORT_EMAIL } from "./site";
+
 export const NAGA_FAQS = [
   {
     question: "What is Naga Apparel?",
@@ -7,12 +9,12 @@ export const NAGA_FAQS = [
   {
     question: "Where does Naga Apparel ship from?",
     answer:
-      "Naga Apparel operates from Germany. Order and shipping questions can be sent to support@naga-apparel.com — we reply within 24 hours on business days.",
+      `Naga Apparel operates from Germany. Order and shipping questions can be sent to ${SUPPORT_EMAIL} — we reply within 24 hours on business days.`,
   },
   {
     question: "What products does Naga Apparel sell?",
     answer:
-      "The current drop includes Naga Original black and white tees, grey and light brown sweaters, a cream pullover hoodie, and the Naga Black tee-and-shorts set. Browse by category: Tees, Sweaters, Hoodies, or Sets.",
+      "The current drop includes Naga Original black and white tees, grey and light brown sweaters, cream and golden hoodies, and the Naga Black tee-and-shorts set. Browse by category: Tees, Sweaters, Hoodies, or Sets.",
   },
   {
     question: "Is the Naga Black Set in stock?",

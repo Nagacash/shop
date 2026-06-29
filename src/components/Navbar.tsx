@@ -17,6 +17,27 @@ const NAV_LINKS = [
   { label: "Contact", href: "/contact" },
 ] as const;
 
+function isNavActive(href: string, pathname: string, searchParams: URLSearchParams) {
+  if (href.startsWith("/products?")) {
+    const category = new URL(href, "http://local").searchParams.get("category");
+    return (
+      pathname === "/products" &&
+      searchParams.get("category") === category &&
+      !searchParams.get("search")
+    );
+  }
+  return pathname === href || (href !== "/" && pathname.startsWith(href));
+}
+
+function navLinkClass(active: boolean) {
+  return [
+    "focus-ring rounded-sm text-body transition-colors focus-visible:outline-none",
+    active
+      ? "font-medium text-dark-900 underline decoration-[--color-naga-gold] decoration-2 underline-offset-[6px]"
+      : "text-dark-900 hover:text-dark-700",
+  ].join(" ");
+}
+
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
@@ -53,12 +74,16 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-light-100">
+    <header className="sticky top-0 z-50 border-b border-light-300/80 bg-light-100/95 backdrop-blur-sm supports-[backdrop-filter]:bg-light-100/90">
       <nav
         className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
         aria-label="Primary"
       >
-        <Link href="/" aria-label="Naga Apparel Home" className="flex items-center gap-3">
+        <Link
+          href="/"
+          aria-label="Naga Apparel Home"
+          className="focus-ring flex items-center gap-3 rounded-sm focus-visible:outline-none"
+        >
           <Image
             src="/logo.png"
             alt="Naga Apparel"
@@ -73,22 +98,22 @@ export default function Navbar() {
         </Link>
 
         <ul className="hidden items-center gap-8 md:flex">
-          {NAV_LINKS.map((l) => (
-            <li key={l.href}>
-              <Link
-                href={l.href}
-                className="text-body text-dark-900 transition-colors hover:text-dark-700"
-              >
-                {l.label}
-              </Link>
-            </li>
-          ))}
+          {NAV_LINKS.map((l) => {
+            const active = isNavActive(l.href, pathname, searchParams);
+            return (
+              <li key={l.href}>
+                <Link href={l.href} className={navLinkClass(active)} aria-current={active ? "page" : undefined}>
+                  {l.label}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
 
         <div className="hidden items-center gap-6 md:flex">
           <button
             type="button"
-            className="text-body text-dark-900 transition-colors hover:text-dark-700"
+            className="focus-ring rounded-sm text-body text-dark-900 transition-colors hover:text-dark-700 focus-visible:outline-none"
             onClick={() => setSearchOpen((v) => !v)}
             aria-expanded={searchOpen}
             aria-controls="nav-search"
@@ -97,7 +122,7 @@ export default function Navbar() {
           </button>
           <Link
             href="/cart"
-            className="flex items-center gap-2 text-body text-dark-900 transition-colors hover:text-dark-700"
+            className="focus-ring flex items-center gap-2 rounded-sm text-body text-dark-900 transition-colors hover:text-dark-700 focus-visible:outline-none"
           >
             <ShoppingBag className="h-4 w-4" />
             My Cart ({cartCount})
@@ -106,7 +131,7 @@ export default function Navbar() {
 
         <button
           type="button"
-          className="inline-flex items-center justify-center rounded-md p-2 md:hidden"
+          className="focus-ring inline-flex min-h-11 min-w-11 flex-col items-center justify-center rounded-md p-2 focus-visible:outline-none md:hidden"
           aria-controls="mobile-menu"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
@@ -130,12 +155,12 @@ export default function Navbar() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search products..."
-              className="flex-1 rounded-xl border border-light-300 bg-light-100 px-4 py-2.5 text-body text-dark-900 placeholder:text-dark-500 focus:outline-none focus:ring-2 focus:ring-dark-900/10"
+              className="flex-1 rounded-xl border border-light-300 bg-light-100 px-4 py-2.5 text-body text-dark-900 placeholder:text-dark-700 focus-ring focus-visible:outline-none"
               aria-label="Search products"
             />
             <button
               type="submit"
-              className="rounded-full bg-dark-900 px-5 py-2.5 text-body-medium text-light-100 hover:bg-dark-700"
+              className="focus-ring rounded-full bg-dark-900 px-5 py-2.5 text-body-medium text-light-100 transition hover:bg-dark-700 focus-visible:outline-none active:scale-[0.98]"
             >
               Search
             </button>
@@ -154,18 +179,22 @@ export default function Navbar() {
         id="mobile-menu"
         className={`border-t border-light-300 md:hidden ${open ? "block" : "hidden"}`}
       >
-        <ul className="space-y-2 px-4 py-3">
-          {NAV_LINKS.map((l) => (
-            <li key={l.href}>
-              <Link
-                href={l.href}
-                className="block py-2 text-body text-dark-900 hover:text-dark-700"
-                onClick={() => setOpen(false)}
-              >
-                {l.label}
-              </Link>
-            </li>
-          ))}
+        <ul className="space-y-1 px-4 py-3">
+          {NAV_LINKS.map((l) => {
+            const active = isNavActive(l.href, pathname, searchParams);
+            return (
+              <li key={l.href}>
+                <Link
+                  href={l.href}
+                  className={`block min-h-11 py-2.5 ${navLinkClass(active)}`}
+                  aria-current={active ? "page" : undefined}
+                  onClick={() => setOpen(false)}
+                >
+                  {l.label}
+                </Link>
+              </li>
+            );
+          })}
           <li className="pt-2">
             <form onSubmit={handleSearch} className="flex gap-2">
               <input

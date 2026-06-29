@@ -1,3 +1,7 @@
+export const SITE_ORIGIN = "https://www.nagaclub.de";
+export const SITE_DOMAIN = "www.nagaclub.de";
+export const SUPPORT_EMAIL = "chosenfewrecords@hotmail.de";
+
 export const SITE_NAME = "Naga Apparel";
 
 export const SITE_DESCRIPTION =
@@ -18,14 +22,14 @@ export const SOCIAL = {
   instagram: "https://www.instagram.com/naga_apparel",
   facebook: "https://www.facebook.com/nagaapparel",
   x: "https://x.com/nagaapparel",
-  website: "https://www.naga-apparel.com",
+  website: SITE_ORIGIN,
 } as const;
 
 export function getSiteUrl(): string {
   const raw =
     process.env.NEXT_PUBLIC_SITE_URL ??
     process.env.BETTER_AUTH_URL ??
-    "https://www.naga-apparel.com";
+    SITE_ORIGIN;
   return raw.replace(/\/$/, "");
 }
 

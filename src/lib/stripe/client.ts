@@ -27,10 +27,11 @@ export function getStripeClient(): Stripe {
   return stripeClient;
 }
 
-export function dollarsToCents(amount: number): number {
-  return Math.round(amount * 100);
-}
+export {
+  toMinorUnits,
+  fromMinorUnits,
+  formatPriceFromCents,
+} from "@/lib/utils/currency";
 
-export function centsToDollars(cents: number): number {
-  return cents / 100;
-}
+/** @deprecated Use fromMinorUnits */
+export { fromMinorUnits as centsToDollars } from "@/lib/utils/currency";

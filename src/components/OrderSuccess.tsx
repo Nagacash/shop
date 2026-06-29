@@ -2,9 +2,7 @@ import Link from "next/link";
 import { CheckCircle2, Package } from "lucide-react";
 import type { OrderView } from "@/lib/actions/orders";
 
-function formatCents(cents: number) {
-  return `$${(cents / 100).toFixed(2)}`;
-}
+import { formatPriceFromCents } from "@/lib/utils/currency";
 
 export default function OrderSuccess({ order }: { order: OrderView }) {
   return (
@@ -39,14 +37,14 @@ export default function OrderSuccess({ order }: { order: OrderView }) {
                 </p>
               </div>
               <p className="text-dark-900">
-                {formatCents(Math.round(item.priceAtPurchase * 100) * item.quantity)}
+                {formatPriceFromCents(Math.round(item.priceAtPurchase * 100) * item.quantity)}
               </p>
             </li>
           ))}
         </ul>
         <div className="mt-4 flex items-center justify-between border-t border-light-300 pt-4">
           <span className="text-body-medium text-dark-900">Total paid</span>
-          <span className="text-lead text-dark-900">{formatCents(order.totalCents)}</span>
+          <span className="text-lead text-dark-900">{formatPriceFromCents(order.totalCents)}</span>
         </div>
       </div>
 

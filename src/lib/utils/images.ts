@@ -18,6 +18,7 @@ export function isFlatLayProductImage(url: string | null | undefined): boolean {
     url.includes("naga-green") ||
     url.includes("naga-wood") ||
     url.includes("tshirt-black") ||
+    url.includes("naga-golden-hoodie") ||
     url.includes("naga-hoodie") ||
     url.includes("naga-sweater") ||
     url.includes("tshirt-white") ||

@@ -128,13 +128,13 @@ export default function AuthForm({ mode, onSubmit }: Props) {
         {mode === "sign-up" && (
           <p className="text-center text-footnote text-dark-700">
             By signing up, you agree to our{" "}
-            <a href="#" className="underline">
+            <Link href="/terms" className="underline">
               Terms of Service
-            </a>{" "}
+            </Link>{" "}
             and{" "}
-            <a href="#" className="underline">
+            <Link href="/privacy" className="underline">
               Privacy Policy
-            </a>
+            </Link>
           </p>
         )}
       </form>

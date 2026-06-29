@@ -1,4 +1,5 @@
-import { absoluteUrl, SITE_DESCRIPTION, SITE_NAME, SOCIAL } from "./site";
+import { absoluteUrl, SITE_DESCRIPTION, SITE_NAME, SOCIAL, SUPPORT_EMAIL } from "./site";
+import { CURRENCY_CODE } from "@/lib/utils/currency";
 
 export function organizationJsonLd() {
   return {
@@ -12,7 +13,7 @@ export function organizationJsonLd() {
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "customer support",
-      email: "support@naga-apparel.com",
+      email: SUPPORT_EMAIL,
       availableLanguage: ["English", "German"],
     },
   };
@@ -73,7 +74,7 @@ export function productJsonLd(input: {
     offers: {
       "@type": "Offer",
       url: absoluteUrl(input.path),
-      priceCurrency: "USD",
+      priceCurrency: CURRENCY_CODE,
       price: input.price.toFixed(2),
       availability: input.inStock
         ? "https://schema.org/InStock"

@@ -3,9 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "dev:clean": "rm -rf .next && find . -name '._*' -not -path './node_modules/*' -delete 2>/dev/null; next dev --turbopack",
+    "clean": "bash scripts/clean-cache.sh",
+    "dev": "next dev",
+    "dev:turbo": "next dev --turbopack",
+    "dev:stable": "next dev",
+    "dev:clean": "bash scripts/clean-cache.sh && next dev",
+    "dev:clean:turbo": "bash scripts/clean-cache.sh && next dev --turbopack",
     "build": "find . -name '._*' -not -path './node_modules/*' -delete 2>/dev/null; next build",
+    "build:clean": "bash scripts/clean-cache.sh && npm run build",
     "start": "next start",
     "lint": "next lint",
     "db:generate": "drizzle-kit generate",
@@ -15,13 +20,14 @@
     "db:seed": "tsx src/lib/db/seed.ts",
     "db:seed:naga": "SEED_REPLACE=1 tsx src/lib/db/seed.ts",
     "db:add-naga-green": "tsx scripts/add-naga-green.ts",
-    "db:add-real-hoodie": "tsx scripts/add-real-hoodie.ts",
+    "db:add-golden-hoodie": "tsx scripts/add-golden-hoodie.ts",
     "db:prune-catalog": "tsx scripts/prune-catalog.ts",
     "db:update-black-tee-image": "tsx scripts/update-black-tee-image.ts",
     "db:update-white-tee-image": "tsx scripts/update-white-tee-image.ts",
     "generate:product-images": "tsx scripts/generate-product-images.ts",
     "generate:brand-images": "tsx scripts/generate-brand-images.ts",
-    "perf:measure": "bash .perf/measure-pages.sh .perf/pages.txt .perf/results-latest.csv"
+    "perf:measure": "bash .perf/measure-pages.sh .perf/pages.txt .perf/results-latest.csv",
+    "perf:measure:footer": "bash .perf/measure-pages.sh .perf/footer-pages.txt .perf/results-footer.csv"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.1",

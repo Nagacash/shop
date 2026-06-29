@@ -40,3 +40,38 @@ Changes:
 **Final: all pages < 50 ms median — yes**
 
 CSV: `.perf/results-final.csv`
+
+---
+
+## Footer links — 2026-06-29
+
+Test Protocol: production build, `next start`, 5 runs/page, median, warm cache.
+
+Change: `getCurrentCart()` no longer creates guest/cart rows on anonymous visits (read-only path).
+
+| Page | Median (ms) | Pass (<50)? |
+|------|-------------|-------------|
+| / | 1.66 | yes |
+| /collections | 0.99 | yes |
+| /collections/hustle-hard-drip | 5.15 | yes |
+| /collections/naga-original | 5.57 | yes |
+| /collections/naga-black | 4.71 | yes |
+| /collections/black-gold-edition | 4.60 | yes |
+| /products | 6.19 | yes |
+| /products?category=hoodies | 5.45 | yes |
+| /products?category=tees | 4.88 | yes |
+| /products?category=sweaters | 4.91 | yes |
+| /products?category=sets | 4.52 | yes |
+| /products?category=headwear | 4.57 | yes |
+| /sign-in | 1.00 | yes |
+| /cart | 4.10 | yes (was 73.84 before fix) |
+| /checkout/success | 4.07 | yes |
+| /contact | 1.21 | yes |
+| /terms | 1.02 | yes |
+| /privacy | 0.97 | yes |
+
+**All 18 footer routes < 50 ms — yes**
+
+Run: `npm run perf:measure:footer` (server on port 3005)
+
+CSV: `.perf/results-footer.csv`

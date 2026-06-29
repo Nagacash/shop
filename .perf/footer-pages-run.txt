@@ -1,0 +1,19 @@
+# All unique internal routes linked from Footer.tsx
+http://127.0.0.1:3007/
+http://127.0.0.1:3007/collections
+http://127.0.0.1:3007/collections/hustle-hard-drip
+http://127.0.0.1:3007/collections/naga-original
+http://127.0.0.1:3007/collections/naga-black
+http://127.0.0.1:3007/collections/black-gold-edition
+http://127.0.0.1:3007/products
+http://127.0.0.1:3007/products?category=hoodies
+http://127.0.0.1:3007/products?category=tees
+http://127.0.0.1:3007/products?category=sweaters
+http://127.0.0.1:3007/products?category=sets
+http://127.0.0.1:3007/products?category=headwear
+http://127.0.0.1:3007/sign-in
+http://127.0.0.1:3007/cart
+http://127.0.0.1:3007/checkout/success
+http://127.0.0.1:3007/contact
+http://127.0.0.1:3007/terms
+http://127.0.0.1:3007/privacy

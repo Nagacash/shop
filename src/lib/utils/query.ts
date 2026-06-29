@@ -1,7 +1,13 @@
 import qs from "query-string";
+import { formatPriceFilterLabel } from "@/lib/utils/currency";
 
 type QueryValue = string | number | boolean | null | undefined | string[] | number[] | boolean[];
 type QueryObject = Record<string, QueryValue>;
+
+function toURLSearchParams(search: string): URLSearchParams {
+  const raw = search.startsWith("?") ? search.slice(1) : search;
+  return new URLSearchParams(raw);
+}
 
 export function parseQuery(search: string): QueryObject {
   const parsed = qs.parse(search, { arrayFormat: "bracket" });
@@ -34,16 +40,20 @@ export function toggleArrayParam(
   key: string,
   value: string
 ): string {
-  const current = parseQuery(currentSearch);
-  const arr = new Set<string>(Array.isArray(current[key]) ? (current[key] as string[]) : current[key] ? [String(current[key])] : []);
-  if (arr.has(value)) {
-    arr.delete(value);
+  const params = toURLSearchParams(currentSearch);
+  const current = new Set(getArrayParam(currentSearch, key));
+  if (current.has(value)) {
+    current.delete(value);
   } else {
-    arr.add(value);
+    current.add(value);
   }
-  const nextValues = Array.from(arr);
-  const updates: QueryObject = { [key]: nextValues.length ? nextValues : undefined };
-  return withUpdatedParams(pathname, currentSearch, updates);
+  params.delete(key);
+  params.delete(`${key}[]`);
+  for (const v of current) {
+    params.append(key, v);
+  }
+  const next = params.toString();
+  return next ? `${pathname}?${next}` : pathname;
 }
 
 export function setParam(
@@ -52,22 +62,31 @@ export function setParam(
   key: string,
   value: string | number | null | undefined
 ): string {
-  return withUpdatedParams(pathname, currentSearch, { [key]: value === null || value === undefined ? undefined : String(value) });
+  const params = toURLSearchParams(currentSearch);
+  if (value === null || value === undefined) {
+    params.delete(key);
+  } else {
+    params.set(key, String(value));
+  }
+  const next = params.toString();
+  return next ? `${pathname}?${next}` : pathname;
 }
 
 export function removeParams(pathname: string, currentSearch: string, keys: string[]): string {
-  const current = parseQuery(currentSearch);
-  keys.forEach((k) => delete current[k]);
-  const search = stringifyQuery(current);
-  return search ? `${pathname}?${search}` : pathname;
+  const params = toURLSearchParams(currentSearch);
+  for (const key of keys) {
+    params.delete(key);
+    params.delete(`${key}[]`);
+  }
+  const next = params.toString();
+  return next ? `${pathname}?${next}` : pathname;
 }
 
 export function getArrayParam(search: string, key: string): string[] {
-  const q = parseQuery(search);
-  const v = q[key];
-  if (Array.isArray(v)) return v.map(String);
-  if (v === undefined) return [];
-  return [String(v)];
+  const params = toURLSearchParams(search);
+  const values = params.getAll(key);
+  if (values.length) return values;
+  return params.getAll(`${key}[]`);
 }
 
 export function getStringParam(search: string, key: string): string | undefined {
@@ -159,4 +178,92 @@ export function parseFilterParams(sp: Record<string, string | string[] | undefin
 
 export function buildProductQueryObject(filters: NormalizedProductFilters) {
   return filters;
+}
+
+export type ActiveFilterBadge = {
+  id: string;
+  label: string;
+  href: string;
+};
+
+function searchQueryString(sp: Record<string, string | string[] | undefined>): string {
+  const params = new URLSearchParams();
+  for (const [key, value] of Object.entries(sp)) {
+    if (value === undefined) continue;
+    if (Array.isArray(value)) {
+      for (const v of value) params.append(key, v);
+    } else {
+      params.set(key, value);
+    }
+  }
+  const qs = params.toString();
+  return qs ? `?${qs}` : "";
+}
+
+export function buildActiveFilterBadges(
+  pathname: string,
+  sp: Record<string, string | string[] | undefined>,
+): ActiveFilterBadge[] {
+  const search = searchQueryString(sp);
+  const badges: ActiveFilterBadge[] = [];
+
+  const searchQuery = typeof sp.search === "string" ? sp.search : sp.search?.[0];
+  if (searchQuery) {
+    badges.push({
+      id: `search-${searchQuery}`,
+      label: `Search: ${searchQuery}`,
+      href: removeParams(pathname, search, ["search", "page"]),
+    });
+  }
+
+  const appendArrayBadges = (
+    key: "gender" | "size" | "color" | "price",
+    values: string[],
+    labelFn: (value: string) => string,
+  ) => {
+    for (const value of values) {
+      badges.push({
+        id: `${key}-${value}`,
+        label: labelFn(value),
+        href: toggleArrayParam(pathname, search, key, value),
+      });
+    }
+  };
+
+  appendArrayBadges(
+    "gender",
+    (sp.gender ? (Array.isArray(sp.gender) ? sp.gender : [sp.gender]) : []).map(String),
+    (g) => g[0].toUpperCase() + g.slice(1),
+  );
+  appendArrayBadges(
+    "size",
+    (sp.size ? (Array.isArray(sp.size) ? sp.size : [sp.size]) : []).map(String),
+    (s) => `Size: ${s}`,
+  );
+  appendArrayBadges(
+    "color",
+    (sp.color ? (Array.isArray(sp.color) ? sp.color : [sp.color]) : []).map(String),
+    (c) => c[0].toUpperCase() + c.slice(1).replace("-", " "),
+  );
+
+  (sp.price ? (Array.isArray(sp.price) ? sp.price : [sp.price]) : []).forEach((p) => {
+    const [minRaw, maxRaw] = String(p).split("-");
+    badges.push({
+      id: `price-${p}`,
+      label: formatPriceFilterLabel(
+        minRaw !== "" ? Number(minRaw) : undefined,
+        maxRaw !== "" ? Number(maxRaw) : undefined,
+      ),
+      href: toggleArrayParam(pathname, search, "price", String(p)),
+    });
+  });
+
+  return badges;
+}
+
+export function clearProductFiltersUrl(
+  pathname: string,
+  sp: Record<string, string | string[] | undefined>,
+): string {
+  return removeParams(pathname, searchQueryString(sp), ["gender", "size", "color", "price", "search", "page"]);
 }

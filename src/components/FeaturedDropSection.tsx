@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Shirt, Sparkles } from "lucide-react";
 import { getCachedFeaturedProduct } from "@/lib/queries/products";
 import FlatLayFrame from "@/components/FlatLayFrame";
+import { formatPrice } from "@/lib/utils/currency";
 
 const HIGHLIGHTS = [
   { label: "Naga Original graphic", detail: "Chest print" },
@@ -13,8 +14,7 @@ export default async function FeaturedDropSection() {
   const product = await getCachedFeaturedProduct("Naga Black Set");
   if (!product) return null;
 
-  const priceLabel =
-    product.minPrice !== null ? `$${product.minPrice.toFixed(2)}` : null;
+  const priceLabel = product.minPrice !== null ? formatPrice(product.minPrice) : null;
 
   return (
     <section className="scroll-layer relative overflow-hidden bg-dark-900 text-light-100">

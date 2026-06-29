@@ -8,9 +8,7 @@ import { Minus, Plus, Trash2, ShoppingBag, Loader2 } from "lucide-react";
 import { createStripeCheckoutSession } from "@/lib/actions/checkout";
 import { updateCartItemQuantity, removeCartItem, type CartView } from "@/lib/actions/cart";
 
-function formatCents(cents: number) {
-  return `$${(cents / 100).toFixed(2)}`;
-}
+import { formatPriceFromCents } from "@/lib/utils/currency";
 
 export default function CartSummary({ cart }: { cart: CartView }) {
   const router = useRouter();
@@ -114,7 +112,7 @@ export default function CartSummary({ cart }: { cart: CartView }) {
                   )}
                 </div>
                 <p className="text-body-medium text-dark-900">
-                  {formatCents(Math.round(item.price * 100) * item.quantity)}
+                  {formatPriceFromCents(Math.round(item.price * 100) * item.quantity)}
                 </p>
               </div>
               <div className="flex items-center justify-between">
@@ -157,7 +155,7 @@ export default function CartSummary({ cart }: { cart: CartView }) {
         <h2 className="text-heading-3 text-dark-900">Summary</h2>
         <div className="mt-4 flex items-center justify-between border-b border-light-300 pb-4">
           <span className="text-body text-dark-700">Subtotal</span>
-          <span className="text-body-medium text-dark-900">{formatCents(totalCents)}</span>
+          <span className="text-body-medium text-dark-900">{formatPriceFromCents(totalCents)}</span>
         </div>
         <p className="mt-2 text-caption text-dark-700">
           Shipping and taxes calculated at checkout.

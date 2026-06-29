@@ -1,10 +1,6 @@
-import { Card } from "@/components";
-import Filters from "@/components/Filters";
-import Sort from "@/components/Sort";
 import PageHero from "@/components/PageHero";
+import ProductsShop from "@/components/ProductsShop";
 import { parseFilterParams } from "@/lib/utils/query";
-import { getCachedAllProducts } from "@/lib/queries/products";
-import { FALLBACK_PRODUCT_IMAGE, isFlatLayProductImage } from "@/lib/utils/images";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import type { Metadata } from "next";
 
@@ -28,7 +24,7 @@ const CATEGORY_SEO: Record<string, { title: string; description: string }> = {
   hoodies: {
     title: "Naga Hoodies",
     description:
-      "Shop the Naga Original cream pullover hoodie. Cobra chest graphic, fleece interior, kangaroo pocket, and drawstring hood.",
+      "Shop Naga Original cream and Golden Naga hoodies. Cobra chest graphics, fleece interior, kangaroo pocket, and drawstring hood.",
   },
 };
 
@@ -71,9 +67,7 @@ export default async function ProductsPage({
   searchParams: Promise<SearchParams>;
 }) {
   const sp = await searchParams;
-
   const parsed = parseFilterParams(sp);
-  const { products, totalCount } = await getCachedAllProducts(parsed);
   const searchQuery = parsed.search;
   const category = parsed.categorySlugs[0];
 
@@ -83,24 +77,6 @@ export default async function ProductsPage({
       ? category.charAt(0).toUpperCase() + category.slice(1)
       : "Shop";
 
-  const activeBadges: string[] = [];
-  if (searchQuery) activeBadges.push(`Search: ${searchQuery}`);
-  (sp.gender ? (Array.isArray(sp.gender) ? sp.gender : [sp.gender]) : []).forEach((g) =>
-    activeBadges.push(String(g)[0].toUpperCase() + String(g).slice(1))
-  );
-  (sp.size ? (Array.isArray(sp.size) ? sp.size : [sp.size]) : []).forEach((s) =>
-    activeBadges.push(`Size: ${s}`)
-  );
-  (sp.color ? (Array.isArray(sp.color) ? sp.color : [sp.color]) : []).forEach((c) =>
-    activeBadges.push(String(c)[0].toUpperCase() + String(c).slice(1))
-  );
-  (sp.price ? (Array.isArray(sp.price) ? sp.price : [sp.price]) : []).forEach((p) => {
-    const [min, max] = String(p).split("-");
-    const label =
-      min && max ? `$${min} - $${max}` : min && !max ? `Over $${min}` : `$0 - $${max}`;
-    activeBadges.push(label);
-  });
-
   return (
     <>
       <PageHero
@@ -108,69 +84,11 @@ export default async function ProductsPage({
         size="compact"
         eyebrow="Naga drop"
         title={heroTitle}
-        subtitle={`${totalCount} piece${totalCount === 1 ? "" : "s"} — tees, sweaters, and sets.`}
+        subtitle="Tees, sweaters, hoodies, and sets — filter by size, color, and price."
       />
 
       <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-end py-4">
-          <Sort />
-        </div>
-
-        {activeBadges.length > 0 && (
-          <div className="mb-4 flex flex-wrap gap-2">
-            {activeBadges.map((b, i) => (
-              <span
-                key={`${b}-${i}`}
-                className="rounded-full border border-light-300 px-3 py-1 text-caption text-dark-900"
-              >
-                {b}
-              </span>
-            ))}
-          </div>
-        )}
-
-        <section className="grid grid-cols-1 gap-6 md:grid-cols-[240px_1fr] pb-8">
-          <Filters />
-          <div>
-            {products.length === 0 ? (
-              <div className="rounded-lg border border-light-300 p-8 text-center">
-                <p className="text-body text-dark-700">
-                  {searchQuery
-                    ? `No products found for "${searchQuery}".`
-                    : "No products match your filters."}
-                </p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 product-grid">
-                {products.map((p) => {
-                  const price =
-                    p.minPrice !== null && p.maxPrice !== null && p.minPrice !== p.maxPrice
-                      ? `$${p.minPrice.toFixed(2)} - $${p.maxPrice.toFixed(2)}`
-                      : p.minPrice !== null
-                        ? p.minPrice
-                        : undefined;
-                  return (
-                    <Card
-                      key={p.id}
-                      title={p.name}
-                      subtitle={p.subtitle ?? undefined}
-                      imageSrc={p.imageUrl ?? FALLBACK_PRODUCT_IMAGE}
-                      price={price}
-                      href={`/products/${p.id}`}
-                      badge={
-                        p.soldOut
-                          ? { label: "Sold out", tone: "orange" }
-                          : isFlatLayProductImage(p.imageUrl)
-                            ? { label: "New", tone: "green" }
-                            : undefined
-                      }
-                    />
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        </section>
+        <ProductsShop sp={sp} />
       </main>
     </>
   );

@@ -110,6 +110,53 @@ export async function getOrCreateCartId(): Promise<string> {
   return newCart.id;
 }
 
+const EMPTY_CART: CartView = { id: "", items: [], totalCents: 0 };
+
+/** Read cart without creating guest sessions or empty carts (faster for /cart page loads). */
+async function getCartIdIfExists(): Promise<string | null> {
+  const cookieStore = await cookies();
+  const guestToken = cookieStore.get("guest_session")?.value ?? null;
+
+  if (!guestToken) {
+    if (cookieStore.getAll().length === 0) return null;
+    const user = await getCurrentUser();
+    if (!user) return null;
+    const [existing] = await db
+      .select({ id: carts.id })
+      .from(carts)
+      .where(eq(carts.userId, user.id))
+      .limit(1);
+    return existing?.id ?? null;
+  }
+
+  const user = await getCurrentUser();
+  if (user) {
+    await mergeGuestCartWithUser(user.id, guestToken);
+    const [existing] = await db
+      .select({ id: carts.id })
+      .from(carts)
+      .where(eq(carts.userId, user.id))
+      .limit(1);
+    return existing?.id ?? null;
+  }
+
+  const [guest] = await db
+    .select({ id: guests.id })
+    .from(guests)
+    .where(eq(guests.sessionToken, guestToken))
+    .limit(1);
+
+  if (!guest) return null;
+
+  const [existing] = await db
+    .select({ id: carts.id })
+    .from(carts)
+    .where(eq(carts.guestId, guest.id))
+    .limit(1);
+
+  return existing?.id ?? null;
+}
+
 export async function getCartWithItems(cartId: string): Promise<CartView> {
   const rows = await db
     .select({
@@ -156,7 +203,8 @@ export async function getCartWithItems(cartId: string): Promise<CartView> {
 }
 
 export async function getCurrentCart(): Promise<CartView> {
-  const cartId = await getOrCreateCartId();
+  const cartId = await getCartIdIfExists();
+  if (!cartId) return EMPTY_CART;
   return getCartWithItems(cartId);
 }
 

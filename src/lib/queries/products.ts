@@ -1,7 +1,17 @@
 import { catalogCache } from "@/lib/cache/catalog";
-import { getFeaturedProduct, type FeaturedProduct } from "@/lib/actions/product";
-import { getAllProducts, type GetAllProductsResult } from "@/lib/actions/product";
+import {
+  getFeaturedProduct,
+  getAllProducts,
+  getProductReviews,
+  getRecommendedProducts,
+  type FeaturedProduct,
+  type GetAllProductsResult,
+  type Review,
+  type RecommendedProduct,
+} from "@/lib/actions/product";
 import type { NormalizedProductFilters } from "@/lib/utils/query";
+
+export type { Review, RecommendedProduct };
 
 export function getCachedFeaturedProduct(name: string): Promise<FeaturedProduct | null> {
   return catalogCache(["featured-product", name], () => getFeaturedProduct(name));
@@ -33,4 +43,12 @@ export function getCachedProduct(productId: string) {
     const { getProduct } = await import("@/lib/actions/product");
     return getProduct(productId);
   });
+}
+
+export function getCachedProductReviews(productId: string): Promise<Review[]> {
+  return catalogCache(["product-reviews", productId], () => getProductReviews(productId));
+}
+
+export function getCachedRecommendedProducts(productId: string): Promise<RecommendedProduct[]> {
+  return catalogCache(["product-recs", productId], () => getRecommendedProducts(productId));
 }

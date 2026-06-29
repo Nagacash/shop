@@ -4,7 +4,8 @@ import { getCartWithItems } from "@/lib/actions/cart";
 import { getCurrentUser } from "@/lib/auth/actions";
 import { mergeGuestCartWithUser } from "@/lib/utils/mergeSessions";
 import { cookies } from "next/headers";
-import { getStripeClient, dollarsToCents } from "@/lib/stripe/client";
+import { getStripeClient, toMinorUnits } from "@/lib/stripe/client";
+import { STRIPE_CURRENCY } from "@/lib/utils/currency";
 
 const appUrl = process.env.BETTER_AUTH_URL ?? "http://localhost:3000";
 
@@ -25,7 +26,7 @@ export async function createStripeCheckoutSession(cartId: string) {
 
   const lineItems = cart.items.map((item) => ({
     price_data: {
-      currency: "usd",
+      currency: STRIPE_CURRENCY,
       product_data: {
         name: item.name,
         images: item.imageUrl ? [`${appUrl}${item.imageUrl}`] : undefined,
@@ -33,7 +34,7 @@ export async function createStripeCheckoutSession(cartId: string) {
           variantId: item.variantId,
         },
       },
-      unit_amount: dollarsToCents(item.price),
+      unit_amount: toMinorUnits(item.price),
     },
     quantity: item.quantity,
   }));

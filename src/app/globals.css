@@ -63,6 +63,23 @@
 
   /* Motion */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  --shadow-card: 0 12px 32px rgba(17, 17, 17, 0.08);
+  --shadow-card-hover: 0 16px 40px rgba(17, 17, 17, 0.12);
+  --focus-ring: 0 0 0 2px var(--color-light-100), 0 0 0 4px color-mix(in srgb, var(--color-naga-gold) 55%, transparent);
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 /* Brand logo — deter casual right-click / drag saves (not foolproof) */
@@ -106,15 +123,19 @@ footer.scroll-layer {
   contain-intrinsic-size: auto 360px;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-}
-
 body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* Shared interactive polish */
+.focus-ring:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.price-tabular {
+  font-variant-numeric: tabular-nums;
 }
 
 @keyframes hero-fade-in {
@@ -229,5 +250,33 @@ body {
 
   .drop-enter-4 {
     animation-delay: 240ms;
+  }
+}
+
+@keyframes filter-drawer-slide-in {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes filter-drawer-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .filter-drawer-panel {
+    animation: filter-drawer-slide-in var(--duration-normal) var(--ease-out-expo) both;
+  }
+
+  .filter-drawer-backdrop {
+    animation: filter-drawer-fade-in var(--duration-fast) ease both;
   }
 }

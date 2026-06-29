@@ -6,11 +6,14 @@ import JsonLd from "@/components/JsonLd";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { faqJsonLd } from "@/lib/seo/jsonld";
 import { NAGA_FAQS } from "@/lib/seo/faq";
+import { SITE_DOMAIN, SUPPORT_EMAIL } from "@/lib/seo/site";
+
+export const revalidate = 120;
 
 export const metadata = buildPageMetadata({
   title: "Contact Naga Apparel",
   description:
-    "Contact Naga Apparel in Germany — orders, shipping, collabs, and support. Email support@naga-apparel.com. We reply within 24 hours.",
+    `Contact Naga Apparel in Germany — orders, shipping, collabs, and support. Email ${SUPPORT_EMAIL}. We reply within 24 hours.`,
   path: "/contact",
   image: "/uploads/naga/brand/pages/contact.png",
 });
@@ -19,17 +22,17 @@ const contactDetails = [
   {
     icon: Mail,
     title: "Email",
-    lines: ["support@naga-apparel.com", "We reply within 24 hours"],
+    lines: [SUPPORT_EMAIL, "We reply within 24 hours"],
   },
   {
     icon: Phone,
     title: "Phone",
-    lines: ["Contact via naga-apparel.com", "Mon–Fri, 9am–5pm CET"],
+    lines: [`Contact via ${SITE_DOMAIN}`, "Mon–Fri, 9am–5pm CET"],
   },
   {
     icon: MapPin,
     title: "Online Store",
-    lines: ["Naga Apparel", "Germany · www.naga-apparel.com"],
+    lines: ["Naga Apparel", `Germany · ${SITE_DOMAIN}`],
   },
   {
     icon: Clock,
@@ -80,7 +83,15 @@ export default function ContactPage() {
                 </div>
                 <ul className="mt-4 space-y-1 text-body text-dark-700">
                   {item.lines.map((line) => (
-                    <li key={line}>{line}</li>
+                    <li key={line}>
+                      {item.title === "Email" ? (
+                        <a href={`mailto:${SUPPORT_EMAIL}`} className="text-dark-900 underline">
+                          {line}
+                        </a>
+                      ) : (
+                        line
+                      )}
+                    </li>
                   ))}
                 </ul>
               </div>

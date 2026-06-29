@@ -6,13 +6,22 @@ import { getArrayParam, removeParams, toggleArrayParam } from "@/lib/utils/query
 
 const GENDERS = ["men", "women", "unisex"] as const;
 const SIZES = ["XS", "S", "M", "L", "XL", "XXL"] as const;
-const COLORS = ["black", "white", "gold", "red", "green", "blue", "gray"] as const;
+const COLORS = ["black", "white", "gold", "gray", "cream", "light-brown", "green"] as const;
 const PRICES = [
-  { id: "0-30", label: "$0 - $30" },
-  { id: "30-50", label: "$30 - $50" },
-  { id: "50-80", label: "$50 - $80" },
-  { id: "80-", label: "Over $80" },
+  { id: "0-30", label: "€0 – €30" },
+  { id: "30-50", label: "€30 – €50" },
+  { id: "50-80", label: "€50 – €80" },
+  { id: "80-", label: "Over €80" },
 ] as const;
+
+const FILTER_CHECK =
+  "h-4 w-4 shrink-0 accent-[--color-naga-gold] focus-ring focus-visible:outline-none";
+
+const filterLabelClass = (checked: boolean) =>
+  [
+    "cursor-pointer text-body capitalize transition-colors",
+    checked ? "font-medium text-dark-900" : "text-dark-700 hover:text-dark-900",
+  ].join(" ");
 
 type GroupKey = "gender" | "size" | "color" | "price";
 
@@ -62,7 +71,7 @@ export default function Filters() {
   }) => (
     <div className="border-b border-light-300 py-4">
       <button
-        className="flex w-full items-center justify-between text-body-medium text-dark-900"
+        className="focus-ring flex w-full min-h-11 items-center justify-between rounded-sm text-body-medium text-dark-900 focus-visible:outline-none"
         onClick={() => setExpanded((s) => ({ ...s, [k]: !s[k] }))}
         aria-expanded={expanded[k]}
         aria-controls={`${k}-section`}
@@ -80,7 +89,7 @@ export default function Filters() {
     <>
       <div className="mb-4 flex items-center justify-between md:hidden">
         <button
-          className="rounded-md border border-light-300 px-3 py-2 text-body-medium"
+          className="focus-ring min-h-11 rounded-md border border-light-300 px-4 py-2.5 text-body-medium focus-visible:outline-none"
           onClick={() => setOpen(true)}
           aria-haspopup="dialog"
         >
@@ -104,15 +113,15 @@ export default function Filters() {
             {GENDERS.map((g) => {
               const checked = getArrayParam(search, "gender").includes(g);
               return (
-                <li key={g} className="flex items-center gap-2">
+                <li key={g} className="flex min-h-11 items-center gap-3">
                   <input
                     id={`gender-${g}`}
                     type="checkbox"
-                    className="h-4 w-4 accent-dark-900"
+                    className={FILTER_CHECK}
                     checked={checked}
                     onChange={() => onToggle("gender" as GroupKey, g)}
                   />
-                  <label htmlFor={`gender-${g}`} className="text-body text-dark-900">
+                  <label htmlFor={`gender-${g}`} className={filterLabelClass(checked)}>
                     {g[0].toUpperCase() + g.slice(1)}
                   </label>
                 </li>
@@ -130,7 +139,7 @@ export default function Filters() {
                   <label className="inline-flex items-center gap-2">
                     <input
                       type="checkbox"
-                      className="h-4 w-4 accent-dark-900"
+                      className={FILTER_CHECK}
                       checked={checked}
                       onChange={() => onToggle("size", s)}
                     />
@@ -151,12 +160,12 @@ export default function Filters() {
                   <input
                     id={`color-${c}`}
                     type="checkbox"
-                    className="h-4 w-4 accent-dark-900"
+                    className={FILTER_CHECK}
                     checked={checked}
                     onChange={() => onToggle("color", c)}
                   />
-                  <label htmlFor={`color-${c}`} className="text-body capitalize">
-                    {c}
+                  <label htmlFor={`color-${c}`} className={filterLabelClass(checked)}>
+                    {c.replace("-", " ")}
                   </label>
                 </li>
               );
@@ -173,11 +182,11 @@ export default function Filters() {
                   <input
                     id={`price-${p.id}`}
                     type="checkbox"
-                    className="h-4 w-4 accent-dark-900"
+                    className={FILTER_CHECK}
                     checked={checked}
                     onChange={() => onToggle("price", p.id)}
                   />
-                  <label htmlFor={`price-${p.id}`} className="text-body">
+                  <label htmlFor={`price-${p.id}`} className={filterLabelClass(checked)}>
                     {p.label}
                   </label>
                 </li>
@@ -188,18 +197,27 @@ export default function Filters() {
       </aside>
 
       {open && (
-        <div className="fixed inset-0 z-50 md:hidden" role="dialog" aria-modal="true">
+        <div className="fixed inset-0 z-50 md:hidden" role="dialog" aria-modal="true" aria-label="Filters">
           <div
-            className="absolute inset-0 bg-black/40"
+            className="filter-drawer-backdrop absolute inset-0 bg-black/40"
             aria-hidden="true"
             onClick={() => setOpen(false)}
           />
-          <div className="absolute inset-y-0 left-0 w-80 max-w-[80%] overflow-auto bg-light-100 p-4 shadow-xl">
+          <div className="filter-drawer-panel absolute inset-y-0 left-0 w-80 max-w-[80%] overflow-auto bg-light-100 p-4 shadow-xl">
             <div className="mb-2 flex items-center justify-between">
               <h3 className="text-body-medium">Filters</h3>
-              <button className="text-caption text-dark-700 underline" onClick={clearAll}>
-                Clear all
-              </button>
+              <div className="flex items-center gap-3">
+                <button className="text-caption text-dark-700 underline" onClick={clearAll}>
+                  Clear all
+                </button>
+                <button
+                  type="button"
+                  className="focus-ring min-h-11 rounded-md px-3 text-body-medium text-dark-900 focus-visible:outline-none"
+                  onClick={() => setOpen(false)}
+                >
+                  Done
+                </button>
+              </div>
             </div>
             {/* Reuse the same desktop content by rendering the component again */}
             <div className="md:hidden">
@@ -212,11 +230,11 @@ export default function Filters() {
                         <input
                           id={`m-gender-${g}`}
                           type="checkbox"
-                          className="h-4 w-4 accent-dark-900"
+                          className={FILTER_CHECK}
                           checked={checked}
                           onChange={() => onToggle("gender", g)}
                         />
-                        <label htmlFor={`m-gender-${g}`} className="text-body">
+                        <label htmlFor={`m-gender-${g}`} className={filterLabelClass(checked)}>
                           {g[0].toUpperCase() + g.slice(1)}
                         </label>
                       </li>
@@ -234,7 +252,7 @@ export default function Filters() {
                         <label className="inline-flex items-center gap-2">
                           <input
                             type="checkbox"
-                            className="h-4 w-4 accent-dark-900"
+                            className={FILTER_CHECK}
                             checked={checked}
                             onChange={() => onToggle("size", s)}
                           />
@@ -255,12 +273,12 @@ export default function Filters() {
                         <input
                           id={`m-color-${c}`}
                           type="checkbox"
-                          className="h-4 w-4 accent-dark-900"
+                          className={FILTER_CHECK}
                           checked={checked}
                           onChange={() => onToggle("color", c)}
                         />
-                        <label htmlFor={`m-color-${c}`} className="text-body capitalize">
-                          {c}
+                        <label htmlFor={`m-color-${c}`} className={filterLabelClass(checked)}>
+                          {c.replace("-", " ")}
                         </label>
                       </li>
                     );
@@ -277,11 +295,11 @@ export default function Filters() {
                         <input
                           id={`m-price-${p.id}`}
                           type="checkbox"
-                          className="h-4 w-4 accent-dark-900"
+                          className={FILTER_CHECK}
                           checked={checked}
                           onChange={() => onToggle("price", p.id)}
                         />
-                        <label htmlFor={`m-price-${p.id}`} className="text-body">
+                        <label htmlFor={`m-price-${p.id}`} className={filterLabelClass(checked)}>
                           {p.label}
                         </label>
                       </li>
