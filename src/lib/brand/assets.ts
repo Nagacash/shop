@@ -60,8 +60,10 @@ export function getCollectionCoverUrl(slug: string): string | null {
   const manifest = readManifest();
   if (manifest?.collections?.[slug]) return manifest.collections[slug];
 
-  const fallback = "/uploads/naga/brand/collections/" + slug + ".png";
-  if (existsSync(publicPath(fallback))) return fallback;
+  for (const ext of ["png", "jpg", "jpeg", "webp"]) {
+    const fallback = `/uploads/naga/brand/collections/${slug}.${ext}`;
+    if (existsSync(publicPath(fallback))) return fallback;
+  }
   return null;
 }
 
@@ -71,6 +73,11 @@ export function getPageHeroUrl(page: PageHeroKey): string | null {
 
   const pageFile = "/uploads/naga/brand/pages/" + page + ".png";
   if (existsSync(publicPath(pageFile))) return pageFile;
+
+  for (const ext of ["jpg", "jpeg", "webp"]) {
+    const alt = `/uploads/naga/brand/pages/${page}.${ext}`;
+    if (existsSync(publicPath(alt))) return alt;
+  }
 
   if (page === "contact") {
     return getHeroGlamourImageUrl() ?? getCollectionCoverUrl("golden-drip") ?? getHeroImageUrl();

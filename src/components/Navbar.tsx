@@ -10,6 +10,7 @@ import { getCurrentCart } from "@/lib/actions/cart";
 const NAV_LINKS = [
   { label: "Hoodies", href: "/products?category=hoodies" },
   { label: "Tees", href: "/products?category=tees" },
+  { label: "Sweaters", href: "/products?category=sweaters" },
   { label: "Sets", href: "/products?category=sets" },
   { label: "Headwear", href: "/products?category=headwear" },
   { label: "Collections", href: "/collections" },

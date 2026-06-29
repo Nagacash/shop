@@ -14,8 +14,12 @@ export const FLAT_LAY_IMAGE_BG = "#12100e";
 export function isFlatLayProductImage(url: string | null | undefined): boolean {
   if (!url) return false;
   return (
+    url.includes("naga-set-black") ||
     url.includes("naga-green") ||
+    url.includes("naga-wood") ||
     url.includes("tshirt-black") ||
+    url.includes("naga-hoodie") ||
+    url.includes("naga-sweater") ||
     url.includes("tshirt-white") ||
     url.includes("/uploads/naga/products/")
   );

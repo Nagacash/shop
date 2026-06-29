@@ -7,7 +7,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <Suspense fallback={<header className="sticky top-0 z-50 h-16 bg-light-100" />}>
         <Navbar />
       </Suspense>
-      <div className="flex-1 w-full">{children}</div>
+      <main className="flex-1 w-full">{children}</main>
       <Footer />
     </div>
   );

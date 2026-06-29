@@ -1,3 +1,4 @@
+import ProtectedLogo from "@/components/ProtectedLogo";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -112,13 +113,7 @@ export default function HeroSection() {
               )}
 
               <div className="relative z-10 flex h-full flex-col justify-between p-8">
-                <Image
-                  src="/logo.png"
-                  alt="Naga Apparel"
-                  width={72}
-                  height={72}
-                  className="h-16 w-16 rounded-full object-cover sm:h-[4.5rem] sm:w-[4.5rem]"
-                />
+                <ProtectedLogo className="h-24 w-24 sm:h-28 sm:w-28" />
                 <div>
                   <p className="text-caption uppercase tracking-[0.25em] text-[--color-naga-gold]">
                     Glamour // Hustle

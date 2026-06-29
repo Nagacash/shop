@@ -2,19 +2,32 @@ import Link from "next/link";
 import { Card } from "@/components";
 import PageHero from "@/components/PageHero";
 import { getCachedCollections } from "@/lib/queries/collections";
+import { getCollectionCoverUrl } from "@/lib/brand/assets";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 120;
 
+export const metadata = buildPageMetadata({
+  title: "Collections",
+  description:
+    "Explore Naga Apparel collections — Naga Original tees and sweaters, Naga Black set, and curated streetwear lines.",
+  path: "/collections",
+  image: "/uploads/naga/brand/pages/collections.jpg",
+});
+
 export default async function CollectionsPage() {
   const collections = await getCachedCollections();
+  const heroImage =
+    getCollectionCoverUrl("naga-black") ?? getCollectionCoverUrl("naga-original");
 
   return (
     <>
       <PageHero
         page="collections"
+        imageSrc={heroImage}
         eyebrow="Curated lines"
         title="Collections"
-        subtitle="Naga Original tees and the Naga Green set — real pieces, real photos."
+        subtitle="Naga Original tees, sweaters, and the Naga Black set — real pieces, real photos."
       />
 
       <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-12">

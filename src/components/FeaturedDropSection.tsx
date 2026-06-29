@@ -6,11 +6,11 @@ import FlatLayFrame from "@/components/FlatLayFrame";
 const HIGHLIGHTS = [
   { label: "Naga Original graphic", detail: "Chest print" },
   { label: "Hustle Hard + cobra patch", detail: "Leg details" },
-  { label: "Sage green jersey", detail: "Tee & shorts" },
+  { label: "Black jersey", detail: "Tee & shorts" },
 ] as const;
 
 export default async function FeaturedDropSection() {
-  const product = await getCachedFeaturedProduct("Naga Green Set");
+  const product = await getCachedFeaturedProduct("Naga Black Set");
   if (!product) return null;
 
   const priceLabel =
@@ -19,7 +19,7 @@ export default async function FeaturedDropSection() {
   return (
     <section className="scroll-layer relative overflow-hidden bg-dark-900 text-light-100">
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(138,154,91,0.16),transparent_45%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(255,255,255,0.06),transparent_45%)]"
         aria-hidden="true"
       />
       <div
@@ -42,7 +42,7 @@ export default async function FeaturedDropSection() {
               sizes="(max-width: 1024px) 100vw, 52vw"
             >
               <span
-                className={`absolute left-4 top-4 z-20 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-caption uppercase tracking-[0.2em] backdrop-blur-sm bg-dark-900/85 ${product.soldOut ? "border-light-100/25 text-light-400" : "border-[--color-naga-sage]/35 text-[--color-naga-sage-light]"}`}
+                className={`absolute left-4 top-4 z-20 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-caption uppercase tracking-[0.2em] bg-dark-900/90 ${product.soldOut ? "border-light-100/25 text-light-400" : "border-light-100/25 text-light-200"}`}
               >
                 {product.soldOut ? (
                   <>Sold out</>
@@ -57,7 +57,7 @@ export default async function FeaturedDropSection() {
           </Link>
 
           <div className="drop-enter drop-enter-2">
-            <p className="inline-flex items-center gap-2 text-caption uppercase tracking-[0.24em] text-[--color-naga-sage-light]">
+            <p className="inline-flex items-center gap-2 text-caption uppercase tracking-[0.24em] text-light-300">
               <Shirt className="h-4 w-4" aria-hidden="true" />
               Complete set
             </p>
@@ -67,7 +67,7 @@ export default async function FeaturedDropSection() {
               style={{ fontSize: "clamp(2.25rem, 6vw, 3.75rem)" }}
             >
               Naga
-              <span className="block text-[--color-naga-sage-light]">Green Set</span>
+              <span className="block text-light-300">Black Set</span>
             </h2>
 
             {product.subtitle && (
@@ -115,7 +115,7 @@ export default async function FeaturedDropSection() {
               )}
               <Link
                 href="/products?category=sets"
-                className="inline-flex min-h-11 items-center gap-2 rounded-full border border-light-100/20 px-6 py-3 text-body-medium text-light-100 transition hover:border-[--color-naga-sage-light]/50 hover:bg-light-100/5"
+                className="inline-flex min-h-11 items-center gap-2 rounded-full border border-light-100/20 px-6 py-3 text-body-medium text-light-100 transition hover:border-light-100/40 hover:bg-light-100/5"
               >
                 All sets
               </Link>

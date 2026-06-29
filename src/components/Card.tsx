@@ -50,7 +50,7 @@ export default function Card({
     >
       {badge && (
         <span
-          className={`absolute left-3 top-3 z-20 rounded-full border px-2.5 py-1 text-caption backdrop-blur-sm ${toneToClass[badge.tone ?? "green"]}`}
+          className={`absolute left-3 top-3 z-20 rounded-full border px-2.5 py-1 text-caption ${toneToClass[badge.tone ?? "green"]}`}
         >
           {badge.label}
         </span>
@@ -77,7 +77,7 @@ export default function Card({
 
   const content = (
     <article
-      className={`group overflow-hidden rounded-xl bg-light-100 ring-1 ring-light-300 transition-[box-shadow,ring-color] hover:ring-dark-500 ${flatLay ? "hover:shadow-lg hover:shadow-dark-900/10" : ""} ${className}`}
+      className={`product-card group overflow-hidden rounded-xl bg-light-100 ring-1 ring-light-300 transition-[box-shadow,ring-color] hover:ring-dark-500 ${flatLay ? "hover:shadow-lg hover:shadow-dark-900/10" : ""} ${className}`}
     >
       {imageBlock}
       <div className="p-4">
@@ -86,7 +86,7 @@ export default function Card({
           {displayPrice && <span className="shrink-0 text-body-medium text-dark-900">{displayPrice}</span>}
         </div>
         {flatLay && !subtitle && (
-          <p className="text-caption uppercase tracking-[0.12em] text-[--color-naga-sage]">Tee + shorts set</p>
+          <p className="text-caption uppercase tracking-[0.12em] text-dark-700">Tee + shorts set</p>
         )}
         {description && <p className="text-body text-dark-700">{description}</p>}
         {subtitle && <p className="text-body text-dark-700">{subtitle}</p>}
@@ -103,7 +103,7 @@ export default function Card({
     <Link
       href={href}
       aria-label={title}
-      className="block rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[--color-dark-500] cursor-pointer"
+      className="block product-card rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[--color-dark-500] cursor-pointer"
     >
       {content}
     </Link>

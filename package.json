@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "dev:clean": "rm -rf .next && find . -name '._*' -not -path './node_modules/*' -delete 2>/dev/null; next dev --turbopack",
-    "build": "next build",
+    "build": "find . -name '._*' -not -path './node_modules/*' -delete 2>/dev/null; next build",
     "start": "next start",
     "lint": "next lint",
     "db:generate": "drizzle-kit generate",
@@ -15,11 +15,13 @@
     "db:seed": "tsx src/lib/db/seed.ts",
     "db:seed:naga": "SEED_REPLACE=1 tsx src/lib/db/seed.ts",
     "db:add-naga-green": "tsx scripts/add-naga-green.ts",
-    "db:add-real-tees": "tsx scripts/add-real-tees.ts",
+    "db:add-real-hoodie": "tsx scripts/add-real-hoodie.ts",
     "db:prune-catalog": "tsx scripts/prune-catalog.ts",
-    "db:set-naga-green-sold-out": "tsx scripts/set-naga-green-sold-out.ts",
+    "db:update-black-tee-image": "tsx scripts/update-black-tee-image.ts",
+    "db:update-white-tee-image": "tsx scripts/update-white-tee-image.ts",
     "generate:product-images": "tsx scripts/generate-product-images.ts",
-    "generate:brand-images": "tsx scripts/generate-brand-images.ts"
+    "generate:brand-images": "tsx scripts/generate-brand-images.ts",
+    "perf:measure": "bash .perf/measure-pages.sh .perf/pages.txt .perf/results-latest.csv"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.1",

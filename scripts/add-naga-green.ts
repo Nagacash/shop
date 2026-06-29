@@ -23,10 +23,10 @@ import { eq } from 'drizzle-orm';
 import { cpSync, existsSync, mkdirSync } from 'fs';
 import { join, basename } from 'path';
 
-const PRODUCT_NAME = 'Naga Green Set';
-const IMAGE_SRC = join(process.cwd(), 'public', 'naga-t-shirt', 'naga-green.JPG');
-const IMAGE_DEST = join(process.cwd(), 'public', 'uploads', 'naga', 'naga-green.jpg');
-const IMAGE_URL = '/uploads/naga/naga-green.jpg';
+const PRODUCT_NAME = 'Naga Black Set';
+const IMAGE_SRC = join(process.cwd(), 'public', 'naga-t-shirt', 'Naga-set-black.jpeg');
+const IMAGE_DEST = join(process.cwd(), 'public', 'uploads', 'naga', 'naga-set-black.jpg');
+const IMAGE_URL = '/uploads/naga/naga-set-black.jpg';
 
 async function ensureCategory(slug: string, name: string) {
   const existing = await db.select().from(categories).where(eq(categories.slug, slug)).limit(1);
@@ -65,10 +65,10 @@ async function main() {
   }
 
   const category = await ensureCategory('sets', 'Sets');
-  const collection = await ensureCollection('naga-green', 'Naga Green');
+  const collection = await ensureCollection('naga-black', 'Naga Black');
   const nagaBrand = (await db.select().from(brands).where(eq(brands.slug, 'naga-apparel')))[0];
   const gender = (await db.select().from(genders).where(eq(genders.slug, 'unisex')))[0];
-  const greenColor = (await db.select().from(colors).where(eq(colors.slug, 'green')))[0];
+  const blackColor = (await db.select().from(colors).where(eq(colors.slug, 'black')))[0];
   const apparelSizes = await db
     .select()
     .from(sizes)
@@ -79,12 +79,12 @@ async function main() {
       )
     );
 
-  if (!greenColor) throw new Error('Green color not found — run db:seed first');
+  if (!blackColor) throw new Error('Black color not found — run db:seed first');
 
   const product = insertProductSchema.parse({
     name: PRODUCT_NAME,
     description:
-      'Matching sage green tee and shorts set. Naga Original chest graphic, Hustle Hard leg print, and cobra patch detail. Soft cotton-blend jersey, relaxed street fit.',
+      'Matching black tee and shorts set. Naga Original chest graphic, Hustle Hard leg print, and cobra patch detail. Soft cotton-blend jersey, relaxed street fit.',
     categoryId: category.id,
     genderId: gender?.id ?? null,
     brandId: nagaBrand?.id ?? null,
@@ -101,9 +101,9 @@ async function main() {
   for (const size of apparelSizes) {
     const variant = insertVariantSchema.parse({
       productId: insertedProduct.id,
-      sku: `NAGA-${insertedProduct.id.slice(0, 8)}-GREEN-${size.slug.toUpperCase()}`,
+      sku: `NAGA-${insertedProduct.id.slice(0, 8)}-BLACK-${size.slug.toUpperCase()}`,
       price: '48.00',
-      colorId: greenColor.id,
+      colorId: blackColor.id,
       sizeId: size.id,
       inStock: 0,
       weight: 0.55,

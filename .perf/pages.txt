@@ -1,9 +1,11 @@
 http://127.0.0.1:3005/
 http://127.0.0.1:3005/products
 http://127.0.0.1:3005/products?category=sets
+http://127.0.0.1:3005/products?category=sweaters
 http://127.0.0.1:3005/products/be5e7c7b-ddc7-48f3-8ad8-73f9f8f90446
 http://127.0.0.1:3005/collections
-http://127.0.0.1:3005/collections/naga-green
+http://127.0.0.1:3005/collections/naga-black
+http://127.0.0.1:3005/collections/naga-original
 http://127.0.0.1:3005/cart
 http://127.0.0.1:3005/contact
 http://127.0.0.1:3005/sign-in

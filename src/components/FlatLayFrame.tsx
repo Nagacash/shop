@@ -53,6 +53,8 @@ export default function FlatLayFrame({
         fill
         unoptimized
         priority={priority}
+        loading={priority ? undefined : "lazy"}
+        decoding="async"
         sizes={sizes}
         className={`relative z-10 ${styles.image} ${interactive ? "transition-transform duration-700 ease-out group-hover:scale-[1.015]" : ""}`}
       />

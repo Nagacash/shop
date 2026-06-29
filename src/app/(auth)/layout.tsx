@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
+import ProtectedLogo from "@/components/ProtectedLogo";
 import Image from "next/image";
 import { getPageHeroUrl } from "@/lib/brand/assets";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   const authImage = getPageHeroUrl("auth");
@@ -25,13 +31,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         />
 
         <div className="relative z-10 flex items-center gap-3">
-          <Image
-            src="/logo.png"
-            alt="Naga Apparel"
-            width={40}
-            height={40}
-            className="h-10 w-10 rounded-full object-cover"
-          />
+          <ProtectedLogo className="h-11 w-11" />
           <span className="text-body-medium tracking-tight">Naga Apparel</span>
         </div>
 

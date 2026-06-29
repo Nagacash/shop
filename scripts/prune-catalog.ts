@@ -9,9 +9,12 @@ import {
 import { eq, inArray, notInArray } from 'drizzle-orm';
 
 const KEEP_NAMES = [
-  'Naga Green Set',
+  'Naga Black Set',
   'Naga Original Black Tee',
   'Naga Original White Tee',
+  'Naga Original Grey Sweater',
+  'Naga Original Light Brown Sweater',
+  'Naga Original Cream Hoodie',
 ] as const;
 
 async function main() {

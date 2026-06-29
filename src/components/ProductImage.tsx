@@ -11,7 +11,7 @@ type ProductImageProps = Omit<ImageProps, "src" | "alt"> & {
   alt: string;
 };
 
-export default function ProductImage({ src, alt, className, ...props }: ProductImageProps) {
+export default function ProductImage({ src, alt, className, priority, loading, ...props }: ProductImageProps) {
   const initial = normalizeImageUrl(src) ?? FALLBACK;
   const [imgSrc, setImgSrc] = useState(initial);
 
@@ -21,6 +21,9 @@ export default function ProductImage({ src, alt, className, ...props }: ProductI
       src={imgSrc}
       alt={alt}
       unoptimized
+      priority={priority}
+      loading={loading ?? (priority ? undefined : "lazy")}
+      decoding="async"
       className={`pointer-events-none ${className ?? ""}`}
       onError={() => {
         if (imgSrc !== FALLBACK) setImgSrc(FALLBACK);

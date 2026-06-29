@@ -1,10 +1,38 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { Card } from "@/components";
 import PageHero from "@/components/PageHero";
+import JsonLd from "@/components/JsonLd";
 import { getCachedCollectionProducts } from "@/lib/queries/collections";
 import { getCollectionCoverUrl } from "@/lib/brand/assets";
 import { FALLBACK_PRODUCT_IMAGE } from "@/lib/utils/images";
+import { buildPageMetadata } from "@/lib/seo/metadata";
+import { breadcrumbJsonLd } from "@/lib/seo/jsonld";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const data = await getCachedCollectionProducts(slug);
+  if (!data) {
+    return buildPageMetadata({
+      title: "Collection Not Found",
+      path: `/collections/${slug}`,
+      noIndex: true,
+    });
+  }
+
+  const cover = getCollectionCoverUrl(slug);
+  return buildPageMetadata({
+    title: `${data.collection.name} Collection`,
+    description: `Shop the ${data.collection.name} collection at Naga Apparel — ${data.products.length} product${data.products.length === 1 ? "" : "s"} with real photography.`,
+    path: `/collections/${slug}`,
+    image: cover,
+  });
+}
 
 export default async function CollectionDetailPage({
   params,
@@ -23,6 +51,13 @@ export default async function CollectionDetailPage({
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Collections", path: "/collections" },
+          { name: collection.name, path: `/collections/${slug}` },
+        ])}
+      />
       <PageHero
         imageSrc={coverUrl}
         eyebrow="Collection"

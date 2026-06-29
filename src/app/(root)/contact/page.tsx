@@ -2,6 +2,18 @@ import Link from "next/link";
 import { Mail, MapPin, Phone, Clock, Instagram } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
 import PageHero from "@/components/PageHero";
+import JsonLd from "@/components/JsonLd";
+import { buildPageMetadata } from "@/lib/seo/metadata";
+import { faqJsonLd } from "@/lib/seo/jsonld";
+import { NAGA_FAQS } from "@/lib/seo/faq";
+
+export const metadata = buildPageMetadata({
+  title: "Contact Naga Apparel",
+  description:
+    "Contact Naga Apparel in Germany — orders, shipping, collabs, and support. Email support@naga-apparel.com. We reply within 24 hours.",
+  path: "/contact",
+  image: "/uploads/naga/brand/pages/contact.png",
+});
 
 const contactDetails = [
   {
@@ -12,28 +24,29 @@ const contactDetails = [
   {
     icon: Phone,
     title: "Phone",
-    lines: ["Contact via naga-apparel.com", "Mon–Fri, 9am–5pm EST"],
+    lines: ["Contact via naga-apparel.com", "Mon–Fri, 9am–5pm CET"],
   },
   {
     icon: MapPin,
     title: "Online Store",
-    lines: ["Naga Apparel", "www.naga-apparel.com"],
+    lines: ["Naga Apparel", "Germany · www.naga-apparel.com"],
   },
   {
     icon: Clock,
     title: "Support Hours",
-    lines: ["Mon–Fri: 9am – 5pm EST", "Weekend: email only"],
+    lines: ["Mon–Fri: 9am – 5pm CET", "Weekend: email only"],
   },
 ];
 
 export default function ContactPage() {
   return (
     <>
+      <JsonLd data={faqJsonLd([...NAGA_FAQS])} />
       <PageHero
         page="contact"
         eyebrow="Stay connected"
         title="Contact Naga"
-        subtitle="Orders, drops, collabs — hustle grit and ultra-fine glamour, same as the feed."
+        subtitle="Naga Apparel is based in Germany. Reach us for orders, shipping, drops, and collabs — we reply within 24 hours on business days."
       >
         <a
           href="https://www.instagram.com/naga_apparel"
@@ -82,6 +95,28 @@ export default function ContactPage() {
             <div className="mt-6">
               <ContactForm />
             </div>
+          </div>
+        </section>
+
+        <section className="mt-16 border-t border-light-300 pt-12" aria-labelledby="faq-heading">
+          <h2 id="faq-heading" className="text-heading-3 text-dark-900">
+            Frequently asked questions
+          </h2>
+          <p className="mt-2 max-w-2xl text-body text-dark-700">
+            Quick answers about Naga Apparel, shipping from Germany, and our current product drop.
+          </p>
+          <div className="mt-8 space-y-3">
+            {NAGA_FAQS.map((faq) => (
+              <details
+                key={faq.question}
+                className="rounded-xl border border-light-300 bg-light-100 px-5 py-4"
+              >
+                <summary className="cursor-pointer text-body-medium text-dark-900">
+                  {faq.question}
+                </summary>
+                <p className="mt-3 text-body text-dark-700">{faq.answer}</p>
+              </details>
+            ))}
           </div>
         </section>
       </main>

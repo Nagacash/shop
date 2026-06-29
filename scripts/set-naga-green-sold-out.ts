@@ -2,7 +2,7 @@ import { db } from '@/lib/db';
 import { products, productVariants } from '@/lib/db/schema';
 import { eq, inArray } from 'drizzle-orm';
 
-const PRODUCT_NAME = 'Naga Green Set';
+const PRODUCT_NAME = 'Naga Black Set';
 
 async function main() {
   const [product] = await db

@@ -1,6 +1,5 @@
 "use server";
 
-import { eq } from "drizzle-orm";
 import { getCartWithItems } from "@/lib/actions/cart";
 import { getCurrentUser } from "@/lib/auth/actions";
 import { mergeGuestCartWithUser } from "@/lib/utils/mergeSessions";

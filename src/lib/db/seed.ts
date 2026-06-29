@@ -21,28 +21,28 @@ const err = (...args: unknown[]) => console.error('[seed:error]', ...args);
 type NagaProduct = {
   name: string;
   description: string;
-  categorySlug: 'hoodies' | 'tees' | 'headwear' | 'sets';
+  categorySlug: 'hoodies' | 'tees' | 'headwear' | 'sets' | 'sweaters';
   collectionSlug: string;
   genderSlug: 'men' | 'women' | 'unisex' | 'kids';
   basePrice: number;
   headwear?: boolean;
   imageFile?: string;
   imageUrl?: string;
-  colorSlugs?: Array<'black' | 'white' | 'gold' | 'green'>;
+  colorSlugs?: Array<'black' | 'white' | 'gold' | 'green' | 'gray' | 'light-brown' | 'cream'>;
   inStock?: number;
 };
 
 const NAGA_PRODUCTS: NagaProduct[] = [
   {
-    name: 'Naga Green Set',
+    name: 'Naga Black Set',
     description:
-      'Matching sage green tee and shorts set. Naga Original chest graphic, Hustle Hard leg print, and cobra patch detail. Soft cotton-blend jersey, relaxed street fit.',
+      'Matching black tee and shorts set. Naga Original chest graphic, Hustle Hard leg print, and cobra patch detail. Soft cotton-blend jersey, relaxed street fit.',
     categorySlug: 'sets',
-    collectionSlug: 'naga-green',
+    collectionSlug: 'naga-black',
     genderSlug: 'unisex',
     basePrice: 48,
-    imageUrl: '/uploads/naga/naga-green.jpg',
-    colorSlugs: ['green'],
+    imageUrl: '/uploads/naga/naga-set-black.jpg',
+    colorSlugs: ['black'],
     inStock: 0,
   },
   {
@@ -53,7 +53,7 @@ const NAGA_PRODUCTS: NagaProduct[] = [
     collectionSlug: 'naga-original',
     genderSlug: 'unisex',
     basePrice: 32,
-    imageUrl: '/uploads/naga/tshirt-black.png',
+    imageUrl: '/uploads/naga/naga-wood.jpg',
     colorSlugs: ['black'],
   },
   {
@@ -64,8 +64,41 @@ const NAGA_PRODUCTS: NagaProduct[] = [
     collectionSlug: 'naga-original',
     genderSlug: 'unisex',
     basePrice: 32,
-    imageUrl: '/uploads/naga/tshirt-white.png',
+    imageUrl: '/uploads/naga/naga-white-tees.jpg',
     colorSlugs: ['white'],
+  },
+  {
+    name: 'Naga Original Grey Sweater',
+    description:
+      'Heavyweight grey crew sweater with the Naga Original chest graphic. Soft brushed fleece interior, relaxed fit, everyday street layer.',
+    categorySlug: 'sweaters',
+    collectionSlug: 'naga-original',
+    genderSlug: 'unisex',
+    basePrice: 58,
+    imageUrl: '/uploads/naga/naga-sweater-grey.jpg',
+    colorSlugs: ['gray'],
+  },
+  {
+    name: 'Naga Original Light Brown Sweater',
+    description:
+      'Light brown crew sweater with the Naga Original chest graphic. Premium knit, warm neutral tone, relaxed street fit.',
+    categorySlug: 'sweaters',
+    collectionSlug: 'naga-original',
+    genderSlug: 'unisex',
+    basePrice: 58,
+    imageUrl: '/uploads/naga/naga-sweater-lightbrown.jpg',
+    colorSlugs: ['light-brown'],
+  },
+  {
+    name: 'Naga Original Cream Hoodie',
+    description:
+      'Cream pullover hoodie with the Naga Original cobra chest graphic. Soft fleece interior, kangaroo pocket, drawstring hood, relaxed street fit.',
+    categorySlug: 'hoodies',
+    collectionSlug: 'naga-original',
+    genderSlug: 'unisex',
+    basePrice: 68,
+    imageUrl: '/uploads/naga/naga-hoodie.png',
+    colorSlugs: ['cream'],
   },
 ];
 
@@ -117,6 +150,8 @@ async function seed() {
       { name: 'Blue', slug: 'blue', hexCode: '#1E3A8A' as RGBHex },
       { name: 'Green', slug: 'green', hexCode: '#10B981' as RGBHex },
       { name: 'Gray', slug: 'gray', hexCode: '#6B7280' as RGBHex },
+      { name: 'Light Brown', slug: 'light-brown', hexCode: '#C4A574' as RGBHex },
+      { name: 'Cream', slug: 'cream', hexCode: '#F5F0E8' as RGBHex },
     ].map((c) => insertColorSchema.parse(c));
     for (const row of colorRows) {
       const exists = await db.select().from(colors).where(eq(colors.slug, row.slug)).limit(1);
@@ -149,6 +184,7 @@ async function seed() {
       { name: 'Hoodies', slug: 'hoodies', parentId: null },
       { name: 'Tees', slug: 'tees', parentId: null },
       { name: 'Headwear', slug: 'headwear', parentId: null },
+      { name: 'Sweaters', slug: 'sweaters', parentId: null },
       { name: 'Sets', slug: 'sets', parentId: null },
     ].map((c) => insertCategorySchema.parse(c));
     for (const row of catRows) {
@@ -164,7 +200,7 @@ async function seed() {
       insertCollectionSchema.parse({ name: 'Naga Square', slug: 'naga-square' }),
       insertCollectionSchema.parse({ name: 'Golden Drip', slug: 'golden-drip' }),
       insertCollectionSchema.parse({ name: 'NAGA OG', slug: 'naga-og' }),
-      insertCollectionSchema.parse({ name: 'Naga Green', slug: 'naga-green' }),
+      insertCollectionSchema.parse({ name: 'Naga Black', slug: 'naga-black' }),
     ];
     for (const row of collectionRows) {
       const exists = await db.select().from(collections).where(eq(collections.slug, row.slug)).limit(1);

@@ -1,8 +1,20 @@
 import { Suspense } from "react";
 import { HeroSection, HomeBrandSections } from "@/components";
 import FeaturedDropSection from "@/components/FeaturedDropSection";
+import JsonLd from "@/components/JsonLd";
+import { faqJsonLd } from "@/lib/seo/jsonld";
+import { NAGA_FAQS } from "@/lib/seo/faq";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 120;
+
+export const metadata = buildPageMetadata({
+  title: "Urban Streetwear Tees, Sweaters & Sets",
+  description:
+    "Shop Naga Apparel — Naga Original tees, grey and light brown sweaters, and the Naga Black set. Germany-based urban streetwear with real product photography.",
+  path: "/",
+  image: "/uploads/naga/brand/collections/naga-original.png",
+});
 
 function SectionSkeleton({ tall = false }: { tall?: boolean }) {
   return (
@@ -16,6 +28,7 @@ function SectionSkeleton({ tall = false }: { tall?: boolean }) {
 export default async function Home() {
   return (
     <>
+      <JsonLd data={faqJsonLd([...NAGA_FAQS])} />
       <HeroSection />
       <Suspense fallback={<SectionSkeleton tall />}>
         <FeaturedDropSection />

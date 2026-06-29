@@ -1,6 +1,14 @@
 import { getCurrentCart } from "@/lib/actions/cart";
 import CartSummary from "@/components/CartSummary";
 import PageHero from "@/components/PageHero";
+import { buildPageMetadata } from "@/lib/seo/metadata";
+
+export const metadata = buildPageMetadata({
+  title: "My Bag",
+  description: "Your Naga Apparel shopping bag.",
+  path: "/cart",
+  noIndex: true,
+});
 
 export default async function CartPage() {
   const cart = await getCurrentCart();

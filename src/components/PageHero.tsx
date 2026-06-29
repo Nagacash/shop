@@ -32,13 +32,15 @@ export default function PageHero({
         : "py-12 sm:py-16 lg:py-20";
 
   return (
-    <section className="relative overflow-hidden bg-dark-900 text-light-100">
+    <section className="scroll-layer relative overflow-hidden bg-dark-900 text-light-100">
       {resolved && (
         <Image
           src={resolved}
           alt=""
           fill
           priority={size === "full"}
+          loading={size === "full" ? undefined : "lazy"}
+          decoding="async"
           unoptimized
           className="object-cover object-center opacity-75"
           sizes="100vw"

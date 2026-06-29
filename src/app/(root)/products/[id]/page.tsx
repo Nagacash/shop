@@ -1,14 +1,47 @@
 import Link from "next/link";
 import { Suspense } from "react";
+import type { Metadata } from "next";
 import { Card, CollapsibleSection, ProductGallery, SizePicker, AddToBagButton } from "@/components";
 import PageHero from "@/components/PageHero";
+import JsonLd from "@/components/JsonLd";
 import { Heart, Star } from "lucide-react";
 import ColorSwatches from "@/components/ColorSwatches";
 import { getCachedProduct } from "@/lib/queries/products";
 import { getProductReviews, getRecommendedProducts, type Review, type RecommendedProduct } from "@/lib/actions/product";
 import { normalizeImageUrl, FALLBACK_PRODUCT_IMAGE, isFlatLayProductImage, isSetProduct } from "@/lib/utils/images";
+import { buildPageMetadata } from "@/lib/seo/metadata";
+import { breadcrumbJsonLd, productJsonLd } from "@/lib/seo/jsonld";
 
 type GalleryVariant = { color: string; images: string[] };
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const data = await getCachedProduct(id);
+  if (!data) {
+    return buildPageMetadata({
+      title: "Product Not Found",
+      description: "This Naga Apparel product could not be found.",
+      path: `/products/${id}`,
+      noIndex: true,
+    });
+  }
+
+  const image =
+    normalizeImageUrl(
+      data.images.find((img) => img.isPrimary)?.url ?? data.images[0]?.url,
+    ) ?? FALLBACK_PRODUCT_IMAGE;
+
+  return buildPageMetadata({
+    title: data.product.name,
+    description: data.product.description,
+    path: `/products/${id}`,
+    image,
+  });
+}
 
 function formatPrice(price: number | null | undefined) {
   if (price === null || price === undefined) return undefined;
@@ -153,9 +186,29 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   const isSet = isSetProduct(product.category?.slug);
   const primaryImage = galleryVariants[0]?.images[0];
   const isFlatLay = isFlatLayProductImage(primaryImage);
+  const schemaImage = primaryImage ?? FALLBACK_PRODUCT_IMAGE;
+  const schemaPrice = displayPrice ?? 0;
 
   return (
     <>
+      <JsonLd
+        data={[
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Products", path: "/products" },
+            { name: product.name, path: `/products/${product.id}` },
+          ]),
+          productJsonLd({
+            name: product.name,
+            description: product.description,
+            path: `/products/${product.id}`,
+            image: schemaImage,
+            price: schemaPrice,
+            inStock: !soldOut,
+            sku: defaultVariant?.sku,
+          }),
+        ]}
+      />
       {!isFlatLay && (
         <PageHero
           page="product"
@@ -180,7 +233,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             </nav>
             <div className="mt-4 flex flex-wrap items-end justify-between gap-4">
               <div>
-                <p className="text-caption uppercase tracking-[0.22em] text-[--color-naga-sage-light]">
+                <p className="text-caption uppercase tracking-[0.22em] text-light-300">
                   Complete set
                 </p>
                 <h1 className="mt-1 text-heading-3 sm:text-heading-2 text-balance">{product.name}</h1>
@@ -238,10 +291,13 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               {[
                 { label: "Tee", detail: "Naga Original print" },
                 { label: "Shorts", detail: "Hustle Hard + patch" },
-                { label: "Color", detail: "Sage green" },
+                {
+                  label: "Color",
+                  detail: defaultVariant?.color?.name ?? "Black",
+                },
               ].map((chip) => (
                 <div key={chip.label} className="rounded-lg bg-light-200/80 px-3 py-2">
-                  <p className="text-caption uppercase tracking-[0.12em] text-[--color-naga-sage]">{chip.label}</p>
+                  <p className="text-caption uppercase tracking-[0.12em] text-dark-700">{chip.label}</p>
                   <p className="mt-0.5 text-body-medium text-dark-900">{chip.detail}</p>
                 </div>
               ))}

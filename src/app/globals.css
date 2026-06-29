@@ -65,8 +65,12 @@
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-html {
-  scroll-behavior: smooth;
+/* Brand logo — deter casual right-click / drag saves (not foolproof) */
+.protected-logo {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
 }
 
 /* Skip off-screen sections during scroll — faster paint on long pages */
@@ -75,14 +79,31 @@ html {
   contain-intrinsic-size: auto 480px;
 }
 
+/* Product cards: defer layout/paint until near viewport while scrolling */
+.product-card {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 420px;
+  contain: layout style paint;
+}
+
 /* Contain sticky chrome so scroll doesn't recalc the whole page */
 header[class*="sticky"] {
   contain: layout style;
+  will-change: transform;
 }
 
 /* Product grids: isolate card repaints while scrolling */
 .product-grid {
   contain: layout style;
+  touch-action: pan-y;
+}
+
+main {
+  contain: layout style;
+}
+
+footer.scroll-layer {
+  contain-intrinsic-size: auto 360px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -137,8 +158,9 @@ body {
   }
 }
 
-/* Naga Green / flat-lay product photography */
+/* Naga flat-lay product photography */
 .flat-lay-frame {
+  contain: layout style paint;
   background:
     radial-gradient(ellipse 80% 70% at 50% 42%, rgba(138, 154, 91, 0.14), transparent 62%),
     radial-gradient(ellipse 100% 90% at 50% 100%, rgba(61, 52, 40, 0.55), transparent 55%),

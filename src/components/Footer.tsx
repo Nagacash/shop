@@ -1,3 +1,4 @@
+import ProtectedLogo from "@/components/ProtectedLogo";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -9,7 +10,7 @@ const columns: { title: string; links: FooterLink[] }[] = [
     links: [
       { label: "Hustle Hard Drip", href: "/collections/hustle-hard-drip" },
       { label: "Naga Original", href: "/collections/naga-original" },
-      { label: "Naga Green", href: "/collections/naga-green" },
+      { label: "Naga Black", href: "/collections/naga-black" },
       { label: "Black & Gold Edition", href: "/collections/black-gold-edition" },
       { label: "All Collections", href: "/collections" },
     ],
@@ -19,6 +20,7 @@ const columns: { title: string; links: FooterLink[] }[] = [
     links: [
       { label: "Hoodies", href: "/products?category=hoodies" },
       { label: "Tees", href: "/products?category=tees" },
+      { label: "Sweaters", href: "/products?category=sweaters" },
       { label: "Sets", href: "/products?category=sets" },
       { label: "Headwear", href: "/products?category=headwear" },
       { label: "Shop All", href: "/products" },
@@ -58,18 +60,12 @@ const legalLinks: FooterLink[] = [
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-dark-900 text-light-100">
+    <footer className="scroll-layer w-full bg-dark-900 text-light-100">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-start gap-8 md:grid-cols-12">
           <div className="flex flex-col gap-4 md:col-span-3">
             <Link href="/" aria-label="Naga Apparel Home" className="flex items-center gap-3">
-              <Image
-                src="/logo.png"
-                alt="Naga Apparel"
-                width={48}
-                height={48}
-                className="h-12 w-12 rounded-full object-cover"
-              />
+              <ProtectedLogo className="h-12 w-12" />
               <span className="text-body-medium tracking-tight">Naga Apparel</span>
             </Link>
             <p className="max-w-xs text-body text-light-400">
@@ -118,7 +114,7 @@ export default function Footer() {
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-4 text-light-400 sm:flex-row sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 text-caption">
             <Image src="/globe.svg" alt="" width={16} height={16} />
-            <span>United States</span>
+            <span>Germany</span>
             <span>© 2025 Naga Apparel. All Rights Reserved</span>
           </div>
           <ul className="flex flex-wrap items-center justify-center gap-4 text-caption sm:gap-6">
