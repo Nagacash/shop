@@ -2,12 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Instagram } from "lucide-react";
 import { getCachedCollections } from "@/lib/queries/collections";
-import {
-  getCollectionCoverUrl,
-  getHeroGlamourImageUrl,
-  getHeroImageUrl,
-  getPageHeroUrl,
-} from "@/lib/brand/assets";
+import { MARKETING_IMAGES } from "@/lib/brand/marketing-images";
 import PageHero from "@/components/PageHero";
 
 function SectionBackdrop({
@@ -39,10 +34,8 @@ function SectionBackdrop({
 
 export default async function HomeBrandSections() {
   const collections = await getCachedCollections();
-  const hustleImage = getCollectionCoverUrl("hustle-hard-drip");
-  const glamourImage = getHeroGlamourImageUrl();
-  const balanceImage = getHeroImageUrl();
-  const instagramImage = getPageHeroUrl("contact");
+  const balanceImage = MARKETING_IMAGES.hoodieFlatLay;
+  const instagramImage = MARKETING_IMAGES.berlinLifestyle;
 
   return (
     <>
@@ -73,9 +66,9 @@ export default async function HomeBrandSections() {
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             <SectionBackdrop
-              imageSrc={hustleImage}
+              imageSrc={MARKETING_IMAGES.hoodieFlatLay}
               className="rounded-2xl border border-light-100/10"
             >
               <div className="p-6 sm:p-8">
@@ -88,7 +81,7 @@ export default async function HomeBrandSections() {
               </div>
             </SectionBackdrop>
             <SectionBackdrop
-              imageSrc={glamourImage}
+              imageSrc={MARKETING_IMAGES.berlinLifestyle}
               className="rounded-2xl border border-[--color-naga-gold]/30"
             >
               <div className="p-6 sm:p-8">
@@ -99,6 +92,19 @@ export default async function HomeBrandSections() {
                 <p className="mt-3 text-body text-light-400">
                   Champagne gold light, bold feminine energy, trap-luxe attitude. Streetwear that
                   commands the room.
+                </p>
+              </div>
+            </SectionBackdrop>
+            <SectionBackdrop
+              imageSrc={MARKETING_IMAGES.logoDetail}
+              className="rounded-2xl border border-light-100/10 md:col-span-2 lg:col-span-1"
+            >
+              <div className="p-6 sm:p-8">
+                <p className="text-caption uppercase tracking-[0.2em] text-light-400">Craft</p>
+                <h3 className="mt-2 text-body-medium text-light-100">Built to last</h3>
+                <p className="mt-3 text-body text-light-400">
+                  Heavy cotton, sharp screen prints, and the cobra mark — quality you can see and
+                  feel before checkout.
                 </p>
               </div>
             </SectionBackdrop>

@@ -8,7 +8,12 @@ import { Minus, Plus, Trash2, ShoppingBag, Loader2 } from "lucide-react";
 import { createStripeCheckoutSession } from "@/lib/actions/checkout";
 import { updateCartItemQuantity, removeCartItem, type CartView } from "@/lib/actions/cart";
 
-import { formatPriceFromCents } from "@/lib/utils/currency";
+import {
+  calculateShippingEur,
+  formatPrice,
+  formatPriceFromCents,
+  FREE_SHIPPING_THRESHOLD,
+} from "@/lib/utils/currency";
 
 export default function CartSummary({ cart }: { cart: CartView }) {
   const router = useRouter();
@@ -56,6 +61,8 @@ export default function CartSummary({ cart }: { cart: CartView }) {
       setLoading(false);
     }
   };
+
+  const shippingEur = calculateShippingEur(totalCents / 100);
 
   if (!items.length) {
     return (
@@ -157,8 +164,17 @@ export default function CartSummary({ cart }: { cart: CartView }) {
           <span className="text-body text-dark-700">Subtotal</span>
           <span className="text-body-medium text-dark-900">{formatPriceFromCents(totalCents)}</span>
         </div>
-        <p className="mt-2 text-caption text-dark-700">
-          Shipping and taxes calculated at checkout.
+        <div className="mt-3 flex items-center justify-between">
+          <span className="text-body text-dark-700">Shipping</span>
+          <span className="text-body-medium text-dark-900">
+            {shippingEur === 0 ? "Free" : formatPrice(shippingEur)}
+          </span>
+        </div>
+        <p className="mt-3 text-caption text-dark-700">
+          {shippingEur === 0
+            ? "Free shipping applied on this order."
+            : `Free shipping on orders over ${formatPrice(FREE_SHIPPING_THRESHOLD)}.`}
+          {" "}Tax is calculated at checkout based on your shipping address.
         </p>
         {error && (
           <p className="mt-4 text-caption text-[--color-red]">{error}</p>

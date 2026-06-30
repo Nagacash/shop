@@ -9,6 +9,7 @@ type PageHeroProps = {
   subtitle?: string;
   eyebrow?: string;
   size?: "full" | "compact" | "slim";
+  imageFit?: "cover" | "contain";
   children?: React.ReactNode;
 };
 
@@ -19,6 +20,7 @@ export default function PageHero({
   subtitle,
   eyebrow,
   size = "full",
+  imageFit = "cover",
   children,
 }: PageHeroProps) {
   const resolved =
@@ -42,7 +44,11 @@ export default function PageHero({
           loading={size === "full" ? undefined : "lazy"}
           decoding="async"
           unoptimized
-          className="object-cover object-center opacity-75"
+          className={
+            imageFit === "contain"
+              ? "object-contain object-center p-8 opacity-90 sm:p-12"
+              : "object-cover object-center opacity-75"
+          }
           sizes="100vw"
         />
       )}

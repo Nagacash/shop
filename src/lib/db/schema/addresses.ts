@@ -7,8 +7,9 @@ export const addressTypeEnum = pgEnum('address_type', ['billing', 'shipping']);
 
 export const addresses = pgTable('addresses', {
   id: uuid('id').primaryKey().defaultRandom(),
-  userId: uuid('user_id').references(() => users.id, { onDelete: 'cascade' }).notNull(),
+  userId: uuid('user_id').references(() => users.id, { onDelete: 'cascade' }),
   type: addressTypeEnum('type').notNull(),
+  recipientName: text('recipient_name'),
   line1: text('line1').notNull(),
   line2: text('line2'),
   city: text('city').notNull(),
@@ -26,8 +27,9 @@ export const addressesRelations = relations(addresses, ({ one }) => ({
 }));
 
 export const insertAddressSchema = z.object({
-  userId: z.string().uuid(),
+  userId: z.string().uuid().optional().nullable(),
   type: z.enum(['billing', 'shipping']),
+  recipientName: z.string().optional().nullable(),
   line1: z.string().min(1),
   line2: z.string().optional().nullable(),
   city: z.string().min(1),

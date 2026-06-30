@@ -1,4 +1,4 @@
-import { pgEnum, pgTable, uuid, timestamp, numeric, integer } from 'drizzle-orm/pg-core';
+import { pgEnum, pgTable, uuid, timestamp, numeric, integer, text } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 import { z } from 'zod';
 import { users } from './user';
@@ -11,9 +11,14 @@ export const orders = pgTable('orders', {
   id: uuid('id').primaryKey().defaultRandom(),
   userId: uuid('user_id').references(() => users.id, { onDelete: 'set null' }),
   status: orderStatusEnum('status').notNull().default('pending'),
+  subtotalAmount: numeric('subtotal_amount', { precision: 10, scale: 2 }),
+  shippingAmount: numeric('shipping_amount', { precision: 10, scale: 2 }),
+  taxAmount: numeric('tax_amount', { precision: 10, scale: 2 }),
   totalAmount: numeric('total_amount', { precision: 10, scale: 2 }).notNull(),
+  customerEmail: text('customer_email'),
   shippingAddressId: uuid('shipping_address_id').references(() => addresses.id, { onDelete: 'set null' }),
   billingAddressId: uuid('billing_address_id').references(() => addresses.id, { onDelete: 'set null' }),
+  confirmationEmailSentAt: timestamp('confirmation_email_sent_at'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 

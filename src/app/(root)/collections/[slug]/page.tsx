@@ -63,6 +63,7 @@ export default async function CollectionDetailPage({
       />
       <PageHero
         imageSrc={coverUrl}
+        imageFit={slug === "black-gold-edition" ? "contain" : "cover"}
         eyebrow="Collection"
         title={collection.name}
         subtitle={`${products.length} product${products.length === 1 ? "" : "s"} in this line.`}

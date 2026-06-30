@@ -1,6 +1,14 @@
+import { Suspense } from "react";
 import AuthForm from "@/components/AuthForm";
-import {signIn} from "@/lib/auth/actions";
+
+function AuthFormFallback() {
+  return <div className="h-80 animate-pulse rounded-xl bg-light-200" aria-hidden="true" />;
+}
 
 export default function Page() {
-  return <AuthForm mode="sign-in" onSubmit={signIn} />;
+  return (
+    <Suspense fallback={<AuthFormFallback />}>
+      <AuthForm mode="sign-in" />
+    </Suspense>
+  );
 }

@@ -2,11 +2,11 @@ import ProtectedLogo from "@/components/ProtectedLogo";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { getHeroImageUrl, getHeroGlamourImageUrl } from "@/lib/brand/assets";
+import { MARKETING_ALT, MARKETING_IMAGES } from "@/lib/brand/marketing-images";
 
 export default function HeroSection() {
-  const heroImage = getHeroImageUrl();
-  const glamourImage = getHeroGlamourImageUrl() ?? heroImage;
+  const heroImage = MARKETING_IMAGES.hoodieFlatLay;
+  const portraitImage = MARKETING_IMAGES.berlinLifestyle;
 
   return (
     <section
@@ -90,11 +90,11 @@ export default function HeroSection() {
 
           <div className="hero-enter hero-enter-3 relative mx-auto w-full max-w-md lg:max-w-none">
             <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-[--color-naga-gold]/25 bg-dark-900/60 backdrop-blur-sm">
-              {glamourImage ? (
+              {portraitImage ? (
                 <>
                   <Image
-                    src={glamourImage}
-                    alt=""
+                    src={portraitImage}
+                    alt={MARKETING_ALT.berlinLifestyle}
                     fill
                     unoptimized
                     className="object-cover object-top opacity-95"

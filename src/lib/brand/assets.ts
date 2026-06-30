@@ -5,6 +5,7 @@ import {
   PAGE_HERO_COLLECTION_FALLBACK,
   type PageHeroKey,
 } from "./page-heroes";
+import { COLLECTION_COVER_OVERRIDES } from "./marketing-images";
 
 export type BrandManifest = {
   hero: string;
@@ -57,6 +58,10 @@ export function getHeroGlamourImageUrl(): string | null {
 }
 
 export function getCollectionCoverUrl(slug: string): string | null {
+  if (COLLECTION_COVER_OVERRIDES[slug]) {
+    return COLLECTION_COVER_OVERRIDES[slug];
+  }
+
   const manifest = readManifest();
   if (manifest?.collections?.[slug]) return manifest.collections[slug];
 

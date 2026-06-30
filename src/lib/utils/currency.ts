@@ -1,6 +1,12 @@
 export const CURRENCY_CODE = "EUR";
 export const STRIPE_CURRENCY = "eur";
 export const FREE_SHIPPING_THRESHOLD = 75;
+export const SHIPPING_FLAT_RATE_EUR = 4.99;
+
+/** Stripe Tax code: clothing & footwear */
+export const STRIPE_TAX_CODE_APPAREL = "txcd_30011000";
+/** Stripe Tax code: shipping */
+export const STRIPE_TAX_CODE_SHIPPING = "txcd_92010001";
 
 const priceFormatter = new Intl.NumberFormat("de-DE", {
   style: "currency",
@@ -36,6 +42,14 @@ export function formatPriceFilterLabel(min?: number, max?: number): string {
 
 export function fromMinorUnits(cents: number): number {
   return cents / 100;
+}
+
+export function calculateShippingEur(subtotalEur: number): number {
+  return subtotalEur >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FLAT_RATE_EUR;
+}
+
+export function calculateShippingCents(subtotalEur: number): number {
+  return toMinorUnits(calculateShippingEur(subtotalEur));
 }
 
 /** @deprecated Use toMinorUnits */

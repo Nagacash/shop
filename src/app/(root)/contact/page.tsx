@@ -7,6 +7,7 @@ import { buildPageMetadata } from "@/lib/seo/metadata";
 import { faqJsonLd } from "@/lib/seo/jsonld";
 import { NAGA_FAQS } from "@/lib/seo/faq";
 import { SITE_DOMAIN, SUPPORT_EMAIL } from "@/lib/seo/site";
+import { MARKETING_IMAGES } from "@/lib/brand/marketing-images";
 
 export const revalidate = 120;
 
@@ -15,7 +16,7 @@ export const metadata = buildPageMetadata({
   description:
     `Contact Naga Apparel in Germany — orders, shipping, collabs, and support. Email ${SUPPORT_EMAIL}. We reply within 24 hours.`,
   path: "/contact",
-  image: "/uploads/naga/brand/pages/contact.png",
+  image: MARKETING_IMAGES.berlinLifestyle,
 });
 
 const contactDetails = [
@@ -46,7 +47,7 @@ export default function ContactPage() {
     <>
       <JsonLd data={faqJsonLd([...NAGA_FAQS])} />
       <PageHero
-        page="contact"
+        imageSrc={MARKETING_IMAGES.berlinLifestyle}
         eyebrow="Stay connected"
         title="Contact Naga"
         subtitle="Naga Apparel is based in Germany. Reach us for orders, shipping, drops, and collabs — we reply within 24 hours on business days."
