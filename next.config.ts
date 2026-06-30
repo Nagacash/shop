@@ -15,12 +15,23 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  // External volumes (/Volumes/*) can break webpack pack renames → missing manifests.
+  webpack: (config, { dev }) => {
+    if (dev) {
+      config.cache = false;
+    }
+    return config;
+  },
   async headers() {
     return [
-      {
-        source: "/:path*",
-        headers: productionSecurityHeaders,
-      },
+      ...(isProduction
+        ? [
+            {
+              source: "/:path*",
+              headers: productionSecurityHeaders,
+            },
+          ]
+        : []),
       {
         source: "/uploads/:path*",
         headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],

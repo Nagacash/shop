@@ -26,6 +26,8 @@
     "db:update-white-tee-image": "tsx scripts/update-white-tee-image.ts",
     "generate:product-images": "tsx scripts/generate-product-images.ts",
     "generate:brand-images": "tsx scripts/generate-brand-images.ts",
+    "generate:hero-video": "tsx scripts/generate-hero-video.ts",
+    "encode:hero-video": "bash scripts/encode-hero-video.sh",
     "perf:measure": "bash .perf/measure-pages.sh .perf/pages.txt .perf/results-latest.csv",
     "perf:measure:footer": "bash .perf/measure-pages.sh .perf/footer-pages.txt .perf/results-footer.csv"
   },

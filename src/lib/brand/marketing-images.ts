@@ -13,6 +13,13 @@ export const MARKETING_IMAGES = {
   logoDetail: "/website-images/website-naga2.jpeg",
 } as const;
 
+/** Homepage hero looping background (Sora 2, image-to-video from hoodieFlatLay). */
+export const HERO_BACKGROUND_VIDEO = {
+  webm: "/website-images/hero-bg.webm",
+  mp4: "/website-images/hero-bg.mp4",
+  poster: MARKETING_IMAGES.hoodieFlatLay,
+} as const;
+
 export const MARKETING_ALT = {
   berlinLifestyle:
     "Model wearing a black Naga Original hoodie on a Berlin rooftop at sunset",

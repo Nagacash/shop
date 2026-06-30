@@ -1,11 +1,11 @@
 import ProtectedLogo from "@/components/ProtectedLogo";
+import HeroBackgroundMedia from "@/components/HeroBackgroundMedia";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { MARKETING_ALT, MARKETING_IMAGES } from "@/lib/brand/marketing-images";
 
 export default function HeroSection() {
-  const heroImage = MARKETING_IMAGES.hoodieFlatLay;
   const portraitImage = MARKETING_IMAGES.berlinLifestyle;
 
   return (
@@ -13,17 +13,7 @@ export default function HeroSection() {
       className="relative overflow-hidden bg-dark-900 text-light-100"
       aria-labelledby="hero-heading"
     >
-      {heroImage && (
-        <Image
-          src={heroImage}
-          alt=""
-          fill
-          priority
-          unoptimized
-          className="object-cover object-center"
-          sizes="100vw"
-        />
-      )}
+      <HeroBackgroundMedia />
 
       <div
         className="pointer-events-none absolute inset-0 bg-gradient-to-r from-dark-900/95 via-dark-900/80 to-dark-900/55"
