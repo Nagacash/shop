@@ -2,31 +2,22 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Instagram } from "lucide-react";
 import { getCachedCollections } from "@/lib/queries/collections";
-import { MARKETING_IMAGES } from "@/lib/brand/marketing-images";
+import { SECTION_CLIPS, type BrandClipId } from "@/lib/brand/marketing-images";
 import PageHero from "@/components/PageHero";
+import BrandVideoBackdrop from "@/components/BrandVideoBackdrop";
 
-function SectionBackdrop({
-  imageSrc,
+function SectionVideoShell({
+  clipId,
   children,
   className = "",
 }: {
-  imageSrc: string | null;
+  clipId: BrandClipId;
   children: React.ReactNode;
   className?: string;
 }) {
   return (
     <div className={`relative overflow-hidden ${className}`}>
-      {imageSrc && (
-        <Image
-          src={imageSrc}
-          alt=""
-          fill
-          unoptimized
-          className="object-cover object-center opacity-40"
-          sizes="100vw"
-        />
-      )}
-      <div className="absolute inset-0 bg-dark-900/80" aria-hidden="true" />
+      <BrandVideoBackdrop clipId={clipId} />
       <div className="relative z-10">{children}</div>
     </div>
   );
@@ -34,13 +25,11 @@ function SectionBackdrop({
 
 export default async function HomeBrandSections() {
   const collections = await getCachedCollections();
-  const balanceImage = MARKETING_IMAGES.hoodieFlatLay;
-  const instagramImage = MARKETING_IMAGES.berlinLifestyle;
 
   return (
     <>
-      <SectionBackdrop
-        imageSrc={balanceImage}
+      <SectionVideoShell
+        clipId={SECTION_CLIPS.balance}
         className="scroll-layer border-b border-light-300 text-light-100"
       >
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
@@ -67,54 +56,40 @@ export default async function HomeBrandSections() {
           </div>
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <SectionBackdrop
-              imageSrc={MARKETING_IMAGES.hoodieFlatLay}
-              className="rounded-2xl border border-light-100/10"
-            >
-              <div className="p-6 sm:p-8">
-                <p className="text-caption uppercase tracking-[0.2em] text-light-400">Hustle</p>
-                <h3 className="mt-2 text-body-medium text-light-100">Raw street power</h3>
-                <p className="mt-3 text-body text-light-400">
-                  Black concrete, gold neon, chain-link nights. Hoodies and heavy tees built for
-                  people who move with purpose.
-                </p>
-              </div>
-            </SectionBackdrop>
-            <SectionBackdrop
-              imageSrc={MARKETING_IMAGES.berlinLifestyle}
-              className="rounded-2xl border border-[--color-naga-gold]/30"
-            >
-              <div className="p-6 sm:p-8">
-                <p className="text-caption uppercase tracking-[0.2em] text-[--color-naga-gold]">
-                  Glamour
-                </p>
-                <h3 className="mt-2 text-body-medium text-light-100">Ultra-fine presence</h3>
-                <p className="mt-3 text-body text-light-400">
-                  Champagne gold light, bold feminine energy, trap-luxe attitude. Streetwear that
-                  commands the room.
-                </p>
-              </div>
-            </SectionBackdrop>
-            <SectionBackdrop
-              imageSrc={MARKETING_IMAGES.logoDetail}
-              className="rounded-2xl border border-light-100/10 md:col-span-2 lg:col-span-1"
-            >
-              <div className="p-6 sm:p-8">
-                <p className="text-caption uppercase tracking-[0.2em] text-light-400">Craft</p>
-                <h3 className="mt-2 text-body-medium text-light-100">Built to last</h3>
-                <p className="mt-3 text-body text-light-400">
-                  Heavy cotton, sharp screen prints, and the cobra mark — quality you can see and
-                  feel before checkout.
-                </p>
-              </div>
-            </SectionBackdrop>
+            <div className="rounded-2xl border border-light-100/10 bg-dark-900/45 p-6 backdrop-blur-sm sm:p-8">
+              <p className="text-caption uppercase tracking-[0.2em] text-light-400">Hustle</p>
+              <h3 className="mt-2 text-body-medium text-light-100">Raw street power</h3>
+              <p className="mt-3 text-body text-light-400">
+                Black concrete, gold neon, chain-link nights. Hoodies and heavy tees built for
+                people who move with purpose.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-[--color-naga-gold]/30 bg-dark-900/45 p-6 backdrop-blur-sm sm:p-8">
+              <p className="text-caption uppercase tracking-[0.2em] text-[--color-naga-gold]">
+                Glamour
+              </p>
+              <h3 className="mt-2 text-body-medium text-light-100">Ultra-fine presence</h3>
+              <p className="mt-3 text-body text-light-400">
+                Champagne gold light, bold energy, trap-luxe attitude. Streetwear that commands
+                the room.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-light-100/10 bg-dark-900/45 p-6 backdrop-blur-sm md:col-span-2 lg:col-span-1 sm:p-8">
+              <p className="text-caption uppercase tracking-[0.2em] text-light-400">Craft</p>
+              <h3 className="mt-2 text-body-medium text-light-100">Built to last</h3>
+              <p className="mt-3 text-body text-light-400">
+                Heavy cotton, sharp screen prints, and the cobra mark — quality you can see and
+                feel before checkout.
+              </p>
+            </div>
           </div>
         </div>
-      </SectionBackdrop>
+      </SectionVideoShell>
 
       {collections.filter((col) => col.productCount > 0).length > 0 && (
         <>
           <PageHero
+            clipId={SECTION_CLIPS.collections}
             page="collections"
             size="compact"
             eyebrow="Lines"
@@ -157,7 +132,10 @@ export default async function HomeBrandSections() {
         </>
       )}
 
-      <SectionBackdrop imageSrc={instagramImage} className="scroll-layer border-y border-light-300 text-light-100">
+      <SectionVideoShell
+        clipId={SECTION_CLIPS.instagram}
+        className="scroll-layer border-y border-light-300 text-light-100"
+      >
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-4 py-10 sm:flex-row sm:items-center sm:px-6 lg:px-8">
           <div>
             <p className="text-caption uppercase tracking-[0.2em] text-[--color-naga-gold]">
@@ -177,7 +155,7 @@ export default async function HomeBrandSections() {
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </a>
         </div>
-      </SectionBackdrop>
+      </SectionVideoShell>
 
       <section className="scroll-layer mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="rounded-2xl border border-light-300 bg-light-100 p-8 text-center sm:p-10">

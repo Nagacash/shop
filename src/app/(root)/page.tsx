@@ -13,7 +13,7 @@ export const metadata = buildPageMetadata({
   description:
     "Shop Naga Apparel — Naga Original tees, grey and light brown sweaters, and the Naga Black set. Germany-based urban streetwear with real product photography.",
   path: "/",
-  image: "/uploads/naga/brand/collections/naga-original.png",
+  image: "/website-images/naga-tee.jpeg",
 });
 
 function SectionSkeleton({ tall = false }: { tall?: boolean }) {

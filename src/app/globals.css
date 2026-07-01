@@ -186,23 +186,40 @@ body {
   }
 }
 
-/* Hero triptych — softened ambient clips, GPU-friendly */
-.hero-mosaic {
-  display: grid;
-}
-
-.hero-video-panel {
-  transform: scale(var(--hero-video-scale)) translateZ(0);
+/* Brand video backdrops — used across sections (not homepage hero) */
+.brand-video-clip {
+  transform: scale(1.04) translateZ(0);
   filter: blur(var(--hero-video-blur)) saturate(var(--hero-video-saturate))
     brightness(var(--hero-video-brightness));
 }
 
-.hero-video-panel--failed {
-  display: none;
+.brand-video-overlay {
+  position: absolute;
+  inset: 0;
 }
 
-.hero-panel-tint {
-  background: var(--hero-panel-tint);
+.brand-video-overlay--dark {
+  background: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--color-dark-900) 88%, transparent),
+    color-mix(in srgb, var(--color-dark-900) 72%, transparent),
+    color-mix(in srgb, var(--color-dark-900) 55%, transparent)
+  );
+}
+
+.brand-video-overlay--light {
+  background: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--color-light-100) 88%, transparent),
+    color-mix(in srgb, var(--color-light-100) 65%, transparent),
+    color-mix(in srgb, var(--color-light-100) 40%, transparent)
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-video-clip {
+    display: none;
+  }
 }
 
 .hero-gold-glow {

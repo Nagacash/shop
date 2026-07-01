@@ -1,10 +1,13 @@
 import Image from "next/image";
+import BrandVideoBackdrop from "@/components/BrandVideoBackdrop";
 import { getPageHeroUrl, getHeroImageUrl } from "@/lib/brand/assets";
 import type { PageHeroKey } from "@/lib/brand/page-heroes";
+import type { BrandClipId } from "@/lib/brand/marketing-images";
 
 type PageHeroProps = {
   page?: PageHeroKey;
   imageSrc?: string | null;
+  clipId?: BrandClipId;
   title: string;
   subtitle?: string;
   eyebrow?: string;
@@ -16,6 +19,7 @@ type PageHeroProps = {
 export default function PageHero({
   page,
   imageSrc,
+  clipId,
   title,
   subtitle,
   eyebrow,
@@ -35,31 +39,37 @@ export default function PageHero({
 
   return (
     <section className="scroll-layer relative overflow-hidden bg-dark-900 text-light-100">
-      {resolved && (
-        <Image
-          src={resolved}
-          alt=""
-          fill
-          priority={size === "full"}
-          loading={size === "full" ? undefined : "lazy"}
-          decoding="async"
-          unoptimized
-          className={
-            imageFit === "contain"
-              ? "object-contain object-center p-8 opacity-90 sm:p-12"
-              : "object-cover object-center opacity-75"
-          }
-          sizes="100vw"
-        />
+      {clipId ? (
+        <BrandVideoBackdrop clipId={clipId} poster={resolved ?? undefined} />
+      ) : (
+        resolved && (
+          <Image
+            src={resolved}
+            alt=""
+            fill
+            priority={size === "full"}
+            loading={size === "full" ? undefined : "lazy"}
+            decoding="async"
+            unoptimized
+            className={
+              imageFit === "contain"
+                ? "object-contain object-center p-8 opacity-90 sm:p-12"
+                : "object-cover object-center opacity-75"
+            }
+            sizes="100vw"
+          />
+        )
       )}
-      <div
-        className="absolute inset-0 bg-gradient-to-r from-dark-900/95 via-dark-900/88 to-dark-900/65"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute inset-0 bg-[radial-gradient(circle_at_75%_15%,rgba(201,162,39,0.22),transparent_50%)]"
-        aria-hidden="true"
-      />
+
+      {!clipId && (
+        <>
+          <div
+            className="absolute inset-0 bg-gradient-to-r from-dark-900/95 via-dark-900/88 to-dark-900/65"
+            aria-hidden="true"
+          />
+          <div className="hero-gold-glow pointer-events-none absolute inset-0" aria-hidden="true" />
+        </>
+      )}
 
       <div className={"relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 " + padding}>
         {eyebrow && (

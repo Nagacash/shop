@@ -1,6 +1,7 @@
 import { getCurrentCart } from "@/lib/actions/cart";
 import CartSummary from "@/components/CartSummary";
 import PageHero from "@/components/PageHero";
+import { SECTION_CLIPS } from "@/lib/brand/marketing-images";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata = buildPageMetadata({
@@ -17,6 +18,7 @@ export default async function CartPage() {
   return (
     <>
       <PageHero
+        clipId={SECTION_CLIPS.cart}
         page="cart"
         size="compact"
         eyebrow="Your bag"

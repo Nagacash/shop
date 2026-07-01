@@ -7,7 +7,7 @@ import { buildPageMetadata } from "@/lib/seo/metadata";
 import { faqJsonLd } from "@/lib/seo/jsonld";
 import { NAGA_FAQS } from "@/lib/seo/faq";
 import { SITE_DOMAIN, SUPPORT_EMAIL } from "@/lib/seo/site";
-import { MARKETING_IMAGES } from "@/lib/brand/marketing-images";
+import { MARKETING_IMAGES, SECTION_CLIPS } from "@/lib/brand/marketing-images";
 
 export const revalidate = 120;
 
@@ -47,6 +47,7 @@ export default function ContactPage() {
     <>
       <JsonLd data={faqJsonLd([...NAGA_FAQS])} />
       <PageHero
+        clipId={SECTION_CLIPS.contact}
         imageSrc={MARKETING_IMAGES.berlinLifestyle}
         eyebrow="Stay connected"
         title="Contact Naga"

@@ -1,5 +1,6 @@
 import PageHero from "@/components/PageHero";
 import ProductsShop from "@/components/ProductsShop";
+import { SECTION_CLIPS } from "@/lib/brand/marketing-images";
 import { parseFilterParams } from "@/lib/utils/query";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import type { Metadata } from "next";
@@ -80,6 +81,7 @@ export default async function ProductsPage({
   return (
     <>
       <PageHero
+        clipId={SECTION_CLIPS.shop}
         page="shop"
         size="compact"
         eyebrow="Naga drop"

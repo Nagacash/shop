@@ -1,7 +1,9 @@
 import Link from "next/link";
-import { ArrowRight, Shirt, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, Shirt } from "lucide-react";
 import { getCachedFeaturedProduct } from "@/lib/queries/products";
 import FlatLayFrame from "@/components/FlatLayFrame";
+import BrandVideoBackdrop from "@/components/BrandVideoBackdrop";
+import { SECTION_CLIPS } from "@/lib/brand/marketing-images";
 import { formatPrice } from "@/lib/utils/currency";
 
 const HIGHLIGHTS = [
@@ -18,14 +20,7 @@ export default async function FeaturedDropSection() {
 
   return (
     <section className="scroll-layer relative overflow-hidden bg-dark-900 text-light-100">
-      <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(255,255,255,0.06),transparent_45%)]"
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_85%_70%,rgba(201,162,39,0.12),transparent_40%)]"
-        aria-hidden="true"
-      />
+      <BrandVideoBackdrop clipId={SECTION_CLIPS.featuredDrop} />
 
       <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
         <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">

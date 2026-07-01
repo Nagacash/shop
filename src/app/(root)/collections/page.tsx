@@ -3,6 +3,7 @@ import { Card } from "@/components";
 import PageHero from "@/components/PageHero";
 import { getCachedCollections } from "@/lib/queries/collections";
 import { getCollectionCoverUrl } from "@/lib/brand/assets";
+import { SECTION_CLIPS } from "@/lib/brand/marketing-images";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 120;
@@ -23,6 +24,7 @@ export default async function CollectionsPage() {
   return (
     <>
       <PageHero
+        clipId={SECTION_CLIPS.collections}
         page="collections"
         imageSrc={heroImage}
         eyebrow="Curated lines"
