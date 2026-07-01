@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { HeroSection, HomeBrandSections } from "@/components";
 import FeaturedDropSection from "@/components/FeaturedDropSection";
+import SectionColorBridge from "@/components/SectionColorBridge";
 import JsonLd from "@/components/JsonLd";
 import { faqJsonLd } from "@/lib/seo/jsonld";
 import { NAGA_FAQS } from "@/lib/seo/faq";
@@ -30,6 +31,7 @@ export default async function Home() {
     <>
       <JsonLd data={faqJsonLd([...NAGA_FAQS])} />
       <HeroSection />
+      <SectionColorBridge />
       <Suspense fallback={<SectionSkeleton tall />}>
         <FeaturedDropSection />
       </Suspense>

@@ -57,9 +57,9 @@ export default function ContactPage() {
           href="https://www.instagram.com/naga_apparel"
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-full border border-[--color-naga-gold]/50 bg-[--color-naga-gold]/10 px-5 py-2.5 text-body-medium text-[--color-naga-gold] transition hover:bg-[--color-naga-gold]/20"
+          className="naga-btn naga-btn-outline-light mt-6 focus-ring focus-visible:outline-none"
         >
-          <Instagram className="h-4 w-4" aria-hidden="true" />
+          <Instagram className="h-3.5 w-3.5" strokeWidth={1.5} aria-hidden="true" />
           @naga_apparel
         </a>
       </PageHero>
@@ -75,13 +75,14 @@ export default function ContactPage() {
             {contactDetails.map((item) => (
               <div
                 key={item.title}
-                className="rounded-xl border border-light-300 bg-light-100 p-5 transition hover:border-[--color-naga-gold]/40"
+                className="naga-bezel-light transition-transform duration-[var(--duration-normal)] ease-[var(--ease-premium)] hover:scale-[1.01]"
               >
+                <div className="naga-bezel-light-inner p-5">
                 <div className="flex items-center gap-3">
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-dark-900">
-                    <item.icon className="h-5 w-5 text-[--color-naga-gold]" aria-hidden="true" />
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-dark-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]">
+                    <item.icon className="h-4 w-4 text-[--color-naga-gold]" strokeWidth={1.5} aria-hidden="true" />
                   </span>
-                  <h2 className="text-body-medium text-dark-900">{item.title}</h2>
+                  <h2 className="naga-display text-body-medium text-dark-900">{item.title}</h2>
                 </div>
                 <ul className="mt-4 space-y-1 text-body text-dark-700">
                   {item.lines.map((line) => (
@@ -96,23 +97,26 @@ export default function ContactPage() {
                     </li>
                   ))}
                 </ul>
+                </div>
               </div>
             ))}
           </div>
 
-          <div className="rounded-xl border border-light-300 bg-light-100 p-6 lg:p-8">
-            <h2 className="text-body-medium text-dark-900">Send a message</h2>
+          <div className="naga-bezel-light">
+            <div className="naga-bezel-light-inner p-6 lg:p-8">
+            <h2 className="naga-display text-body-medium text-dark-900">Send a message</h2>
             <p className="mt-1 text-caption text-dark-700">
               Fill out the form and we&apos;ll get back to you shortly.
             </p>
             <div className="mt-6">
               <ContactForm />
             </div>
+            </div>
           </div>
         </section>
 
-        <section className="mt-16 border-t border-light-300 pt-12" aria-labelledby="faq-heading">
-          <h2 id="faq-heading" className="text-heading-3 text-dark-900">
+        <section className="mt-20 border-t border-dark-900/8 pt-14" aria-labelledby="faq-heading">
+          <h2 id="faq-heading" className="naga-display text-heading-3 font-bold tracking-tighter text-dark-900">
             Frequently asked questions
           </h2>
           <p className="mt-2 max-w-2xl text-body text-dark-700">
@@ -122,12 +126,12 @@ export default function ContactPage() {
             {NAGA_FAQS.map((faq) => (
               <details
                 key={faq.question}
-                className="rounded-xl border border-light-300 bg-light-100 px-5 py-4"
+                className="naga-bezel-light group"
               >
-                <summary className="cursor-pointer text-body-medium text-dark-900">
+                <summary className="naga-bezel-light-inner cursor-pointer list-none px-5 py-4 text-body-medium text-dark-900 transition-colors duration-[var(--duration-normal)] ease-[var(--ease-premium)] marker:content-none group-open:text-[--color-naga-gold]">
                   {faq.question}
                 </summary>
-                <p className="mt-3 text-body text-dark-700">{faq.answer}</p>
+                <p className="px-5 pb-4 text-body text-dark-700">{faq.answer}</p>
               </details>
             ))}
           </div>

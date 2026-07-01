@@ -25,7 +25,7 @@ export default async function CheckoutSuccessPage({
         <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
           <Link
             href="/cart"
-            className="inline-block rounded-full bg-dark-900 px-6 py-3 text-body-medium text-light-100"
+            className="naga-btn naga-btn-dark inline-block"
           >
             Return to Bag
           </Link>
@@ -57,7 +57,7 @@ export default async function CheckoutSuccessPage({
         <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
           <Link
             href="/"
-            className="inline-block rounded-full bg-dark-900 px-6 py-3 text-body-medium text-light-100"
+            className="naga-btn naga-btn-dark inline-block"
           >
             Back to Home
           </Link>

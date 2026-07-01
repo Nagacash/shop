@@ -35,20 +35,20 @@ export default function AddToBagButton({ variantId, productName, soldOut = false
       type="button"
       onClick={handleClick}
       disabled={loading || soldOut}
-      className="flex min-h-11 items-center justify-center gap-2 rounded-full bg-dark-900 px-6 py-4 text-body-medium text-light-100 transition hover:opacity-90 focus-ring focus-visible:outline-none active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
+      className="naga-btn naga-btn-gold w-full focus-ring focus-visible:outline-none sm:w-auto"
       aria-label={soldOut ? `${productName} is sold out` : `Add ${productName} to bag`}
     >
       {soldOut ? (
         <>Sold Out</>
       ) : loading ? (
         <>
-          <Loader2 className="h-5 w-5 animate-spin" />
+          <Loader2 className="h-4 w-4 animate-spin" strokeWidth={1.5} />
           Adding…
         </>
       ) : (
         <>
-          <ShoppingBag className="h-5 w-5" />
           Add to Bag
+          <ShoppingBag className="h-3.5 w-3.5" strokeWidth={1.5} aria-hidden="true" />
         </>
       )}
     </button>

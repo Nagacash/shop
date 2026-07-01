@@ -73,15 +73,17 @@ export default function PageHero({
 
       <div className={"relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 " + padding}>
         {eyebrow && (
-          <p className="text-caption uppercase tracking-[0.22em] text-[--color-naga-gold]">
+          <p className="naga-eyebrow">
+            <span className="naga-eyebrow-dot" aria-hidden="true" />
             {eyebrow}
           </p>
         )}
         <h1
           className={
-            size === "slim"
-              ? "mt-1 text-heading-3 text-balance"
-              : "mt-2 text-heading-3 sm:text-heading-2 text-balance"
+            (size === "slim"
+              ? "mt-2 naga-display text-heading-3 text-balance"
+              : "mt-3 naga-display text-heading-3 sm:text-heading-2 text-balance") +
+            " font-bold tracking-tighter"
           }
         >
           {title}

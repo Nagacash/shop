@@ -30,12 +30,9 @@ function isNavActive(href: string, pathname: string, searchParams: URLSearchPara
 }
 
 function navLinkClass(active: boolean) {
-  return [
-    "focus-ring rounded-sm text-body transition-colors focus-visible:outline-none",
-    active
-      ? "font-medium text-dark-900 underline decoration-[--color-naga-gold] decoration-2 underline-offset-[6px]"
-      : "text-dark-900 hover:text-dark-700",
-  ].join(" ");
+  return ["focus-ring focus-visible:outline-none", active ? "naga-nav-link naga-nav-link--active" : "naga-nav-link"].join(
+    " ",
+  );
 }
 
 export default function Navbar() {
@@ -64,6 +61,13 @@ export default function Navbar() {
     });
   }, [pathname]);
 
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   const handleSearch = (e: FormEvent) => {
     e.preventDefault();
     const trimmed = query.trim();
@@ -74,15 +78,12 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-light-300/80 bg-light-100/95 backdrop-blur-sm supports-[backdrop-filter]:bg-light-100/90">
-      <nav
-        className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
-        aria-label="Primary"
-      >
+    <header className="naga-nav-shell">
+      <nav className="naga-nav-island" aria-label="Primary">
         <Link
           href="/"
           aria-label="Naga Apparel Home"
-          className="focus-ring flex items-center gap-3 rounded-sm focus-visible:outline-none"
+          className="focus-ring flex items-center gap-2.5 rounded-full focus-visible:outline-none sm:gap-3"
         >
           <Image
             src="/logo.png"
@@ -90,14 +91,14 @@ export default function Navbar() {
             width={40}
             height={40}
             priority
-            className="h-9 w-9 rounded-full object-cover sm:h-10 sm:w-10"
+            className="h-9 w-9 rounded-full object-cover ring-1 ring-dark-900/10 sm:h-10 sm:w-10"
           />
-          <span className="hidden text-body-medium tracking-tight text-dark-900 sm:inline">
+          <span className="naga-display hidden text-body-medium tracking-tight text-dark-900 sm:inline">
             Naga Apparel
           </span>
         </Link>
 
-        <ul className="hidden items-center gap-8 md:flex">
+        <ul className="hidden items-center gap-1 lg:flex">
           {NAV_LINKS.map((l) => {
             const active = isNavActive(l.href, pathname, searchParams);
             return (
@@ -110,10 +111,10 @@ export default function Navbar() {
           })}
         </ul>
 
-        <div className="hidden items-center gap-6 md:flex">
+        <div className="hidden items-center gap-2 lg:flex">
           <button
             type="button"
-            className="focus-ring rounded-sm text-body text-dark-900 transition-colors hover:text-dark-700 focus-visible:outline-none"
+            className="naga-nav-link focus-ring focus-visible:outline-none"
             onClick={() => setSearchOpen((v) => !v)}
             aria-expanded={searchOpen}
             aria-controls="nav-search"
@@ -122,32 +123,38 @@ export default function Navbar() {
           </button>
           <Link
             href="/cart"
-            className="focus-ring flex items-center gap-2 rounded-sm text-body text-dark-900 transition-colors hover:text-dark-700 focus-visible:outline-none"
+            className="naga-nav-link focus-ring inline-flex items-center gap-1.5 focus-visible:outline-none"
           >
-            <ShoppingBag className="h-4 w-4" />
-            My Cart ({cartCount})
+            <ShoppingBag className="h-3.5 w-3.5" strokeWidth={1.5} aria-hidden="true" />
+            <span className="tabular-nums">Bag ({cartCount})</span>
           </Link>
         </div>
 
         <button
           type="button"
-          className="focus-ring inline-flex min-h-11 min-w-11 flex-col items-center justify-center rounded-md p-2 focus-visible:outline-none md:hidden"
+          className="focus-ring inline-flex min-h-11 min-w-11 flex-col items-center justify-center rounded-full focus-visible:outline-none lg:hidden"
           aria-controls="mobile-menu"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
         >
           <span className="sr-only">Toggle navigation</span>
-          <span className="mb-1 block h-0.5 w-6 bg-dark-900"></span>
-          <span className="mb-1 block h-0.5 w-6 bg-dark-900"></span>
-          <span className="block h-0.5 w-6 bg-dark-900"></span>
+          <span
+            className={`block h-0.5 w-5 origin-center bg-dark-900 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${open ? "translate-y-[5px] rotate-45" : ""}`}
+          />
+          <span
+            className={`my-1.5 block h-0.5 w-5 bg-dark-900 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${open ? "scale-x-0 opacity-0" : ""}`}
+          />
+          <span
+            className={`block h-0.5 w-5 origin-center bg-dark-900 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${open ? "-translate-y-[5px] -rotate-45" : ""}`}
+          />
         </button>
       </nav>
 
       {searchOpen && (
-        <div id="nav-search" className="border-t border-light-300 px-4 py-3 sm:px-6 lg:px-8">
+        <div id="nav-search" className="mx-auto mt-3 max-w-3xl px-4">
           <form
             onSubmit={handleSearch}
-            className="mx-auto flex max-w-7xl items-center gap-3"
+            className="naga-bezel-light flex items-center gap-3 p-2"
           >
             <input
               ref={inputRef}
@@ -155,18 +162,15 @@ export default function Navbar() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search products..."
-              className="flex-1 rounded-xl border border-light-300 bg-light-100 px-4 py-2.5 text-body text-dark-900 placeholder:text-dark-700 focus-ring focus-visible:outline-none"
+              className="naga-input flex-1 border-0 bg-transparent shadow-none focus-visible:shadow-none"
               aria-label="Search products"
             />
-            <button
-              type="submit"
-              className="focus-ring rounded-full bg-dark-900 px-5 py-2.5 text-body-medium text-light-100 transition hover:bg-dark-700 focus-visible:outline-none active:scale-[0.98]"
-            >
+            <button type="submit" className="naga-btn naga-btn-dark shrink-0">
               Search
             </button>
             <button
               type="button"
-              className="text-body text-dark-700 hover:text-dark-900"
+              className="shrink-0 px-2 text-body text-dark-700 transition-colors duration-[var(--duration-normal)] ease-[var(--ease-premium)] hover:text-dark-900"
               onClick={() => setSearchOpen(false)}
             >
               Cancel
@@ -175,56 +179,63 @@ export default function Navbar() {
         </div>
       )}
 
-      <div
-        id="mobile-menu"
-        className={`border-t border-light-300 md:hidden ${open ? "block" : "hidden"}`}
-      >
-        <ul className="space-y-1 px-4 py-3">
-          {NAV_LINKS.map((l) => {
-            const active = isNavActive(l.href, pathname, searchParams);
-            return (
-              <li key={l.href}>
+      {open && (
+        <>
+          <div
+            className="naga-mobile-overlay lg:hidden"
+            aria-hidden="true"
+            onClick={() => setOpen(false)}
+          />
+          <div id="mobile-menu" className="naga-mobile-panel lg:hidden">
+            <ul className="space-y-1">
+              {NAV_LINKS.map((l, i) => {
+                const active = isNavActive(l.href, pathname, searchParams);
+                return (
+                  <li
+                    key={l.href}
+                    style={{ animationDelay: `${80 + i * 40}ms` }}
+                    className="animate-[naga-panel-in_500ms_var(--ease-premium)_both]"
+                  >
+                    <Link
+                      href={l.href}
+                      className={`block min-h-11 rounded-xl px-3 py-2.5 ${navLinkClass(active)}`}
+                      aria-current={active ? "page" : undefined}
+                      onClick={() => setOpen(false)}
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                );
+              })}
+              <li className="border-t border-dark-900/8 pt-3">
+                <form onSubmit={handleSearch} className="flex gap-2">
+                  <input
+                    type="search"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Search..."
+                    className="naga-input flex-1 py-2.5"
+                    aria-label="Search products"
+                  />
+                  <button type="submit" className="naga-btn naga-btn-dark shrink-0">
+                    Go
+                  </button>
+                </form>
+              </li>
+              <li className="pt-2">
                 <Link
-                  href={l.href}
-                  className={`block min-h-11 py-2.5 ${navLinkClass(active)}`}
-                  aria-current={active ? "page" : undefined}
+                  href="/cart"
+                  className="naga-btn naga-btn-gold w-full"
                   onClick={() => setOpen(false)}
                 >
-                  {l.label}
+                  <ShoppingBag className="h-3.5 w-3.5" strokeWidth={1.5} aria-hidden="true" />
+                  My Bag ({cartCount})
                 </Link>
               </li>
-            );
-          })}
-          <li className="pt-2">
-            <form onSubmit={handleSearch} className="flex gap-2">
-              <input
-                type="search"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search products..."
-                className="flex-1 rounded-xl border border-light-300 bg-light-100 px-3 py-2 text-body text-dark-900 placeholder:text-dark-500 focus:outline-none focus:ring-2 focus:ring-dark-900/10"
-                aria-label="Search products"
-              />
-              <button
-                type="submit"
-                className="rounded-full bg-dark-900 px-4 py-2 text-body-medium text-light-100"
-              >
-                Go
-              </button>
-            </form>
-          </li>
-          <li className="pt-2">
-            <Link
-              href="/cart"
-              className="flex items-center gap-2 py-2 text-body text-dark-900"
-              onClick={() => setOpen(false)}
-            >
-              <ShoppingBag className="h-4 w-4" />
-              My Cart ({cartCount})
-            </Link>
-          </li>
-        </ul>
-      </div>
+            </ul>
+          </div>
+        </>
+      )}
     </header>
   );
 }

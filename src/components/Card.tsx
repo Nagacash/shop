@@ -47,28 +47,27 @@ export default function Card({
       alt={imageAlt}
       variant="card"
       sizes="(min-width: 1280px) 360px, (min-width: 1024px) 300px, (min-width: 640px) 45vw, 90vw"
-      className="rounded-t-xl"
     >
       {badge && (
         <span
-          className={`absolute left-3 top-3 z-20 rounded-full border px-2.5 py-1 text-caption ${toneToClass[badge.tone ?? "green"]}`}
+          className={`absolute left-3 top-3 z-20 border px-2.5 py-1 text-[0.6875rem] uppercase tracking-[0.1em] ${toneToClass[badge.tone ?? "green"]}`}
         >
           {badge.label}
         </span>
       )}
     </FlatLayFrame>
   ) : (
-    <div className="relative aspect-square overflow-hidden rounded-t-xl bg-light-200">
+    <div className="relative aspect-square overflow-hidden bg-light-200">
       <ProductImage
         src={imageSrc}
         alt={imageAlt}
         fill
         sizes="(min-width: 1280px) 360px, (min-width: 1024px) 300px, (min-width: 640px) 45vw, 90vw"
-        className="object-cover transition-transform duration-300 group-hover:scale-105"
+        className="object-cover transition-transform duration-500 ease-[var(--ease-premium)] group-hover:scale-[1.04]"
       />
       {badge && (
         <span
-          className={`absolute left-3 top-3 rounded-full border border-light-300 bg-light-100/95 px-2.5 py-1 text-caption ${toneToClass[badge.tone ?? "green"]}`}
+          className={`absolute left-3 top-3 border border-light-300 bg-light-100/95 px-2.5 py-1 text-[0.6875rem] uppercase tracking-[0.1em] ${toneToClass[badge.tone ?? "green"]}`}
         >
           {badge.label}
         </span>
@@ -77,24 +76,24 @@ export default function Card({
   );
 
   const content = (
-    <article
-      className={`product-card group overflow-hidden rounded-xl bg-light-100 ring-1 ring-light-300 transition-[box-shadow,ring-color] duration-[var(--duration-normal)] hover:ring-dark-500 hover:shadow-[var(--shadow-card-hover)] ${flatLay ? "" : ""} ${className}`}
-    >
-      {imageBlock}
-      <div className="p-4">
-        <div className="mb-1 flex items-baseline justify-between gap-3">
-          <h3 className="text-heading-3 text-dark-900">{title}</h3>
-          {displayPrice && (
-            <span className="price-tabular shrink-0 text-body-medium text-dark-900">{displayPrice}</span>
+    <article className={`product-card group naga-bezel-light transition-transform duration-[var(--duration-normal)] ease-[var(--ease-premium)] ${className}`}>
+      <div className="naga-bezel-light-inner">
+        {imageBlock}
+        <div className="p-5">
+          <div className="mb-1 flex items-baseline justify-between gap-3">
+            <h3 className="naga-display text-heading-3 text-dark-900">{title}</h3>
+            {displayPrice && (
+              <span className="price-tabular shrink-0 text-body-medium text-dark-900">{displayPrice}</span>
+            )}
+          </div>
+          {description && <p className="text-body text-dark-700">{description}</p>}
+          {subtitle && <p className="text-body text-dark-700">{subtitle}</p>}
+          {meta && (
+            <p className="mt-1 text-caption uppercase tracking-[0.12em] text-dark-500">
+              {Array.isArray(meta) ? meta.join(" · ") : meta}
+            </p>
           )}
         </div>
-        {description && <p className="text-body text-dark-700">{description}</p>}
-        {subtitle && <p className="text-body text-dark-700">{subtitle}</p>}
-        {meta && (
-          <p className="mt-1 text-caption text-dark-700">
-            {Array.isArray(meta) ? meta.join(" • ") : meta}
-          </p>
-        )}
       </div>
     </article>
   );
@@ -103,7 +102,7 @@ export default function Card({
     <Link
       href={href}
       aria-label={title}
-      className="product-card block cursor-pointer rounded-xl transition-transform duration-[var(--duration-fast)] focus-visible:outline-none focus-ring active:scale-[0.995]"
+      className="product-card block cursor-pointer rounded-[4px] transition-opacity duration-[var(--duration-normal)] ease-[var(--ease-premium)] focus-visible:outline-none focus-ring active:opacity-90"
     >
       {content}
     </Link>

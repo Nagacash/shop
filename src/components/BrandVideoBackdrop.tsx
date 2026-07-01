@@ -18,7 +18,8 @@ export type BrandVideoTone = "light" | "dark";
 type BrandVideoBackdropProps = {
   clipId: BrandClipId;
   tone?: BrandVideoTone;
-  /** Poster image override */
+  /** Gradually reveal video from the top (for sections below a light hero) */
+  revealTop?: boolean;
   poster?: string;
   className?: string;
 };
@@ -26,6 +27,7 @@ type BrandVideoBackdropProps = {
 export default function BrandVideoBackdrop({
   clipId,
   tone = "dark",
+  revealTop = false,
   poster,
   className = "",
 }: BrandVideoBackdropProps) {
@@ -48,25 +50,37 @@ export default function BrandVideoBackdrop({
     return () => connection?.removeEventListener?.("change", syncLiteMode);
   }, []);
 
+  const wrapperClass = [
+    "pointer-events-none absolute inset-0 bg-dark-900",
+    revealTop ? "brand-video-backdrop--reveal-top" : "",
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   const overlayClass =
     tone === "light"
       ? "brand-video-overlay brand-video-overlay--light"
-      : "brand-video-overlay brand-video-overlay--dark";
+      : revealTop
+        ? "brand-video-overlay brand-video-overlay--reveal-top"
+        : "brand-video-overlay brand-video-overlay--dark";
+
+  const mediaClass = revealTop ? "brand-video-media brand-video-media--reveal-top" : "brand-video-media";
 
   return (
-    <div className={`pointer-events-none absolute inset-0 ${className}`} aria-hidden="true">
+    <div className={wrapperClass} aria-hidden="true">
       <Image
         src={resolvedPoster}
         alt=""
         fill
         unoptimized
-        className="object-cover object-center"
+        className={`${mediaClass} object-cover object-center`}
         sizes="100vw"
       />
 
       {!litePlayback && !failed && (
         <video
-          className="brand-video-clip absolute inset-0 h-full w-full object-cover"
+          className={`${mediaClass} absolute inset-0 h-full w-full object-cover`}
           style={{ objectPosition: clip.objectPosition ?? "center" }}
           autoPlay
           muted

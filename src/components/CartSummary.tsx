@@ -72,7 +72,7 @@ export default function CartSummary({ cart }: { cart: CartView }) {
         <p className="mt-2 text-body text-dark-700">Add items before checking out.</p>
         <Link
           href="/products"
-          className="mt-6 inline-block rounded-full bg-dark-900 px-6 py-3 text-body-medium text-light-100 hover:bg-dark-700"
+          className="naga-btn naga-btn-dark mt-6 inline-flex focus-ring focus-visible:outline-none"
         >
           Browse Products
         </Link>
@@ -183,7 +183,7 @@ export default function CartSummary({ cart }: { cart: CartView }) {
           type="button"
           onClick={handleCheckout}
           disabled={loading || !items.length}
-          className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-dark-900 px-6 py-4 text-body-medium text-light-100 transition hover:bg-dark-700 disabled:cursor-not-allowed disabled:opacity-60"
+          className="naga-btn naga-btn-gold mt-6 w-full focus-ring focus-visible:outline-none"
         >
           {loading ? (
             <>

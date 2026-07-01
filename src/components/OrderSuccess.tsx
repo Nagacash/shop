@@ -92,13 +92,13 @@ export default function OrderSuccess({ order }: { order: OrderView }) {
       <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
         <Link
           href="/products"
-          className="rounded-full bg-dark-900 px-6 py-3 text-center text-body-medium text-light-100 hover:bg-dark-700"
+          className="naga-btn naga-btn-dark text-center"
         >
           Continue Shopping
         </Link>
         <Link
           href="/"
-          className="rounded-full border border-light-300 px-6 py-3 text-center text-body-medium text-dark-900 hover:border-dark-500"
+          className="naga-btn naga-btn-ghost text-center"
         >
           Back to Home
         </Link>

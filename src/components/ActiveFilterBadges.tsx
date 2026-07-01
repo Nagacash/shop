@@ -16,7 +16,7 @@ export default function ActiveFilterBadges({ badges }: Props) {
           key={badge.id}
           href={badge.href}
           scroll={false}
-          className="focus-ring inline-flex min-h-9 items-center gap-1.5 rounded-full border border-light-300 bg-light-100 px-3 py-1 text-caption text-dark-900 transition-colors hover:border-[--color-naga-gold] hover:text-dark-900 focus-visible:outline-none"
+          className="focus-ring inline-flex min-h-9 items-center gap-1.5 border border-light-300 bg-light-100 px-3 py-1 text-[0.6875rem] uppercase tracking-[0.08em] text-dark-900 transition-[border-color,color] duration-[var(--duration-normal)] ease-[var(--ease-premium)] hover:border-[--color-naga-gold] focus-visible:outline-none"
           aria-label={`Remove filter: ${badge.label}`}
         >
           {badge.label}

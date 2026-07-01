@@ -170,7 +170,7 @@ export default function AuthForm({ mode }: Props) {
         <button
           type="submit"
           disabled={loading}
-          className="focus-ring mt-2 min-h-11 w-full rounded-full bg-dark-900 px-6 py-3 text-body-medium text-light-100 hover:bg-dark-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-60"
+          className="naga-btn naga-btn-gold focus-ring mt-2 w-full focus-visible:outline-none"
         >
           {loading ? "Please wait…" : mode === "sign-in" ? "Sign In" : "Sign Up"}
         </button>

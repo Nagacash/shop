@@ -59,7 +59,7 @@ function NotFoundBlock() {
       <div className="mt-6">
         <Link
           href="/products"
-          className="inline-block rounded-full bg-dark-900 px-6 py-3 text-body-medium text-light-100 transition hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-[--color-dark-500]"
+          className="naga-btn naga-btn-dark focus-ring focus-visible:outline-none"
         >
           Browse Products
         </Link>
@@ -323,7 +323,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                 soldOut={soldOut}
               />
             )}
-            <button className="flex items-center justify-center gap-2 rounded-full border border-light-300 px-6 py-4 text-body-medium text-dark-900 transition hover:border-dark-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-[--color-dark-500]">
+            <button className="naga-btn naga-btn-ghost w-full focus-ring focus-visible:outline-none">
               <Heart className="h-5 w-5" />
               Favorite
             </button>

@@ -82,14 +82,14 @@ async function ProductGrid({ sp }: { sp: SearchParams }) {
                   <Link
                     href={clearFiltersUrl}
                     scroll={false}
-                    className="focus-ring inline-flex min-h-11 items-center rounded-full border border-dark-900 px-5 py-2.5 text-body-medium text-dark-900 transition hover:bg-light-200 focus-visible:outline-none"
+                    className="naga-btn naga-btn-ghost focus-ring focus-visible:outline-none"
                   >
                     Clear filters
                   </Link>
                 )}
                 <Link
                   href={PRODUCTS_PATH}
-                  className="focus-ring inline-flex min-h-11 items-center rounded-full bg-dark-900 px-5 py-2.5 text-body-medium text-light-100 transition hover:bg-dark-700 focus-visible:outline-none active:scale-[0.98]"
+                  className="naga-btn naga-btn-dark focus-ring focus-visible:outline-none"
                 >
                   Shop all
                 </Link>

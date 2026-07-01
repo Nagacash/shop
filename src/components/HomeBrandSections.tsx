@@ -30,24 +30,25 @@ export default async function HomeBrandSections() {
     <>
       <SectionVideoShell
         clipId={SECTION_CLIPS.balance}
-        className="scroll-layer border-b border-light-300 text-light-100"
+        className="scroll-layer border-b border-dark-900/8 text-light-100"
       >
-        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
-          <div className="mb-10 max-w-2xl">
-            <p className="text-caption uppercase tracking-[0.22em] text-[--color-naga-gold]">
+        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+          <div className="mb-12 max-w-2xl">
+            <p className="naga-eyebrow border-light-100/15 bg-light-100/5">
+              <span className="naga-eyebrow-dot" aria-hidden="true" />
               The Naga balance
             </p>
-            <h2 className="mt-2 text-heading-3 text-balance">
+            <h2 className="naga-display mt-4 text-heading-3 text-balance font-bold tracking-tighter sm:text-heading-2">
               Hustle grit meets ultra-fine glamour
             </h2>
-            <p className="mt-3 text-body text-light-400">
+            <p className="mt-4 text-body leading-relaxed text-light-400">
               Knowledge and quality over ignorance — built for the grind, styled for the
               spotlight. Same energy as{" "}
               <a
                 href="https://www.instagram.com/naga_apparel"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[--color-naga-gold] underline-offset-2 hover:underline"
+                className="text-[--color-naga-gold] underline-offset-2 transition-colors duration-[var(--duration-normal)] ease-[var(--ease-premium)] hover:underline"
               >
                 @naga_apparel
               </a>
@@ -55,29 +56,29 @@ export default async function HomeBrandSections() {
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <div className="rounded-2xl border border-light-100/10 bg-dark-900/45 p-6 backdrop-blur-sm sm:p-8">
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            <div className="naga-glass-card">
               <p className="text-caption uppercase tracking-[0.2em] text-light-400">Hustle</p>
-              <h3 className="mt-2 text-body-medium text-light-100">Raw street power</h3>
-              <p className="mt-3 text-body text-light-400">
+              <h3 className="naga-display mt-2 text-body-medium text-light-100">Raw street power</h3>
+              <p className="mt-3 text-body leading-relaxed text-light-400">
                 Black concrete, gold neon, chain-link nights. Hoodies and heavy tees built for
                 people who move with purpose.
               </p>
             </div>
-            <div className="rounded-2xl border border-[--color-naga-gold]/30 bg-dark-900/45 p-6 backdrop-blur-sm sm:p-8">
+            <div className="naga-glass-card naga-glass-card--gold">
               <p className="text-caption uppercase tracking-[0.2em] text-[--color-naga-gold]">
                 Glamour
               </p>
-              <h3 className="mt-2 text-body-medium text-light-100">Ultra-fine presence</h3>
-              <p className="mt-3 text-body text-light-400">
+              <h3 className="naga-display mt-2 text-body-medium text-light-100">Ultra-fine presence</h3>
+              <p className="mt-3 text-body leading-relaxed text-light-400">
                 Champagne gold light, bold energy, trap-luxe attitude. Streetwear that commands
                 the room.
               </p>
             </div>
-            <div className="rounded-2xl border border-light-100/10 bg-dark-900/45 p-6 backdrop-blur-sm md:col-span-2 lg:col-span-1 sm:p-8">
+            <div className="naga-glass-card md:col-span-2 lg:col-span-1">
               <p className="text-caption uppercase tracking-[0.2em] text-light-400">Craft</p>
-              <h3 className="mt-2 text-body-medium text-light-100">Built to last</h3>
-              <p className="mt-3 text-body text-light-400">
+              <h3 className="naga-display mt-2 text-body-medium text-light-100">Built to last</h3>
+              <p className="mt-3 text-body leading-relaxed text-light-400">
                 Heavy cotton, sharp screen prints, and the cobra mark — quality you can see and
                 feel before checkout.
               </p>
@@ -96,36 +97,44 @@ export default async function HomeBrandSections() {
             title="Pick your collection"
             subtitle="Every drop has its own hero — tap in."
           />
-          <section className="scroll-layer mx-auto max-w-7xl px-4 pb-14 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <section className="scroll-layer mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8 lg:pb-24">
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {collections.filter((col) => col.productCount > 0).slice(0, 6).map((col) => (
                 <Link
                   key={col.id}
                   href={"/collections/" + col.slug}
-                  className="group relative aspect-[4/3] overflow-hidden rounded-2xl border border-light-300 bg-dark-900"
+                  className="group naga-bezel-dark block cursor-pointer"
                 >
-                  <Image
-                    src={col.imageUrl}
-                    alt={col.name}
-                    fill
-                    unoptimized
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 1024px) 100vw, 33vw"
-                  />
-                  <div
-                    className="absolute inset-0 bg-gradient-to-t from-dark-900/90 via-dark-900/20 to-transparent"
-                    aria-hidden="true"
-                  />
-                  <div className="absolute inset-x-0 bottom-0 p-5">
-                    <p className="text-body-medium text-light-100">{col.name}</p>
-                    <p className="mt-1 text-caption text-light-400">{col.productCount} pieces</p>
+                  <div className="naga-bezel-dark-inner relative aspect-[4/3] bg-dark-900">
+                    <Image
+                      src={col.imageUrl}
+                      alt={col.name}
+                      fill
+                      unoptimized
+                      className="object-cover transition-transform duration-700 ease-[var(--ease-premium)] group-hover:scale-[1.04]"
+                      sizes="(max-width: 1024px) 100vw, 33vw"
+                    />
+                    <div
+                      className="absolute inset-0 bg-gradient-to-t from-dark-900/92 via-dark-900/25 to-transparent"
+                      aria-hidden="true"
+                    />
+                    <div className="absolute inset-x-0 bottom-0 p-5">
+                      <p className="naga-display text-body-medium text-light-100">{col.name}</p>
+                      <p className="mt-1 text-caption uppercase tracking-[0.14em] text-light-400">
+                        {col.productCount} pieces
+                      </p>
+                    </div>
                   </div>
                 </Link>
               ))}
             </div>
-            <p className="mt-6 text-center">
-              <Link href="/collections" className="text-body-medium text-dark-900 underline-offset-4 hover:underline">
+            <p className="mt-8 text-center">
+              <Link
+                href="/collections"
+                className="naga-btn-text inline-flex focus-ring focus-visible:outline-none"
+              >
                 All collections
+                <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} aria-hidden="true" />
               </Link>
             </p>
           </section>
@@ -134,55 +143,51 @@ export default async function HomeBrandSections() {
 
       <SectionVideoShell
         clipId={SECTION_CLIPS.instagram}
-        className="scroll-layer border-y border-light-300 text-light-100"
+        className="scroll-layer border-y border-dark-900/8 text-light-100"
       >
-        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-4 py-10 sm:flex-row sm:items-center sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 px-4 py-14 sm:flex-row sm:items-center sm:px-6 lg:px-8 lg:py-20">
           <div>
-            <p className="text-caption uppercase tracking-[0.2em] text-[--color-naga-gold]">
+            <p className="naga-eyebrow border-light-100/15 bg-light-100/5">
+              <span className="naga-eyebrow-dot" aria-hidden="true" />
               Follow the drop
             </p>
-            <p className="mt-2 text-body-medium">Daily heat on Instagram</p>
+            <p className="naga-display mt-3 text-body-medium">Daily heat on Instagram</p>
             <p className="mt-1 text-body text-light-400">Fits, drops, and behind-the-scenes</p>
           </div>
           <a
             href="https://www.instagram.com/naga_apparel"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex min-h-11 items-center gap-2 rounded-full border border-[--color-naga-gold]/50 bg-[--color-naga-gold]/10 px-6 py-3 text-body-medium text-[--color-naga-gold] transition hover:bg-[--color-naga-gold]/20"
+            className="naga-btn naga-btn-outline-light focus-ring focus-visible:outline-none"
           >
-            <Instagram className="h-4 w-4" aria-hidden="true" />
+            <Instagram className="h-3.5 w-3.5" strokeWidth={1.5} aria-hidden="true" />
             @naga_apparel
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} aria-hidden="true" />
           </a>
         </div>
       </SectionVideoShell>
 
-      <section className="scroll-layer mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="rounded-2xl border border-light-300 bg-light-100 p-8 text-center sm:p-10">
-          <h2 className="text-heading-3 text-dark-900">Shop the drop</h2>
-          <p className="mt-2 text-body text-dark-700">
-            Tees and sets — real Naga pieces with your logo.
-          </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <Link
-              href="/products?category=tees"
-              className="inline-flex min-h-11 items-center gap-2 rounded-full bg-dark-900 px-6 py-3 text-body-medium text-light-100 hover:bg-dark-700"
-            >
-              Tees
-            </Link>
-            <Link
-              href="/products?category=sets"
-              className="inline-flex min-h-11 items-center gap-2 rounded-full border border-light-300 px-6 py-3 text-body-medium text-dark-900 hover:border-dark-500"
-            >
-              Sets
-            </Link>
-            <Link
-              href="/products"
-              className="inline-flex min-h-11 items-center gap-2 rounded-full border border-light-300 px-6 py-3 text-body-medium text-dark-900 hover:border-dark-500"
-            >
-              Shop all
-              <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </Link>
+      <section className="scroll-layer mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+        <div className="naga-bezel-light text-center">
+          <div className="naga-bezel-light-inner px-8 py-12 sm:px-12 sm:py-14">
+            <h2 className="naga-display text-heading-3 font-bold tracking-tighter text-dark-900">
+              Shop the drop
+            </h2>
+            <p className="mt-3 text-body text-dark-700">
+              Tees and sets — real Naga pieces with your logo.
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-3">
+              <Link href="/products?category=tees" className="naga-btn naga-btn-gold focus-ring focus-visible:outline-none">
+                Tees
+              </Link>
+              <Link href="/products?category=sets" className="naga-btn-text focus-ring focus-visible:outline-none">
+                Sets
+              </Link>
+              <Link href="/products" className="naga-btn naga-btn-dark focus-ring focus-visible:outline-none">
+                Shop all
+                <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} aria-hidden="true" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>

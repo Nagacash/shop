@@ -54,7 +54,7 @@ export const BRAND_CLIPS: Record<BrandClipId, BrandClip> = {
     id: "cinematic",
     mp4: "/hero-clips/hero4.mp4",
     webm: "/hero-clips/hero4.webm",
-    poster: MARKETING_IMAGES.nagaTee,
+    poster: MARKETING_IMAGES.hoodieFlatLay,
     objectPosition: "center",
   },
 };

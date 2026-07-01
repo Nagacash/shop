@@ -34,54 +34,56 @@ export default function ContactForm() {
 
   if (submitted) {
     return (
-      <div className="rounded-xl border border-light-300 bg-light-100 p-8 text-center">
-        <h2 className="text-heading-3 text-dark-900">Message sent</h2>
-        <p className="mt-2 text-body text-dark-700">
-          Thanks for reaching out. Our team will get back to you within 1–2 business days.
-        </p>
-        <button
-          type="button"
-          onClick={() => setSubmitted(false)}
-          className="mt-6 text-body-medium text-dark-900 underline hover:text-dark-700"
-        >
-          Send another message
-        </button>
+      <div className="naga-bezel-light text-center">
+        <div className="naga-bezel-light-inner p-8">
+          <h2 className="naga-display text-heading-3 text-dark-900">Message sent</h2>
+          <p className="mt-2 text-body text-dark-700">
+            Thanks for reaching out. Our team will get back to you within 1–2 business days.
+          </p>
+          <button
+            type="button"
+            onClick={() => setSubmitted(false)}
+            className="mt-6 text-body-medium text-dark-900 underline decoration-[--color-naga-gold]/40 underline-offset-4 transition-colors duration-[var(--duration-normal)] ease-[var(--ease-premium)] hover:text-[--color-naga-gold]"
+          >
+            Send another message
+          </button>
+        </div>
       </div>
     );
   }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="space-y-1">
-        <label htmlFor="name" className="text-caption text-dark-900">Name</label>
+      <div className="space-y-1.5">
+        <label htmlFor="name" className="text-caption uppercase tracking-[0.12em] text-dark-700">Name</label>
         <input
           id="name"
           name="name"
           type="text"
           required
           placeholder="Your name"
-          className="w-full rounded-xl border border-light-300 bg-light-100 px-4 py-3 text-body text-dark-900 placeholder:text-dark-500 focus:outline-none focus:ring-2 focus:ring-dark-900/10"
+          className="naga-input"
         />
       </div>
 
-      <div className="space-y-1">
-        <label htmlFor="email" className="text-caption text-dark-900">Email</label>
+      <div className="space-y-1.5">
+        <label htmlFor="email" className="text-caption uppercase tracking-[0.12em] text-dark-700">Email</label>
         <input
           id="email"
           name="email"
           type="email"
           required
           placeholder="you@example.com"
-          className="w-full rounded-xl border border-light-300 bg-light-100 px-4 py-3 text-body text-dark-900 placeholder:text-dark-500 focus:outline-none focus:ring-2 focus:ring-dark-900/10"
+          className="naga-input"
         />
       </div>
 
-      <div className="space-y-1">
-        <label htmlFor="subject" className="text-caption text-dark-900">Subject</label>
+      <div className="space-y-1.5">
+        <label htmlFor="subject" className="text-caption uppercase tracking-[0.12em] text-dark-700">Subject</label>
         <select
           id="subject"
           name="subject"
-          className="w-full rounded-xl border border-light-300 bg-light-100 px-4 py-3 text-body text-dark-900 focus:outline-none focus:ring-2 focus:ring-dark-900/10"
+          className="naga-input"
           defaultValue="general"
         >
           <option value="general">General inquiry</option>
@@ -91,15 +93,15 @@ export default function ContactForm() {
         </select>
       </div>
 
-      <div className="space-y-1">
-        <label htmlFor="message" className="text-caption text-dark-900">Message</label>
+      <div className="space-y-1.5">
+        <label htmlFor="message" className="text-caption uppercase tracking-[0.12em] text-dark-700">Message</label>
         <textarea
           id="message"
           name="message"
           required
           rows={5}
           placeholder="How can we help?"
-          className="w-full resize-y rounded-xl border border-light-300 bg-light-100 px-4 py-3 text-body text-dark-900 placeholder:text-dark-500 focus:outline-none focus:ring-2 focus:ring-dark-900/10"
+          className="naga-input resize-y"
         />
       </div>
 
@@ -108,17 +110,17 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={loading}
-        className="flex w-full items-center justify-center gap-2 rounded-full bg-dark-900 px-6 py-3 text-body-medium text-light-100 transition hover:bg-dark-700 disabled:opacity-60"
+        className="naga-btn naga-btn-dark w-full focus-ring focus-visible:outline-none"
       >
         {loading ? (
           <>
-            <Loader2 className="h-5 w-5 animate-spin" />
+            <Loader2 className="h-4 w-4 animate-spin" strokeWidth={1.5} />
             Sending…
           </>
         ) : (
           <>
-            <Send className="h-5 w-5" />
             Send Message
+            <Send className="h-3.5 w-3.5" strokeWidth={1.5} aria-hidden="true" />
           </>
         )}
       </button>

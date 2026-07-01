@@ -29,11 +29,15 @@ export default function AuthAside() {
           className="h-11 w-11 rounded-full object-cover"
           priority
         />
-        <span className="text-body-medium tracking-tight">Naga Apparel</span>
+        <span className="naga-display text-body-medium tracking-tight">Naga Apparel</span>
       </div>
 
       <div className="relative z-10 space-y-4">
-        <h2 className="text-heading-2">Hustle Hard</h2>
+        <p className="naga-eyebrow border-light-100/15 bg-light-100/5 w-fit">
+          <span className="naga-eyebrow-dot" aria-hidden="true" />
+          Members
+        </p>
+        <h2 className="naga-display text-heading-2 font-bold tracking-tighter">Hustle Hard</h2>
         <p className="max-w-md text-lead text-light-300">
           Knowledge and quality over ignorance. Join the community and shop exclusive drops —
           hoodies, heavy tees, and headwear built for the grind.

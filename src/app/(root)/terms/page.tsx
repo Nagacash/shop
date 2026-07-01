@@ -117,23 +117,32 @@ const sections = [
 export default function TermsPage() {
   return (
     <>
-      <main className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
-        <nav className="mb-8 text-caption text-dark-700">
-          <Link href="/" className="hover:underline">
-            Home
-          </Link>{" "}
-          / <span className="text-dark-900">Terms of Use</span>
-        </nav>
+      <div className="naga-legal-hero">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <nav className="mb-6 text-caption text-dark-700">
+            <Link href="/" className="transition-colors duration-[var(--duration-normal)] ease-[var(--ease-premium)] hover:text-dark-900">
+              Home
+            </Link>{" "}
+            / <span className="text-dark-900">Terms of Use</span>
+          </nav>
+          <p className="naga-eyebrow">
+            <span className="naga-eyebrow-dot" aria-hidden="true" />
+            Legal
+          </p>
+          <h1 className="naga-display mt-4 text-heading-2 font-bold tracking-tighter text-dark-900 sm:text-heading-1">
+            Terms of Use
+          </h1>
+          <p className="mt-2 text-body text-dark-700">Last Updated: June 2025</p>
+        </div>
+      </div>
 
-        <h1 className="text-heading-1 text-dark-900">Terms of Use</h1>
-        <p className="mt-2 text-body text-dark-700">Last Updated: June 2025</p>
-
-        <hr className="my-10 border-light-300" />
+      <main className="naga-legal-prose mx-auto max-w-3xl px-4 pb-20 sm:px-6 lg:px-8">
+        <hr className="naga-legal-divider" />
 
         <div className="space-y-10">
           {sections.map((section) => (
             <section key={section.title}>
-              <h2 className="text-heading-2 text-dark-900">{section.title}</h2>
+              <h2 className="text-heading-3">{section.title}</h2>
               {"subsections" in section && section.subsections ? (
                 <div className="mt-4 space-y-6">
                   {section.subsections.map((sub) => (
