@@ -11,13 +11,43 @@ export const MARKETING_IMAGES = {
   hoodieFlatLay: "/website-images/website-naga.jpeg",
   /** Macro cobra logo print on black fabric */
   logoDetail: "/website-images/website-naga2.jpeg",
+  /** Brand mood visual — not a catalog product */
+  nagaPurse: "/website-images/naga-purse.jpeg",
 } as const;
 
-/** Homepage hero looping background (Sora 2, image-to-video from hoodieFlatLay). */
+export type HeroBackgroundClip = {
+  mp4: string;
+  webm?: string;
+  objectPosition: string;
+  /** Tailwind translate class for asymmetric vertical offset */
+  offsetClass?: string;
+};
+
+/** Homepage hero — temple clips left/center, flat lay right (under portrait card). */
+export const HERO_BACKGROUND_CLIPS: HeroBackgroundClip[] = [
+  {
+    mp4: "/hero-clips/hero1.mp4",
+    webm: "/hero-clips/hero1.webm",
+    objectPosition: "center",
+    offsetClass: "lg:translate-y-4",
+  },
+  {
+    mp4: "/hero-clips/hero2.mp4",
+    webm: "/hero-clips/hero2.webm",
+    objectPosition: "center",
+    offsetClass: "lg:-translate-y-6",
+  },
+  {
+    mp4: "/website-images/hero-bg.mp4",
+    webm: "/website-images/hero-bg.webm",
+    objectPosition: "center",
+    offsetClass: "lg:translate-y-3",
+  },
+];
+
 export const HERO_BACKGROUND_VIDEO = {
-  webm: "/website-images/hero-bg.webm",
-  mp4: "/website-images/hero-bg.mp4",
   poster: MARKETING_IMAGES.hoodieFlatLay,
+  clips: HERO_BACKGROUND_CLIPS,
 } as const;
 
 export const MARKETING_ALT = {

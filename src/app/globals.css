@@ -69,6 +69,13 @@
   --shadow-card: 0 12px 32px rgba(17, 17, 17, 0.08);
   --shadow-card-hover: 0 16px 40px rgba(17, 17, 17, 0.12);
   --focus-ring: 0 0 0 2px var(--color-light-100), 0 0 0 4px color-mix(in srgb, var(--color-naga-gold) 55%, transparent);
+
+  /* Hero video mosaic */
+  --hero-video-blur: 4px;
+  --hero-video-brightness: 0.88;
+  --hero-video-saturate: 0.92;
+  --hero-video-scale: 1.05;
+  --hero-panel-tint: color-mix(in srgb, var(--color-dark-900) 10%, transparent);
 }
 
 html {
@@ -176,6 +183,39 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .hero-enter {
     animation: hero-fade-in 150ms ease both;
+  }
+}
+
+/* Hero triptych — softened ambient clips, GPU-friendly */
+.hero-mosaic {
+  display: grid;
+}
+
+.hero-video-panel {
+  transform: scale(var(--hero-video-scale)) translateZ(0);
+  filter: blur(var(--hero-video-blur)) saturate(var(--hero-video-saturate))
+    brightness(var(--hero-video-brightness));
+}
+
+.hero-video-panel--failed {
+  display: none;
+}
+
+.hero-panel-tint {
+  background: var(--hero-panel-tint);
+}
+
+.hero-gold-glow {
+  background: radial-gradient(
+    circle at 15% 20%,
+    color-mix(in srgb, var(--color-naga-gold) 22%, transparent),
+    transparent 42%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-mosaic {
+    display: none;
   }
 }
 

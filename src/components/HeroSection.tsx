@@ -16,11 +16,11 @@ export default function HeroSection() {
       <HeroBackgroundMedia />
 
       <div
-        className="pointer-events-none absolute inset-0 bg-gradient-to-r from-dark-900/95 via-dark-900/80 to-dark-900/55"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-r from-dark-900/85 via-dark-900/65 to-dark-900/40"
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(201,162,39,0.22),transparent_42%)]"
+        className="hero-gold-glow pointer-events-none absolute inset-0"
         aria-hidden="true"
       />
 
@@ -125,6 +125,26 @@ export default function HeroSection() {
               aria-hidden="true"
             >
               OG Drop
+            </div>
+
+            <div
+              className="absolute -bottom-5 -left-2 z-20 w-[38%] max-w-[9.5rem] sm:-left-4 sm:max-w-[10.5rem]"
+              aria-hidden="true"
+            >
+              <div className="relative aspect-[3/4] overflow-hidden rounded-xl border border-[--color-naga-gold]/35 bg-dark-900 shadow-[0_12px_40px_rgba(0,0,0,0.45)]">
+                <Image
+                  src={MARKETING_IMAGES.nagaPurse}
+                  alt=""
+                  fill
+                  unoptimized
+                  className="object-cover object-center"
+                  sizes="120px"
+                />
+                <div
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-dark-900/50 via-transparent to-transparent"
+                  aria-hidden="true"
+                />
+              </div>
             </div>
           </div>
         </div>

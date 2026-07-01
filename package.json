@@ -28,6 +28,7 @@
     "generate:brand-images": "tsx scripts/generate-brand-images.ts",
     "generate:hero-video": "tsx scripts/generate-hero-video.ts",
     "encode:hero-video": "bash scripts/encode-hero-video.sh",
+    "encode:hero-clips": "bash scripts/encode-hero-clips.sh",
     "perf:measure": "bash .perf/measure-pages.sh .perf/pages.txt .perf/results-latest.csv",
     "perf:measure:footer": "bash .perf/measure-pages.sh .perf/footer-pages.txt .perf/results-footer.csv"
   },
