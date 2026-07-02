@@ -1,8 +1,9 @@
 import { Suspense } from "react";
 import { HeroSection, HomeBrandSections } from "@/components";
 import FeaturedDropSection from "@/components/FeaturedDropSection";
-import SectionColorBridge from "@/components/SectionColorBridge";
+import FaqSection from "@/components/FaqSection";
 import JsonLd from "@/components/JsonLd";
+import SectionColorBridge from "@/components/SectionColorBridge";
 import { faqJsonLd } from "@/lib/seo/jsonld";
 import { NAGA_FAQS } from "@/lib/seo/faq";
 import { buildPageMetadata } from "@/lib/seo/metadata";
@@ -29,7 +30,6 @@ function SectionSkeleton({ tall = false }: { tall?: boolean }) {
 export default async function Home() {
   return (
     <>
-      <JsonLd data={faqJsonLd([...NAGA_FAQS])} />
       <HeroSection />
       <SectionColorBridge />
       <Suspense fallback={<SectionSkeleton tall />}>
@@ -38,6 +38,12 @@ export default async function Home() {
       <Suspense fallback={<SectionSkeleton />}>
         <HomeBrandSections />
       </Suspense>
+      <JsonLd data={faqJsonLd([...NAGA_FAQS])} />
+      <div className="scroll-layer border-t border-dark-900/8 bg-light-100">
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+          <FaqSection contactLink />
+        </div>
+      </div>
     </>
   );
 }

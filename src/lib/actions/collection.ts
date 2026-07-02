@@ -13,6 +13,7 @@ import {
   type SelectCollection,
 } from "@/lib/db/schema";
 import { normalizeImageUrl } from "@/lib/utils/images";
+import { excludeInternalTestProducts } from "@/lib/seo/internal-test-product";
 
 export type CollectionListItem = SelectCollection & {
   productCount: number;
@@ -78,7 +79,13 @@ export async function getCollectionProducts(slug: string): Promise<{
     .leftJoin(productImages, eq(productImages.productId, products.id))
     .leftJoin(genders, eq(genders.id, products.genderId))
     .leftJoin(categories, eq(categories.id, products.categoryId))
-    .where(and(eq(products.isPublished, true), inArray(products.id, productIds)))
+    .where(
+      and(
+        eq(products.isPublished, true),
+        excludeInternalTestProducts(),
+        inArray(products.id, productIds),
+      ),
+    )
     .groupBy(products.id, products.name, products.createdAt, genders.label, categories.name)
     .orderBy(desc(products.createdAt));
 

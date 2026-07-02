@@ -91,9 +91,8 @@ export async function createStripeCheckoutSession(cartId: string) {
       },
     });
   } catch (err) {
-    const message =
-      err instanceof Error ? err.message : "Could not start Stripe checkout.";
-    throw new Error(message);
+    console.error("[createStripeCheckoutSession]", err);
+    throw new Error("We couldn't start checkout. Please try again or contact support.");
   }
 
   if (!session.url) {

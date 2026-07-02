@@ -1,0 +1,396 @@
+{
+  "generated_at": "2026-07-02T20:07:37.360000+00:00",
+  "base_url": "https://www.nagaclub.de",
+  "robots": {
+    "url": "https://www.nagaclub.de/robots.txt",
+    "status": 200,
+    "body": "User-Agent: *\nAllow: /\nDisallow: /cart\nDisallow: /checkout/\nDisallow: /api/\nDisallow: /sign-in\nDisallow: /sign-up\nDisallow: /admin\n\nSitemap: https://www.nagaclub.de/sitemap.xml\n"
+  },
+  "sitemap": {
+    "url": "https://www.nagaclub.de/sitemap.xml",
+    "status": 200
+  },
+  "pages": {
+    "https://www.nagaclub.de/": {
+      "url": "https://www.nagaclub.de/",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "Urban Streetwear Tees, Sweaters & Sets | Naga Apparel",
+      "meta_robots": "index, follow",
+      "canonical": "https://www.nagaclub.de",
+      "h1": [
+        "NAGA",
+        "APPAREL",
+        "Pick your collection"
+      ],
+      "has_json_ld": true,
+      "internal_links": 35
+    },
+    "https://www.nagaclub.de/products?category=tees": {
+      "url": "https://www.nagaclub.de/products?category=tees",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "Naga Original Tees | Naga Apparel",
+      "meta_robots": "index, follow",
+      "canonical": "https://www.nagaclub.de/products?category=tees",
+      "h1": [
+        "Tees"
+      ],
+      "has_json_ld": true,
+      "internal_links": 35
+    },
+    "https://www.nagaclub.de/collections": {
+      "url": "https://www.nagaclub.de/collections",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "Collections | Naga Apparel",
+      "meta_robots": "index, follow",
+      "canonical": "https://www.nagaclub.de/collections",
+      "h1": [
+        "Collections"
+      ],
+      "has_json_ld": true,
+      "internal_links": 28
+    },
+    "https://www.nagaclub.de/collections/hustle-hard-drip": {
+      "url": "https://www.nagaclub.de/collections/hustle-hard-drip",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "Hustle Hard Drip Collection | Naga Apparel",
+      "meta_robots": "index, follow",
+      "canonical": "https://www.nagaclub.de/collections/hustle-hard-drip",
+      "h1": [
+        "Hustle Hard Drip"
+      ],
+      "has_json_ld": true,
+      "internal_links": 34
+    },
+    "https://www.nagaclub.de/collections/naga-original": {
+      "url": "https://www.nagaclub.de/collections/naga-original",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "Naga Original Collection | Naga Apparel",
+      "meta_robots": "index, follow",
+      "canonical": "https://www.nagaclub.de/collections/naga-original",
+      "h1": [
+        "Naga Original"
+      ],
+      "has_json_ld": true,
+      "internal_links": 39
+    },
+    "https://www.nagaclub.de/collections/naga-black": {
+      "url": "https://www.nagaclub.de/collections/naga-black",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "Naga Black Collection | Naga Apparel",
+      "meta_robots": "index, follow",
+      "canonical": "https://www.nagaclub.de/collections/naga-black",
+      "h1": [
+        "Naga Black"
+      ],
+      "has_json_ld": true,
+      "internal_links": 35
+    },
+    "https://www.nagaclub.de/collections/black-gold-edition": {
+      "url": "https://www.nagaclub.de/collections/black-gold-edition",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "Black & Gold Edition Collection | Naga Apparel",
+      "meta_robots": "index, follow",
+      "canonical": "https://www.nagaclub.de/collections/black-gold-edition",
+      "h1": [
+        "Black & Gold Edition"
+      ],
+      "has_json_ld": true,
+      "internal_links": 35
+    },
+    "https://www.nagaclub.de/products?category=hoodies": {
+      "url": "https://www.nagaclub.de/products?category=hoodies",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "Naga Hoodies | Naga Apparel",
+      "meta_robots": "index, follow",
+      "canonical": "https://www.nagaclub.de/products?category=hoodies",
+      "h1": [
+        "Hoodies"
+      ],
+      "has_json_ld": true,
+      "internal_links": 34
+    },
+    "https://www.nagaclub.de/products?category=sweaters": {
+      "url": "https://www.nagaclub.de/products?category=sweaters",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "Naga Sweaters | Naga Apparel",
+      "meta_robots": "index, follow",
+      "canonical": "https://www.nagaclub.de/products?category=sweaters",
+      "h1": [
+        "Sweaters"
+      ],
+      "has_json_ld": true,
+      "internal_links": 34
+    },
+    "https://www.nagaclub.de/products?category=sets": {
+      "url": "https://www.nagaclub.de/products?category=sets",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "Naga Sets | Naga Apparel",
+      "meta_robots": "index, follow",
+      "canonical": "https://www.nagaclub.de/products?category=sets",
+      "h1": [
+        "Sets"
+      ],
+      "has_json_ld": true,
+      "internal_links": 33
+    },
+    "https://www.nagaclub.de/products?category=headwear": {
+      "url": "https://www.nagaclub.de/products?category=headwear",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "Shop All Products | Naga Apparel",
+      "meta_robots": "index, follow",
+      "canonical": "https://www.nagaclub.de/products",
+      "h1": [
+        "Headwear"
+      ],
+      "has_json_ld": true,
+      "internal_links": 33
+    },
+    "https://www.nagaclub.de/products": {
+      "url": "https://www.nagaclub.de/products",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "Shop All Products | Naga Apparel",
+      "meta_robots": "index, follow",
+      "canonical": "https://www.nagaclub.de/products",
+      "h1": [
+        "Shop"
+      ],
+      "has_json_ld": true,
+      "internal_links": 40
+    },
+    "https://www.nagaclub.de/sign-in": {
+      "url": "https://www.nagaclub.de/sign-in",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "Naga Apparel | Urban Streetwear Tees, Sweaters & Sets",
+      "meta_robots": "noindex, nofollow",
+      "canonical": "https://www.nagaclub.de",
+      "h1": [],
+      "has_json_ld": true,
+      "internal_links": 0
+    },
+    "https://www.nagaclub.de/cart": {
+      "url": "https://www.nagaclub.de/cart",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "My Bag | Naga Apparel",
+      "meta_robots": "noindex, nofollow",
+      "canonical": "https://www.nagaclub.de/cart",
+      "h1": [
+        "My Bag"
+      ],
+      "has_json_ld": true,
+      "internal_links": 33
+    },
+    "https://www.nagaclub.de/checkout/success": {
+      "url": "https://www.nagaclub.de/checkout/success",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "Naga Apparel | Urban Streetwear Tees, Sweaters & Sets",
+      "meta_robots": "index, follow",
+      "canonical": "https://www.nagaclub.de",
+      "h1": [
+        "Invalid session"
+      ],
+      "has_json_ld": true,
+      "internal_links": 33
+    },
+    "https://www.nagaclub.de/contact": {
+      "url": "https://www.nagaclub.de/contact",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "Contact Naga Apparel | Naga Apparel",
+      "meta_robots": "index, follow",
+      "canonical": "https://www.nagaclub.de/contact",
+      "h1": [
+        "Contact Naga"
+      ],
+      "has_json_ld": true,
+      "internal_links": 24
+    },
+    "https://www.nagaclub.de/terms": {
+      "url": "https://www.nagaclub.de/terms",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "Terms of Use | Naga Apparel",
+      "meta_robots": "index, follow",
+      "canonical": "https://www.nagaclub.de/terms",
+      "h1": [
+        "Terms of Use"
+      ],
+      "has_json_ld": true,
+      "internal_links": 25
+    },
+    "https://www.nagaclub.de/privacy": {
+      "url": "https://www.nagaclub.de/privacy",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "Privacy Policy | Naga Apparel",
+      "meta_robots": "index, follow",
+      "canonical": "https://www.nagaclub.de/privacy",
+      "h1": [
+        "Privacy Policy"
+      ],
+      "has_json_ld": true,
+      "internal_links": 24
+    },
+    "https://www.nagaclub.de": {
+      "url": "https://www.nagaclub.de",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "Urban Streetwear Tees, Sweaters & Sets | Naga Apparel",
+      "meta_robots": "index, follow",
+      "canonical": "https://www.nagaclub.de",
+      "h1": [
+        "NAGA",
+        "APPAREL",
+        "Pick your collection"
+      ],
+      "has_json_ld": true,
+      "internal_links": 35
+    },
+    "https://www.nagaclub.de/products/be5e7c7b-ddc7-48f3-8ad8-73f9f8f90446": {
+      "url": "https://www.nagaclub.de/products/be5e7c7b-ddc7-48f3-8ad8-73f9f8f90446",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "Naga Black Set | Naga Apparel",
+      "meta_robots": "index, follow",
+      "canonical": "https://www.nagaclub.de/products/be5e7c7b-ddc7-48f3-8ad8-73f9f8f90446",
+      "h1": [
+        "Naga Black Set"
+      ],
+      "has_json_ld": true,
+      "internal_links": 42
+    },
+    "https://www.nagaclub.de/products/78b0d6b6-f89f-4f98-92ab-bd9dd2c6e499": {
+      "url": "https://www.nagaclub.de/products/78b0d6b6-f89f-4f98-92ab-bd9dd2c6e499",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "LIVE TEST \u2014 Digital Checkout (\u20ac0.50) | Naga Apparel",
+      "meta_robots": "index, follow",
+      "canonical": "https://www.nagaclub.de/products/78b0d6b6-f89f-4f98-92ab-bd9dd2c6e499",
+      "h1": [
+        "LIVE TEST \u2014 Digital Checkout (\u20ac0.50)"
+      ],
+      "has_json_ld": true,
+      "internal_links": 41
+    },
+    "https://www.nagaclub.de/products/a35dd392-edeb-4ad1-b4d0-cc600212cc23": {
+      "url": "https://www.nagaclub.de/products/a35dd392-edeb-4ad1-b4d0-cc600212cc23",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "Naga Original White Tee | Naga Apparel",
+      "meta_robots": "index, follow",
+      "canonical": "https://www.nagaclub.de/products/a35dd392-edeb-4ad1-b4d0-cc600212cc23",
+      "h1": [
+        "Naga Original White Tee"
+      ],
+      "has_json_ld": true,
+      "internal_links": 41
+    },
+    "https://www.nagaclub.de/products/a9fc7afa-c367-4b65-8d72-f65af7463944": {
+      "url": "https://www.nagaclub.de/products/a9fc7afa-c367-4b65-8d72-f65af7463944",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "Naga Original Black Tee | Naga Apparel",
+      "meta_robots": "index, follow",
+      "canonical": "https://www.nagaclub.de/products/a9fc7afa-c367-4b65-8d72-f65af7463944",
+      "h1": [
+        "Naga Original Black Tee"
+      ],
+      "has_json_ld": true,
+      "internal_links": 42
+    },
+    "https://www.nagaclub.de/products/189a4302-355d-4218-98ed-d923231a68cd": {
+      "url": "https://www.nagaclub.de/products/189a4302-355d-4218-98ed-d923231a68cd",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "Naga Original Cream Hoodie | Naga Apparel",
+      "meta_robots": "index, follow",
+      "canonical": "https://www.nagaclub.de/products/189a4302-355d-4218-98ed-d923231a68cd",
+      "h1": [
+        "Naga Original Cream Hoodie"
+      ],
+      "has_json_ld": true,
+      "internal_links": 42
+    },
+    "https://www.nagaclub.de/products/5fb66755-f721-44af-b7a5-0348a1e60006": {
+      "url": "https://www.nagaclub.de/products/5fb66755-f721-44af-b7a5-0348a1e60006",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "Naga Original Light Brown Sweater | Naga Apparel",
+      "meta_robots": "index, follow",
+      "canonical": "https://www.nagaclub.de/products/5fb66755-f721-44af-b7a5-0348a1e60006",
+      "h1": [
+        "Naga Original Light Brown Sweater"
+      ],
+      "has_json_ld": true,
+      "internal_links": 42
+    },
+    "https://www.nagaclub.de/products/777d6d59-6206-493c-8394-01a6426cc483": {
+      "url": "https://www.nagaclub.de/products/777d6d59-6206-493c-8394-01a6426cc483",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "Naga Original Grey Sweater | Naga Apparel",
+      "meta_robots": "index, follow",
+      "canonical": "https://www.nagaclub.de/products/777d6d59-6206-493c-8394-01a6426cc483",
+      "h1": [
+        "Naga Original Grey Sweater"
+      ],
+      "has_json_ld": true,
+      "internal_links": 42
+    },
+    "https://www.nagaclub.de/products/2e342987-56b1-4a49-9fd5-b48b96ba0e83": {
+      "url": "https://www.nagaclub.de/products/2e342987-56b1-4a49-9fd5-b48b96ba0e83",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "Golden Naga Hoodie | Naga Apparel",
+      "meta_robots": "index, follow",
+      "canonical": "https://www.nagaclub.de/products/2e342987-56b1-4a49-9fd5-b48b96ba0e83",
+      "h1": [
+        "Golden Naga Hoodie"
+      ],
+      "has_json_ld": true,
+      "internal_links": 42
+    }
+  },
+  "issues": [
+    {
+      "severity": "high",
+      "axis": "indexation",
+      "issue": "noindex",
+      "url": "https://www.nagaclub.de/sign-in"
+    },
+    {
+      "severity": "medium",
+      "axis": "titles",
+      "issue": "missing H1",
+      "url": "https://www.nagaclub.de/sign-in"
+    },
+    {
+      "severity": "high",
+      "axis": "indexation",
+      "issue": "noindex",
+      "url": "https://www.nagaclub.de/cart"
+    }
+  ],
+  "summary": {
+    "pages_crawled": 27,
+    "critical": 0,
+    "high": 2,
+    "medium": 1,
+    "low": 0,
+    "note": "crawled 27 pages (max 200)"
+  }
+}

@@ -65,10 +65,11 @@ async function main() {
     categoryId: category.id,
     genderId: gender?.id ?? null,
     brandId: nagaBrand?.id ?? null,
-    isPublished: true,
+    isPublished: false,
     isDigital: true,
   });
 
+  // neon-http has no transaction support; publish only after variant + image exist.
   const [insertedProduct] = await db
     .insert(products)
     .values(product as InsertProduct)
@@ -102,6 +103,11 @@ async function main() {
     isPrimary: true,
   });
   await db.insert(productImages).values(img);
+
+  await db
+    .update(products)
+    .set({ isPublished: true })
+    .where(eq(products.id, insertedProduct.id));
 
   console.log(`[add-live-test-product] Created "${PRODUCT_NAME}"`);
   console.log(`[add-live-test-product] Product ID: ${insertedProduct.id}`);

@@ -1,0 +1,14 @@
+https://www.nagaclub.de/
+https://www.nagaclub.de/products
+https://www.nagaclub.de/products?category=tees
+https://www.nagaclub.de/products?category=sweaters
+https://www.nagaclub.de/products?category=sets
+https://www.nagaclub.de/products?category=hoodies
+https://www.nagaclub.de/collections
+https://www.nagaclub.de/collections/naga-original
+https://www.nagaclub.de/collections/naga-black
+https://www.nagaclub.de/collections/black-gold-edition
+https://www.nagaclub.de/collections/hustle-hard-drip
+https://www.nagaclub.de/contact
+https://www.nagaclub.de/terms
+https://www.nagaclub.de/privacy

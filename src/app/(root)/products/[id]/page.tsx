@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import type { Metadata } from "next";
-import { Card, CollapsibleSection, ProductGallery, SizePicker, AddToBagButton } from "@/components";
+import { Card, CollapsibleSection, ProductGallery } from "@/components";
 import PageHero from "@/components/PageHero";
 import JsonLd from "@/components/JsonLd";
 import { Heart, Star } from "lucide-react";
-import ColorSwatches from "@/components/ColorSwatches";
+import ProductPurchasePanel, { type PurchaseVariant } from "@/components/ProductPurchasePanel";
 import {
   getCachedProduct,
   getCachedProductReviews,
@@ -14,11 +14,12 @@ import {
   type RecommendedProduct,
 } from "@/lib/queries/products";
 import { normalizeImageUrl, FALLBACK_PRODUCT_IMAGE, isFlatLayProductImage, isSetProduct } from "@/lib/utils/images";
+import { isInternalTestProduct } from "@/lib/seo/internal-test-product";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { breadcrumbJsonLd, productJsonLd } from "@/lib/seo/jsonld";
 import { formatPrice, FREE_SHIPPING_THRESHOLD } from "@/lib/utils/currency";
 
-type GalleryVariant = { color: string; images: string[] };
+type GalleryVariant = { color: string; images: string[]; variantId: string };
 
 export const revalidate = 120;
 
@@ -48,6 +49,7 @@ export async function generateMetadata({
     description: data.product.description,
     path: `/products/${id}`,
     image,
+    noIndex: isInternalTestProduct(data.product.name),
   });
 }
 
@@ -165,8 +167,17 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     return {
       color: v.color?.name || "Default",
       images: imgs.length ? imgs : fallback,
+      variantId: v.id,
     };
   }).filter((gv) => gv.images.length > 0);
+
+  const purchaseVariants: PurchaseVariant[] = variants.map((v) => ({
+    id: v.id,
+    colorName: v.color?.name ?? "Default",
+    sizeName: v.size?.name ?? null,
+    sizeSlug: v.size?.slug ?? null,
+    inStock: v.inStock ?? 0,
+  }));
 
   const defaultVariant =
     variants.find((v) => v.id === product.defaultVariantId) || variants[0];
@@ -307,27 +318,21 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             </div>
           )}
 
-          <ColorSwatches productId={product.id} variants={galleryVariants} />
-          <SizePicker />
+          {purchaseVariants.length > 0 && (
+            <ProductPurchasePanel
+              productId={product.id}
+              productName={product.name}
+              defaultVariantId={defaultVariant?.id ?? purchaseVariants[0].id}
+              variants={purchaseVariants}
+              galleryVariants={galleryVariants}
+              allSoldOut={soldOut}
+            />
+          )}
 
-          <div className="flex flex-col gap-3">
-            {soldOut && (
-              <p className="rounded-full border border-light-300 bg-light-200 px-4 py-2 text-center text-body-medium text-dark-700">
-                Sold out for now — check back soon.
-              </p>
-            )}
-            {defaultVariant && (
-              <AddToBagButton
-                variantId={defaultVariant.id}
-                productName={product.name}
-                soldOut={soldOut}
-              />
-            )}
-            <button className="naga-btn naga-btn-ghost w-full focus-ring focus-visible:outline-none">
-              <Heart className="h-5 w-5" />
-              Favorite
-            </button>
-          </div>
+          <button type="button" className="naga-btn naga-btn-ghost w-full focus-ring focus-visible:outline-none">
+            <Heart className="h-5 w-5" aria-hidden="true" />
+            Favorite
+          </button>
 
           <CollapsibleSection title="Product Details" defaultOpen>
             <p>{product.description}</p>

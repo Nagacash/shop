@@ -50,8 +50,9 @@ export default function HeroSection() {
               </h1>
 
               <p className="hero-enter hero-enter-3 mt-6 max-w-md text-pretty text-lead leading-relaxed text-dark-700">
-                Knowledge and quality over ignorance. Premium tees, sweaters, and sets —
-                real pieces, shot in the light, built for the grind.
+                Naga Apparel is a Germany-based urban streetwear brand — Naga Original
+                graphic tees, sweaters, hoodies, and matching sets with real flat-lay product
+                photography. Knowledge and quality over ignorance.
               </p>
 
               <div className="hero-enter hero-enter-4 mt-8 flex flex-wrap items-center gap-4">

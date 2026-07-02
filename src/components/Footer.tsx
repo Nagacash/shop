@@ -32,7 +32,7 @@ const columns: { title: string; links: FooterLink[] }[] = [
     links: [
       { label: "Sign In", href: "/sign-in" },
       { label: "My Cart", href: "/cart" },
-      { label: "Order Status", href: "/checkout/success" },
+      { label: "Order Help", href: "/contact" },
       { label: "Contact", href: "/contact" },
     ],
   },
@@ -42,7 +42,7 @@ const columns: { title: string; links: FooterLink[] }[] = [
       { label: "Contact Us", href: "/contact" },
       { label: "Shipping", href: "/contact" },
       { label: "Returns", href: "/contact" },
-      { label: "Size Guide", href: "/products" },
+      { label: "Size Guide", href: "/contact" },
     ],
   },
 ];

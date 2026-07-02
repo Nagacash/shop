@@ -187,7 +187,9 @@ export default function CartSummary({ cart }: { cart: CartView }) {
           {requiresShipping ? " based on your shipping address" : ""}.
         </p>
         {error && (
-          <p className="mt-4 text-caption text-[--color-red]">{error}</p>
+          <p className="mt-4 text-caption text-[--color-red]" role="alert" aria-live="polite">
+            {error}
+          </p>
         )}
         <button
           type="button"

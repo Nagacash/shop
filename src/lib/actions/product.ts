@@ -25,6 +25,7 @@ import {
   type SelectSize,
 } from "@/lib/db/schema";
 
+import { excludeInternalTestProducts } from "@/lib/seo/internal-test-product";
 import { NormalizedProductFilters } from "@/lib/utils/query";
 import { normalizeImageUrl, FALLBACK_PRODUCT_IMAGE } from "@/lib/utils/images";
 
@@ -45,7 +46,7 @@ export type GetAllProductsResult = {
 };
 
 export async function getAllProducts(filters: NormalizedProductFilters): Promise<GetAllProductsResult> {
-  const conds: SQL[] = [eq(products.isPublished, true)];
+  const conds: SQL[] = [eq(products.isPublished, true), excludeInternalTestProducts()];
 
   if (filters.search) {
     const pattern = `%${filters.search}%`;
@@ -509,7 +510,13 @@ export async function getRecommendedProducts(productId: string): Promise<Recomme
     .from(products)
     .leftJoin(v, eq(v.productId, products.id))
     .leftJoin(pi, eq(pi.productId, products.id))
-    .where(and(eq(products.isPublished, true), sql`${products.id} <> ${productId}`))
+    .where(
+      and(
+        eq(products.isPublished, true),
+        excludeInternalTestProducts(),
+        sql`${products.id} <> ${productId}`,
+      ),
+    )
     .groupBy(products.id, products.name, products.createdAt)
     .orderBy(
       desc(priority),

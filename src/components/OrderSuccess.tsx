@@ -9,8 +9,8 @@ export default function OrderSuccess({ order }: { order: OrderView }) {
   return (
     <section className="mx-auto max-w-2xl rounded-xl border border-light-300 bg-light-100 p-8">
       <div className="flex flex-col items-center text-center">
-        <CheckCircle2 className="h-12 w-12 text-[--color-green]" />
-        <h1 className="mt-4 text-heading-3 text-dark-900">Order confirmed</h1>
+        <CheckCircle2 className="h-12 w-12 text-[--color-green]" aria-hidden="true" />
+        <h2 className="mt-4 text-heading-3 text-dark-900">Order confirmed</h2>
         <p className="mt-2 text-body text-dark-700">
           Thank you for your purchase. Your order{" "}
           <span className="font-medium text-dark-900">#{order.id.slice(0, 8)}</span> has been
@@ -20,7 +20,7 @@ export default function OrderSuccess({ order }: { order: OrderView }) {
 
       <div className="mt-8 rounded-xl border border-light-300 p-4">
         <div className="flex items-center gap-2 text-body-medium text-dark-900">
-          <Package className="h-5 w-5" />
+          <Package className="h-5 w-5" aria-hidden="true" />
           Order details
         </div>
         <ul className="mt-4 space-y-3">
@@ -72,7 +72,7 @@ export default function OrderSuccess({ order }: { order: OrderView }) {
       {order.shippingAddress && (
         <div className="mt-6 rounded-xl border border-light-300 p-4">
           <div className="flex items-center gap-2 text-body-medium text-dark-900">
-            <MapPin className="h-5 w-5" />
+            <MapPin className="h-5 w-5" aria-hidden="true" />
             Shipping to
           </div>
           <address className="mt-3 space-y-0.5 not-italic text-body text-dark-700">
@@ -92,13 +92,13 @@ export default function OrderSuccess({ order }: { order: OrderView }) {
       <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
         <Link
           href="/products"
-          className="naga-btn naga-btn-dark text-center"
+          className="naga-btn naga-btn-dark text-center focus-ring focus-visible:outline-none"
         >
           Continue Shopping
         </Link>
         <Link
           href="/"
-          className="naga-btn naga-btn-ghost text-center"
+          className="naga-btn naga-btn-ghost text-center focus-ring focus-visible:outline-none"
         >
           Back to Home
         </Link>

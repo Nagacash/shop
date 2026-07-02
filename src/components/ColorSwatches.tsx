@@ -29,6 +29,7 @@ export default function ColorSwatches({ productId, variants, className = "" }: C
         return (
           <button
             key={`${v.color}-${i}`}
+            type="button"
             onClick={() => setSelected(productId, i)}
             aria-label={`Color ${v.color}`}
             aria-selected={isActive}
