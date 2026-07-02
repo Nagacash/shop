@@ -11,19 +11,18 @@ import {
   cartSubtotalEur,
 } from "@/lib/stripe/checkout-amounts";
 import { SHIPPING_COUNTRIES } from "@/lib/stripe/shipping";
+import { getSiteUrl } from "@/lib/seo/site";
 import {
   STRIPE_CURRENCY,
   STRIPE_TAX_CODE_APPAREL,
   STRIPE_TAX_CODE_DIGITAL,
 } from "@/lib/utils/currency";
 
-const appUrl = process.env.BETTER_AUTH_URL ?? "http://localhost:3000";
-
-function absoluteImageUrl(imageUrl: string): string {
+function absoluteImageUrl(imageUrl: string, baseUrl: string): string {
   if (imageUrl.startsWith("http://") || imageUrl.startsWith("https://")) {
     return imageUrl;
   }
-  return `${appUrl}${imageUrl.startsWith("/") ? imageUrl : `/${imageUrl}`}`;
+  return `${baseUrl}${imageUrl.startsWith("/") ? imageUrl : `/${imageUrl}`}`;
 }
 
 export async function createStripeCheckoutSession(cartId: string) {
@@ -43,6 +42,7 @@ export async function createStripeCheckoutSession(cartId: string) {
 
   const subtotalEur = cartSubtotalEur(cart.items);
   const requiresShipping = cartRequiresShipping(cart.items);
+  const appUrl = getSiteUrl();
 
   const lineItems = cart.items.map((item) => ({
     price_data: {
@@ -51,7 +51,7 @@ export async function createStripeCheckoutSession(cartId: string) {
       tax_behavior: "exclusive" as const,
       product_data: {
         name: item.name,
-        images: item.imageUrl ? [absoluteImageUrl(item.imageUrl)] : undefined,
+        images: item.imageUrl ? [absoluteImageUrl(item.imageUrl, appUrl)] : undefined,
         tax_code: item.isDigital ? STRIPE_TAX_CODE_DIGITAL : STRIPE_TAX_CODE_APPAREL,
         metadata: {
           variantId: item.variantId,
