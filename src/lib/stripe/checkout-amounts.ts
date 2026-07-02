@@ -6,17 +6,22 @@ import {
   calculateShippingEur,
 } from "@/lib/utils/currency";
 
-type CartLine = { price: number; quantity: number };
+type CartLine = { price: number; quantity: number; isDigital?: boolean };
 
 export function cartSubtotalEur(items: CartLine[]): number {
   return items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 }
 
+export function cartRequiresShipping(items: Pick<CartLine, "isDigital">[]): boolean {
+  return items.some((item) => !item.isDigital);
+}
+
 export function buildCheckoutShippingOptions(
   subtotalEur: number,
+  requiresShipping = true,
 ): Stripe.Checkout.SessionCreateParams.ShippingOption[] {
-  const shippingCents = calculateShippingCents(subtotalEur);
-  const isFree = calculateShippingEur(subtotalEur) === 0;
+  const shippingCents = calculateShippingCents(subtotalEur, requiresShipping);
+  const isFree = calculateShippingEur(subtotalEur, requiresShipping) === 0;
 
   return [
     {

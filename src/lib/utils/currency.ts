@@ -7,6 +7,8 @@ export const SHIPPING_FLAT_RATE_EUR = 4.99;
 export const STRIPE_TAX_CODE_APPAREL = "txcd_30011000";
 /** Stripe Tax code: shipping */
 export const STRIPE_TAX_CODE_SHIPPING = "txcd_92010001";
+/** Stripe Tax code: digitally supplied services */
+export const STRIPE_TAX_CODE_DIGITAL = "txcd_10000000";
 
 const priceFormatter = new Intl.NumberFormat("de-DE", {
   style: "currency",
@@ -44,12 +46,13 @@ export function fromMinorUnits(cents: number): number {
   return cents / 100;
 }
 
-export function calculateShippingEur(subtotalEur: number): number {
+export function calculateShippingEur(subtotalEur: number, requiresShipping = true): number {
+  if (!requiresShipping) return 0;
   return subtotalEur >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FLAT_RATE_EUR;
 }
 
-export function calculateShippingCents(subtotalEur: number): number {
-  return toMinorUnits(calculateShippingEur(subtotalEur));
+export function calculateShippingCents(subtotalEur: number, requiresShipping = true): number {
+  return toMinorUnits(calculateShippingEur(subtotalEur, requiresShipping));
 }
 
 /** @deprecated Use toMinorUnits */

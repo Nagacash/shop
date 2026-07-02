@@ -32,12 +32,14 @@ export type CartItemView = {
   imageUrl: string | null;
   size?: string | null;
   color?: string | null;
+  isDigital: boolean;
 };
 
 export type CartView = {
   id: string;
   items: CartItemView[];
   totalCents: number;
+  requiresShipping: boolean;
 };
 
 async function resolveCartContext() {
@@ -110,7 +112,7 @@ export async function getOrCreateCartId(): Promise<string> {
   return newCart.id;
 }
 
-const EMPTY_CART: CartView = { id: "", items: [], totalCents: 0 };
+const EMPTY_CART: CartView = { id: "", items: [], totalCents: 0, requiresShipping: false };
 
 /** Read cart without creating guest sessions or empty carts (faster for /cart page loads). */
 async function getCartIdIfExists(): Promise<string | null> {
@@ -167,6 +169,7 @@ export async function getCartWithItems(cartId: string): Promise<CartView> {
       price: productVariants.salePrice,
       basePrice: productVariants.price,
       productName: products.name,
+      isDigital: products.isDigital,
       sizeName: sizes.name,
       colorName: colors.name,
       imageUrl: productImages.url,
@@ -192,6 +195,7 @@ export async function getCartWithItems(cartId: string): Promise<CartView> {
     imageUrl: normalizeImageUrl(row.imageUrl),
     size: row.sizeName,
     color: row.colorName,
+    isDigital: row.isDigital,
   }));
 
   const totalCents = items.reduce(
@@ -199,7 +203,12 @@ export async function getCartWithItems(cartId: string): Promise<CartView> {
     0,
   );
 
-  return { id: cartId, items, totalCents };
+  return {
+    id: cartId,
+    items,
+    totalCents,
+    requiresShipping: items.some((item) => !item.isDigital),
+  };
 }
 
 export async function getCurrentCart(): Promise<CartView> {

@@ -1,3 +1,4 @@
+import { randomUUID } from "crypto";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "@/lib/db";
@@ -26,6 +27,11 @@ export const auth = betterAuth({
     provider: "pg",
     usePlural: true,
   }),
+  advanced: {
+    database: {
+      generateId: () => randomUUID(),
+    },
+  },
   emailAndPassword: {
     enabled: true,
   },

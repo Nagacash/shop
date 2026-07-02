@@ -21,6 +21,8 @@
     "db:seed:naga": "SEED_REPLACE=1 tsx src/lib/db/seed.ts",
     "db:add-naga-green": "tsx scripts/add-naga-green.ts",
     "db:add-golden-hoodie": "tsx scripts/add-golden-hoodie.ts",
+    "db:add-live-test-product": "tsx scripts/add-live-test-product.ts",
+    "db:migrate-digital": "tsx scripts/migrate-digital-products.ts",
     "db:prune-catalog": "tsx scripts/prune-catalog.ts",
     "db:update-black-tee-image": "tsx scripts/update-black-tee-image.ts",
     "db:update-white-tee-image": "tsx scripts/update-white-tee-image.ts",

@@ -55,14 +55,20 @@ export default function CartSummary({ cart }: { cart: CartView }) {
 
     try {
       const { url } = await createStripeCheckoutSession(cart.id);
-      window.location.href = url;
+      if (!url) {
+        setError("Checkout failed. No redirect URL returned.");
+        return;
+      }
+      window.location.assign(url);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Checkout failed. Please try again.");
+    } finally {
       setLoading(false);
     }
   };
 
-  const shippingEur = calculateShippingEur(totalCents / 100);
+  const requiresShipping = items.some((item) => item.isDigital !== true);
+  const shippingEur = calculateShippingEur(totalCents / 100, requiresShipping);
 
   if (!items.length) {
     return (
@@ -167,14 +173,18 @@ export default function CartSummary({ cart }: { cart: CartView }) {
         <div className="mt-3 flex items-center justify-between">
           <span className="text-body text-dark-700">Shipping</span>
           <span className="text-body-medium text-dark-900">
-            {shippingEur === 0 ? "Free" : formatPrice(shippingEur)}
+            {!requiresShipping ? "Not required" : shippingEur === 0 ? "Free" : formatPrice(shippingEur)}
           </span>
         </div>
         <p className="mt-3 text-caption text-dark-700">
-          {shippingEur === 0
-            ? "Free shipping applied on this order."
-            : `Free shipping on orders over ${formatPrice(FREE_SHIPPING_THRESHOLD)}.`}
-          {" "}Tax is calculated at checkout based on your shipping address.
+          {!requiresShipping
+            ? "Digital items are delivered by email — no shipping."
+            : shippingEur === 0
+              ? "Free shipping applied on this order."
+              : `Free shipping on orders over ${formatPrice(FREE_SHIPPING_THRESHOLD)}.`}
+          {" "}
+          Tax is calculated at checkout
+          {requiresShipping ? " based on your shipping address" : ""}.
         </p>
         {error && (
           <p className="mt-4 text-caption text-[--color-red]">{error}</p>

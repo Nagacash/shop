@@ -7,10 +7,15 @@ import { cookies } from "next/headers";
 import { getStripeClient, toMinorUnits } from "@/lib/stripe/client";
 import {
   buildCheckoutShippingOptions,
+  cartRequiresShipping,
   cartSubtotalEur,
 } from "@/lib/stripe/checkout-amounts";
 import { SHIPPING_COUNTRIES } from "@/lib/stripe/shipping";
-import { STRIPE_CURRENCY, STRIPE_TAX_CODE_APPAREL } from "@/lib/utils/currency";
+import {
+  STRIPE_CURRENCY,
+  STRIPE_TAX_CODE_APPAREL,
+  STRIPE_TAX_CODE_DIGITAL,
+} from "@/lib/utils/currency";
 
 const appUrl = process.env.BETTER_AUTH_URL ?? "http://localhost:3000";
 
@@ -37,6 +42,7 @@ export async function createStripeCheckoutSession(cartId: string) {
   }
 
   const subtotalEur = cartSubtotalEur(cart.items);
+  const requiresShipping = cartRequiresShipping(cart.items);
 
   const lineItems = cart.items.map((item) => ({
     price_data: {
@@ -46,7 +52,7 @@ export async function createStripeCheckoutSession(cartId: string) {
       product_data: {
         name: item.name,
         images: item.imageUrl ? [absoluteImageUrl(item.imageUrl)] : undefined,
-        tax_code: STRIPE_TAX_CODE_APPAREL,
+        tax_code: item.isDigital ? STRIPE_TAX_CODE_DIGITAL : STRIPE_TAX_CODE_APPAREL,
         metadata: {
           variantId: item.variantId,
         },
@@ -55,27 +61,40 @@ export async function createStripeCheckoutSession(cartId: string) {
     quantity: item.quantity,
   }));
 
-  const session = await getStripeClient().checkout.sessions.create({
-    mode: "payment",
-    line_items: lineItems,
-    success_url: `${appUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${appUrl}/cart`,
-    customer_email: user?.email ?? undefined,
-    shipping_address_collection: {
-      allowed_countries: [...SHIPPING_COUNTRIES],
-    },
-    shipping_options: buildCheckoutShippingOptions(subtotalEur),
-    phone_number_collection: {
-      enabled: true,
-    },
-    automatic_tax: {
-      enabled: true,
-    },
-    metadata: {
-      cartId,
-      userId: user?.id ?? "",
-    },
-  });
+  let session;
+  try {
+    session = await getStripeClient().checkout.sessions.create({
+      mode: "payment",
+      line_items: lineItems,
+      success_url: `${appUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${appUrl}/cart`,
+      customer_email: user?.email ?? undefined,
+      ...(requiresShipping
+        ? {
+            shipping_address_collection: {
+              allowed_countries: [...SHIPPING_COUNTRIES],
+            },
+            shipping_options: buildCheckoutShippingOptions(subtotalEur, true),
+            phone_number_collection: {
+              enabled: true,
+            },
+          }
+        : {
+            billing_address_collection: "auto" as const,
+          }),
+      automatic_tax: {
+        enabled: true,
+      },
+      metadata: {
+        cartId,
+        userId: user?.id ?? "",
+      },
+    });
+  } catch (err) {
+    const message =
+      err instanceof Error ? err.message : "Could not start Stripe checkout.";
+    throw new Error(message);
+  }
 
   if (!session.url) {
     throw new Error("Failed to create Stripe checkout session.");
