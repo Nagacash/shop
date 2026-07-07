@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { buildPageMetadata } from "@/lib/seo/metadata";
-import { SITE_DOMAIN, SITE_NAME, SUPPORT_EMAIL } from "@/lib/seo/site";
+import { SITE_DOMAIN, SITE_NAME, LEGAL_OPERATOR, LEGAL_OPERATOR_CONTACT_BLOCK, SUPPORT_EMAIL } from "@/lib/seo/site";
 
 export const revalidate = 120;
 
@@ -18,7 +18,7 @@ const sections = [
   },
   {
     title: "Who Is Responsible",
-    content: `The data controller for this website is ${SITE_NAME}, operating from Germany. For privacy-related questions or requests, contact us at ${SUPPORT_EMAIL}.`,
+    content: `The data controller for this website is ${LEGAL_OPERATOR.name}, ${LEGAL_OPERATOR.addressLine}, ${LEGAL_OPERATOR.country} (${SITE_NAME}). For privacy-related questions or requests, contact us at ${SUPPORT_EMAIL} or call ${LEGAL_OPERATOR.phone}.`,
   },
   {
     title: "Information We Collect",
@@ -97,7 +97,7 @@ const sections = [
   },
   {
     title: "Contact",
-    content: `If you have questions about this Privacy Policy or how we handle personal data, contact us at ${SUPPORT_EMAIL}.`,
+    content: `If you have questions about this Privacy Policy or how we handle personal data, contact:\n\n${LEGAL_OPERATOR_CONTACT_BLOCK}`,
   },
 ];
 
@@ -140,13 +140,24 @@ export default function PrivacyPage() {
                 ))}
               </div>
             ) : (
-              <p className="mt-4 text-body text-dark-700">{section.content}</p>
+              <p className="mt-4 whitespace-pre-line text-body text-dark-700">{section.content}</p>
             )}
           </section>
         ))}
       </div>
 
-      <p className="mt-10 text-body text-dark-700">
+      <p className="mt-10 whitespace-pre-line text-body text-dark-700">
+        {LEGAL_OPERATOR.name}
+        {"\n"}
+        {LEGAL_OPERATOR.addressLine}
+        {"\n"}
+        {LEGAL_OPERATOR.country}
+        {"\n"}
+        Tel:{" "}
+        <a href={`tel:${LEGAL_OPERATOR.phone}`} className="text-dark-900 underline">
+          {LEGAL_OPERATOR.phone}
+        </a>
+        {"\n"}
         Email:{" "}
         <a href={`mailto:${SUPPORT_EMAIL}`} className="text-dark-900 underline">
           {SUPPORT_EMAIL}

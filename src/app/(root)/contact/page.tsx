@@ -7,7 +7,7 @@ import JsonLd from "@/components/JsonLd";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { faqJsonLd } from "@/lib/seo/jsonld";
 import { NAGA_FAQS } from "@/lib/seo/faq";
-import { SITE_DOMAIN, SUPPORT_EMAIL } from "@/lib/seo/site";
+import { LEGAL_OPERATOR, SUPPORT_EMAIL } from "@/lib/seo/site";
 import { LEGACY_MARKETING_IMAGES, MARKETING_IMAGES, SECTION_CLIPS } from "@/lib/brand/marketing-images";
 
 export const revalidate = 120;
@@ -29,12 +29,13 @@ const contactDetails = [
   {
     icon: Phone,
     title: "Phone",
-    lines: [`Contact via ${SITE_DOMAIN}`, "Mon–Fri, 9am–5pm CET"],
+    lines: [LEGAL_OPERATOR.phone, "Mon–Fri, 9am–5pm CET"],
+    href: `tel:${LEGAL_OPERATOR.phone}`,
   },
   {
     icon: MapPin,
-    title: "Online Store",
-    lines: ["Naga Apparel", `Germany · ${SITE_DOMAIN}`],
+    title: "Address",
+    lines: [LEGAL_OPERATOR.name, `${LEGAL_OPERATOR.addressLine}, ${LEGAL_OPERATOR.country}`],
   },
   {
     icon: Clock,
@@ -90,6 +91,10 @@ export default function ContactPage() {
                     <li key={line}>
                       {item.title === "Email" ? (
                         <a href={`mailto:${SUPPORT_EMAIL}`} className="text-dark-900 underline">
+                          {line}
+                        </a>
+                      ) : item.title === "Phone" && "href" in item && item.href ? (
+                        <a href={item.href} className="text-dark-900 underline">
                           {line}
                         </a>
                       ) : (

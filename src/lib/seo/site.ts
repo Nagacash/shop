@@ -1,6 +1,24 @@
 export const SITE_ORIGIN = "https://www.nagaclub.de";
 export const SITE_DOMAIN = "www.nagaclub.de";
-export const SUPPORT_EMAIL = "chosenfewrecords@hotmail.de";
+
+/** Legal operator — privacy policy, terms, Impressum-style disclosures. */
+export const LEGAL_OPERATOR = {
+  name: "Maurice Holda",
+  addressLine: "20355 Hamburg",
+  country: "Germany",
+  phone: "+4917629255188",
+  email: "chosenfewrecords@hotail.de",
+} as const;
+
+export const SUPPORT_EMAIL = LEGAL_OPERATOR.email;
+
+export const LEGAL_OPERATOR_CONTACT_BLOCK = [
+  LEGAL_OPERATOR.name,
+  LEGAL_OPERATOR.addressLine,
+  LEGAL_OPERATOR.country,
+  `Tel: ${LEGAL_OPERATOR.phone}`,
+  LEGAL_OPERATOR.email,
+].join("\n");
 
 export const SITE_NAME = "Naga Apparel";
 

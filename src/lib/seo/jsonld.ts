@@ -1,4 +1,4 @@
-import { absoluteUrl, canonicalUrl, SITE_DESCRIPTION, SITE_NAME, SOCIAL, SUPPORT_EMAIL } from "./site";
+import { absoluteUrl, canonicalUrl, LEGAL_OPERATOR, SITE_DESCRIPTION, SITE_NAME, SOCIAL, SUPPORT_EMAIL } from "./site";
 import { CURRENCY_CODE } from "@/lib/utils/currency";
 
 export function organizationJsonLd() {
@@ -14,7 +14,14 @@ export function organizationJsonLd() {
       "@type": "ContactPoint",
       contactType: "customer support",
       email: SUPPORT_EMAIL,
+      telephone: LEGAL_OPERATOR.phone,
       availableLanguage: ["English", "German"],
+    },
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Hamburg",
+      postalCode: "20355",
+      addressCountry: "DE",
     },
   };
 }

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { buildPageMetadata } from "@/lib/seo/metadata";
-import { SITE_DOMAIN, SUPPORT_EMAIL } from "@/lib/seo/site";
+import { SITE_DOMAIN, LEGAL_OPERATOR, LEGAL_OPERATOR_CONTACT_BLOCK, SUPPORT_EMAIL } from "@/lib/seo/site";
 
 export const revalidate = 120;
 
@@ -12,6 +12,10 @@ export const metadata = buildPageMetadata({
 });
 
 const sections = [
+  {
+    title: "Operator / Seller Information",
+    content: `The operator of this website and seller of goods offered through ${SITE_DOMAIN} is:\n\n${LEGAL_OPERATOR_CONTACT_BLOCK}`,
+  },
   {
     title: "Welcome",
     content:
@@ -167,7 +171,7 @@ export default function TermsPage() {
                   into, and made a part of, these Terms.
                 </p>
               ) : (
-                <p className="mt-4 text-body text-dark-700">
+                <p className="mt-4 whitespace-pre-line text-body text-dark-700">
                   {section.content}
                 </p>
               )}
@@ -175,7 +179,18 @@ export default function TermsPage() {
           ))}
         </div>
 
-        <p className="mt-10 text-body text-dark-700">
+        <p className="mt-10 whitespace-pre-line text-body text-dark-700">
+          {LEGAL_OPERATOR.name}
+          {"\n"}
+          {LEGAL_OPERATOR.addressLine}
+          {"\n"}
+          {LEGAL_OPERATOR.country}
+          {"\n"}
+          Tel:{" "}
+          <a href={`tel:${LEGAL_OPERATOR.phone}`} className="text-dark-900 underline">
+            {LEGAL_OPERATOR.phone}
+          </a>
+          {"\n"}
           Questions? Email{" "}
           <a href={`mailto:${SUPPORT_EMAIL}`} className="text-dark-900 underline">
             {SUPPORT_EMAIL}
