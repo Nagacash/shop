@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { CTA } from "@/lib/brand/manifesto";
 import SocialProviders from "./SocialProviders";
+import { authClient } from "@/lib/auth-client";
 import { sanitizeNextPath } from "@/lib/navigation/safe-path";
 
 type Props = {
