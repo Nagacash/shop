@@ -1,7 +1,9 @@
 import ProtectedLogo from "@/components/ProtectedLogo";
 import { SITE_DOMAIN, SITE_ORIGIN } from "@/lib/seo/site";
+import { Facebook, Instagram, X as XIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import type { LucideIcon } from "lucide-react";
 
 type FooterLink = { label: string; href: string };
 
@@ -46,11 +48,11 @@ const columns: { title: string; links: FooterLink[] }[] = [
   },
 ];
 
-const socialLinks = [
-  { src: "/instagram.svg", alt: "Instagram", href: "https://www.instagram.com/nagaapparel" },
-  { src: "/facebook.svg", alt: "Facebook", href: "https://www.facebook.com/nagaapparel" },
-  { src: "/x.svg", alt: "X", href: "https://x.com/nagaapparel" },
-] as const;
+const socialLinks: { Icon: LucideIcon; alt: string; href: string }[] = [
+  { Icon: Instagram, alt: "Instagram", href: "https://www.instagram.com/nagaapparel" },
+  { Icon: Facebook, alt: "Facebook", href: "https://www.facebook.com/nagaapparel" },
+  { Icon: XIcon, alt: "X", href: "https://x.com/nagaapparel" },
+];
 
 const legalLinks: FooterLink[] = [
   { label: "Terms of Use", href: "/terms" },
@@ -105,18 +107,22 @@ export default function Footer() {
             ))}
           </div>
 
-          <div className="flex gap-3 md:col-span-2 md:justify-end">
-            {socialLinks.map((s) => (
+          <div className="relative z-[1] flex gap-3 md:col-span-2 md:justify-end">
+            {socialLinks.map(({ Icon, alt, href }) => (
               <Link
-                key={s.alt}
-                href={s.href}
+                key={alt}
+                href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={s.alt}
-                className="focus-ring naga-bezel-dark inline-flex min-h-11 min-w-11 items-center justify-center p-1 transition-transform duration-[var(--duration-normal)] ease-[var(--ease-premium)] hover:scale-105 focus-visible:outline-none active:scale-95"
+                aria-label={alt}
+                className="group focus-ring naga-bezel-dark inline-flex min-h-11 min-w-11 items-center justify-center p-1 transition-transform duration-[var(--duration-normal)] ease-[var(--ease-premium)] hover:scale-105 focus-visible:outline-none active:scale-95"
               >
-                <span className="naga-bezel-dark-inner flex h-full w-full items-center justify-center bg-dark-900">
-                  <Image src={s.src} alt={s.alt} width={18} height={18} />
+                <span className="naga-bezel-dark-inner flex h-9 w-9 items-center justify-center">
+                  <Icon
+                    className="h-[18px] w-[18px] text-light-100 transition-colors duration-[var(--duration-normal)] ease-[var(--ease-premium)] group-hover:text-[--color-naga-gold]"
+                    strokeWidth={1.5}
+                    aria-hidden="true"
+                  />
                 </span>
               </Link>
             ))}
