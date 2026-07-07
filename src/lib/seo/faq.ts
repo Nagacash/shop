@@ -5,7 +5,7 @@ import { SHIPPING_INCLUDED_MESSAGE } from "@/lib/utils/currency";
 export const NAGA_FAQS = [
   {
     question: "What is Naga Apparel?",
-    answer: `${BRAND_TAGLINE} Naga Apparel is streetwear rooted in the Amazon and inspired by ancient empires — Mexico, Egypt, Angkor Wat. The cobra symbolizes wisdom, power, and rebirth. We build for the hustle-minded, knowledge-loving, and unapologetic.`,
+    answer: `${BRAND_TAGLINE} Naga Apparel is streetwear rooted in the Amazon and inspired by ancient empires — Mexico, Egypt, Angkor Wat, India. The cobra symbolizes wisdom, power, and rebirth. We build for the hustle-minded, knowledge-loving, and unapologetic.`,
   },
   {
     question: "Where does Naga Apparel ship from?",

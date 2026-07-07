@@ -1,5 +1,18 @@
 # SEO changelog
 
+## 2026-07-07 — Production audit iteration 2
+
+Fixed:
+- G14: Visible BLUF paragraph in homepage hero (`SITE_DESCRIPTION`)
+- G15: Homepage collections PageHero uses `headingAs="h2"` — single H1 per page
+- G16: `canonicalUrl()` helper; root canonical uses trailing slash
+
+Crawl baseline:
+- `.seo/crawl-20260707.json` — 25 pages, 0 critical, 0 code-action high gaps
+
+User action (still open — G13):
+- Submit `https://www.nagaclub.de/sitemap.xml` in Google Search Console and Bing Webmaster Tools
+
 ## 2026-07-02 — Production audit iteration 1
 
 Fixed:

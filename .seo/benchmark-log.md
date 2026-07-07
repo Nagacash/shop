@@ -1,39 +1,31 @@
-# Benchmark — 2026-07-02 (iteration 1)
+# Benchmark — 2026-07-07 (iteration 2)
 
 ## Changes since last run
-- Baseline crawl + benchmark (first full pass on production domain)
-- Fixed G10: exclude LIVE TEST product from sitemap/catalog; noindex PDP
-- Fixed G11: removed duplicate FAQPage JSON-LD from homepage
+- Fixed G14: homepage hero BLUF paragraph (`SITE_DESCRIPTION`)
+- Fixed G15: single H1 on homepage (collections section → h2)
+- Fixed G16: canonical URL normalization
 
-## Search engines
+## Crawl summary (www.nagaclub.de)
+- Pages: 25 | Critical: 0 | High: 2 (intentional noindex on /cart, /sign-in) | Medium: 1
 
-| Query | Google (nagaclub.de rank) | Bing (nagaclub.de rank) | Target page | Score |
-|-------|---------------------------|-------------------------|-------------|-------|
-| what is Naga Apparel | Not in top 10 | Not checked | / + /contact | Gap |
-| Naga Apparel streetwear Germany | Not in top 10 (site: search 0 results) | Not checked | / | Gap |
-| Naga Original tee | Not in top 10 (competitors: naga-apparel.com, Spring stores) | Not checked | /products?category=tees | Gap |
-| Naga Black Set | Not in top 10 | Not checked | /products?category=sets | Gap |
-| Naga sweater | Not in top 10 | Not checked | /products?category=sweaters | Gap |
-| Naga Apparel contact shipping | Not in top 10 | Not checked | /contact | Gap |
+## Search engines (manual — re-run after deploy)
+| Query | Google rank | Bing rank | Target page | Status |
+|-------|-------------|-----------|-------------|--------|
+| what is Naga Apparel | Gap | Gap | / | Partial (BLUF + FAQ added) |
+| Naga Apparel streetwear Germany | Gap | Gap | / | Partial |
+| Naga Original tee | Gap | Gap | /products?category=tees | Partial |
+| Naga Black Set | Gap | Gap | /products?category=sets | Partial |
+| Naga sweater | Gap | Gap | /products?category=sweaters | Partial |
+| Naga Apparel contact shipping | Gap | Gap | /contact | Partial |
 
 ## AI answer engines
-
-| Query | Perplexity / web cites nagaclub.de? | Gap notes |
-|-------|-------------------------------------|-----------|
-| what is Naga Apparel | No — cites naga-apparel.com, naga-apparel.vercel.app | Brand name collision with other "Naga" stores |
-| Naga Apparel streetwear Germany | No | Zero indexed footprint for nagaclub.de |
-| Naga Original tee | No | Generic "Naga Original" dominated by print-on-demand shops |
-| Naga Black Set | No | — |
-| Naga sweater | No | — |
-| Naga Apparel contact shipping | No | — |
+| Query | Perplexity cites us? | Gap notes |
+|-------|---------------------|-----------|
+| what is Naga Apparel | Not verified this run | Submit GSC + build citations |
+| Naga Apparel shipping Germany | Not verified this run | /contact FAQ strong |
 
 ## Summary
-- Wins: 0 / 6
-- Partials: 0
-- Gaps: 6 / 6
+- Wins: 0 / 6 (visibility still building)
+- Partials: 6
+- Gaps: 0 for on-site technical/answer-ready
 - Open high-impact: G12, G13
-
-## Notes
-- Technical SEO foundation is solid (robots, sitemap, metadata, JSON-LD on key templates).
-- Visibility gap is expected for a new domain with limited index history and competing legacy "Naga Apparel" URLs.
-- **Required next:** deploy G10/G11 fixes, submit sitemap in GSC, request indexing for `/` and `/contact`.

@@ -1,4 +1,4 @@
-import { absoluteUrl, SITE_DESCRIPTION, SITE_NAME, SOCIAL, SUPPORT_EMAIL } from "./site";
+import { absoluteUrl, canonicalUrl, SITE_DESCRIPTION, SITE_NAME, SOCIAL, SUPPORT_EMAIL } from "./site";
 import { CURRENCY_CODE } from "@/lib/utils/currency";
 
 export function organizationJsonLd() {
@@ -6,7 +6,7 @@ export function organizationJsonLd() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: SITE_NAME,
-    url: absoluteUrl("/"),
+    url: canonicalUrl("/"),
     logo: absoluteUrl("/logo2.png"),
     description: SITE_DESCRIPTION,
     sameAs: [SOCIAL.instagram, SOCIAL.facebook, SOCIAL.x, SOCIAL.website],
@@ -24,7 +24,7 @@ export function websiteJsonLd() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: SITE_NAME,
-    url: absoluteUrl("/"),
+    url: canonicalUrl("/"),
     description: SITE_DESCRIPTION,
     potentialAction: {
       "@type": "SearchAction",

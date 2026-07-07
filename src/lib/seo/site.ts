@@ -47,3 +47,15 @@ export function absoluteUrl(path: string): string {
   if (path.startsWith("http")) return path;
   return `${base}${path.startsWith("/") ? path : `/${path}`}`;
 }
+
+/** Preferred canonical URL — root always ends with `/`; other paths have no trailing slash. */
+export function canonicalUrl(path: string = "/"): string {
+  const normalized = path.startsWith("/") ? path : `/${path}`;
+  const base = getSiteUrl().replace(/\/$/, "");
+
+  if (normalized === "/") {
+    return `${base}/`;
+  }
+
+  return `${base}${normalized}`.replace(/\/$/, "");
+}

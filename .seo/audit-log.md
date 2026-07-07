@@ -1,42 +1,35 @@
-# SEO/GEO audit log — 2026-07-02
+# SEO/GEO audit log — 2026-07-07 (iteration 2)
 
 ## Crawlability — Pass
-- robots.txt 200; allows `/`, disallows cart/checkout/api/auth/admin
-- sitemap.xml 200; 21 URLs (includes LIVE TEST product — fixed in code, pending deploy)
-- All sitemap URLs return 200
-- apex `nagaclub.de` → 308 → `www.nagaclub.de`
-- Internal crawl: 27 pages, 0 critical HTTP errors
+- robots.txt 200; sitemap.xml 200
+- 25 pages crawled on www.nagaclub.de; **0 critical** HTTP errors
+- apex → www redirect working
 
-## Indexation — Warn
-- Cart/sign-in correctly noindex (crawler flags as high — expected)
-- LIVE TEST product was indexable — **fixed** (noindex + sitemap exclusion)
-- GSC/Bing submission not confirmed — user action
+## Indexation — Pass (expected flags)
+- `/cart` and `/sign-in` correctly **noindex** (crawler flags as high — intentional)
+- Sitemap includes static, category, product, collection URLs
 
 ## Page intent — Pass
-- Query map complete; one target page per priority query
-- Category URLs map cleanly to product intent
+- Query map: one target page per priority query
 
-## Titles & meta — Pass (minor)
-- Unique titles and descriptions on crawled pages
-- Homepage multiple H1s (design-driven)
-- Category pages have intent-aligned titles (e.g. "Naga Original Tees")
+## Titles & meta — Pass
+- Unique titles on all crawled money pages
+- **Fixed G15:** homepage secondary PageHero now renders `h2` (single h1 on home)
+- **Fixed G16:** canonical URLs normalized (`/` → trailing slash on root)
 
 ## Internal links — Pass
-- Nav/footer link products, collections, contact
-- Collections hub links to all drops
-- Product pages link back to shop/collections
+- Nav/footer link shop categories, collections, contact
 
-## Structured data — Warn
-- Organization + WebSite on layout; Product + BreadcrumbList on PDPs
-- FAQPage on /contact with matching visible FAQ — Pass
-- Homepage had duplicate FAQPage without visible FAQ — **fixed**
+## Structured data — Pass
+- Organization + WebSite (layout); FAQPage + visible FAQ (home + contact); Product on PDPs
 
 ## Source citations (GEO) — Warn
-- Contact page has entity signals (Germany, support email)
-- No outbound authoritative citations on product/category pages
-- No author/dateModified on content pages
+- Entity signals on contact/about; no outbound citations on product pages
 
-## Answer-first content (GEO) — Partial
-- /contact: FAQ answers "what is Naga Apparel" + shipping — Pass
-- Homepage: strong hero/sections but no explicit BLUF paragraph above fold
-- Category pages: product grids; intent clear but thin definitional copy
+## Answer-first content (GEO) — Pass (homepage)
+- **Fixed G14:** hero now shows full `SITE_DESCRIPTION` BLUF paragraph above fold
+- FAQ section + FAQPage schema match visible content
+
+## Open (non-code)
+- **G12:** brand visibility vs competing domains — content + backlinks + time
+- **G13:** submit sitemap in Google Search Console / Bing Webmaster (user action)

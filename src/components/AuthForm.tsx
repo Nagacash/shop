@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { CTA } from "@/lib/brand/manifesto";
 import SocialProviders from "./SocialProviders";
-import { authClient } from "@/lib/auth-client";
+import { sanitizeNextPath } from "@/lib/navigation/safe-path";
 
 type Props = {
   mode: "sign-in" | "sign-up";
@@ -17,7 +17,7 @@ export default function AuthForm({ mode }: Props) {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const nextPath = searchParams.get("next") ?? "/";
+  const nextPath = sanitizeNextPath(searchParams.get("next"));
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

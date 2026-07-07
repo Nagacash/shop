@@ -30,6 +30,9 @@ export default function CartSummary({ cart }: { cart: CartView }) {
 
   const handleQuantityChange = async (cartItemId: string, quantity: number) => {
     setError(null);
+    const previousItems = items;
+    const previousTotal = totalCents;
+
     const nextItems = quantity <= 0
       ? items.filter((item) => item.id !== cartItemId)
       : items.map((item) =>
@@ -39,9 +42,21 @@ export default function CartSummary({ cart }: { cart: CartView }) {
     setTotalCents(recalcTotal(nextItems));
 
     if (quantity <= 0) {
-      await removeCartItem(cartItemId);
+      const result = await removeCartItem(cartItemId);
+      if (!result.ok) {
+        setItems(previousItems);
+        setTotalCents(previousTotal);
+        setError(result.error);
+        return;
+      }
     } else {
-      await updateCartItemQuantity(cartItemId, quantity);
+      const result = await updateCartItemQuantity(cartItemId, quantity);
+      if (!result.ok) {
+        setItems(previousItems);
+        setTotalCents(previousTotal);
+        setError(result.error);
+        return;
+      }
     }
     router.refresh();
   };
@@ -53,7 +68,7 @@ export default function CartSummary({ cart }: { cart: CartView }) {
     setError(null);
 
     try {
-      const { url } = await createStripeCheckoutSession(cart.id);
+      const { url } = await createStripeCheckoutSession();
       if (!url) {
         setError("Checkout failed. No redirect URL returned.");
         return;

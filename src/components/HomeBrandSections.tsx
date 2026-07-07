@@ -147,6 +147,7 @@ export default async function HomeBrandSections() {
             eyebrow="Lines"
             title="Wear Your Wisdom"
             subtitle="Every drop carries the cobra — pick your line."
+            headingAs="h2"
           />
           <section className="scroll-layer mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8 lg:pb-24">
             <InViewMotion stagger className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">

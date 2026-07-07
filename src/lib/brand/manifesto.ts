@@ -16,7 +16,7 @@ export const BRAND_CLOSER_LINE = `Wear your wisdom. ${BRAND_CLOSER}`;
 /** Section headline — homepage, about. */
 export const BRAND_HEADLINE = "Get Smart";
 
-export const BRAND_STORY = `The snake runs deep. From our roots in the Amazon to the ancient empires of Mexico, Egypt, and Angkor Wat, the serpent has always been the ultimate symbol of wisdom and hidden power. Naga Apparel is a homage to that ancient knowledge, built for the modern hustle.
+export const BRAND_STORY = `The snake runs deep. From our roots in the Amazon to the ancient empires of Mexico, Egypt, Angkor Wat, and India, the serpent has always been the ultimate symbol of wisdom and hidden power. Naga Apparel is a homage to that ancient knowledge, built for the modern hustle.
 
 We are for the knowledge-lovers, the system-breakers, and the unapologetic rebels. We don't just wear clothes; we wear our history. Built for those who hustle hard, think critically, and refuse to bow to a broken, racist system. Raise the cobra. Get smart. Wear your wisdom.`;
 

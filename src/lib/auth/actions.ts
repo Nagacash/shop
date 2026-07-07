@@ -54,10 +54,22 @@ export async function guestSession() {
   if (!token) {
     return { sessionToken: null };
   }
+
   const now = new Date();
   await db
     .delete(guests)
     .where(and(eq(guests.sessionToken, token), lt(guests.expiresAt, now)));
+
+  const [guest] = await db
+    .select()
+    .from(guests)
+    .where(eq(guests.sessionToken, token))
+    .limit(1);
+
+  if (!guest) {
+    cookieStore.delete("guest_session");
+    return { sessionToken: null };
+  }
 
   return { sessionToken: token };
 }

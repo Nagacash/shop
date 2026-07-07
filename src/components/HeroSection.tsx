@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { MARKETING_ALT, MARKETING_IMAGES } from "@/lib/brand/marketing-images";
 import { BRAND_CLOSER_LINE, BRAND_TAGLINE, CTA } from "@/lib/brand/manifesto";
+import { SITE_DESCRIPTION } from "@/lib/seo/site";
 
 export default function HeroSection() {
   return (
@@ -45,7 +46,14 @@ export default function HeroSection() {
 
             <p
               data-hero-item
-              className="mt-6 max-w-md text-pretty text-lead leading-relaxed text-dark-700"
+              className="mt-6 max-w-lg text-pretty text-body leading-relaxed text-dark-700"
+            >
+              {SITE_DESCRIPTION}
+            </p>
+
+            <p
+              data-hero-item
+              className="mt-4 max-w-md text-pretty text-lead leading-relaxed text-dark-900"
             >
               {BRAND_CLOSER_LINE}
             </p>

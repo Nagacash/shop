@@ -1,10 +1,10 @@
 | ID | Axis | Issue | Impact | Effort | Leverage | Status |
 |----|------|-------|--------|--------|----------|--------|
-| G01 | Crawlability | sitemap.xml returned 500 intermittently (now 200; DB try/catch falls back to static URLs) | Critical | Medium | Monitor | **resolved** |
-| G10 | Indexation | LIVE TEST checkout product indexed in sitemap + catalog | High | Low | **Fix first** | **fixed** (deploy pending) |
-| G11 | Structured data | Homepage FAQPage JSON-LD without visible FAQ (duplicate of /contact) | Medium | Low | Fixed | **fixed** |
-| G12 | Visibility | nagaclub.de not in top results for any priority query; competing naga-apparel.com / old Vercel deploys | High | High | Content + GSC + time | open |
-| G13 | Indexation | Sitemap not submitted to Google Search Console / Bing Webmaster | High | Low | User action | open |
-| G14 | Answer-first | Homepage lacks visible BLUF paragraph for "what is Naga Apparel" (schema removed; copy only in meta/sections) | Medium | Medium | Partial | **fixed** |
-| G15 | Titles | Homepage has 3 H1 elements (brand split + section heading) | Low | Medium | Polish | open |
-| G16 | Canonical | Homepage canonical omits trailing slash (`/` vs bare domain) | Low | Low | Polish | open |
+| G01 | Crawlability | sitemap.xml 500 intermittently | Critical | Medium | Monitor | **resolved** |
+| G10 | Indexation | LIVE TEST product indexed | High | Low | Fixed | **resolved** |
+| G11 | Structured data | Homepage FAQPage without visible FAQ | Medium | Low | Fixed | **resolved** |
+| G12 | Visibility | nagaclub.de not ranking for priority queries | High | High | Content + GSC + time | **open** |
+| G13 | Indexation | Sitemap not submitted to GSC / Bing | High | Low | User action | **open** |
+| G14 | Answer-first | Homepage lacked BLUF for "what is Naga Apparel" | Medium | Low | Fixed | **fixed** (2026-07-07) |
+| G15 | Titles | Homepage had 2 H1 elements | Low | Low | Fixed | **fixed** (2026-07-07) |
+| G16 | Canonical | Homepage canonical inconsistent with URL | Low | Low | Fixed | **fixed** (2026-07-07) |

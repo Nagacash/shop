@@ -14,6 +14,8 @@ type PageHeroProps = {
   eyebrow?: string;
   size?: "full" | "compact" | "slim";
   imageFit?: "cover" | "contain";
+  /** Use h2 when this hero sits below the page’s primary h1 (e.g. homepage sections). */
+  headingAs?: "h1" | "h2";
   children?: React.ReactNode;
 };
 
@@ -26,6 +28,7 @@ export default function PageHero({
   eyebrow,
   size = "full",
   imageFit = "cover",
+  headingAs = "h1",
   children,
 }: PageHeroProps) {
   const resolved =
@@ -80,17 +83,31 @@ export default function PageHero({
               {eyebrow}
             </p>
           )}
-          <h1
-            data-page-hero-title
-            className={
-              (size === "slim"
-                ? "mt-2 naga-display text-heading-3 text-balance"
-                : "mt-3 naga-display text-heading-3 sm:text-heading-2 text-balance") +
-              " font-bold tracking-tighter"
-            }
-          >
-            {title}
-          </h1>
+          {headingAs === "h2" ? (
+            <h2
+              data-page-hero-title
+              className={
+                (size === "slim"
+                  ? "mt-2 naga-display text-heading-3 text-balance"
+                  : "mt-3 naga-display text-heading-3 sm:text-heading-2 text-balance") +
+                " font-bold tracking-tighter"
+              }
+            >
+              {title}
+            </h2>
+          ) : (
+            <h1
+              data-page-hero-title
+              className={
+                (size === "slim"
+                  ? "mt-2 naga-display text-heading-3 text-balance"
+                  : "mt-3 naga-display text-heading-3 sm:text-heading-2 text-balance") +
+                " font-bold tracking-tighter"
+              }
+            >
+              {title}
+            </h1>
+          )}
           {subtitle && (
             <p data-page-hero-sub className="mt-3 max-w-2xl text-body text-light-400 sm:text-lead">
               {subtitle}

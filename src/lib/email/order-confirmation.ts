@@ -1,7 +1,8 @@
 import { eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { orders } from "@/lib/db/schema";
-import type { OrderView } from "@/lib/actions/orders";
+import type { OrderView } from "@/lib/orders/types";
+import { escapeHtml } from "@/lib/email/escape-html";
 import { formatPrice, formatPriceFromCents } from "@/lib/utils/currency";
 import { formatShippingAddress } from "@/lib/stripe/shipping";
 import { getResendClient, getResendFromAddress } from "@/lib/email/resend";
@@ -10,22 +11,32 @@ import { SITE_NAME, SUPPORT_EMAIL, absoluteUrl } from "@/lib/seo/site";
 function buildOrderConfirmationHtml(order: OrderView): string {
   const itemsHtml = order.items
     .map(
-      (item) => `
+      (item) => {
+        const label = escapeHtml(item.name) +
+          (item.size || item.color
+            ? ` (${[item.color, item.size ? `Size ${item.size}` : null]
+                .filter(Boolean)
+                .map((part) => escapeHtml(String(part)))
+                .join(", ")})`
+            : "");
+
+        return `
         <tr>
           <td style="padding:8px 0;border-bottom:1px solid #e5e5e5;">
-            ${item.name}${item.size || item.color ? ` (${[item.color, item.size ? `Size ${item.size}` : null].filter(Boolean).join(", ")})` : ""}
+            ${label}
           </td>
           <td style="padding:8px 0;border-bottom:1px solid #e5e5e5;text-align:center;">${item.quantity}</td>
           <td style="padding:8px 0;border-bottom:1px solid #e5e5e5;text-align:right;">
             ${formatPriceFromCents(Math.round(item.priceAtPurchase * 100) * item.quantity)}
           </td>
-        </tr>`,
+        </tr>`;
+      },
     )
     .join("");
 
   const shippingLines = order.shippingAddress
     ? formatShippingAddress(order.shippingAddress)
-        .map((line) => `<div>${line}</div>`)
+        .map((line) => `<div>${escapeHtml(line)}</div>`)
         .join("")
     : "<div>—</div>";
 

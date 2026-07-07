@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { absoluteUrl, SITE_DESCRIPTION, SITE_NAME } from "./site";
+import { absoluteUrl, canonicalUrl, SITE_DESCRIPTION, SITE_NAME } from "./site";
 
 type PageMetaInput = {
   title: string;
@@ -16,7 +16,7 @@ export function buildPageMetadata({
   image = "/logo2.png",
   noIndex = false,
 }: PageMetaInput): Metadata {
-  const url = absoluteUrl(path);
+  const url = canonicalUrl(path);
   const imageUrl = image ? absoluteUrl(image) : undefined;
 
   return {

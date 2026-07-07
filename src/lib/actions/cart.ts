@@ -19,6 +19,10 @@ import {
   getCurrentUser,
   guestSession,
 } from "@/lib/auth/actions";
+import { assertCartItemOwnedBySession, assertCartOwnedBySession } from "@/lib/auth/cart-access";
+import { hasActiveCheckoutSession } from "@/lib/checkout/active-session";
+import { cartQuantitySchema, cartVariantIdSchema } from "@/lib/cart/validation";
+import { getVariantInStock } from "@/lib/inventory/stock";
 import { mergeGuestCartWithUser } from "@/lib/utils/mergeSessions";
 import { normalizeImageUrl } from "@/lib/utils/images";
 
@@ -160,6 +164,8 @@ async function getCartIdIfExists(): Promise<string | null> {
 }
 
 export async function getCartWithItems(cartId: string): Promise<CartView> {
+  await assertCartOwnedBySession(cartId);
+
   const rows = await db
     .select({
       id: cartItems.id,
@@ -218,7 +224,26 @@ export async function getCurrentCart(): Promise<CartView> {
 }
 
 export async function addToCart(variantId: string, quantity = 1) {
+  const parsedVariant = cartVariantIdSchema.safeParse(variantId);
+  if (!parsedVariant.success) {
+    return { ok: false as const, error: "Invalid product variant." };
+  }
+
+  const parsedQuantity = cartQuantitySchema.safeParse(quantity);
+  if (!parsedQuantity.success) {
+    return { ok: false as const, error: "Invalid quantity." };
+  }
+
+  if (await hasActiveCheckoutSession()) {
+    return {
+      ok: false as const,
+      error: "Complete or cancel checkout before changing your bag.",
+    };
+  }
+
   const cartId = await getOrCreateCartId();
+  quantity = parsedQuantity.data;
+  variantId = parsedVariant.data;
 
   const [variant] = await db
     .select({ inStock: productVariants.inStock })
@@ -268,21 +293,59 @@ export async function addToCart(variantId: string, quantity = 1) {
 }
 
 export async function updateCartItemQuantity(cartItemId: string, quantity: number) {
+  await assertCartItemOwnedBySession(cartItemId);
+
+  if (await hasActiveCheckoutSession()) {
+    return {
+      ok: false as const,
+      error: "Complete or cancel checkout before changing your bag.",
+    };
+  }
+
   if (quantity <= 0) {
     await db.delete(cartItems).where(eq(cartItems.id, cartItemId));
-    return { ok: true };
+    return { ok: true as const };
+  }
+
+  const [cartItem] = await db
+    .select({ variantId: cartItems.productVariantId })
+    .from(cartItems)
+    .where(eq(cartItems.id, cartItemId))
+    .limit(1);
+
+  if (!cartItem) {
+    return { ok: false as const, error: "Cart item not found." };
+  }
+
+  const parsedQuantity = cartQuantitySchema.safeParse(quantity);
+  if (!parsedQuantity.success) {
+    return { ok: false as const, error: "Invalid quantity." };
+  }
+  quantity = parsedQuantity.data;
+
+  const inStock = await getVariantInStock(cartItem.variantId);
+  if (inStock === null || quantity > inStock) {
+    return { ok: false as const, error: "Not enough stock available." };
   }
 
   await db.update(cartItems).set({ quantity }).where(eq(cartItems.id, cartItemId));
-  return { ok: true };
+
+  revalidatePath("/cart");
+  revalidatePath("/", "layout");
+
+  return { ok: true as const };
 }
 
 export async function removeCartItem(cartItemId: string) {
-  await db.delete(cartItems).where(eq(cartItems.id, cartItemId));
-  return { ok: true };
-}
+  await assertCartItemOwnedBySession(cartItemId);
 
-export async function clearCart(cartId: string) {
-  await db.delete(cartItems).where(eq(cartItems.cartId, cartId));
-  return { ok: true };
+  if (await hasActiveCheckoutSession()) {
+    return {
+      ok: false as const,
+      error: "Complete or cancel checkout before changing your bag.",
+    };
+  }
+
+  await db.delete(cartItems).where(eq(cartItems.id, cartItemId));
+  return { ok: true as const };
 }
