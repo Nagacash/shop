@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import NavbarMotion from "@/components/motion/NavbarMotion";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -12,7 +13,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         Skip to content
       </a>
       <Suspense fallback={<div className="naga-nav-shell"><div className="naga-nav-island mx-auto max-w-7xl" aria-hidden="true" /></div>}>
-        <Navbar />
+        <NavbarMotion>
+          <Navbar />
+        </NavbarMotion>
       </Suspense>
       <main id="main-content" className="flex-1 w-full scroll-mt-24">
         {children}

@@ -1,7 +1,15 @@
 export const CURRENCY_CODE = "EUR";
 export const STRIPE_CURRENCY = "eur";
+
+/** Listed prices include standard worldwide shipping (DHL Paket 2 kg, online franking). */
+export const SHIPPING_INCLUDED_MESSAGE =
+  "Standard shipping is included in the price — no extra shipping fee at checkout.";
+
+/** @deprecated Shipping is included in product prices — kept for legacy references only. */
 export const FREE_SHIPPING_THRESHOLD = 75;
-export const SHIPPING_FLAT_RATE_EUR = 4.99;
+
+/** @deprecated Shipping is included in product prices — kept for legacy references only. */
+export const SHIPPING_FLAT_RATE_EUR = 0;
 
 /** Stripe Tax code: clothing & footwear */
 export const STRIPE_TAX_CODE_APPAREL = "txcd_30011000";
@@ -46,9 +54,9 @@ export function fromMinorUnits(cents: number): number {
   return cents / 100;
 }
 
-export function calculateShippingEur(subtotalEur: number, requiresShipping = true): number {
+export function calculateShippingEur(_subtotalEur = 0, requiresShipping = true): number {
   if (!requiresShipping) return 0;
-  return subtotalEur >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FLAT_RATE_EUR;
+  return 0;
 }
 
 export function calculateShippingCents(subtotalEur: number, requiresShipping = true): number {

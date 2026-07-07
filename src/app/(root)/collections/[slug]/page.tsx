@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Card } from "@/components";
 import PageHero from "@/components/PageHero";
+import ProductCardGrid from "@/components/ProductCardGrid";
 import JsonLd from "@/components/JsonLd";
 import { getCachedCollectionProducts } from "@/lib/queries/collections";
 import { getCollectionCoverUrl } from "@/lib/brand/assets";
@@ -82,7 +83,7 @@ export default async function CollectionDetailPage({
             <p className="text-body text-dark-700">No products in this collection yet.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 product-grid">
+          <ProductCardGrid>
             {products.map((product) => {
               const price =
                 product.minPrice !== null &&
@@ -104,7 +105,7 @@ export default async function CollectionDetailPage({
                 />
               );
             })}
-          </div>
+          </ProductCardGrid>
         )}
       </main>
     </>

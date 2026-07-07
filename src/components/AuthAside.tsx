@@ -1,17 +1,20 @@
 import Image from "next/image";
-import { getPageHeroUrl } from "@/lib/brand/assets";
+import { LEGACY_MARKETING_IMAGES } from "@/lib/brand/marketing-images";
 
 export default function AuthAside() {
-  const authImage = getPageHeroUrl("auth");
+  const authImage = LEGACY_MARKETING_IMAGES.berlinLifestyle;
 
   return (
     <section className="relative hidden flex-col justify-between overflow-hidden bg-dark-900 p-10 text-light-100 lg:flex">
       {authImage && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
+        <Image
           src={authImage}
           alt=""
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center opacity-45"
+          fill
+          unoptimized
+          className="pointer-events-none object-cover object-center opacity-45"
+          sizes="50vw"
+          priority
         />
       )}
       <div className="pointer-events-none absolute inset-0 bg-dark-900/75" aria-hidden="true" />
@@ -21,15 +24,14 @@ export default function AuthAside() {
       />
 
       <div className="relative z-10 flex items-center gap-3">
-        <Image
-          src="/logo.png"
-          alt="Naga Apparel"
-          width={44}
-          height={44}
-          className="h-11 w-11 rounded-full object-cover"
-          priority
-        />
-        <span className="naga-display text-body-medium tracking-tight">Naga Apparel</span>
+        <span className="naga-nav-wordmark naga-nav-wordmark--solo naga-nav-wordmark--light">
+          <span className="naga-display block text-[1rem] font-bold leading-none tracking-tighter text-light-100">
+            Naga
+          </span>
+          <span className="mt-1 block text-[0.5625rem] font-medium uppercase tracking-[0.28em] text-[--color-naga-gold]">
+            Apparel
+          </span>
+        </span>
       </div>
 
       <div className="relative z-10 space-y-4">

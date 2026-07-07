@@ -1,20 +1,24 @@
 import Link from "next/link";
 import { ArrowRight, Sparkles, Shirt } from "lucide-react";
+import InViewMotion from "@/components/motion/InViewMotion";
 import { getCachedFeaturedProduct } from "@/lib/queries/products";
 import FlatLayFrame from "@/components/FlatLayFrame";
 import BrandVideoBackdrop from "@/components/BrandVideoBackdrop";
 import { SECTION_CLIPS } from "@/lib/brand/marketing-images";
+import { FEATURED_SET_NAME, CTA } from "@/lib/brand/manifesto";
 import { formatPrice } from "@/lib/utils/currency";
 
 const HIGHLIGHTS = [
-  { label: "Naga Original graphic", detail: "Chest print" },
+  { label: "Get Smart graphic", detail: "Chest print" },
   { label: "Hustle Hard + cobra patch", detail: "Leg details" },
   { label: "Black jersey", detail: "Tee & shorts" },
 ] as const;
 
 export default async function FeaturedDropSection() {
-  const product = await getCachedFeaturedProduct("Naga Black Set");
-  if (!product) return null;
+  const product =
+    (await getCachedFeaturedProduct(FEATURED_SET_NAME)) ??
+    (await getCachedFeaturedProduct("Naga Black Set"));
+  if (!product || product.soldOut) return null;
 
   const priceLabel = product.minPrice !== null ? formatPrice(product.minPrice) : null;
 
@@ -23,10 +27,11 @@ export default async function FeaturedDropSection() {
       <BrandVideoBackdrop clipId={SECTION_CLIPS.featuredDrop} revealTop />
 
       <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+        <InViewMotion columns className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
           <Link
             href={`/products/${product.id}`}
-            className="drop-enter drop-enter-1 naga-bezel-dark group block cursor-pointer"
+            data-motion-left
+            className="naga-bezel-dark group block cursor-pointer"
           >
             <div className="naga-bezel-dark-inner overflow-hidden">
             <FlatLayFrame
@@ -38,22 +43,16 @@ export default async function FeaturedDropSection() {
               sizes="(max-width: 1024px) 100vw, 52vw"
             >
               <span
-                className={`absolute left-4 top-4 z-20 inline-flex items-center gap-2 border px-3 py-1.5 text-[0.6875rem] uppercase tracking-[0.2em] bg-dark-900/90 ${product.soldOut ? "border-light-100/25 text-light-400" : "border-light-100/25 text-light-200"}`}
+                className="absolute left-4 top-4 z-20 inline-flex items-center gap-2 border border-light-100/25 bg-dark-900/90 px-3 py-1.5 text-[0.6875rem] uppercase tracking-[0.2em] text-light-200"
               >
-                {product.soldOut ? (
-                  <>Sold out</>
-                ) : (
-                  <>
-                    <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
-                    New drop
-                  </>
-                )}
+                <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+                New drop
               </span>
             </FlatLayFrame>
             </div>
           </Link>
 
-          <div className="drop-enter drop-enter-2">
+          <div data-motion-right>
             <p className="naga-eyebrow border-light-100/15 bg-light-100/5">
               <Shirt className="h-3.5 w-3.5" strokeWidth={1.5} aria-hidden="true" />
               Complete set
@@ -63,8 +62,7 @@ export default async function FeaturedDropSection() {
               className="naga-display mt-4 text-balance font-bold leading-[0.92] tracking-tighter text-light-100"
               style={{ fontSize: "clamp(2.25rem, 6vw, 3.75rem)" }}
             >
-              Naga
-              <span className="block text-light-300">Black Set</span>
+              {product.name}
             </h2>
 
             {product.subtitle && (
@@ -79,6 +77,7 @@ export default async function FeaturedDropSection() {
               {HIGHLIGHTS.map((item) => (
                 <div
                   key={item.label}
+                  data-motion-stagger
                   className="naga-glass-card"
                 >
                   <p className="text-caption uppercase tracking-[0.14em] text-[--color-naga-gold]">
@@ -89,36 +88,26 @@ export default async function FeaturedDropSection() {
               ))}
             </div>
 
-            <div className="drop-enter drop-enter-3 mt-10 flex flex-wrap items-center gap-4">
+            <div data-motion-stagger className="mt-10 flex flex-wrap items-center gap-4">
               {priceLabel && (
                 <p className="text-lead tabular-nums text-light-100">{priceLabel}</p>
               )}
-              {product.soldOut ? (
-                <Link
-                  href={`/products/${product.id}`}
-                  className="inline-flex min-h-11 items-center gap-2 border border-light-100/20 px-4 py-3 text-[0.8125rem] font-medium uppercase tracking-[0.08em] text-light-400"
-                >
-                  Sold out — view details
-                  <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} aria-hidden="true" />
-                </Link>
-              ) : (
-                <Link
-                  href={`/products/${product.id}`}
-                  className="naga-btn naga-btn-gold focus-ring focus-visible:outline-none"
-                >
-                  Shop the set
-                  <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} aria-hidden="true" />
-                </Link>
-              )}
+              <Link
+                href={`/products/${product.id}`}
+                className="naga-btn naga-btn-gold focus-ring focus-visible:outline-none"
+              >
+                {CTA.claimYours}
+                <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} aria-hidden="true" />
+              </Link>
               <Link
                 href="/products?category=sets"
                 className="naga-btn-text-light focus-ring focus-visible:outline-none"
               >
-                All sets
+                {CTA.allSets}
               </Link>
             </div>
           </div>
-        </div>
+        </InViewMotion>
       </div>
     </section>
   );

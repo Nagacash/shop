@@ -3,6 +3,7 @@ import { CheckCircle2, MapPin, Package } from "lucide-react";
 import type { OrderView } from "@/lib/actions/orders";
 import { formatShippingAddress } from "@/lib/stripe/shipping";
 
+import { CTA } from "@/lib/brand/manifesto";
 import { formatPrice, formatPriceFromCents } from "@/lib/utils/currency";
 
 export default function OrderSuccess({ order }: { order: OrderView }) {
@@ -53,7 +54,7 @@ export default function OrderSuccess({ order }: { order: OrderView }) {
           {order.shippingAmount != null && (
             <div className="flex items-center justify-between text-dark-700">
               <span>Shipping</span>
-              <span>{order.shippingAmount === 0 ? "Free" : formatPrice(order.shippingAmount)}</span>
+              <span>{order.shippingAmount === 0 ? "Included" : formatPrice(order.shippingAmount)}</span>
             </div>
           )}
           {order.taxAmount != null && order.taxAmount > 0 && (
@@ -94,7 +95,7 @@ export default function OrderSuccess({ order }: { order: OrderView }) {
           href="/products"
           className="naga-btn naga-btn-dark text-center focus-ring focus-visible:outline-none"
         >
-          Continue Shopping
+          {CTA.continueShopping}
         </Link>
         <Link
           href="/"

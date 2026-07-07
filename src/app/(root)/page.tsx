@@ -1,21 +1,22 @@
 import { Suspense } from "react";
 import { HeroSection, HomeBrandSections } from "@/components";
 import FeaturedDropSection from "@/components/FeaturedDropSection";
+import HomeAvailableSection from "@/components/HomeAvailableSection";
 import FaqSection from "@/components/FaqSection";
 import JsonLd from "@/components/JsonLd";
 import SectionColorBridge from "@/components/SectionColorBridge";
 import { faqJsonLd } from "@/lib/seo/jsonld";
 import { NAGA_FAQS } from "@/lib/seo/faq";
+import { BRAND_CLOSER_LINE, BRAND_TAGLINE, BRAND_SUBTAGLINE } from "@/lib/brand/manifesto";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 120;
 
 export const metadata = buildPageMetadata({
-  title: "Urban Streetwear Tees, Sweaters & Sets",
-  description:
-    "Shop Naga Apparel — Naga Original tees, grey and light brown sweaters, and the Naga Black set. Germany-based urban streetwear with real product photography.",
+  title: BRAND_TAGLINE,
+  description: `${BRAND_SUBTAGLINE} ${BRAND_CLOSER_LINE}`,
   path: "/",
-  image: "/website-images/naga-tee.jpeg",
+  image: "/new/img/naga-dust.jpeg",
 });
 
 function SectionSkeleton({ tall = false }: { tall?: boolean }) {
@@ -31,6 +32,9 @@ export default async function Home() {
   return (
     <>
       <HeroSection />
+      <Suspense fallback={<SectionSkeleton />}>
+        <HomeAvailableSection />
+      </Suspense>
       <SectionColorBridge />
       <Suspense fallback={<SectionSkeleton tall />}>
         <FeaturedDropSection />

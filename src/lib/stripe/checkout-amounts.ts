@@ -3,7 +3,6 @@ import {
   STRIPE_CURRENCY,
   STRIPE_TAX_CODE_SHIPPING,
   calculateShippingCents,
-  calculateShippingEur,
 } from "@/lib/utils/currency";
 
 type CartLine = { price: number; quantity: number; isDigital?: boolean };
@@ -21,7 +20,6 @@ export function buildCheckoutShippingOptions(
   requiresShipping = true,
 ): Stripe.Checkout.SessionCreateParams.ShippingOption[] {
   const shippingCents = calculateShippingCents(subtotalEur, requiresShipping);
-  const isFree = calculateShippingEur(subtotalEur, requiresShipping) === 0;
 
   return [
     {
@@ -31,10 +29,10 @@ export function buildCheckoutShippingOptions(
           amount: shippingCents,
           currency: STRIPE_CURRENCY,
         },
-        display_name: isFree ? "Free shipping" : "Standard shipping",
+        display_name: "Shipping included",
         delivery_estimate: {
-          minimum: { unit: "business_day", value: 3 },
-          maximum: { unit: "business_day", value: 7 },
+          minimum: { unit: "business_day", value: 5 },
+          maximum: { unit: "business_day", value: 14 },
         },
         tax_behavior: "exclusive",
         tax_code: STRIPE_TAX_CODE_SHIPPING,

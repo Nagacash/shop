@@ -1,23 +1,30 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { FormEvent, useEffect, useRef, useState } from "react";
-import { ShoppingBag } from "lucide-react";
+import { ChevronDown, Search, ShoppingBag, X } from "lucide-react";
 import { getCurrentCart } from "@/lib/actions/cart";
 
-const NAV_LINKS = [
+const SHOP_LINKS = [
+  { label: "Shop the Drop", href: "/products" },
   { label: "Hoodies", href: "/products?category=hoodies" },
   { label: "Tees", href: "/products?category=tees" },
   { label: "Sweaters", href: "/products?category=sweaters" },
   { label: "Sets", href: "/products?category=sets" },
   { label: "Headwear", href: "/products?category=headwear" },
+] as const;
+
+const DISCOVER_LINKS = [
   { label: "Collections", href: "/collections" },
+  { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ] as const;
 
 function isNavActive(href: string, pathname: string, searchParams: URLSearchParams) {
+  if (href === "/products") {
+    return pathname === "/products" && !searchParams.get("category") && !searchParams.get("search");
+  }
   if (href.startsWith("/products?")) {
     const category = new URL(href, "http://local").searchParams.get("category");
     return (
@@ -29,10 +36,8 @@ function isNavActive(href: string, pathname: string, searchParams: URLSearchPara
   return pathname === href || (href !== "/" && pathname.startsWith(href));
 }
 
-function navLinkClass(active: boolean) {
-  return ["focus-ring focus-visible:outline-none", active ? "naga-nav-link naga-nav-link--active" : "naga-nav-link"].join(
-    " ",
-  );
+function isShopActive(pathname: string, searchParams: URLSearchParams) {
+  return pathname === "/products" || SHOP_LINKS.some((l) => isNavActive(l.href, pathname, searchParams));
 }
 
 export default function Navbar() {
@@ -40,19 +45,22 @@ export default function Navbar() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const inputRef = useRef<HTMLInputElement>(null);
+  const shopRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
+  const [shopOpen, setShopOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [query, setQuery] = useState("");
   const [cartCount, setCartCount] = useState(0);
+
+  const shopActive = isShopActive(pathname, searchParams);
 
   useEffect(() => {
     setQuery(searchParams.get("search") ?? "");
   }, [searchParams]);
 
   useEffect(() => {
-    if (searchOpen) {
-      inputRef.current?.focus();
-    }
+    if (searchOpen) inputRef.current?.focus();
   }, [searchOpen]);
 
   useEffect(() => {
@@ -68,6 +76,29 @@ export default function Navbar() {
     };
   }, [open]);
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 16);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!shopOpen) return;
+    const close = (e: MouseEvent) => {
+      if (shopRef.current && !shopRef.current.contains(e.target as Node)) {
+        setShopOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", close);
+    return () => document.removeEventListener("mousedown", close);
+  }, [shopOpen]);
+
+  useEffect(() => {
+    setShopOpen(false);
+    setSearchOpen(false);
+  }, [pathname, searchParams]);
+
   const handleSearch = (e: FormEvent) => {
     e.preventDefault();
     const trimmed = query.trim();
@@ -78,161 +109,241 @@ export default function Navbar() {
   };
 
   return (
-    <header className="naga-nav-shell">
-      <nav className="naga-nav-island" aria-label="Primary">
+    <header className="naga-nav-shell" data-nav-shell>
+      <nav
+        className={`naga-nav-island ${scrolled ? "naga-nav-island--scrolled" : ""} ${searchOpen ? "naga-nav-island--search" : ""}`}
+        aria-label="Primary"
+      >
+        {/* Brand */}
         <Link
           href="/"
           aria-label="Naga Apparel Home"
-          className="focus-ring flex items-center gap-2.5 rounded-full focus-visible:outline-none sm:gap-3"
+          className="naga-nav-brand focus-ring focus-visible:outline-none"
         >
-          <Image
-            src="/logo.png"
-            alt="Naga Apparel"
-            width={40}
-            height={40}
-            priority
-            className="h-9 w-9 rounded-full object-cover ring-1 ring-dark-900/10 sm:h-10 sm:w-10"
-          />
-          <span className="naga-display hidden text-body-medium tracking-tight text-dark-900 sm:inline">
-            Naga Apparel
+          <span className="naga-nav-wordmark naga-nav-wordmark--solo">
+            <span className="naga-display block text-[1.0625rem] font-bold leading-none tracking-tighter text-dark-900">
+              Naga
+            </span>
+            <span className="mt-1 block text-[0.5625rem] font-medium uppercase tracking-[0.28em] text-[--color-naga-gold]">
+              Apparel
+            </span>
           </span>
         </Link>
 
-        <ul className="hidden items-center gap-1 lg:flex">
-          {NAV_LINKS.map((l) => {
-            const active = isNavActive(l.href, pathname, searchParams);
-            return (
-              <li key={l.href}>
-                <Link href={l.href} className={navLinkClass(active)} aria-current={active ? "page" : undefined}>
-                  {l.label}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-
-        <div className="hidden items-center gap-2 lg:flex">
-          <button
-            type="button"
-            className="naga-nav-link focus-ring focus-visible:outline-none"
-            onClick={() => setSearchOpen((v) => !v)}
-            aria-expanded={searchOpen}
-            aria-controls="nav-search"
-          >
-            Search
-          </button>
-          <Link
-            href="/cart"
-            className="naga-nav-link focus-ring inline-flex items-center gap-1.5 focus-visible:outline-none"
-          >
-            <ShoppingBag className="h-3.5 w-3.5" strokeWidth={1.5} aria-hidden="true" />
-            <span className="tabular-nums">Bag ({cartCount})</span>
-          </Link>
-        </div>
-
-        <button
-          type="button"
-          className="focus-ring inline-flex min-h-11 min-w-11 flex-col items-center justify-center rounded-full focus-visible:outline-none lg:hidden"
-          aria-controls="mobile-menu"
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-        >
-          <span className="sr-only">Toggle navigation</span>
-          <span
-            className={`block h-0.5 w-5 origin-center bg-dark-900 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${open ? "translate-y-[5px] rotate-45" : ""}`}
-          />
-          <span
-            className={`my-1.5 block h-0.5 w-5 bg-dark-900 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${open ? "scale-x-0 opacity-0" : ""}`}
-          />
-          <span
-            className={`block h-0.5 w-5 origin-center bg-dark-900 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${open ? "-translate-y-[5px] -rotate-45" : ""}`}
-          />
-        </button>
-      </nav>
-
-      {searchOpen && (
-        <div id="nav-search" className="mx-auto mt-3 max-w-3xl px-4">
-          <form
-            onSubmit={handleSearch}
-            className="naga-bezel-light flex items-center gap-3 p-2"
-          >
-            <input
-              ref={inputRef}
-              type="search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search products..."
-              className="naga-input flex-1 border-0 bg-transparent shadow-none focus-visible:shadow-none"
-              aria-label="Search products"
-            />
-            <button type="submit" className="naga-btn naga-btn-dark shrink-0">
-              Search
-            </button>
+        {/* Desktop nav */}
+        <div className="hidden items-center gap-1 lg:flex">
+          <div ref={shopRef} className="relative">
             <button
               type="button"
-              className="shrink-0 px-2 text-body text-dark-700 transition-colors duration-[var(--duration-normal)] ease-[var(--ease-premium)] hover:text-dark-900"
-              onClick={() => setSearchOpen(false)}
+              className={`naga-nav-link naga-nav-link--shop ${shopActive ? "naga-nav-link--active" : ""}`}
+              aria-expanded={shopOpen}
+              aria-haspopup="true"
+              onClick={() => setShopOpen((v) => !v)}
             >
-              Cancel
+              Shop
+              <ChevronDown
+                className={`h-3.5 w-3.5 transition-transform duration-[var(--duration-normal)] ${shopOpen ? "rotate-180" : ""}`}
+                strokeWidth={1.75}
+                aria-hidden="true"
+              />
             </button>
-          </form>
-        </div>
-      )}
 
+            {shopOpen && (
+              <div className="naga-nav-dropdown" role="menu">
+                <p className="naga-nav-dropdown-label">Categories</p>
+                <ul className="grid gap-0.5">
+                  {SHOP_LINKS.map((l) => {
+                    const active = isNavActive(l.href, pathname, searchParams);
+                    return (
+                      <li key={l.href}>
+                        <Link
+                          href={l.href}
+                          role="menuitem"
+                          className={`naga-nav-dropdown-link ${active ? "naga-nav-dropdown-link--active" : ""}`}
+                          onClick={() => setShopOpen(false)}
+                        >
+                          {l.label}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
+          </div>
+
+          {DISCOVER_LINKS.map((l) => {
+            const active = isNavActive(l.href, pathname, searchParams);
+            return (
+              <Link
+                key={l.href}
+                href={l.href}
+                data-nav-link-item
+                className={`naga-nav-link ${active ? "naga-nav-link--active" : ""}`}
+                aria-current={active ? "page" : undefined}
+              >
+                {l.label}
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* Actions */}
+        <div className="flex items-center gap-2">
+          {searchOpen ? (
+            <form
+              onSubmit={handleSearch}
+              className="naga-nav-search hidden min-w-0 flex-1 items-center gap-2 lg:flex"
+              id="nav-search"
+            >
+              <Search className="h-4 w-4 shrink-0 text-dark-500" strokeWidth={1.5} aria-hidden="true" />
+              <input
+                ref={inputRef}
+                type="search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search drops…"
+                className="naga-nav-search-input"
+                aria-label="Search products"
+              />
+              <button type="submit" className="naga-nav-search-submit">
+                Go
+              </button>
+              <button
+                type="button"
+                className="naga-nav-icon-btn"
+                aria-label="Close search"
+                onClick={() => setSearchOpen(false)}
+              >
+                <X className="h-4 w-4" strokeWidth={1.5} />
+              </button>
+            </form>
+          ) : (
+            <>
+              <button
+                type="button"
+                className="naga-nav-icon-btn hidden lg:inline-flex"
+                aria-label="Search products"
+                aria-expanded={searchOpen}
+                aria-controls="nav-search"
+                onClick={() => setSearchOpen(true)}
+              >
+                <Search className="h-4 w-4" strokeWidth={1.5} />
+              </button>
+
+              <Link href="/cart" className="naga-nav-bag focus-ring focus-visible:outline-none">
+                <ShoppingBag className="h-4 w-4" strokeWidth={1.5} aria-hidden="true" />
+                <span className="hidden sm:inline">Bag</span>
+                {cartCount > 0 && (
+                  <span className="naga-nav-bag-count" aria-label={`${cartCount} items in bag`}>
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
+            </>
+          )}
+
+          <button
+            type="button"
+            className="naga-nav-menu-btn focus-ring lg:hidden"
+            aria-controls="mobile-menu"
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span className="sr-only">Toggle navigation</span>
+            <span className={`naga-nav-menu-line ${open ? "naga-nav-menu-line--top-open" : ""}`} />
+            <span className={`naga-nav-menu-line ${open ? "naga-nav-menu-line--mid-open" : ""}`} />
+            <span className={`naga-nav-menu-line ${open ? "naga-nav-menu-line--bot-open" : ""}`} />
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile drawer */}
       {open && (
         <>
-          <div
-            className="naga-mobile-overlay lg:hidden"
-            aria-hidden="true"
-            onClick={() => setOpen(false)}
-          />
-          <div id="mobile-menu" className="naga-mobile-panel lg:hidden">
-            <ul className="space-y-1">
-              {NAV_LINKS.map((l, i) => {
-                const active = isNavActive(l.href, pathname, searchParams);
-                return (
-                  <li
-                    key={l.href}
-                    style={{ animationDelay: `${80 + i * 40}ms` }}
-                    className="animate-[naga-panel-in_500ms_var(--ease-premium)_both]"
-                  >
-                    <Link
-                      href={l.href}
-                      className={`block min-h-11 rounded-xl px-3 py-2.5 ${navLinkClass(active)}`}
-                      aria-current={active ? "page" : undefined}
-                      onClick={() => setOpen(false)}
+          <div className="naga-mobile-overlay lg:hidden" aria-hidden="true" onClick={() => setOpen(false)} />
+          <div id="mobile-menu" className="naga-mobile-drawer lg:hidden">
+            <div className="naga-mobile-drawer-head">
+              <p className="naga-nav-dropdown-label">Menu</p>
+              <button
+                type="button"
+                className="naga-nav-icon-btn naga-nav-icon-btn--light"
+                aria-label="Close menu"
+                onClick={() => setOpen(false)}
+              >
+                <X className="h-4 w-4" strokeWidth={1.5} />
+              </button>
+            </div>
+
+            <div className="naga-mobile-drawer-section">
+              <p className="naga-nav-dropdown-label">Shop</p>
+              <ul className="space-y-0.5">
+                {SHOP_LINKS.map((l, i) => {
+                  const active = isNavActive(l.href, pathname, searchParams);
+                  return (
+                    <li
+                      key={l.href}
+                      style={{ animationDelay: `${60 + i * 35}ms` }}
+                      className="naga-mobile-drawer-item"
                     >
-                      {l.label}
-                    </Link>
-                  </li>
-                );
-              })}
-              <li className="border-t border-dark-900/8 pt-3">
-                <form onSubmit={handleSearch} className="flex gap-2">
-                  <input
-                    type="search"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search..."
-                    className="naga-input flex-1 py-2.5"
-                    aria-label="Search products"
-                  />
-                  <button type="submit" className="naga-btn naga-btn-dark shrink-0">
-                    Go
-                  </button>
-                </form>
-              </li>
-              <li className="pt-2">
-                <Link
-                  href="/cart"
-                  className="naga-btn naga-btn-gold w-full"
-                  onClick={() => setOpen(false)}
-                >
-                  <ShoppingBag className="h-3.5 w-3.5" strokeWidth={1.5} aria-hidden="true" />
-                  My Bag ({cartCount})
-                </Link>
-              </li>
-            </ul>
+                      <Link
+                        href={l.href}
+                        className={`naga-mobile-drawer-link ${active ? "naga-mobile-drawer-link--active" : ""}`}
+                        aria-current={active ? "page" : undefined}
+                        onClick={() => setOpen(false)}
+                      >
+                        {l.label}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+
+            <div className="naga-mobile-drawer-section">
+              <p className="naga-nav-dropdown-label">Discover</p>
+              <ul className="space-y-0.5">
+                {DISCOVER_LINKS.map((l, i) => {
+                  const active = isNavActive(l.href, pathname, searchParams);
+                  return (
+                    <li
+                      key={l.href}
+                      style={{ animationDelay: `${220 + i * 35}ms` }}
+                      className="naga-mobile-drawer-item"
+                    >
+                      <Link
+                        href={l.href}
+                        className={`naga-mobile-drawer-link ${active ? "naga-mobile-drawer-link--active" : ""}`}
+                        aria-current={active ? "page" : undefined}
+                        onClick={() => setOpen(false)}
+                      >
+                        {l.label}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+
+            <form onSubmit={handleSearch} className="naga-mobile-drawer-search">
+              <Search className="h-4 w-4 shrink-0 text-light-400" strokeWidth={1.5} aria-hidden="true" />
+              <input
+                type="search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search drops…"
+                className="naga-mobile-drawer-search-input"
+                aria-label="Search products"
+              />
+              <button type="submit" className="naga-nav-search-submit naga-nav-search-submit--gold">
+                Go
+              </button>
+            </form>
+
+            <Link href="/cart" className="naga-btn naga-btn-gold w-full" onClick={() => setOpen(false)}>
+              <ShoppingBag className="h-4 w-4" strokeWidth={1.5} aria-hidden="true" />
+              Bag · {cartCount} item{cartCount === 1 ? "" : "s"}
+            </Link>
           </div>
         </>
       )}

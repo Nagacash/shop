@@ -1,5 +1,6 @@
 import PageHero from "@/components/PageHero";
 import ProductsShop from "@/components/ProductsShop";
+import { BLACK_TEE_NAME, BRAND_SUBTAGLINE } from "@/lib/brand/manifesto";
 import { SECTION_CLIPS } from "@/lib/brand/marketing-images";
 import { parseFilterParams } from "@/lib/utils/query";
 import { buildPageMetadata } from "@/lib/seo/metadata";
@@ -9,23 +10,30 @@ type SearchParams = Record<string, string | string[] | undefined>;
 
 export const revalidate = 120;
 
-const CATEGORY_SEO: Record<string, { title: string; description: string }> = {
+const CATEGORY_SEO: Record<string, { title: string; description: string; subtitle: string }> = {
   tees: {
-    title: "Naga Original Tees",
-    description: "Shop Naga Original black and white graphic tees. Heavyweight cotton, cobra chest print, real flat-lay photos.",
+    title: "Get Smart Tees",
+    description:
+      `${BLACK_TEE_NAME} and The Wisdom & Hustle Tee — heavyweight cotton, cobra chest graphics, built for the hustle.`,
+    subtitle: "Knowledge is power. Dress like it.",
   },
   sweaters: {
-    title: "Naga Sweaters",
-    description: "Shop Naga Original grey and light brown sweaters. Premium knit crewnecks with the Naga cobra graphic.",
+    title: "Empire Crews",
+    description:
+      "The Angkor Heavyweight Crew and The Empire Roots Crew — premium knit streetwear rooted in ancient wisdom.",
+    subtitle: "Ancient craft. Modern hustle.",
   },
   sets: {
-    title: "Naga Sets",
-    description: "Shop Naga matching tee and shorts sets. The Naga Black Set — Naga Original graphic tee and Hustle Hard shorts.",
+    title: "Syndicate Sets",
+    description:
+      "The Amazonian Syndicate Set — matching tee and shorts with Get Smart chest graphic, Hustle Hard leg print, and cobra patch.",
+    subtitle: "Raise the cobra. Get smart.",
   },
   hoodies: {
-    title: "Naga Hoodies",
+    title: "Cobra Hoodies",
     description:
-      "Shop Naga Original cream and Golden Naga hoodies. Cobra chest graphics, fleece interior, kangaroo pocket, and drawstring hood.",
+      "The Cobra Wisdom Hoodie and The Golden Empire Hoodie — fleece interior, cobra chest graphics, unapologetic street fit.",
+    subtitle: "Wear your wisdom.",
   },
 };
 
@@ -56,8 +64,8 @@ export async function generateMetadata({
   }
 
   return buildPageMetadata({
-    title: "Shop All Products",
-    description: "Shop all Naga Apparel — tees, sweaters, sets, and streetwear drops with real product photography.",
+    title: "Shop the Drop",
+    description: `${BRAND_SUBTAGLINE} Tees, sweaters, hoodies, and sets — claim yours.`,
     path: "/products",
   });
 }
@@ -72,11 +80,13 @@ export default async function ProductsPage({
   const searchQuery = parsed.search;
   const category = parsed.categorySlugs[0];
 
+  const categorySeo = category ? CATEGORY_SEO[category] : undefined;
   const heroTitle = searchQuery
     ? `Results for "${searchQuery}"`
-    : category
-      ? category.charAt(0).toUpperCase() + category.slice(1)
-      : "Shop";
+    : categorySeo?.title ?? "Shop the Drop";
+  const heroSubtitle = searchQuery
+    ? "Filter by size, color, and price."
+    : categorySeo?.subtitle ?? "Tees, sweaters, hoodies, and sets — filter by size, color, and price.";
 
   return (
     <>
@@ -86,7 +96,7 @@ export default async function ProductsPage({
         size="compact"
         eyebrow="Naga drop"
         title={heroTitle}
-        subtitle="Tees, sweaters, hoodies, and sets — filter by size, color, and price."
+        subtitle={heroSubtitle}
       />
 
       <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

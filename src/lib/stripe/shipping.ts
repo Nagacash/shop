@@ -2,8 +2,8 @@ import type Stripe from "stripe";
 import { db } from "@/lib/db";
 import { addresses } from "@/lib/db/schema";
 
-/** EU + CH — common shipping destinations from Germany */
-export const SHIPPING_COUNTRIES = [
+/** Europe + UK — primary shipping zone from Germany */
+export const EU_SHIPPING_COUNTRIES = [
   "DE",
   "AT",
   "CH",
@@ -20,7 +20,53 @@ export const SHIPPING_COUNTRIES = [
   "ES",
   "PT",
   "GB",
+  "NO",
+  "FI",
+  "GR",
+  "HU",
+  "RO",
+  "SK",
+  "SI",
+  "HR",
+  "BG",
+  "EE",
+  "LV",
+  "LT",
+  "MT",
+  "CY",
+  "IS",
+  "LI",
+  "MC",
 ] as const;
+
+/** Americas, Oceania, and other international destinations */
+export const INTERNATIONAL_SHIPPING_COUNTRIES = [
+  "US",
+  "CA",
+  "MX",
+  "AU",
+  "NZ",
+  "JP",
+  "KR",
+  "SG",
+  "HK",
+  "AE",
+  "IL",
+  "ZA",
+  "BR",
+] as const;
+
+/** All countries offered at Stripe Checkout — shipping cost is included in product prices. */
+export const SHIPPING_COUNTRIES = [
+  ...EU_SHIPPING_COUNTRIES,
+  ...INTERNATIONAL_SHIPPING_COUNTRIES,
+] as const;
+
+export type ShippingCountryCode = (typeof SHIPPING_COUNTRIES)[number];
+
+export function isEuShippingCountry(country: string): boolean {
+  return (EU_SHIPPING_COUNTRIES as readonly string[]).includes(country.toUpperCase());
+}
 
 export type ShippingAddressView = {
   recipientName: string | null;

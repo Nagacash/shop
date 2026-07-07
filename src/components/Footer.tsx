@@ -23,8 +23,7 @@ const columns: { title: string; links: FooterLink[] }[] = [
       { label: "Tees", href: "/products?category=tees" },
       { label: "Sweaters", href: "/products?category=sweaters" },
       { label: "Sets", href: "/products?category=sets" },
-      { label: "Headwear", href: "/products?category=headwear" },
-      { label: "Shop All", href: "/products" },
+      { label: "Shop the Drop", href: "/products" },
     ],
   },
   {
@@ -33,12 +32,12 @@ const columns: { title: string; links: FooterLink[] }[] = [
       { label: "Sign In", href: "/sign-in" },
       { label: "My Cart", href: "/cart" },
       { label: "Order Help", href: "/contact" },
-      { label: "Contact", href: "/contact" },
     ],
   },
   {
     title: "Help",
     links: [
+      { label: "About Us", href: "/about" },
       { label: "Contact Us", href: "/contact" },
       { label: "Shipping", href: "/contact" },
       { label: "Returns", href: "/contact" },
@@ -84,8 +83,8 @@ export default function Footer() {
               Berlin · Urban
             </p>
             <p className="max-w-xs text-body leading-relaxed text-light-400">
-              Knowledge and quality over ignorance. Premium streetwear for the hustle — hoodies,
-              tees, and sets built to last.
+              Ancient wisdom. Modern hustle. Premium streetwear for the knowledge-loving and
+              unapologetic — raise the cobra, get smart.
             </p>
           </div>
 

@@ -28,7 +28,7 @@ encode_webm() {
     "$dest"
 }
 
-for mp4 in "$CLIPS_DIR"/hero*.mp4; do
+for mp4 in "$CLIPS_DIR"/hero*.mp4 "$ROOT/public/new/clips"/*.mp4; do
   [[ -f "$mp4" ]] || continue
   encode_webm "$mp4"
 done

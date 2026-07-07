@@ -1,5 +1,6 @@
 import Image from "next/image";
 import BrandVideoBackdrop from "@/components/BrandVideoBackdrop";
+import PageHeroMotion from "@/components/motion/PageHeroMotion";
 import { getPageHeroUrl, getHeroImageUrl } from "@/lib/brand/assets";
 import type { PageHeroKey } from "@/lib/brand/page-heroes";
 import type { BrandClipId } from "@/lib/brand/marketing-images";
@@ -72,26 +73,31 @@ export default function PageHero({
       )}
 
       <div className={"relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 " + padding}>
-        {eyebrow && (
-          <p className="naga-eyebrow">
-            <span className="naga-eyebrow-dot" aria-hidden="true" />
-            {eyebrow}
-          </p>
-        )}
-        <h1
-          className={
-            (size === "slim"
-              ? "mt-2 naga-display text-heading-3 text-balance"
-              : "mt-3 naga-display text-heading-3 sm:text-heading-2 text-balance") +
-            " font-bold tracking-tighter"
-          }
-        >
-          {title}
-        </h1>
-        {subtitle && (
-          <p className="mt-3 max-w-2xl text-body text-light-400 sm:text-lead">{subtitle}</p>
-        )}
-        {children}
+        <PageHeroMotion>
+          {eyebrow && (
+            <p data-page-hero-eyebrow className="naga-eyebrow">
+              <span className="naga-eyebrow-dot" aria-hidden="true" />
+              {eyebrow}
+            </p>
+          )}
+          <h1
+            data-page-hero-title
+            className={
+              (size === "slim"
+                ? "mt-2 naga-display text-heading-3 text-balance"
+                : "mt-3 naga-display text-heading-3 sm:text-heading-2 text-balance") +
+              " font-bold tracking-tighter"
+            }
+          >
+            {title}
+          </h1>
+          {subtitle && (
+            <p data-page-hero-sub className="mt-3 max-w-2xl text-body text-light-400 sm:text-lead">
+              {subtitle}
+            </p>
+          )}
+          {children}
+        </PageHeroMotion>
       </div>
     </section>
   );

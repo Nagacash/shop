@@ -5,17 +5,14 @@ export const SUPPORT_EMAIL = "chosenfewrecords@hotmail.de";
 export const SITE_NAME = "Naga Apparel";
 
 export const SITE_DESCRIPTION =
-  "Naga Apparel is a Germany-based urban streetwear brand. Shop Naga Original tees, sweaters, hoodies, and the Naga Black set — real product photos, quality cotton, and cobra graphic details.";
+  "Ancient Wisdom. Modern Hustle. Naga Apparel — premium streetwear rooted in the Amazon, inspired by ancient empires. Wear your wisdom. Get smart.";
 
 export const SITE_KEYWORDS = [
   "Naga Apparel",
-  "Naga Original",
-  "streetwear Germany",
-  "Naga Black Set",
-  "Naga tee",
-  "Naga sweater",
-  "Naga hoodie",
-  "urban streetwear",
+  "Ancient Wisdom Modern Hustle",
+  "Get Smart Tee",
+  "Amazonian Syndicate Set",
+  "Angkor Heavyweight Crew",
 ];
 
 export const SOCIAL = {

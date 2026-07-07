@@ -1,9 +1,11 @@
 import { catalogCache } from "@/lib/cache/catalog";
 import {
+  getAvailableProducts,
   getFeaturedProduct,
   getAllProducts,
   getProductReviews,
   getRecommendedProducts,
+  type AvailableProduct,
   type FeaturedProduct,
   type GetAllProductsResult,
   type Review,
@@ -11,7 +13,16 @@ import {
 } from "@/lib/actions/product";
 import type { NormalizedProductFilters } from "@/lib/utils/query";
 
-export type { Review, RecommendedProduct };
+export type { AvailableProduct, Review, RecommendedProduct };
+
+export function getCachedAvailableProducts(
+  limit: number,
+  priorityNames: readonly string[],
+): Promise<AvailableProduct[]> {
+  return catalogCache(["available-products", String(limit), ...priorityNames], () =>
+    getAvailableProducts(limit, priorityNames),
+  );
+}
 
 export function getCachedFeaturedProduct(name: string): Promise<FeaturedProduct | null> {
   return catalogCache(["featured-product", name], () => getFeaturedProduct(name));

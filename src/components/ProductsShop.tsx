@@ -3,10 +3,12 @@ import Link from "next/link";
 import { Card } from "@/components";
 import ActiveFilterBadges from "@/components/ActiveFilterBadges";
 import Filters from "@/components/Filters";
+import ProductCardGrid from "@/components/ProductCardGrid";
 import Sort from "@/components/Sort";
 import { getCachedAllProducts } from "@/lib/queries/products";
 import { buildActiveFilterBadges, clearProductFiltersUrl, parseFilterParams } from "@/lib/utils/query";
 import { FALLBACK_PRODUCT_IMAGE, isFlatLayProductImage } from "@/lib/utils/images";
+import { CTA } from "@/lib/brand/manifesto";
 import { formatPriceRange } from "@/lib/utils/currency";
 
 type SearchParams = Record<string, string | string[] | undefined>;
@@ -91,12 +93,12 @@ async function ProductGrid({ sp }: { sp: SearchParams }) {
                   href={PRODUCTS_PATH}
                   className="naga-btn naga-btn-dark focus-ring focus-visible:outline-none"
                 >
-                  Shop all
+                  {CTA.shopTheDrop}
                 </Link>
               </div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 product-grid">
+            <ProductCardGrid animate refreshKey={filterKey(sp)}>
               {products.map((p) => {
                 const price =
                   p.minPrice !== null && p.maxPrice !== null && p.minPrice !== p.maxPrice
@@ -122,7 +124,7 @@ async function ProductGrid({ sp }: { sp: SearchParams }) {
                   />
                 );
               })}
-            </div>
+            </ProductCardGrid>
           )}
         </div>
       </section>

@@ -9,6 +9,7 @@ import {
 import { eq } from 'drizzle-orm';
 import { mkdirSync, existsSync, cpSync } from 'fs';
 import { join, basename } from 'path';
+import { PRODUCT_RENAMES } from '@/lib/brand/manifesto';
 
 type ProductRow = typeof products.$inferSelect;
 type VariantRow = typeof productVariants.$inferSelect;
@@ -34,80 +35,73 @@ type NagaProduct = {
 
 const NAGA_PRODUCTS: NagaProduct[] = [
   {
-    name: 'Naga Black Set',
-    description:
-      'Matching black tee and shorts set. Naga Original chest graphic, Hustle Hard leg print, and cobra patch detail. Soft cotton-blend jersey, relaxed street fit.',
+    name: PRODUCT_RENAMES['Naga Black Set'].name,
+    description: PRODUCT_RENAMES['Naga Black Set'].description!,
     categorySlug: 'sets',
     collectionSlug: 'naga-black',
     genderSlug: 'unisex',
-    basePrice: 48,
+    basePrice: 89,
     imageUrl: '/uploads/naga/naga-set-black.jpg',
     colorSlugs: ['black'],
     inStock: 0,
   },
   {
-    name: 'Naga Original Black Tee',
-    description:
-      'Classic black crew neck with the Naga Original chest graphic. Heavyweight cotton jersey, relaxed street fit, true-to-size.',
+    name: PRODUCT_RENAMES['Naga Original Black Tee'].name,
+    description: PRODUCT_RENAMES['Naga Original Black Tee'].description!,
     categorySlug: 'tees',
     collectionSlug: 'naga-original',
     genderSlug: 'unisex',
-    basePrice: 32,
+    basePrice: 68,
     imageUrl: '/uploads/naga/naga-wood.jpg',
     colorSlugs: ['black'],
   },
   {
-    name: 'Naga Original White Tee',
-    description:
-      'Crisp white crew neck with the Naga Original chest graphic. Premium cotton, clean contrast print, everyday street staple.',
+    name: PRODUCT_RENAMES['Naga Original White Tee'].name,
+    description: PRODUCT_RENAMES['Naga Original White Tee'].description!,
     categorySlug: 'tees',
     collectionSlug: 'naga-original',
     genderSlug: 'unisex',
-    basePrice: 32,
+    basePrice: 68,
     imageUrl: '/uploads/naga/naga-white-tees.jpg',
     colorSlugs: ['white'],
   },
   {
-    name: 'Naga Original Grey Sweater',
-    description:
-      'Heavyweight grey crew sweater with the Naga Original chest graphic. Soft brushed fleece interior, relaxed fit, everyday street layer.',
+    name: PRODUCT_RENAMES['Naga Original Grey Sweater'].name,
+    description: PRODUCT_RENAMES['Naga Original Grey Sweater'].description!,
     categorySlug: 'sweaters',
     collectionSlug: 'naga-original',
     genderSlug: 'unisex',
-    basePrice: 58,
+    basePrice: 98,
     imageUrl: '/uploads/naga/naga-sweater-grey.jpg',
     colorSlugs: ['gray'],
   },
   {
-    name: 'Naga Original Light Brown Sweater',
-    description:
-      'Light brown crew sweater with the Naga Original chest graphic. Premium knit, warm neutral tone, relaxed street fit.',
+    name: PRODUCT_RENAMES['Naga Original Light Brown Sweater'].name,
+    description: PRODUCT_RENAMES['Naga Original Light Brown Sweater'].description!,
     categorySlug: 'sweaters',
     collectionSlug: 'naga-original',
     genderSlug: 'unisex',
-    basePrice: 58,
+    basePrice: 98,
     imageUrl: '/uploads/naga/naga-sweater-lightbrown.jpg',
     colorSlugs: ['light-brown'],
   },
   {
-    name: 'Naga Original Cream Hoodie',
-    description:
-      'Cream pullover hoodie with the Naga Original cobra chest graphic. Soft fleece interior, kangaroo pocket, drawstring hood, relaxed street fit.',
+    name: PRODUCT_RENAMES['Naga Original Cream Hoodie'].name,
+    description: PRODUCT_RENAMES['Naga Original Cream Hoodie'].description!,
     categorySlug: 'hoodies',
     collectionSlug: 'naga-original',
     genderSlug: 'unisex',
-    basePrice: 68,
+    basePrice: 118,
     imageUrl: '/uploads/naga/naga-hoodie.png',
     colorSlugs: ['cream'],
   },
   {
-    name: 'Golden Naga Hoodie',
-    description:
-      'Gold pullover hoodie with the Naga cobra graphic on the chest and a bold back print. Soft fleece interior, kangaroo pocket, drawstring hood, relaxed street fit.',
+    name: PRODUCT_RENAMES['Golden Naga Hoodie'].name,
+    description: PRODUCT_RENAMES['Golden Naga Hoodie'].description!,
     categorySlug: 'hoodies',
     collectionSlug: 'black-gold-edition',
     genderSlug: 'unisex',
-    basePrice: 72,
+    basePrice: 128,
     imageUrl: '/uploads/naga/naga-golden-hoodie-front.jpg',
     colorSlugs: ['gold'],
   },

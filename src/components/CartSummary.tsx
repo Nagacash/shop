@@ -8,11 +8,10 @@ import { Minus, Plus, Trash2, ShoppingBag, Loader2 } from "lucide-react";
 import { createStripeCheckoutSession } from "@/lib/actions/checkout";
 import { updateCartItemQuantity, removeCartItem, type CartView } from "@/lib/actions/cart";
 
+import { CTA } from "@/lib/brand/manifesto";
 import {
-  calculateShippingEur,
-  formatPrice,
   formatPriceFromCents,
-  FREE_SHIPPING_THRESHOLD,
+  SHIPPING_INCLUDED_MESSAGE,
 } from "@/lib/utils/currency";
 
 export default function CartSummary({ cart }: { cart: CartView }) {
@@ -68,7 +67,6 @@ export default function CartSummary({ cart }: { cart: CartView }) {
   };
 
   const requiresShipping = items.some((item) => item.isDigital !== true);
-  const shippingEur = calculateShippingEur(totalCents / 100, requiresShipping);
 
   if (!items.length) {
     return (
@@ -80,7 +78,7 @@ export default function CartSummary({ cart }: { cart: CartView }) {
           href="/products"
           className="naga-btn naga-btn-dark mt-6 inline-flex focus-ring focus-visible:outline-none"
         >
-          Browse Products
+          {CTA.shopTheDrop}
         </Link>
       </section>
     );
@@ -173,15 +171,13 @@ export default function CartSummary({ cart }: { cart: CartView }) {
         <div className="mt-3 flex items-center justify-between">
           <span className="text-body text-dark-700">Shipping</span>
           <span className="text-body-medium text-dark-900">
-            {!requiresShipping ? "Not required" : shippingEur === 0 ? "Free" : formatPrice(shippingEur)}
+            {!requiresShipping ? "Not required" : "Included"}
           </span>
         </div>
         <p className="mt-3 text-caption text-dark-700">
           {!requiresShipping
             ? "Digital items are delivered by email — no shipping."
-            : shippingEur === 0
-              ? "Free shipping applied on this order."
-              : `Free shipping on orders over ${formatPrice(FREE_SHIPPING_THRESHOLD)}.`}
+            : SHIPPING_INCLUDED_MESSAGE}
           {" "}
           Tax is calculated at checkout
           {requiresShipping ? " based on your shipping address" : ""}.

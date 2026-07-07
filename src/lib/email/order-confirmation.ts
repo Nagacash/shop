@@ -54,7 +54,7 @@ function buildOrderConfirmationHtml(order: OrderView): string {
 
     <div style="margin-bottom:24px;padding:16px;background:#f5f5f5;border-radius:8px;">
       ${order.subtotalAmount != null ? `<div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>Subtotal</span><span>${formatPrice(order.subtotalAmount)}</span></div>` : ""}
-      ${order.shippingAmount != null ? `<div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>Shipping</span><span>${order.shippingAmount === 0 ? "Free" : formatPrice(order.shippingAmount)}</span></div>` : ""}
+      ${order.shippingAmount != null ? `<div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>Shipping</span><span>${order.shippingAmount === 0 ? "Included" : formatPrice(order.shippingAmount)}</span></div>` : ""}
       ${order.taxAmount != null && order.taxAmount > 0 ? `<div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>Tax</span><span>${formatPrice(order.taxAmount)}</span></div>` : ""}
       <div style="display:flex;justify-content:space-between;font-weight:600;font-size:18px;padding-top:8px;border-top:1px solid #e5e5e5;">
         <span>Total paid</span><span>${formatPriceFromCents(order.totalCents)}</span>

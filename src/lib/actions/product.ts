@@ -550,6 +550,67 @@ export type FeaturedProduct = {
   soldOut: boolean;
 };
 
+export type AvailableProduct = {
+  id: string;
+  name: string;
+  imageUrl: string | null;
+  minPrice: number | null;
+  subtitle: string | null;
+};
+
+export async function getAvailableProducts(
+  limit = 3,
+  priorityNames: readonly string[] = [],
+): Promise<AvailableProduct[]> {
+  const { products } = await getAllProducts({
+    search: undefined,
+    genderSlugs: [],
+    sizeSlugs: [],
+    colorSlugs: [],
+    brandSlugs: [],
+    categorySlugs: [],
+    priceMin: undefined,
+    priceMax: undefined,
+    priceRanges: [],
+    sort: "featured",
+    page: 1,
+    limit: 60,
+  });
+
+  const inStock = products.filter((p) => !p.soldOut);
+  const picked: AvailableProduct[] = [];
+  const used = new Set<string>();
+
+  for (const name of priorityNames) {
+    const match = inStock.find((p) => p.name === name);
+    if (match) {
+      picked.push({
+        id: match.id,
+        name: match.name,
+        imageUrl: match.imageUrl,
+        minPrice: match.minPrice,
+        subtitle: match.subtitle ?? null,
+      });
+      used.add(match.id);
+    }
+    if (picked.length >= limit) break;
+  }
+
+  for (const product of inStock) {
+    if (used.has(product.id)) continue;
+    picked.push({
+      id: product.id,
+      name: product.name,
+      imageUrl: product.imageUrl,
+      minPrice: product.minPrice,
+      subtitle: product.subtitle ?? null,
+    });
+    if (picked.length >= limit) break;
+  }
+
+  return picked;
+}
+
 export async function getFeaturedProduct(name: string): Promise<FeaturedProduct | null> {
   const [product] = await db
     .select({ id: products.id })

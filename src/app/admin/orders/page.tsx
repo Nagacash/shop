@@ -93,7 +93,7 @@ export default async function AdminOrdersPage() {
                       <div className="flex justify-between">
                         <span>Shipping</span>
                         <span>
-                          {order.shippingAmount === 0 ? "Free" : formatPrice(order.shippingAmount)}
+                          {order.shippingAmount === 0 ? "Included" : formatPrice(order.shippingAmount)}
                         </span>
                       </div>
                     )}

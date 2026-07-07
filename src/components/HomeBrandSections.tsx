@@ -1,8 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Instagram } from "lucide-react";
+import InViewMotion from "@/components/motion/InViewMotion";
 import { getCachedCollections } from "@/lib/queries/collections";
-import { SECTION_CLIPS, type BrandClipId } from "@/lib/brand/marketing-images";
+import { BRAND_HEADLINE, BRAND_SUBTAGLINE_ALT, BRAND_TAGLINE, CTA } from "@/lib/brand/manifesto";
+import { LEGACY_GALLERY, SECTION_CLIPS, type BrandClipId } from "@/lib/brand/marketing-images";
 import PageHero from "@/components/PageHero";
 import BrandVideoBackdrop from "@/components/BrandVideoBackdrop";
 
@@ -33,17 +35,19 @@ export default async function HomeBrandSections() {
         className="scroll-layer border-b border-dark-900/8 text-light-100"
       >
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-          <div className="mb-12 max-w-2xl">
-            <p className="naga-eyebrow border-light-100/15 bg-light-100/5">
+          <InViewMotion reveal className="mb-12 max-w-2xl">
+            <p data-motion-reveal className="naga-eyebrow border-light-100/15 bg-light-100/5">
               <span className="naga-eyebrow-dot" aria-hidden="true" />
-              The Naga balance
+              The cobra runs deep
             </p>
-            <h2 className="naga-display mt-4 text-heading-3 text-balance font-bold tracking-tighter sm:text-heading-2">
-              Hustle grit meets ultra-fine glamour
+            <h2
+              data-motion-reveal
+              className="naga-display mt-4 text-heading-3 text-balance font-bold tracking-tighter sm:text-heading-2"
+            >
+              {BRAND_HEADLINE}
             </h2>
-            <p className="mt-4 text-body leading-relaxed text-light-400">
-              Knowledge and quality over ignorance — built for the grind, styled for the
-              spotlight. Same energy as{" "}
+            <p data-motion-reveal className="mt-4 text-body leading-relaxed text-light-400">
+              {BRAND_SUBTAGLINE_ALT} Same unapologetic energy as{" "}
               <a
                 href="https://www.instagram.com/naga_apparel"
                 target="_blank"
@@ -54,38 +58,85 @@ export default async function HomeBrandSections() {
               </a>
               .
             </p>
-          </div>
+          </InViewMotion>
 
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            <div className="naga-glass-card">
-              <p className="text-caption uppercase tracking-[0.2em] text-light-400">Hustle</p>
-              <h3 className="naga-display mt-2 text-body-medium text-light-100">Raw street power</h3>
+          <InViewMotion stagger className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            <div data-motion-stagger className="naga-glass-card">
+              <p className="text-caption uppercase tracking-[0.2em] text-light-400">Wisdom</p>
+              <h3 className="naga-display mt-2 text-body-medium text-light-100">Ancient roots, modern strike</h3>
               <p className="mt-3 text-body leading-relaxed text-light-400">
-                Black concrete, gold neon, chain-link nights. Hoodies and heavy tees built for
-                people who move with purpose.
+                From the Amazon to Angkor Wat — the serpent symbolizes knowledge, power, and
+                rebirth. We wear our history.
               </p>
             </div>
-            <div className="naga-glass-card naga-glass-card--gold">
+            <div data-motion-stagger className="naga-glass-card naga-glass-card--gold">
               <p className="text-caption uppercase tracking-[0.2em] text-[--color-naga-gold]">
-                Glamour
+                Hustle
               </p>
-              <h3 className="naga-display mt-2 text-body-medium text-light-100">Ultra-fine presence</h3>
+              <h3 className="naga-display mt-2 text-body-medium text-light-100">Smart hustle energy</h3>
               <p className="mt-3 text-body leading-relaxed text-light-400">
-                Champagne gold light, bold energy, trap-luxe attitude. Streetwear that commands
-                the room.
+                For the knowledge-lovers and system-breakers. Hoodies and heavy tees built for
+                those who refuse to bow.
               </p>
             </div>
-            <div className="naga-glass-card md:col-span-2 lg:col-span-1">
-              <p className="text-caption uppercase tracking-[0.2em] text-light-400">Craft</p>
-              <h3 className="naga-display mt-2 text-body-medium text-light-100">Built to last</h3>
+            <div data-motion-stagger className="naga-glass-card md:col-span-2 lg:col-span-1">
+              <p className="text-caption uppercase tracking-[0.2em] text-light-400">Empire</p>
+              <h3 className="naga-display mt-2 text-body-medium text-light-100">Authentic craft</h3>
               <p className="mt-3 text-body leading-relaxed text-light-400">
-                Heavy cotton, sharp screen prints, and the cobra mark — quality you can see and
-                feel before checkout.
+                Heavy cotton, sharp prints, and the cobra mark — unapologetic quality you can see
+                and feel before checkout.
               </p>
             </div>
-          </div>
+          </InViewMotion>
         </div>
       </SectionVideoShell>
+
+      <section className="scroll-layer border-b border-dark-900/8 bg-light-100">
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+          <InViewMotion reveal className="mb-10 max-w-xl">
+            <p data-motion-reveal className="naga-eyebrow w-fit">
+              <span className="naga-eyebrow-dot" aria-hidden="true" />
+              Real flat-lays
+            </p>
+            <h2
+              data-motion-reveal
+              className="naga-display mt-4 text-heading-3 font-bold tracking-tighter text-dark-900"
+            >
+              From the first drop
+            </h2>
+            <p data-motion-reveal className="mt-3 text-body text-dark-700">
+              Original catalog shots — same pieces, same cobra mark, shot in Berlin and on the
+              studio floor.
+            </p>
+          </InViewMotion>
+
+          <InViewMotion stagger className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+            {LEGACY_GALLERY.map((item) => (
+              <figure
+                key={item.src}
+                data-motion-stagger
+                className="naga-bezel-light group overflow-hidden"
+              >
+                <div className="naga-bezel-light-inner relative aspect-[4/5] bg-light-200">
+                  <Image
+                    src={item.src}
+                    alt={item.alt}
+                    fill
+                    unoptimized
+                    className="object-cover transition-transform duration-700 ease-[var(--ease-premium)] group-hover:scale-[1.03]"
+                    sizes="(max-width: 1024px) 45vw, 22vw"
+                  />
+                  <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-dark-900/85 to-transparent px-4 pb-4 pt-10">
+                    <span className="text-caption uppercase tracking-[0.16em] text-light-200">
+                      {item.label}
+                    </span>
+                  </figcaption>
+                </div>
+              </figure>
+            ))}
+          </InViewMotion>
+        </div>
+      </section>
 
       {collections.filter((col) => col.productCount > 0).length > 0 && (
         <>
@@ -94,15 +145,16 @@ export default async function HomeBrandSections() {
             page="collections"
             size="compact"
             eyebrow="Lines"
-            title="Pick your collection"
-            subtitle="Every drop has its own hero — tap in."
+            title="Wear Your Wisdom"
+            subtitle="Every drop carries the cobra — pick your line."
           />
           <section className="scroll-layer mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8 lg:pb-24">
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <InViewMotion stagger className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {collections.filter((col) => col.productCount > 0).slice(0, 6).map((col) => (
                 <Link
                   key={col.id}
                   href={"/collections/" + col.slug}
+                  data-motion-stagger
                   className="group naga-bezel-dark block cursor-pointer"
                 >
                   <div className="naga-bezel-dark-inner relative aspect-[4/3] bg-dark-900">
@@ -127,7 +179,7 @@ export default async function HomeBrandSections() {
                   </div>
                 </Link>
               ))}
-            </div>
+            </InViewMotion>
             <p className="mt-8 text-center">
               <Link
                 href="/collections"
@@ -168,28 +220,30 @@ export default async function HomeBrandSections() {
       </SectionVideoShell>
 
       <section className="scroll-layer mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-        <div className="naga-bezel-light text-center">
-          <div className="naga-bezel-light-inner px-8 py-12 sm:px-12 sm:py-14">
-            <h2 className="naga-display text-heading-3 font-bold tracking-tighter text-dark-900">
-              Shop the drop
-            </h2>
-            <p className="mt-3 text-body text-dark-700">
-              Tees and sets — real Naga pieces with your logo.
-            </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <Link href="/products?category=tees" className="naga-btn naga-btn-gold focus-ring focus-visible:outline-none">
-                Tees
-              </Link>
-              <Link href="/products?category=sets" className="naga-btn-text focus-ring focus-visible:outline-none">
-                Sets
-              </Link>
-              <Link href="/products" className="naga-btn naga-btn-dark focus-ring focus-visible:outline-none">
-                Shop all
-                <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} aria-hidden="true" />
-              </Link>
+        <InViewMotion reveal>
+          <div data-motion-reveal className="naga-bezel-light text-center">
+            <div className="naga-bezel-light-inner px-8 py-12 sm:px-12 sm:py-14">
+              <h2 className="naga-display text-heading-3 font-bold tracking-tighter text-dark-900">
+                {BRAND_TAGLINE}
+              </h2>
+              <p className="mt-3 text-body text-dark-700">
+                Knowledge is power. Dress like it.
+              </p>
+              <div className="mt-8 flex flex-wrap justify-center gap-3">
+                <Link href="/products" className="naga-btn naga-btn-gold focus-ring focus-visible:outline-none">
+                  {CTA.claimYours}
+                </Link>
+                <Link href="/about" className="naga-btn-text focus-ring focus-visible:outline-none">
+                  {CTA.learnHistory}
+                </Link>
+                <Link href="/products?category=sets" className="naga-btn naga-btn-dark focus-ring focus-visible:outline-none">
+                  {CTA.allSets}
+                  <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} aria-hidden="true" />
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
+        </InViewMotion>
       </section>
     </>
   );

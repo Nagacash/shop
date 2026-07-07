@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import { Card, CollapsibleSection, ProductGallery } from "@/components";
 import PageHero from "@/components/PageHero";
+import ProductCardGrid from "@/components/ProductCardGrid";
 import JsonLd from "@/components/JsonLd";
 import { Heart, Star } from "lucide-react";
 import ProductPurchasePanel, { type PurchaseVariant } from "@/components/ProductPurchasePanel";
@@ -15,9 +16,10 @@ import {
 } from "@/lib/queries/products";
 import { normalizeImageUrl, FALLBACK_PRODUCT_IMAGE, isFlatLayProductImage, isSetProduct } from "@/lib/utils/images";
 import { isInternalTestProduct } from "@/lib/seo/internal-test-product";
+import { CTA } from "@/lib/brand/manifesto";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { breadcrumbJsonLd, productJsonLd } from "@/lib/seo/jsonld";
-import { formatPrice, FREE_SHIPPING_THRESHOLD } from "@/lib/utils/currency";
+import { formatPrice, SHIPPING_INCLUDED_MESSAGE } from "@/lib/utils/currency";
 
 type GalleryVariant = { color: string; images: string[]; variantId: string };
 
@@ -63,7 +65,7 @@ function NotFoundBlock() {
           href="/products"
           className="naga-btn naga-btn-dark focus-ring focus-visible:outline-none"
         >
-          Browse Products
+          {CTA.shopTheDrop}
         </Link>
       </div>
     </section>
@@ -118,7 +120,7 @@ async function AlsoLikeSection({ productId }: { productId: string }) {
   return (
     <section className="mt-16">
       <h2 className="mb-6 text-heading-3 text-dark-900">You Might Also Like</h2>
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <ProductCardGrid>
         {recs.map((p) => (
           <Card
             key={p.id}
@@ -128,7 +130,7 @@ async function AlsoLikeSection({ productId }: { productId: string }) {
             href={`/products/${p.id}`}
           />
         ))}
-      </div>
+      </ProductCardGrid>
     </section>
   );
 }
@@ -303,7 +305,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           {isSet && (
             <div className="grid grid-cols-2 gap-2 rounded-xl border border-light-300 bg-light-100 p-3 sm:grid-cols-3">
               {[
-                { label: "Tee", detail: "Naga Original print" },
+                { label: "Tee", detail: "Get Smart print" },
                 { label: "Shorts", detail: "Hustle Hard + patch" },
                 {
                   label: "Color",
@@ -344,7 +346,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           </CollapsibleSection>
 
           <CollapsibleSection title="Shipping & Returns">
-            <p>Free standard shipping on orders over {formatPrice(FREE_SHIPPING_THRESHOLD)}. 30-day returns on unworn items with tags attached.</p>
+            <p>{SHIPPING_INCLUDED_MESSAGE} 30-day returns on unworn items with tags attached.</p>
           </CollapsibleSection>
 
           <Suspense

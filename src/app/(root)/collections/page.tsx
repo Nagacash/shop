@@ -1,19 +1,20 @@
 import Link from "next/link";
 import { Card } from "@/components";
 import PageHero from "@/components/PageHero";
+import ProductCardGrid from "@/components/ProductCardGrid";
 import { getCachedCollections } from "@/lib/queries/collections";
 import { getCollectionCoverUrl } from "@/lib/brand/assets";
-import { SECTION_CLIPS } from "@/lib/brand/marketing-images";
+import { BRAND_SUBTAGLINE_ALT, CTA } from "@/lib/brand/manifesto";
+import { MARKETING_IMAGES, SECTION_CLIPS } from "@/lib/brand/marketing-images";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 120;
 
 export const metadata = buildPageMetadata({
   title: "Collections",
-  description:
-    "Explore Naga Apparel collections — Naga Original tees and sweaters, Naga Black set, and curated streetwear lines.",
+  description: `${BRAND_SUBTAGLINE_ALT} Explore curated Naga Apparel lines — tees, crews, hoodies, and syndicate sets.`,
   path: "/collections",
-  image: "/uploads/naga/brand/pages/collections.jpg",
+  image: MARKETING_IMAGES.sweaterFlat,
 });
 
 export default async function CollectionsPage() {
@@ -28,8 +29,8 @@ export default async function CollectionsPage() {
         page="collections"
         imageSrc={heroImage}
         eyebrow="Curated lines"
-        title="Collections"
-        subtitle="Naga Original tees, sweaters, and the Naga Black set — real pieces, real photos."
+        title="Wear Your Wisdom"
+        subtitle={`${BRAND_SUBTAGLINE_ALT} Every line carries the cobra.`}
       />
 
       <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-12">
@@ -43,7 +44,7 @@ export default async function CollectionsPage() {
             <p className="text-body text-dark-700">No collections yet.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <ProductCardGrid>
             {collections.filter((col) => col.productCount > 0).map((collection) => (
               <Card
                 key={collection.id}
@@ -53,12 +54,12 @@ export default async function CollectionsPage() {
                 href={`/collections/${collection.slug}`}
               />
             ))}
-          </div>
+          </ProductCardGrid>
         )}
 
         <p className="mt-8 text-caption text-dark-700">
           <Link href="/products" className="underline hover:text-dark-900">
-            Browse all products
+            {CTA.shopTheDrop}
           </Link>
         </p>
       </main>

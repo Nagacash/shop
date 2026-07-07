@@ -5,8 +5,8 @@ import sharp from "sharp";
 
 config({ path: ".env.local" });
 
-const SOURCE_IMAGE = join(process.cwd(), "public", "website-images", "website-naga.jpeg");
-const OUTPUT_DIR = join(process.cwd(), "public", "website-images");
+const SOURCE_IMAGE = join(process.cwd(), "public", "new", "img", "hoodie.png");
+const OUTPUT_DIR = join(process.cwd(), "public", "new", "clips");
 const FRAME_PATH = join(OUTPUT_DIR, "hero-bg-frame.jpg");
 const SOURCE_MP4 = join(OUTPUT_DIR, "hero-bg-source.mp4");
 

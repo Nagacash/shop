@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { CTA } from "@/lib/brand/manifesto";
 import SocialProviders from "./SocialProviders";
 import { authClient } from "@/lib/auth-client";
 
@@ -80,12 +81,12 @@ export default function AuthForm({ mode }: Props) {
           </Link>
         </p>
         <h1 className="mt-3 text-heading-3 text-dark-900">
-          {mode === "sign-in" ? "Welcome Back!" : "Join Naga Apparel"}
+          {mode === "sign-in" ? "Welcome Back" : "Join the Syndicate"}
         </h1>
         <p className="mt-1 text-body text-dark-700">
           {mode === "sign-in"
             ? "Sign in to track orders and shop new drops"
-            : "Create your account to shop drops and track orders"}
+            : "Create your account — wear your wisdom"}
         </p>
       </div>
 
@@ -172,7 +173,7 @@ export default function AuthForm({ mode }: Props) {
           disabled={loading}
           className="naga-btn naga-btn-gold focus-ring mt-2 w-full focus-visible:outline-none"
         >
-          {loading ? "Please wait…" : mode === "sign-in" ? "Sign In" : "Sign Up"}
+          {loading ? "Please wait…" : mode === "sign-in" ? "Sign In" : CTA.joinSyndicate}
         </button>
 
         {mode === "sign-up" && (
