@@ -58,6 +58,12 @@ export const MARKETING_IMAGES = {
 
 export type BrandClipId = "goldDust" | "goldDustWide";
 
+/** Native aspect ratios for brand photography (width / height). */
+export const BRAND_IMAGE_ASPECT = {
+  cinematic: "3104/1312",
+  productDust: "1080/608",
+} as const;
+
 export type BrandClip = {
   id: BrandClipId;
   mp4: string;
@@ -107,6 +113,40 @@ export const MARKETING_ALT = {
   sweaterFlat: "Grey Naga Original crew sweater flat lay",
   sweaterFolded: "Folded stack of Naga crew sweaters",
 } as const;
+
+/** Homepage editorial lookbook — hero brand photography. */
+export const EDITORIAL_LOOKBOOK = [
+  {
+    src: MARKETING_IMAGES.berlinLifestyle,
+    alt: MARKETING_ALT.berlinLifestyle,
+    label: "Golden hour",
+    detail: "Naga on the skyline",
+    layout: "feature",
+    aspect: BRAND_IMAGE_ASPECT.cinematic,
+    fit: "contain",
+    backdrop: "#141210",
+  },
+  {
+    src: MARKETING_IMAGES.productDust,
+    alt: MARKETING_ALT.productDust,
+    label: "Gold dust",
+    detail: "Cobra craft up close",
+    layout: "product",
+    aspect: BRAND_IMAGE_ASPECT.productDust,
+    fit: "contain",
+    backdrop: "#2a2a2a",
+  },
+  {
+    src: MARKETING_IMAGES.berlinWide,
+    alt: MARKETING_ALT.berlinWide,
+    label: "Rooftop",
+    detail: "City frequency",
+    layout: "mood",
+    aspect: BRAND_IMAGE_ASPECT.cinematic,
+    fit: "contain",
+    backdrop: "#141210",
+  },
+] as const;
 
 /** Homepage “real shots” strip — legacy flat-lay photography. */
 export const LEGACY_GALLERY = [

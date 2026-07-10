@@ -79,6 +79,11 @@
   --hero-video-brightness: 0.88;
   --hero-video-saturate: 0.92;
   --hero-video-scale: 1.05;
+  /* Homepage hero — keep the clip visible */
+  --hero-cinematic-blur: 0px;
+  --hero-cinematic-brightness: 1.05;
+  --hero-cinematic-saturate: 1.04;
+  --hero-cinematic-scale: 1.02;
   --hero-panel-tint: color-mix(in srgb, var(--color-dark-900) 10%, transparent);
   --hero-light-base: #ebe6df;
 }
@@ -175,9 +180,356 @@ body {
   position: fixed;
   inset: 0;
   z-index: 40;
-  opacity: 0.028;
+  opacity: 0.042;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
   mix-blend-mode: multiply;
+}
+
+/* ── Cinematic hero ── */
+
+.hero-cinematic {
+  background: var(--color-dark-900);
+}
+
+.hero-cinematic::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  height: clamp(4rem, 10vh, 7rem);
+  background: linear-gradient(180deg, transparent, var(--hero-light-base));
+  pointer-events: none;
+}
+
+.hero-cinematic-media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.hero-cinematic-poster,
+.hero-cinematic-video {
+  transform: scale(var(--hero-cinematic-scale)) translateZ(0);
+  filter: blur(var(--hero-cinematic-blur)) saturate(var(--hero-cinematic-saturate))
+    brightness(var(--hero-cinematic-brightness));
+}
+
+.hero-cinematic-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-dark-900) 8%, transparent) 0%,
+      transparent 42%,
+      color-mix(in srgb, var(--color-dark-900) 48%, transparent) 100%
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-dark-900) 52%, transparent) 0%,
+      color-mix(in srgb, var(--color-dark-900) 12%, transparent) 38%,
+      transparent 72%
+    );
+}
+
+.hero-cinematic-leak {
+  position: absolute;
+  right: -8%;
+  bottom: -12%;
+  width: min(52vw, 28rem);
+  height: min(52vw, 28rem);
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-naga-gold) 28%, transparent) 0%,
+    transparent 68%
+  );
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+.hero-cinematic-watermark {
+  position: absolute;
+  right: -0.08em;
+  top: 50%;
+  z-index: 1;
+  transform: translateY(-50%);
+  font-size: clamp(6rem, 22vw, 16rem);
+  font-weight: 700;
+  line-height: 0.82;
+  letter-spacing: -0.04em;
+  color: color-mix(in srgb, var(--color-light-100) 4%, transparent);
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero-cinematic-panel {
+  border-radius: 4px;
+  border: 1px solid color-mix(in srgb, var(--color-light-100) 10%, transparent);
+  background: color-mix(in srgb, var(--color-dark-900) 36%, transparent);
+  padding: clamp(1.25rem, 3vw, 2rem);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--color-light-100) 8%, transparent),
+    0 24px 80px color-mix(in srgb, var(--color-dark-900) 35%, transparent);
+  backdrop-filter: blur(10px) saturate(130%);
+  -webkit-backdrop-filter: blur(10px) saturate(130%);
+}
+
+.hero-cinematic-scroll-hint {
+  position: absolute;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 10;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hero-cinematic-scroll-line {
+  display: block;
+  width: 1px;
+  height: 2.5rem;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    color-mix(in srgb, var(--color-naga-gold) 65%, transparent)
+  );
+  animation: hero-scroll-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes hero-scroll-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scaleY(0.75);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-cinematic-scroll-hint {
+    display: flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-cinematic-video {
+    display: none;
+  }
+
+  .hero-cinematic-scroll-line {
+    animation: none;
+    opacity: 0.6;
+  }
+}
+
+/* Section chapters & watermarks */
+
+.naga-chapter-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-dark-500);
+}
+
+.naga-chapter-label--dark {
+  color: color-mix(in srgb, var(--color-light-400) 88%, transparent);
+}
+
+.naga-chapter-index {
+  color: var(--color-naga-gold);
+}
+
+.naga-chapter-divider {
+  width: 1.5rem;
+  height: 1px;
+  background: color-mix(in srgb, var(--color-naga-gold) 55%, transparent);
+}
+
+.naga-section-watermark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  font-size: clamp(5rem, 18vw, 14rem);
+  font-weight: 700;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: color-mix(in srgb, var(--color-light-100) 3.5%, transparent);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Drop theater */
+
+.naga-drop-spotlight {
+  display: grid;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .naga-drop-spotlight {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  }
+}
+
+.naga-drop-spotlight-card {
+  position: relative;
+}
+
+.naga-drop-spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: -0.5rem;
+  z-index: -1;
+  border-radius: 6px;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--color-naga-gold) 18%, transparent),
+    transparent 55%
+  );
+  opacity: 0.85;
+}
+
+.naga-drop-filmstrip-label {
+  margin-bottom: 0.75rem;
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-dark-500);
+}
+
+.naga-drop-filmstrip-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .naga-drop-filmstrip-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Product story beats */
+
+.naga-story-beat {
+  border-radius: 4px;
+  border: 1px solid color-mix(in srgb, var(--color-dark-900) 8%, transparent);
+  background: var(--color-light-100);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-card);
+  transition:
+    border-color var(--duration-normal) var(--ease-premium),
+    box-shadow var(--duration-normal) var(--ease-premium);
+}
+
+.naga-story-beat:hover {
+  border-color: color-mix(in srgb, var(--color-naga-gold) 28%, transparent);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.naga-story-beat-label {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-naga-gold);
+}
+
+.naga-craft-strip {
+  border-radius: 4px;
+}
+
+.naga-craft-cell {
+  background: var(--color-light-100);
+  padding: 1rem 1.25rem;
+}
+
+.naga-craft-cell dt {
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-dark-500);
+}
+
+.naga-craft-cell dd {
+  margin-top: 0.35rem;
+  font-size: var(--text-body-medium);
+  line-height: var(--text-body-medium--line-height);
+  font-weight: var(--text-body-medium--font-weight);
+  color: var(--color-dark-900);
+}
+
+/* Brand lookbook */
+
+.naga-lookbook-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.naga-lookbook-feature {
+  grid-column: 1 / -1;
+}
+
+.naga-lookbook-product,
+.naga-lookbook-mood {
+  min-height: 0;
+}
+
+.naga-lookbook-caption {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--color-dark-900) 88%, transparent));
+  padding: 2.5rem 1.25rem 1.25rem;
+}
+
+.naga-lookbook-caption-label {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-naga-gold);
+}
+
+.naga-lookbook-caption-detail {
+  font-size: var(--text-body-medium);
+  line-height: var(--text-body-medium--line-height);
+  color: var(--color-light-100);
+}
+
+@media (min-width: 1024px) {
+  .naga-lookbook-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    gap: 1rem;
+  }
+
+  .naga-lookbook-product {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .naga-lookbook-mood {
+    grid-column: 2;
+    grid-row: 2;
+  }
 }
 
 .naga-display {
@@ -595,12 +947,33 @@ body {
 }
 
 .naga-btn-gold {
+  position: relative;
+  overflow: hidden;
   background: var(--color-naga-gold);
   color: var(--color-dark-900);
 }
 
+.naga-btn-gold::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-120%);
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    color-mix(in srgb, var(--color-light-100) 42%, transparent) 50%,
+    transparent 65%
+  );
+  transition: transform 0.65s var(--ease-premium);
+}
+
+.naga-btn-gold:hover::after {
+  transform: translateX(120%);
+}
+
 .naga-btn-gold:hover {
   background: color-mix(in srgb, var(--color-naga-gold) 88%, var(--color-dark-900));
+  box-shadow: 0 0 28px color-mix(in srgb, var(--color-naga-gold) 22%, transparent);
 }
 
 .naga-btn-dark {
@@ -1012,6 +1385,7 @@ body {
 
 /* Light hero → dark video: dedicated color bridge (no overlap) */
 .section-color-bridge {
+  position: relative;
   height: clamp(5rem, 14vh, 9rem);
   background: linear-gradient(
     180deg,
@@ -1020,6 +1394,22 @@ body {
     color-mix(in srgb, var(--color-dark-900) 38%, var(--hero-light-base)) 42%,
     color-mix(in srgb, var(--color-dark-900) 68%, var(--hero-light-base)) 68%,
     var(--color-dark-900) 100%
+  );
+}
+
+.section-color-bridge::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: min(12rem, 40vw);
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--color-naga-gold) 75%, transparent),
+    transparent
   );
 }
 
@@ -1178,5 +1568,106 @@ body {
 
   .filter-drawer-backdrop {
     animation: filter-drawer-fade-in var(--duration-fast) ease both;
+  }
+}
+
+/* Homepage ambient track — floating player */
+.naga-ambient-player {
+  position: relative;
+  max-width: min(calc(100vw - 2.5rem), 18rem);
+}
+
+.naga-ambient-player-inner {
+  position: relative;
+  overflow: hidden;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--color-naga-gold) 35%, transparent);
+  background: color-mix(in srgb, var(--color-dark-900) 88%, transparent);
+  padding: 0.65rem 0.85rem 0.65rem 0.65rem;
+  box-shadow:
+    0 12px 40px color-mix(in srgb, var(--color-dark-900) 45%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--color-light-100) 8%, transparent);
+  backdrop-filter: blur(14px);
+}
+
+.naga-ambient-glow {
+  pointer-events: none;
+  position: absolute;
+  inset: -40% auto auto -20%;
+  width: 70%;
+  height: 140%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-naga-gold) 22%, transparent),
+    transparent 70%
+  );
+  opacity: 0.85;
+}
+
+.naga-ambient-btn {
+  display: inline-flex;
+  height: 2.25rem;
+  width: 2.25rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--color-naga-gold) 45%, transparent);
+  background: color-mix(in srgb, var(--color-naga-gold) 18%, var(--color-dark-900));
+  color: var(--color-naga-gold);
+  transition:
+    transform var(--duration-normal) var(--ease-premium),
+    background var(--duration-normal) var(--ease-premium),
+    box-shadow var(--duration-normal) var(--ease-premium);
+}
+
+.naga-ambient-btn:hover {
+  transform: scale(1.05);
+  background: color-mix(in srgb, var(--color-naga-gold) 28%, var(--color-dark-900));
+  box-shadow: 0 0 20px color-mix(in srgb, var(--color-naga-gold) 25%, transparent);
+}
+
+.naga-ambient-waveform {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 1.25rem;
+  padding-left: 0.15rem;
+  opacity: 0.35;
+}
+
+.naga-ambient-waveform.is-playing {
+  opacity: 1;
+}
+
+.naga-ambient-bar {
+  display: block;
+  width: 2px;
+  height: 0.35rem;
+  border-radius: 999px;
+  background: var(--color-naga-gold);
+  transform-origin: bottom;
+}
+
+.naga-ambient-waveform.is-playing .naga-ambient-bar {
+  animation: naga-ambient-pulse 0.9s ease-in-out infinite alternate;
+}
+
+@keyframes naga-ambient-pulse {
+  from {
+    transform: scaleY(0.35);
+    opacity: 0.55;
+  }
+  to {
+    transform: scaleY(1.35);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .naga-ambient-waveform.is-playing .naga-ambient-bar {
+    animation: none;
+    transform: scaleY(0.85);
+    opacity: 0.9;
   }
 }

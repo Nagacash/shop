@@ -41,24 +41,24 @@ export default function CartSummary({ cart }: { cart: CartView }) {
     setItems(nextItems);
     setTotalCents(recalcTotal(nextItems));
 
-    if (quantity <= 0) {
-      const result = await removeCartItem(cartItemId);
-      if (!result.ok) {
-        setItems(previousItems);
-        setTotalCents(previousTotal);
-        setError(result.error);
-        return;
+    try {
+      if (quantity <= 0) {
+        await removeCartItem(cartItemId);
+      } else {
+        const result = await updateCartItemQuantity(cartItemId, quantity);
+        if (!result.ok) {
+          setItems(previousItems);
+          setTotalCents(previousTotal);
+          setError(result.error);
+          return;
+        }
       }
-    } else {
-      const result = await updateCartItemQuantity(cartItemId, quantity);
-      if (!result.ok) {
-        setItems(previousItems);
-        setTotalCents(previousTotal);
-        setError(result.error);
-        return;
-      }
+      router.refresh();
+    } catch {
+      setItems(previousItems);
+      setTotalCents(previousTotal);
+      setError("Could not update your bag. Please try again.");
     }
-    router.refresh();
   };
 
   const handleCheckout = async () => {

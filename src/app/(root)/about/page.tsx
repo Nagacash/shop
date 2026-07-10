@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import PageHero from "@/components/PageHero";
 import {
   BRAND_HEADLINE,
@@ -9,7 +10,7 @@ import {
   CTA,
 } from "@/lib/brand/manifesto";
 import {
-  LEGACY_MARKETING_IMAGES,
+  BRAND_IMAGE_ASPECT,
   MARKETING_IMAGES,
   SECTION_CLIPS,
 } from "@/lib/brand/marketing-images";
@@ -31,13 +32,13 @@ export default function AboutPage() {
     <>
       <PageHero
         clipId={SECTION_CLIPS.balance}
-        imageSrc={LEGACY_MARKETING_IMAGES.berlinLifestyle}
+        imageSrc={MARKETING_IMAGES.berlinLifestyle}
         eyebrow="Our roots"
         title={BRAND_TAGLINE}
         subtitle={BRAND_SUBTAGLINE}
       />
 
-      <main className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+      <main className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
         <nav className="text-caption text-dark-700">
           <Link href="/" className="hover:underline">
             Home
@@ -50,6 +51,54 @@ export default function AboutPage() {
             <p key={paragraph.slice(0, 40)}>{paragraph}</p>
           ))}
         </article>
+
+        <section className="mt-14 grid gap-4" aria-label="Naga Apparel brand photography">
+          <figure className="naga-bezel-light">
+            <div
+              className="naga-bezel-light-inner relative overflow-hidden"
+              style={{ aspectRatio: BRAND_IMAGE_ASPECT.cinematic, backgroundColor: "#141210" }}
+            >
+              <Image
+                src={MARKETING_IMAGES.berlinLifestyle}
+                alt="Model wearing Naga Original hoodie against a golden-hour city skyline"
+                fill
+                unoptimized
+                className="object-contain object-center"
+                sizes="(max-width: 768px) 100vw, 80rem"
+              />
+            </div>
+          </figure>
+          <figure className="naga-bezel-light">
+            <div
+              className="naga-bezel-light-inner relative overflow-hidden"
+              style={{ aspectRatio: BRAND_IMAGE_ASPECT.productDust, backgroundColor: "#2a2a2a" }}
+            >
+              <Image
+                src={MARKETING_IMAGES.productDust}
+                alt="Naga hoodie flat lay with macro cobra logo and golden dust particles"
+                fill
+                unoptimized
+                className="object-contain object-center"
+                sizes="(max-width: 768px) 100vw, 80rem"
+              />
+            </div>
+          </figure>
+          <figure className="naga-bezel-light">
+            <div
+              className="naga-bezel-light-inner relative overflow-hidden"
+              style={{ aspectRatio: BRAND_IMAGE_ASPECT.cinematic, backgroundColor: "#141210" }}
+            >
+              <Image
+                src={MARKETING_IMAGES.berlinWide}
+                alt="Silhouette in Naga hoodie on a rooftop overlooking the city at sunset"
+                fill
+                unoptimized
+                className="object-contain object-center"
+                sizes="(max-width: 768px) 100vw, 80rem"
+              />
+            </div>
+          </figure>
+        </section>
 
         <section className="mt-14 border-t border-dark-900/8 pt-10">
           <h2 className="naga-display text-heading-3 font-bold tracking-tighter text-dark-900">

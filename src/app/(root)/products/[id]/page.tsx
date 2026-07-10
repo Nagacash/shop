@@ -16,6 +16,8 @@ import {
 } from "@/lib/queries/products";
 import { normalizeImageUrl, FALLBACK_PRODUCT_IMAGE, isFlatLayProductImage, isSetProduct } from "@/lib/utils/images";
 import { isInternalTestProduct } from "@/lib/seo/internal-test-product";
+import ProductStoryBeats from "@/components/ProductStoryBeats";
+import { getProductCraftSpec, getProductStoryBeats } from "@/lib/brand/product-stories";
 import { CTA } from "@/lib/brand/manifesto";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { breadcrumbJsonLd, productJsonLd } from "@/lib/seo/jsonld";
@@ -204,6 +206,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   const isFlatLay = isFlatLayProductImage(primaryImage);
   const schemaImage = primaryImage ?? FALLBACK_PRODUCT_IMAGE;
   const schemaPrice = displayPrice ?? 0;
+  const storyBeats = getProductStoryBeats(product.name);
+  const craftSpec = getProductCraftSpec(product.category?.slug);
 
   return (
     <>
@@ -360,6 +364,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           </Suspense>
         </div>
       </section>
+
+      <ProductStoryBeats beats={storyBeats} craft={craftSpec} />
 
       <Suspense
         fallback={

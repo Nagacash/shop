@@ -1,5 +1,6 @@
 import ProtectedLogo from "@/components/ProtectedLogo";
 import { SITE_DOMAIN, SITE_ORIGIN } from "@/lib/seo/site";
+import { NAGA_CODEX_URL, WOODLAND360_PODCAST } from "@/lib/brand/naga-network";
 import { Facebook, Instagram, X as XIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -40,10 +41,18 @@ const columns: { title: string; links: FooterLink[] }[] = [
     title: "Help",
     links: [
       { label: "About Us", href: "/about" },
+      { label: "Woodland 360", href: "/podcast" },
       { label: "Contact Us", href: "/contact" },
       { label: "Shipping", href: "/contact" },
       { label: "Returns", href: "/contact" },
       { label: "Size Guide", href: "/contact" },
+    ],
+  },
+  {
+    title: "Studio",
+    links: [
+      { label: "Naga Codex", href: NAGA_CODEX_URL },
+      { label: WOODLAND360_PODCAST.name, href: "/podcast" },
     ],
   },
 ];
@@ -90,14 +99,20 @@ export default function Footer() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-10 sm:grid-cols-4 md:col-span-7">
+          <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:grid-cols-5 md:col-span-7">
             {columns.map((col) => (
               <div key={col.title}>
                 <h4 className="naga-footer-col-title">{col.title}</h4>
                 <ul className="space-y-3">
                   {col.links.map((link) => (
                     <li key={link.label}>
-                      <Link href={link.href} className={footerLinkClass}>
+                      <Link
+                        href={link.href}
+                        className={footerLinkClass}
+                        {...(link.href.startsWith("http")
+                          ? { target: "_blank", rel: "noopener noreferrer" }
+                          : {})}
+                      >
                         {link.label}
                       </Link>
                     </li>
@@ -137,6 +152,15 @@ export default function Footer() {
             <span>Germany</span>
             <span className="hidden text-light-100/20 sm:inline">·</span>
             <span>© 2025 Naga Apparel. All Rights Reserved</span>
+            <span className="hidden text-light-100/20 sm:inline">·</span>
+            <a
+              href={NAGA_CODEX_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={footerLegalLinkClass}
+            >
+              Site by Naga Codex
+            </a>
           </div>
           <ul className="flex flex-wrap items-center justify-center gap-4 text-caption sm:gap-6">
             {legalLinks.map((link) => (

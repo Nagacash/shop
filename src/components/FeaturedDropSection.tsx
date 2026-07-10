@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Sparkles, Shirt } from "lucide-react";
 import InViewMotion from "@/components/motion/InViewMotion";
+import SectionChapterLabel from "@/components/SectionChapterLabel";
 import { getCachedFeaturedProduct } from "@/lib/queries/products";
 import FlatLayFrame from "@/components/FlatLayFrame";
 import BrandVideoBackdrop from "@/components/BrandVideoBackdrop";
@@ -26,7 +27,13 @@ export default async function FeaturedDropSection() {
     <section className="scroll-layer relative overflow-hidden bg-dark-900 text-light-100">
       <BrandVideoBackdrop clipId={SECTION_CLIPS.featuredDrop} revealTop />
 
+      <p className="naga-section-watermark naga-display" aria-hidden="true">
+        WISDOM
+      </p>
+
       <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+        <SectionChapterLabel index="02" title="Featured drop" tone="dark" className="mb-8" />
+
         <InViewMotion columns className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
           <Link
             href={`/products/${product.id}`}
@@ -46,7 +53,7 @@ export default async function FeaturedDropSection() {
                 className="absolute left-4 top-4 z-20 inline-flex items-center gap-2 border border-light-100/25 bg-dark-900/90 px-3 py-1.5 text-[0.6875rem] uppercase tracking-[0.2em] text-light-200"
               >
                 <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
-                New drop
+                Drop centerpiece
               </span>
             </FlatLayFrame>
             </div>

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { CHECKOUT_SESSION_COOKIE } from "@/lib/checkout/constants";
 import { rateLimit } from "@/lib/security/rate-limit";
 
 const CANONICAL_HOST = "www.nagaclub.de";
@@ -13,6 +14,17 @@ function clientIp(request: NextRequest): string {
     request.headers.get("x-real-ip") ??
     "unknown"
   );
+}
+
+/** Unlock bag edits when the shopper returns to /cart after abandoning Stripe checkout. */
+function withCartCheckoutCookieCleared(request: NextRequest, response: NextResponse): NextResponse {
+  if (
+    request.nextUrl.pathname === "/cart" &&
+    request.cookies.get(CHECKOUT_SESSION_COOKIE)?.value
+  ) {
+    response.cookies.delete(CHECKOUT_SESSION_COOKIE);
+  }
+  return response;
 }
 
 export function middleware(request: NextRequest) {
@@ -32,7 +44,7 @@ export function middleware(request: NextRequest) {
     process.env.NODE_ENV === "development";
 
   if (isLocal) {
-    return NextResponse.next();
+    return withCartCheckoutCookieCleared(request, NextResponse.next());
   }
 
   const url = request.nextUrl.clone();
@@ -55,10 +67,10 @@ export function middleware(request: NextRequest) {
       "Strict-Transport-Security",
       "max-age=63072000; includeSubDomains; preload",
     );
-    return response;
+    return withCartCheckoutCookieCleared(request, response);
   }
 
-  return NextResponse.redirect(url, 308);
+  return withCartCheckoutCookieCleared(request, NextResponse.redirect(url, 308));
 }
 
 export const config = {

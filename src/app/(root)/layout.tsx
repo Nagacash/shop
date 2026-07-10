@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import AmbientTrackPlayer from "@/components/AmbientTrackPlayer";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import NavbarMotion from "@/components/motion/NavbarMotion";
@@ -21,6 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {children}
       </main>
       <Footer />
+      <AmbientTrackPlayer />
     </div>
   );
 }

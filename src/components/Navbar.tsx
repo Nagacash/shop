@@ -17,6 +17,7 @@ const SHOP_LINKS = [
 
 const DISCOVER_LINKS = [
   { label: "Collections", href: "/collections" },
+  { label: "Podcast", href: "/podcast" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ] as const;

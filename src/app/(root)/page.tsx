@@ -1,5 +1,7 @@
 import { Suspense } from "react";
 import { HeroSection, HomeBrandSections } from "@/components";
+import Woodland360Section from "@/components/Woodland360Section";
+import BrandLookbookSection from "@/components/BrandLookbookSection";
 import FeaturedDropSection from "@/components/FeaturedDropSection";
 import HomeAvailableSection from "@/components/HomeAvailableSection";
 import FaqSection from "@/components/FaqSection";
@@ -42,6 +44,8 @@ export default async function Home() {
       <Suspense fallback={<SectionSkeleton />}>
         <HomeBrandSections />
       </Suspense>
+      <BrandLookbookSection />
+      <Woodland360Section />
       <JsonLd data={faqJsonLd([...NAGA_FAQS])} />
       <div className="scroll-layer border-t border-dark-900/8 bg-light-100">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">

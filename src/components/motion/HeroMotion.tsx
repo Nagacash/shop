@@ -34,7 +34,7 @@ export default function HeroMotion({ children }: HeroMotionProps) {
       }
 
       const section = root.closest("section");
-      const bg = section?.querySelector("[data-hero-bg]");
+      const media = section?.querySelector(".hero-cinematic-media");
 
       const tl = gsap.timeline({ defaults: { ease: NAGA_EASE } });
 
@@ -55,9 +55,10 @@ export default function HeroMotion({ children }: HeroMotionProps) {
         "-=0.58",
       );
 
-      if (bg && section) {
-        gsap.to(bg, {
-          yPercent: 14,
+      if (media && section) {
+        gsap.to(media, {
+          yPercent: 10,
+          scale: 1.06,
           ease: "none",
           scrollTrigger: {
             trigger: section,
