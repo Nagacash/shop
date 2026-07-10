@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./brutalist.css";
 
 @theme {
   /* Dark shades — urban asphalt */

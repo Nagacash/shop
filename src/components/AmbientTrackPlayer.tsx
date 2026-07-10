@@ -8,6 +8,7 @@ const TRACK_LABEL = "Naga Out the Jungle";
 
 export default function AmbientTrackPlayer() {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const [mounted, setMounted] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
 
@@ -43,8 +44,13 @@ export default function AmbientTrackPlayer() {
   }, [playing, stop, tryPlay]);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
     void tryPlay();
-  }, [tryPlay]);
+  }, [mounted, tryPlay]);
 
   useEffect(() => {
     const audio = audioRef.current;

@@ -43,7 +43,13 @@ export default function CartSummary({ cart }: { cart: CartView }) {
 
     try {
       if (quantity <= 0) {
-        await removeCartItem(cartItemId);
+        const result = await removeCartItem(cartItemId);
+        if (!result.ok) {
+          setItems(previousItems);
+          setTotalCents(previousTotal);
+          setError(result.error);
+          return;
+        }
       } else {
         const result = await updateCartItemQuantity(cartItemId, quantity);
         if (!result.ok) {

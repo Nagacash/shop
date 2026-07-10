@@ -1,0 +1,446 @@
+/* Tactical Telemetry — Industrial Brutalist UI (Naga Apparel) */
+
+.naga-brutalist {
+  --color-urban-canvas: #0a0a0a;
+  --color-naga-gold: #e61919;
+  --color-red: #ff2a2a;
+  --color-hazard: #e61919;
+  --color-phosphor: #eaeaea;
+  --color-panel: #121212;
+  --color-grid-line: #2a2a2a;
+  --hero-light-base: #121212;
+  --focus-ring: 0 0 0 2px #0a0a0a, 0 0 0 3px #e61919;
+  --shadow-card: none;
+  --shadow-card-hover: none;
+  --shadow-ambient: none;
+  --font-mono: var(--font-jetbrains-mono), "JetBrains Mono", ui-monospace, monospace;
+  color: var(--color-phosphor);
+  background-color: var(--color-urban-canvas);
+}
+
+.naga-brutalist::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.14) 2px,
+    rgba(0, 0, 0, 0.14) 4px
+  );
+}
+
+.naga-brutalist::after {
+  opacity: 0.055;
+  mix-blend-mode: overlay;
+}
+
+.naga-brutalist :where(.bg-light-100, .bg-light-200, .bg-\[--hero-light-base\], .bg-\[--color-urban-canvas\]) {
+  background-color: var(--color-panel) !important;
+}
+
+.naga-brutalist .text-dark-900 {
+  color: var(--color-phosphor) !important;
+}
+
+.naga-brutalist .text-dark-700 {
+  color: #9a9a9a !important;
+}
+
+.naga-brutalist .text-dark-500 {
+  color: #6e6e6e !important;
+}
+
+.naga-brutalist :where(.border-light-300, .border-dark-900\/8, .border-light-100\/10, .border-light-100\/15) {
+  border-color: var(--color-grid-line) !important;
+}
+
+.naga-brutalist
+  :where(
+    [class*="rounded"],
+    .naga-nav-island,
+    .naga-btn,
+    .naga-eyebrow,
+    .naga-bezel-light,
+    .naga-bezel-dark,
+    .naga-glass-card,
+    .hero-cinematic-panel,
+    .naga-ambient-player-inner,
+    .naga-story-beat,
+    .naga-craft-cell
+  ) {
+  border-radius: 0 !important;
+}
+
+.naga-brutalist .naga-display {
+  font-family: var(--font-display), "Inter", sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.naga-brutalist .naga-eyebrow,
+.naga-brutalist .naga-chapter-label,
+.naga-brutalist .naga-nav-link,
+.naga-brutalist .naga-nav-dropdown-label,
+.naga-brutalist .naga-btn,
+.naga-brutalist .naga-nav-bag,
+.naga-brutalist .naga-lookbook-caption-label,
+.naga-brutalist .naga-story-beat-label,
+.naga-brutalist .naga-craft-cell dt {
+  font-family: var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.naga-brutalist .naga-eyebrow {
+  border: 1px solid var(--color-hazard);
+  background: transparent;
+  color: var(--color-phosphor);
+}
+
+.naga-brutalist .naga-eyebrow-dot {
+  width: 0.625rem;
+  height: 2px;
+  background: var(--color-hazard);
+}
+
+.naga-brutalist .naga-chapter-label {
+  color: #6e6e6e;
+}
+
+.naga-brutalist .naga-chapter-index,
+.naga-brutalist .naga-chapter-divider {
+  color: var(--color-hazard);
+}
+
+.naga-brutalist .naga-chapter-divider {
+  color: var(--color-hazard);
+  background: none;
+  width: auto;
+  height: auto;
+  font-family: var(--font-mono);
+}
+
+.naga-brutalist .naga-nav-island {
+  background: #0a0a0a;
+  border: 2px solid var(--color-grid-line);
+  border-top: 2px solid var(--color-hazard);
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.naga-brutalist .naga-nav-island--scrolled {
+  background: #0a0a0a;
+  border-color: var(--color-grid-line);
+  border-top-color: var(--color-hazard);
+  box-shadow: none;
+}
+
+.naga-brutalist .naga-nav-link {
+  color: #9a9a9a;
+  text-transform: uppercase;
+  font-size: 0.6875rem;
+}
+
+.naga-brutalist .naga-nav-link--shop,
+.naga-brutalist .naga-nav-link--active,
+.naga-brutalist .naga-nav-link:hover {
+  color: var(--color-phosphor);
+}
+
+.naga-brutalist .naga-nav-link--active {
+  background: color-mix(in srgb, var(--color-hazard) 18%, transparent);
+  box-shadow: inset 0 0 0 1px var(--color-hazard);
+}
+
+.naga-brutalist .naga-nav-wordmark--solo,
+.naga-brutalist .naga-nav-wordmark--light {
+  border-left: 3px solid var(--color-hazard);
+}
+
+.naga-brutalist .naga-nav-bag {
+  background: var(--color-hazard);
+  color: #0a0a0a;
+}
+
+.naga-brutalist .naga-nav-bag-count {
+  background: #0a0a0a;
+  color: var(--color-phosphor);
+  box-shadow: 0 0 0 2px var(--color-hazard);
+}
+
+.naga-brutalist .naga-btn-gold {
+  background: var(--color-hazard);
+  color: #0a0a0a;
+  box-shadow: none;
+}
+
+.naga-brutalist .naga-btn-gold::after {
+  display: none;
+}
+
+.naga-brutalist .naga-btn-gold:hover {
+  background: #ff2a2a;
+  box-shadow: none;
+}
+
+.naga-brutalist .naga-btn-dark {
+  background: #0a0a0a;
+  color: var(--color-phosphor);
+  border: 2px solid var(--color-grid-line);
+}
+
+.naga-brutalist .naga-btn-text,
+.naga-brutalist .naga-btn-text-light {
+  color: var(--color-phosphor);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.naga-brutalist .naga-bezel-light,
+.naga-brutalist .naga-bezel-dark {
+  padding: 0;
+  border: 2px solid var(--color-grid-line);
+  box-shadow: none;
+}
+
+.naga-brutalist .naga-bezel-light-inner {
+  background: #0a0a0a;
+  box-shadow: none;
+}
+
+.naga-brutalist .naga-bezel-dark-inner {
+  background: #0a0a0a;
+}
+
+.naga-brutalist .naga-glass-card {
+  border: 1px solid var(--color-grid-line);
+  background: #0a0a0a;
+  box-shadow: none;
+}
+
+.naga-brutalist .naga-glass-card--gold {
+  border-color: var(--color-hazard);
+}
+
+.naga-brutalist .hero-cinematic-panel {
+  border: 2px solid var(--color-grid-line);
+  border-left: 4px solid var(--color-hazard);
+  background: rgba(10, 10, 10, 0.94);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+.naga-brutalist .hero-cinematic-watermark {
+  color: color-mix(in srgb, var(--color-phosphor) 3%, transparent);
+}
+
+.naga-brutalist .hero-cinematic-leak {
+  display: none;
+}
+
+.naga-brutalist .section-color-bridge {
+  height: 2.5rem;
+  background: var(--color-panel);
+  border-top: 2px solid var(--color-hazard);
+  border-bottom: 1px solid var(--color-grid-line);
+}
+
+.naga-brutalist .section-color-bridge::after {
+  background: var(--color-hazard);
+  height: 2px;
+}
+
+.naga-brutalist .naga-lookbook-caption {
+  background: linear-gradient(180deg, transparent, rgba(10, 10, 10, 0.95));
+}
+
+.naga-brutalist .naga-lookbook-caption-label {
+  color: var(--color-hazard);
+}
+
+.naga-brutalist .naga-story-beat {
+  background: #0a0a0a;
+  border: 1px solid var(--color-grid-line);
+  box-shadow: none;
+}
+
+.naga-brutalist .naga-story-beat-label {
+  color: var(--color-hazard);
+}
+
+.naga-brutalist .naga-craft-strip {
+  border: 2px solid var(--color-grid-line);
+  background: var(--color-grid-line);
+}
+
+.naga-brutalist .naga-craft-cell {
+  background: #0a0a0a;
+}
+
+.naga-brutalist .naga-craft-cell dd {
+  color: var(--color-phosphor);
+}
+
+.naga-brutalist .naga-ambient-player-inner {
+  border-color: var(--color-hazard);
+  background: #0a0a0a;
+  box-shadow: none;
+}
+
+.naga-brutalist .naga-ambient-btn {
+  border-color: var(--color-hazard);
+  border-radius: 0;
+}
+
+.naga-brutalist .naga-ambient-bar {
+  background: var(--color-hazard);
+}
+
+.naga-brutalist .naga-drop-spotlight-card::before {
+  display: none;
+}
+
+.naga-brutalist .naga-drop-filmstrip-label {
+  font-family: var(--font-mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #6e6e6e;
+}
+
+.naga-brutalist .naga-section-watermark {
+  color: color-mix(in srgb, var(--color-phosphor) 3%, transparent);
+}
+
+/* Footer — strip premium gradients, enforce telemetry grid */
+.naga-brutalist .naga-footer {
+  background: #0a0a0a;
+  border-top: 2px solid var(--color-hazard);
+}
+
+.naga-brutalist .naga-footer::before {
+  display: none;
+}
+
+.naga-brutalist .naga-footer-col-title {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  color: var(--color-hazard);
+}
+
+.naga-brutalist .text-light-100,
+.naga-brutalist .text-light-400 {
+  color: var(--color-phosphor) !important;
+}
+
+.naga-brutalist .text-light-400 {
+  color: #9a9a9a !important;
+}
+
+.naga-brutalist .group:hover .group-hover\:text-\[--color-naga-gold\] {
+  color: var(--color-hazard) !important;
+}
+
+.naga-brutalist .hover\:text-\[--color-naga-gold\]:hover {
+  color: var(--color-hazard) !important;
+}
+
+.naga-brutalist .hover\:border-\[--color-naga-gold\]:hover {
+  border-color: var(--color-hazard) !important;
+}
+
+.naga-brutalist .naga-nav-wordmark span:last-child {
+  font-family: var(--font-mono);
+  color: var(--color-hazard);
+  letter-spacing: 0.2em;
+}
+
+.naga-brutalist .naga-nav-dropdown {
+  background: #0a0a0a;
+  border: 2px solid var(--color-grid-line);
+  border-top: 2px solid var(--color-hazard);
+  box-shadow: none;
+}
+
+.naga-brutalist .naga-nav-dropdown-link {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.naga-brutalist .naga-nav-dropdown-link--active,
+.naga-brutalist .naga-nav-dropdown-link:hover {
+  background: color-mix(in srgb, var(--color-hazard) 14%, transparent);
+  color: var(--color-phosphor);
+}
+
+.naga-brutalist .hero-cinematic-scroll-hint {
+  font-family: var(--font-mono);
+}
+
+.naga-brutalist .hero-cinematic-scroll-line {
+  background: var(--color-hazard);
+}
+
+.naga-brutalist .naga-glass-card:hover {
+  border-color: var(--color-hazard);
+  box-shadow: none;
+}
+
+.naga-brutalist .product-card__copy--product,
+.naga-brutalist .product-card__copy--collection {
+  border-top: 1px solid var(--color-grid-line);
+  background: #0a0a0a;
+}
+
+.naga-brutalist .product-card__title {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.naga-brutalist :where(input, select, textarea) {
+  border-radius: 0 !important;
+  background: #0a0a0a !important;
+  border-color: var(--color-grid-line) !important;
+  color: var(--color-phosphor) !important;
+}
+
+.naga-brutalist :where(input, select, textarea):focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.naga-brutalist .accent-\[--color-naga-gold\] {
+  accent-color: var(--color-hazard);
+}
+
+.naga-brutalist .filter-drawer-panel {
+  border-right: 2px solid var(--color-hazard);
+  box-shadow: none;
+}
+
+.naga-brutalist .naga-mobile-drawer {
+  background: #0a0a0a;
+  border-left: 2px solid var(--color-hazard);
+}
+
+.naga-brutalist .shadow-xl,
+.naga-brutalist .shadow-card,
+.naga-brutalist [class*="shadow-"] {
+  box-shadow: none !important;
+}
+
+.naga-brutalist .group:hover .hover\:scale-105,
+.naga-brutalist .hover\:scale-105:hover {
+  transform: none;
+}

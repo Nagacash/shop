@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
-import { Jost, Space_Grotesk } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import JsonLd from "@/components/JsonLd";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo/jsonld";
 import { absoluteUrl, getSiteUrl, SITE_DESCRIPTION, SITE_KEYWORDS, SITE_NAME } from "@/lib/seo/site";
 import "./globals.css";
 
-const jost = Jost({
-  variable: "--font-jost",
+const inter = Inter({
+  variable: "--font-display",
   subsets: ["latin"],
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-display",
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
   display: "swap",
 });
@@ -55,7 +55,9 @@ export default function RootShell({
 }>) {
   return (
     <html lang="en">
-      <body className={`${jost.className} ${spaceGrotesk.variable} naga-site min-h-full antialiased`}>
+      <body
+        className={`${inter.className} ${inter.variable} ${jetbrainsMono.variable} naga-site naga-brutalist min-h-full antialiased`}
+      >
         <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
         {children}
       </body>

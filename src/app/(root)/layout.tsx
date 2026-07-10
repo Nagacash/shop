@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import AmbientTrackPlayer from "@/components/AmbientTrackPlayer";
-import Navbar from "@/components/Navbar";
+import Navbar, { NavbarFallback } from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import NavbarMotion from "@/components/motion/NavbarMotion";
 
@@ -13,7 +13,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       >
         Skip to content
       </a>
-      <Suspense fallback={<div className="naga-nav-shell"><div className="naga-nav-island mx-auto max-w-7xl" aria-hidden="true" /></div>}>
+      <Suspense fallback={<NavbarFallback />}>
         <NavbarMotion>
           <Navbar />
         </NavbarMotion>

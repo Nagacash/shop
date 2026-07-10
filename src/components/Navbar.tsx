@@ -41,7 +41,61 @@ function isShopActive(pathname: string, searchParams: URLSearchParams) {
   return pathname === "/products" || SHOP_LINKS.some((l) => isNavActive(l.href, pathname, searchParams));
 }
 
-export default function Navbar() {
+function NavWordmark() {
+  return (
+    <span className="naga-nav-wordmark naga-nav-wordmark--solo">
+      <span className="naga-display block text-[1.0625rem] font-bold leading-none tracking-tighter text-dark-900">
+        Naga
+      </span>
+      <span className="mt-1 block text-[0.5625rem] font-medium uppercase tracking-[0.28em] text-[--color-naga-gold]">
+        Apparel
+      </span>
+    </span>
+  );
+}
+
+/** Static shell used for SSR + first client paint to avoid useSearchParams hydration drift. */
+export function NavbarFallback() {
+  return (
+    <header className="naga-nav-shell" data-nav-shell>
+      <nav className="naga-nav-island" aria-label="Primary">
+        <Link
+          href="/"
+          aria-label="Naga Apparel Home"
+          className="naga-nav-brand focus-ring focus-visible:outline-none"
+        >
+          <NavWordmark />
+        </Link>
+
+        <div className="hidden items-center gap-1 lg:flex" aria-hidden="true">
+          <span className="naga-nav-link naga-nav-link--shop">Shop</span>
+          {DISCOVER_LINKS.map((l) => (
+            <Link key={l.href} href={l.href} data-nav-link-item className="naga-nav-link">
+              {l.label}
+            </Link>
+          ))}
+        </div>
+
+        <div className="flex items-center gap-2">
+          <span className="naga-nav-icon-btn hidden lg:inline-flex" aria-hidden="true">
+            <Search className="h-4 w-4" strokeWidth={1.5} />
+          </span>
+          <Link href="/cart" className="naga-nav-bag focus-ring focus-visible:outline-none">
+            <ShoppingBag className="h-4 w-4" strokeWidth={1.5} aria-hidden="true" />
+            <span className="hidden sm:inline">Bag</span>
+          </Link>
+          <span className="naga-nav-menu-btn lg:hidden" aria-hidden="true">
+            <span className="naga-nav-menu-line" />
+            <span className="naga-nav-menu-line" />
+            <span className="naga-nav-menu-line" />
+          </span>
+        </div>
+      </nav>
+    </header>
+  );
+}
+
+function NavbarInteractive() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -121,14 +175,7 @@ export default function Navbar() {
           aria-label="Naga Apparel Home"
           className="naga-nav-brand focus-ring focus-visible:outline-none"
         >
-          <span className="naga-nav-wordmark naga-nav-wordmark--solo">
-            <span className="naga-display block text-[1.0625rem] font-bold leading-none tracking-tighter text-dark-900">
-              Naga
-            </span>
-            <span className="mt-1 block text-[0.5625rem] font-medium uppercase tracking-[0.28em] text-[--color-naga-gold]">
-              Apparel
-            </span>
-          </span>
+          <NavWordmark />
         </Link>
 
         {/* Desktop nav */}
@@ -350,4 +397,18 @@ export default function Navbar() {
       )}
     </header>
   );
+}
+
+export default function Navbar() {
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
+  if (!hydrated) {
+    return <NavbarFallback />;
+  }
+
+  return <NavbarInteractive />;
 }

@@ -295,19 +295,19 @@ export async function addToCart(variantId: string, quantity = 1) {
 export async function updateCartItemQuantity(cartItemId: string, quantity: number) {
   await assertCartItemOwnedBySession(cartItemId);
 
+  if (await hasActiveCheckoutSession()) {
+    return {
+      ok: false as const,
+      error: "Complete or cancel checkout before changing your bag.",
+    };
+  }
+
   if (quantity <= 0) {
     await db.delete(cartItems).where(eq(cartItems.id, cartItemId));
     await clearCheckoutSessionCookie();
     revalidatePath("/cart");
     revalidatePath("/", "layout");
     return { ok: true as const };
-  }
-
-  if (await hasActiveCheckoutSession()) {
-    return {
-      ok: false as const,
-      error: "Complete or cancel checkout before changing your bag.",
-    };
   }
 
   const [cartItem] = await db
@@ -341,6 +341,13 @@ export async function updateCartItemQuantity(cartItemId: string, quantity: numbe
 
 export async function removeCartItem(cartItemId: string) {
   await assertCartItemOwnedBySession(cartItemId);
+
+  if (await hasActiveCheckoutSession()) {
+    return {
+      ok: false as const,
+      error: "Complete or cancel checkout before changing your bag.",
+    };
+  }
 
   await db.delete(cartItems).where(eq(cartItems.id, cartItemId));
   await clearCheckoutSessionCookie();

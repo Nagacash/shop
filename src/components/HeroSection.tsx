@@ -26,7 +26,7 @@ export default function HeroSection() {
 
               <p data-hero-item className="naga-eyebrow border-light-100/15 bg-light-100/5">
                 <span className="naga-eyebrow-dot" aria-hidden="true" />
-                Naga Apparel
+                [ Naga Apparel ]
               </p>
 
               <h1
@@ -74,7 +74,9 @@ export default function HeroSection() {
 
       <div className="hero-cinematic-scroll-hint" aria-hidden="true">
         <span className="hero-cinematic-scroll-line" />
-        <span className="text-[0.625rem] uppercase tracking-[0.22em] text-light-400">Scroll</span>
+        <span className="text-[0.625rem] uppercase tracking-[0.22em] text-light-400">
+          &gt;&gt;&gt; Scroll
+        </span>
       </div>
     </section>
   );

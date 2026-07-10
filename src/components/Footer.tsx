@@ -91,7 +91,7 @@ export default function Footer() {
             </Link>
             <p className="naga-eyebrow w-fit">
               <span className="naga-eyebrow-dot" aria-hidden="true" />
-              Berlin · Urban
+              [ BERLIN · URBAN ]
             </p>
             <p className="max-w-xs text-body leading-relaxed text-light-400">
               Ancient wisdom. Modern hustle. Premium streetwear for the knowledge-loving and
