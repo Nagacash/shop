@@ -62,13 +62,25 @@ while IFS= read -r url || [[ -n "$url" ]]; do
   lines+=("$line")
 done < "$PAGES_FILE"
 
+expected=0
+while IFS= read -r url || [[ -n "$url" ]]; do
+  [[ -z "$url" || "$url" =~ ^# ]] && continue
+  ((expected++)) || true
+done < "$PAGES_FILE"
+
+measured=${#lines[@]}
+if (( measured != expected )); then
+  echo "error: measured $measured URLs but $PAGES_FILE lists $expected (data rows, excluding CSV header)" >&2
+  exit 1
+fi
+
 if [[ -n "$OUTPUT_CSV" ]]; then
   mkdir -p "$(dirname "$OUTPUT_CSV")"
   {
     echo "url,median_ms,status,runs_seconds"
     printf '%s\n' "${lines[@]}"
   } > "$OUTPUT_CSV"
-  echo "Wrote $OUTPUT_CSV" >&2
+  echo "Wrote $OUTPUT_CSV ($measured data rows + 1 header = $((measured + 1)) lines)" >&2
 fi
 
 printf "%-8s %-10s %s\n" "STATUS" "MEDIAN_MS" "URL"
@@ -77,5 +89,5 @@ printf '%s\n' "${lines[@]}" | while IFS=, read -r url med_ms status _rest; do
 done
 
 echo "" >&2
-echo "Summary: $pass passed, $fail failed (threshold: 50 ms median, $RUNS runs/page)" >&2
+echo "Summary: $pass passed, $fail failed (threshold: 50 ms median, $RUNS runs/page, $measured/$expected URLs)" >&2
 [[ "$fail" -eq 0 ]]
