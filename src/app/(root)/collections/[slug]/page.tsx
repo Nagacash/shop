@@ -7,6 +7,7 @@ import ProductCardGrid from "@/components/ProductCardGrid";
 import JsonLd from "@/components/JsonLd";
 import { getCachedCollectionProducts } from "@/lib/queries/collections";
 import { getCollectionCoverUrl } from "@/lib/brand/assets";
+import { SECTION_CLIPS } from "@/lib/brand/marketing-images";
 import { FALLBACK_PRODUCT_IMAGE } from "@/lib/utils/images";
 import { formatPriceRange } from "@/lib/utils/currency";
 import { buildPageMetadata } from "@/lib/seo/metadata";
@@ -63,6 +64,7 @@ export default async function CollectionDetailPage({
         ])}
       />
       <PageHero
+        clipId={SECTION_CLIPS.collections}
         imageSrc={coverUrl}
         imageFit={slug === "black-gold-edition" ? "contain" : "cover"}
         eyebrow="Collection"

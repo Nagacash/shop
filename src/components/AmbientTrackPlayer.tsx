@@ -2,9 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Pause, Play, Volume2 } from "lucide-react";
-
-const TRACK_SRC = "/new/Naga%20Out%20the%20Jungle.mp3";
-const TRACK_LABEL = "Naga Out the Jungle";
+import { AMBIENT_TRACK } from "@/lib/brand/marketing-images";
 
 export default function AmbientTrackPlayer() {
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -70,7 +68,7 @@ export default function AmbientTrackPlayer() {
 
   return (
     <>
-      <audio ref={audioRef} src={TRACK_SRC} loop preload="auto" aria-hidden="true" />
+      <audio ref={audioRef} src={AMBIENT_TRACK.src} loop preload="auto" aria-hidden="true" />
 
       <div
         className="pointer-events-none fixed bottom-5 right-5 z-50 sm:bottom-6 sm:right-6"
@@ -87,10 +85,10 @@ export default function AmbientTrackPlayer() {
                 className="naga-ambient-btn focus-ring focus-visible:outline-none"
                 aria-label={
                   playing
-                    ? `Stop ${TRACK_LABEL}`
+                    ? `Stop ${AMBIENT_TRACK.title}`
                     : autoplayBlocked
-                      ? `Play ${TRACK_LABEL}`
-                      : `Play ${TRACK_LABEL}`
+                      ? `Play ${AMBIENT_TRACK.title}`
+                      : `Play ${AMBIENT_TRACK.title}`
                 }
                 aria-pressed={playing}
               >
@@ -108,15 +106,15 @@ export default function AmbientTrackPlayer() {
                     strokeWidth={1.75}
                     aria-hidden="true"
                   />
-                  <p className="naga-display truncate text-[11px] font-medium uppercase tracking-[0.14em] text-light-100">
-                    {TRACK_LABEL}
+                  <p className="naga-meta truncate text-light-100">
+                    {AMBIENT_TRACK.title}
                   </p>
                 </div>
-                <p className="mt-0.5 text-[10px] uppercase tracking-[0.12em] text-light-100/55">
+                <p className="naga-meta mt-0.5 text-light-100/55">
                   {autoplayBlocked && !playing
                     ? "Tap to play"
                     : playing
-                      ? "Now playing"
+                      ? AMBIENT_TRACK.artist
                       : "Paused"}
                 </p>
               </div>

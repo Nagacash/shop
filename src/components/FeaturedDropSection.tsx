@@ -24,7 +24,12 @@ export default async function FeaturedDropSection() {
   const priceLabel = product.minPrice !== null ? formatPrice(product.minPrice) : null;
 
   return (
-    <section className="scroll-layer relative overflow-hidden bg-dark-900 text-light-100">
+    <section
+      className="scroll-layer relative overflow-hidden bg-dark-900 text-light-100"
+      data-cursor-section
+      data-cursor-index="02"
+      data-cursor-label="Featured drop"
+    >
       <BrandVideoBackdrop clipId={SECTION_CLIPS.featuredDrop} revealTop />
 
       <p className="naga-section-watermark naga-display" aria-hidden="true">

@@ -16,7 +16,12 @@ export default function FaqSection({
   className = "",
 }: FaqSectionProps) {
   return (
-    <section className={className} aria-labelledby="faq-heading">
+    <section
+      className={className}
+      aria-labelledby="faq-heading"
+      data-cursor-section
+      data-cursor-label="FAQ"
+    >
       <InViewMotion reveal>
         <h2
           id="faq-heading"

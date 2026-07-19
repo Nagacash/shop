@@ -54,13 +54,13 @@ export function fromMinorUnits(cents: number): number {
   return cents / 100;
 }
 
-export function calculateShippingEur(_subtotalEur = 0, requiresShipping = true): number {
+export function calculateShippingEur(requiresShipping = true): number {
   if (!requiresShipping) return 0;
   return 0;
 }
 
-export function calculateShippingCents(subtotalEur: number, requiresShipping = true): number {
-  return toMinorUnits(calculateShippingEur(subtotalEur, requiresShipping));
+export function calculateShippingCents(_subtotalEur: number, requiresShipping = true): number {
+  return toMinorUnits(calculateShippingEur(requiresShipping));
 }
 
 /** @deprecated Use toMinorUnits */

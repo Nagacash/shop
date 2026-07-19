@@ -61,6 +61,9 @@ export default function BrandLookbookSection() {
     <section
       className="scroll-layer border-b border-dark-900/8 bg-light-100 text-dark-900"
       aria-labelledby="brand-lookbook-heading"
+      data-cursor-section
+      data-cursor-index="03"
+      data-cursor-label="The lookbook"
     >
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
         <InViewMotion reveal className="mb-10 flex flex-wrap items-end justify-between gap-6">
@@ -73,7 +76,7 @@ export default function BrandLookbookSection() {
             <h2
               id="brand-lookbook-heading"
               data-motion-reveal
-              className="naga-display mt-4 text-heading-3 font-bold tracking-tighter sm:text-heading-2"
+              className="naga-display mt-4 text-balance text-heading-3 font-bold tracking-tighter sm:text-heading-2"
             >
               Wear it on the skyline
             </h2>

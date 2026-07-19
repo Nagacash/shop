@@ -100,6 +100,8 @@ export default function Card({
       <Link
         href={href}
         aria-label={title}
+        data-cursor="lock"
+        data-cursor-label="Lock"
         className="flex h-full min-h-0 flex-1 flex-col cursor-pointer rounded-[4px] transition-opacity duration-[var(--duration-normal)] ease-[var(--ease-premium)] focus-visible:outline-none focus-ring active:opacity-90"
       >
         {content}

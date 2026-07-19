@@ -1,76 +1,82 @@
 import HeroMotion from "@/components/motion/HeroMotion";
 import HeroCinematicBackdrop from "@/components/HeroCinematicBackdrop";
-import SectionChapterLabel from "@/components/SectionChapterLabel";
+import HeroStatBlocks from "@/components/HeroStatBlocks";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { BRAND_CLOSER_LINE, BRAND_TAGLINE, CTA } from "@/lib/brand/manifesto";
-import { SITE_DESCRIPTION } from "@/lib/seo/site";
+import { BRAND_CLOSER_LINE, BRAND_SUBTAGLINE, BRAND_TAGLINE, CTA } from "@/lib/brand/manifesto";
 
-export default function HeroSection() {
+type HeroSectionProps = {
+  dropCount: number;
+  collectionCount: number;
+};
+
+export default function HeroSection({ dropCount, collectionCount }: HeroSectionProps) {
   return (
     <section
-      className="hero-cinematic relative z-0 min-h-[min(100svh,920px)] overflow-hidden text-light-100"
+      className="hero-cinematic relative z-0 min-h-[100svh] h-screen w-full overflow-hidden bg-black text-light-100"
       aria-labelledby="hero-heading"
+      data-cursor-section
+      data-cursor-index="00"
+      data-cursor-label="Signal"
     >
       <HeroCinematicBackdrop />
 
-      <p className="hero-cinematic-watermark naga-display" aria-hidden="true">
-        HUSTLE
-      </p>
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[6] h-48 bg-gradient-to-b from-transparent to-black" />
 
-      <div className="relative z-10 flex min-h-[min(100svh,920px)] flex-col justify-end lg:items-start">
-        <div className="mx-auto w-full max-w-7xl px-4 pb-14 pt-28 sm:px-6 sm:pb-16 sm:pt-32 lg:px-8 lg:pb-20">
-          <HeroMotion>
-            <div data-hero-panel className="hero-cinematic-panel max-w-xl lg:max-w-md">
-              <SectionChapterLabel index="00" title="Raise the cobra" tone="dark" className="mb-6" />
+      <HeroMotion>
+        <div className="relative z-10 h-full w-full">
+          <h1 id="hero-heading" className="sr-only">
+            {BRAND_TAGLINE}
+          </h1>
 
-              <p data-hero-item className="naga-eyebrow border-light-100/15 bg-light-100/5">
-                <span className="naga-eyebrow-dot" aria-hidden="true" />
-                [ Naga Apparel ]
-              </p>
+          <div className="hero-stagger-headline pointer-events-none" aria-hidden="true">
+            <span
+              data-hero-word
+              className="hero-title naga-display absolute left-4 top-[18%] font-medium text-light-100 md:left-10"
+            >
+              Ancient
+            </span>
+            <span
+              data-hero-word
+              className="hero-title naga-display absolute right-4 top-[38%] font-medium text-light-100 md:right-10"
+            >
+              Your
+            </span>
+            <span
+              data-hero-word
+              className="hero-title hero-title--accent naga-display absolute left-[18%] top-[58%] font-medium text-light-100 md:left-[28%]"
+            >
+              Wisdom
+            </span>
+          </div>
 
-              <h1
-                id="hero-heading"
-                data-hero-item
-                className="naga-display mt-6 text-balance font-bold leading-[0.88] tracking-tighter text-light-100"
-                style={{ fontSize: "clamp(2.75rem, 9vw, 5.25rem)" }}
+          <div data-hero-copy className="absolute left-6 top-[46%] max-w-[240px] md:left-10">
+            <p className="naga-eyebrow w-fit border-light-100/15 bg-light-100/5">
+              <span className="naga-eyebrow-dot" aria-hidden="true" />
+              [ Naga Apparel ]
+            </p>
+            <p className="mt-4 text-pretty text-[15px] leading-snug text-light-100/90">{BRAND_SUBTAGLINE}</p>
+            <p className="mt-3 text-pretty text-[13px] leading-snug text-light-100/70">{BRAND_CLOSER_LINE}</p>
+            <div className="mt-6 flex flex-wrap items-center gap-4">
+              <Link
+                href="/products"
+                className="naga-btn naga-btn-gold focus-ring focus-visible:outline-none"
               >
-                {BRAND_TAGLINE}
-              </h1>
-
-              <p
-                data-hero-item
-                className="mt-6 max-w-lg text-pretty text-body leading-relaxed text-light-400"
+                {CTA.shopTheDrop}
+                <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} aria-hidden="true" />
+              </Link>
+              <Link
+                href="/about"
+                className="naga-btn-text-light focus-ring focus-visible:outline-none"
               >
-                {SITE_DESCRIPTION}
-              </p>
-
-              <p
-                data-hero-item
-                className="mt-4 max-w-md text-pretty text-lead leading-relaxed text-light-100"
-              >
-                {BRAND_CLOSER_LINE}
-              </p>
-
-              <div data-hero-item className="mt-9 flex flex-wrap items-center gap-4">
-                <Link
-                  href="/products"
-                  className="naga-btn naga-btn-gold focus-ring focus-visible:outline-none"
-                >
-                  {CTA.shopTheDrop}
-                  <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} aria-hidden="true" />
-                </Link>
-                <Link
-                  href="/about"
-                  className="naga-btn-text-light focus-ring focus-visible:outline-none"
-                >
-                  {CTA.learnHistory}
-                </Link>
-              </div>
+                {CTA.learnHistory}
+              </Link>
             </div>
-          </HeroMotion>
+          </div>
+
+          <HeroStatBlocks dropCount={dropCount} collectionCount={collectionCount} />
         </div>
-      </div>
+      </HeroMotion>
 
       <div className="hero-cinematic-scroll-hint" aria-hidden="true">
         <span className="hero-cinematic-scroll-line" />

@@ -114,7 +114,7 @@ export default function AuthForm({ mode }: Props) {
               id="name"
               name="name"
               type="text"
-              placeholder="Enter your name"
+              placeholder="Enter your name…"
               className="focus-ring w-full rounded-xl border border-light-300 bg-light-100 px-4 py-3 text-body text-dark-900 placeholder:text-dark-700 focus-visible:outline-none"
               autoComplete="name"
               required
@@ -130,9 +130,11 @@ export default function AuthForm({ mode }: Props) {
             id="email"
             name="email"
             type="email"
-            placeholder="johndoe@gmail.com"
+            placeholder="you@example.com…"
             className="focus-ring w-full rounded-xl border border-light-300 bg-light-100 px-4 py-3 text-body text-dark-900 placeholder:text-dark-700 focus-visible:outline-none"
             autoComplete="email"
+            spellCheck={false}
+            inputMode="email"
             required
           />
         </div>
@@ -146,9 +148,10 @@ export default function AuthForm({ mode }: Props) {
               id="password"
               name="password"
               type={show ? "text" : "password"}
-              placeholder="minimum 8 characters"
+              placeholder="Minimum 8 characters…"
               className="focus-ring w-full rounded-xl border border-light-300 bg-light-100 px-4 py-3 pr-12 text-body text-dark-900 placeholder:text-dark-700 focus-visible:outline-none"
               autoComplete={mode === "sign-in" ? "current-password" : "new-password"}
+              spellCheck={false}
               minLength={8}
               required
             />
@@ -164,7 +167,11 @@ export default function AuthForm({ mode }: Props) {
         </div>
 
         {error && (
-          <p className="rounded-lg border border-[--color-red]/20 bg-[--color-red]/5 px-3 py-2 text-caption text-[--color-red]">
+          <p
+            className="rounded-lg border border-[--color-red]/20 bg-[--color-red]/5 px-3 py-2 text-caption text-[--color-red]"
+            role="alert"
+            aria-live="polite"
+          >
             {error}
           </p>
         )}

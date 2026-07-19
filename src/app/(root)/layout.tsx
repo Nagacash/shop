@@ -3,6 +3,7 @@ import AmbientTrackPlayer from "@/components/AmbientTrackPlayer";
 import Navbar, { NavbarFallback } from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import NavbarMotion from "@/components/motion/NavbarMotion";
+import CursorMotion from "@/components/motion/CursorMotion";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -23,6 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </main>
       <Footer />
       <AmbientTrackPlayer />
+      <CursorMotion />
     </div>
   );
 }

@@ -16,9 +16,7 @@ export default function SectionChapterLabel({
       className={`naga-chapter-label ${tone === "dark" ? "naga-chapter-label--dark" : ""} ${className}`.trim()}
     >
       <span className="naga-chapter-index">[{index}]</span>
-      <span className="naga-chapter-divider" aria-hidden="true">
-        ///
-      </span>
+      <span className="naga-chapter-divider" aria-hidden="true" />
       <span className="naga-chapter-title">{title}</span>
     </p>
   );

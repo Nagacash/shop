@@ -101,6 +101,9 @@ function NavbarInteractive() {
   const searchParams = useSearchParams();
   const inputRef = useRef<HTMLInputElement>(null);
   const shopRef = useRef<HTMLDivElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const menuBtnRef = useRef<HTMLButtonElement>(null);
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState(false);
   const [shopOpen, setShopOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -132,6 +135,53 @@ function NavbarInteractive() {
   }, [open]);
 
   useEffect(() => {
+    if (!open) return;
+
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    closeBtnRef.current?.focus();
+
+    const getFocusable = () => {
+      const root = drawerRef.current;
+      if (!root) return [] as HTMLElement[];
+      return Array.from(
+        root.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter((el) => !el.hasAttribute("disabled") && el.offsetParent !== null);
+    };
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        setOpen(false);
+        return;
+      }
+      if (e.key !== "Tab") return;
+
+      const focusable = getFocusable();
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+
+      if (e.shiftKey && active === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      (previouslyFocused ?? menuBtnRef.current)?.focus();
+    };
+  }, [open]);
+
+  useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -152,6 +202,7 @@ function NavbarInteractive() {
   useEffect(() => {
     setShopOpen(false);
     setSearchOpen(false);
+    setOpen(false);
   }, [pathname, searchParams]);
 
   const handleSearch = (e: FormEvent) => {
@@ -292,6 +343,7 @@ function NavbarInteractive() {
           )}
 
           <button
+            ref={menuBtnRef}
             type="button"
             className="naga-nav-menu-btn focus-ring lg:hidden"
             aria-controls="mobile-menu"
@@ -309,17 +361,30 @@ function NavbarInteractive() {
       {/* Mobile drawer */}
       {open && (
         <>
-          <div className="naga-mobile-overlay lg:hidden" aria-hidden="true" onClick={() => setOpen(false)} />
-          <div id="mobile-menu" className="naga-mobile-drawer lg:hidden">
+          <button
+            type="button"
+            className="naga-mobile-overlay lg:hidden"
+            aria-label="Close menu"
+            onClick={() => setOpen(false)}
+          />
+          <div
+            ref={drawerRef}
+            id="mobile-menu"
+            className="naga-mobile-drawer lg:hidden"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation menu"
+          >
             <div className="naga-mobile-drawer-head">
               <p className="naga-nav-dropdown-label">Menu</p>
               <button
+                ref={closeBtnRef}
                 type="button"
                 className="naga-nav-icon-btn naga-nav-icon-btn--light"
                 aria-label="Close menu"
                 onClick={() => setOpen(false)}
               >
-                <X className="h-4 w-4" strokeWidth={1.5} />
+                <X className="h-4 w-4" strokeWidth={1.5} aria-hidden="true" />
               </button>
             </div>
 

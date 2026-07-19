@@ -18,6 +18,9 @@ export default async function HomeAvailableSection() {
     <section
       className="naga-drop-stage scroll-layer border-t border-dark-900/8 bg-[--hero-light-base] text-dark-900"
       aria-labelledby="home-available-heading"
+      data-cursor-section
+      data-cursor-index="01"
+      data-cursor-label="The drop"
     >
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
         <InViewMotion reveal className="mb-10 flex flex-wrap items-end justify-between gap-6">

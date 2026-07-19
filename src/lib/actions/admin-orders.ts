@@ -14,8 +14,6 @@ import {
 } from "@/lib/db/schema";
 import { requireAdmin } from "@/lib/auth/admin";
 import { formatShippingAddress, type ShippingAddressView } from "@/lib/stripe/shipping";
-import { formatPriceFromCents } from "@/lib/utils/currency";
-
 export type AdminOrderRow = {
   id: string;
   status: string;

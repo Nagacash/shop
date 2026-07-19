@@ -54,9 +54,12 @@ export const MARKETING_IMAGES = {
   sweaterFlat: `${IMG}/sweater.png`,
   /** Folded sweater stack */
   sweaterFolded: `${IMG}/sweater-folded.png`,
+  /** Lifestyle — Naga Original hoodie in the crowd */
+  hoodieStreet1: `${IMG}/NAGA%20hoodie1.png`,
+  hoodieStreet2: `${IMG}/NAGA%20hoddie2t.png`,
 } as const;
 
-export type BrandClipId = "goldDust" | "goldDustWide";
+export type BrandClipId = "goldDust" | "goldDustWide" | "nagaFashion" | "hoodie";
 
 /** Native aspect ratios for brand photography (width / height). */
 export const BRAND_IMAGE_ASPECT = {
@@ -88,6 +91,18 @@ export const BRAND_CLIPS: Record<BrandClipId, BrandClip> = {
     poster: MARKETING_IMAGES.productDust,
     objectPosition: "center",
   },
+  nagaFashion: {
+    id: "nagaFashion",
+    mp4: `${CLIPS}/Naga%20fashion.mp4`,
+    poster: MARKETING_IMAGES.hoodieStreet1,
+    objectPosition: "center",
+  },
+  hoodie: {
+    id: "hoodie",
+    mp4: `${CLIPS}/hoodie.mp4`,
+    poster: MARKETING_IMAGES.hoodieFlatLay,
+    objectPosition: "center",
+  },
 };
 
 /** Which clip each page/section uses */
@@ -95,8 +110,8 @@ export const SECTION_CLIPS = {
   featuredDrop: "goldDustWide",
   balance: "goldDust",
   instagram: "goldDustWide",
-  collections: "goldDust",
-  shop: "goldDust",
+  collections: "hoodie",
+  shop: "nagaFashion",
   cart: "goldDustWide",
   contact: "goldDust",
 } as const satisfies Record<string, BrandClipId>;
@@ -112,7 +127,33 @@ export const MARKETING_ALT = {
   productDust: "Naga hoodie flat lay and macro logo detail with golden dust",
   sweaterFlat: "Grey Naga Original crew sweater flat lay",
   sweaterFolded: "Folded stack of Naga crew sweaters",
+  hoodieStreet1:
+    "Model wearing a black Naga Original hoodie with cobra chest logo in a dimly lit crowd",
+  hoodieStreet2:
+    "Editorial shot of Naga Original hoodie and cobra logo in a nightlife setting",
 } as const;
+
+/** Homepage street editorial — Naga Original hoodie lifestyle photography. */
+export const HOODIE_STREET_EDITORIAL = [
+  {
+    src: MARKETING_IMAGES.hoodieStreet1,
+    alt: MARKETING_ALT.hoodieStreet1,
+    label: "Night crowd",
+    detail: "Naga Original in the room",
+    aspect: "3/2",
+    fit: "cover",
+    backdrop: "#0a0a0a",
+  },
+  {
+    src: MARKETING_IMAGES.hoodieStreet2,
+    alt: MARKETING_ALT.hoodieStreet2,
+    label: "Street frequency",
+    detail: "Cobra mark, front and center",
+    aspect: "3/2",
+    fit: "cover",
+    backdrop: "#0a0a0a",
+  },
+] as const;
 
 /** Homepage editorial lookbook — hero brand photography. */
 export const EDITORIAL_LOOKBOOK = [
@@ -171,3 +212,10 @@ export const LEGACY_GALLERY = [
     label: "Street",
   },
 ] as const;
+
+/** Site-wide ambient player track — `/public/new`. */
+export const AMBIENT_TRACK = {
+  src: "/new/ShortLord%20-%20Sombra%20de%20Tambora.mp3",
+  title: "Sombra de Tambora",
+  artist: "ShortLord",
+} as const;

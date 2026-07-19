@@ -110,7 +110,7 @@ export default function ProductGallery({
                       key={i}
                       aria-label={`Go to image ${i + 1}`}
                       onClick={() => setActiveIndex(i)}
-                      className={`h-1.5 rounded-full transition-all ${i === activeIndex ? "w-6 bg-[--color-naga-gold]" : "w-1.5 bg-light-100/40"}`}
+                      className={`h-1.5 rounded-full transition-[width,background-color] duration-[var(--duration-normal)] ease-[var(--ease-premium)] ${i === activeIndex ? "w-6 bg-[--color-naga-gold]" : "w-1.5 bg-light-100/40"}`}
                     />
                   ))}
                 </div>

@@ -1,12 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Loader2, Send } from "lucide-react";
 
 export default function ContactForm() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const messageRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,8 +23,11 @@ export default function ContactForm() {
     const message = String(formData.get("message") ?? "").trim();
 
     if (!name || !email || !message) {
-      setError("Please fill in all required fields.");
+      setError("Please fill in all required fields, then try again.");
       setLoading(false);
+      if (!name) nameRef.current?.focus();
+      else if (!email) emailRef.current?.focus();
+      else messageRef.current?.focus();
       return;
     }
 
@@ -34,7 +40,7 @@ export default function ContactForm() {
 
   if (submitted) {
     return (
-      <div className="naga-bezel-light text-center">
+      <div className="naga-bezel-light text-center" role="status" aria-live="polite">
         <div className="naga-bezel-light-inner p-8">
           <h2 className="naga-display text-heading-3 text-dark-900">Message sent</h2>
           <p className="mt-2 text-body text-dark-700">
@@ -53,39 +59,46 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4" noValidate>
       <div className="space-y-1.5">
-        <label htmlFor="name" className="text-caption uppercase tracking-[0.12em] text-dark-700">Name</label>
+        <label htmlFor="name" className="text-caption uppercase tracking-[0.12em] text-dark-700">
+          Name
+        </label>
         <input
+          ref={nameRef}
           id="name"
           name="name"
           type="text"
           required
-          placeholder="Your name"
+          autoComplete="name"
+          placeholder="Your name…"
           className="naga-input"
         />
       </div>
 
       <div className="space-y-1.5">
-        <label htmlFor="email" className="text-caption uppercase tracking-[0.12em] text-dark-700">Email</label>
+        <label htmlFor="email" className="text-caption uppercase tracking-[0.12em] text-dark-700">
+          Email
+        </label>
         <input
+          ref={emailRef}
           id="email"
           name="email"
           type="email"
           required
-          placeholder="you@example.com"
+          autoComplete="email"
+          spellCheck={false}
+          inputMode="email"
+          placeholder="you@example.com…"
           className="naga-input"
         />
       </div>
 
       <div className="space-y-1.5">
-        <label htmlFor="subject" className="text-caption uppercase tracking-[0.12em] text-dark-700">Subject</label>
-        <select
-          id="subject"
-          name="subject"
-          className="naga-input"
-          defaultValue="general"
-        >
+        <label htmlFor="subject" className="text-caption uppercase tracking-[0.12em] text-dark-700">
+          Subject
+        </label>
+        <select id="subject" name="subject" className="naga-input" defaultValue="general" autoComplete="off">
           <option value="general">General inquiry</option>
           <option value="order">Order &amp; shipping</option>
           <option value="returns">Returns &amp; refunds</option>
@@ -94,18 +107,26 @@ export default function ContactForm() {
       </div>
 
       <div className="space-y-1.5">
-        <label htmlFor="message" className="text-caption uppercase tracking-[0.12em] text-dark-700">Message</label>
+        <label htmlFor="message" className="text-caption uppercase tracking-[0.12em] text-dark-700">
+          Message
+        </label>
         <textarea
+          ref={messageRef}
           id="message"
           name="message"
           required
           rows={5}
-          placeholder="How can we help?"
+          autoComplete="off"
+          placeholder="How can we help?…"
           className="naga-input resize-y"
         />
       </div>
 
-      {error && <p className="text-caption text-[--color-red]">{error}</p>}
+      {error && (
+        <p className="text-caption text-[--color-red]" role="alert" aria-live="polite">
+          {error}
+        </p>
+      )}
 
       <button
         type="submit"
@@ -114,7 +135,7 @@ export default function ContactForm() {
       >
         {loading ? (
           <>
-            <Loader2 className="h-4 w-4 animate-spin" strokeWidth={1.5} />
+            <Loader2 className="h-4 w-4 animate-spin" strokeWidth={1.5} aria-hidden="true" />
             Sending…
           </>
         ) : (

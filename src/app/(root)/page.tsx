@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { HeroSection, HomeBrandSections } from "@/components";
 import Woodland360Section from "@/components/Woodland360Section";
 import BrandLookbookSection from "@/components/BrandLookbookSection";
+import HoodieStreetSection from "@/components/HoodieStreetSection";
 import FeaturedDropSection from "@/components/FeaturedDropSection";
 import HomeAvailableSection from "@/components/HomeAvailableSection";
 import FaqSection from "@/components/FaqSection";
@@ -11,6 +12,9 @@ import { faqJsonLd } from "@/lib/seo/jsonld";
 import { NAGA_FAQS } from "@/lib/seo/faq";
 import { BRAND_CLOSER_LINE, BRAND_TAGLINE, BRAND_SUBTAGLINE } from "@/lib/brand/manifesto";
 import { buildPageMetadata } from "@/lib/seo/metadata";
+import { getCachedAllProducts } from "@/lib/queries/products";
+import { getCachedCollections } from "@/lib/queries/collections";
+import { parseFilterParams } from "@/lib/utils/query";
 
 export const revalidate = 120;
 
@@ -31,12 +35,18 @@ function SectionSkeleton({ tall = false }: { tall?: boolean }) {
 }
 
 export default async function Home() {
+  const [{ totalCount: dropCount }, collections] = await Promise.all([
+    getCachedAllProducts(parseFilterParams({})),
+    getCachedCollections(),
+  ]);
+
   return (
     <>
-      <HeroSection />
+      <HeroSection dropCount={dropCount} collectionCount={collections.length} />
       <Suspense fallback={<SectionSkeleton />}>
         <HomeAvailableSection />
       </Suspense>
+      <HoodieStreetSection />
       <SectionColorBridge />
       <Suspense fallback={<SectionSkeleton tall />}>
         <FeaturedDropSection />

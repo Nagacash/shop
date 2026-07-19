@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
 import JsonLd from "@/components/JsonLd";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo/jsonld";
 import { absoluteUrl, getSiteUrl, SITE_DESCRIPTION, SITE_KEYWORDS, SITE_NAME } from "@/lib/seo/site";
@@ -11,13 +11,12 @@ const inter = Inter({
   display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
-
 const defaultTitle = `${SITE_NAME} | Urban Streetwear Tees, Sweaters & Sets`;
+
+export const viewport: Viewport = {
+  themeColor: "#0a0a0a",
+  colorScheme: "dark",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
@@ -54,9 +53,9 @@ export default function RootShell({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="naga-root">
       <body
-        className={`${inter.className} ${inter.variable} ${jetbrainsMono.variable} naga-site naga-brutalist min-h-full antialiased`}
+        className={`${inter.className} ${inter.variable} naga-site naga-brutalist min-h-full antialiased`}
       >
         <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
         {children}

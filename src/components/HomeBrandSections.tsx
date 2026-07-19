@@ -91,7 +91,11 @@ export default async function HomeBrandSections() {
         </div>
       </SectionVideoShell>
 
-      <section className="scroll-layer border-b border-dark-900/8 bg-light-100">
+      <section
+        className="scroll-layer border-b border-dark-900/8 bg-light-100"
+        data-cursor-section
+        data-cursor-label="First drop"
+      >
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
           <InViewMotion reveal className="mb-10 max-w-xl">
             <p data-motion-reveal className="naga-eyebrow w-fit">

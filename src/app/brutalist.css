@@ -13,7 +13,7 @@
   --shadow-card: none;
   --shadow-card-hover: none;
   --shadow-ambient: none;
-  --font-mono: var(--font-jetbrains-mono), "JetBrains Mono", ui-monospace, monospace;
+  --font-meta: var(--font-display), "Inter", system-ui, sans-serif;
   color: var(--color-phosphor);
   background-color: var(--color-urban-canvas);
 }
@@ -91,9 +91,18 @@
 .naga-brutalist .naga-nav-bag,
 .naga-brutalist .naga-lookbook-caption-label,
 .naga-brutalist .naga-story-beat-label,
-.naga-brutalist .naga-craft-cell dt {
-  font-family: var(--font-mono);
-  letter-spacing: 0.1em;
+.naga-brutalist .naga-craft-cell dt,
+.naga-brutalist .hero-stat-label,
+.naga-brutalist .naga-drop-filmstrip-label,
+.naga-brutalist .naga-footer-col-title,
+.naga-brutalist .naga-nav-dropdown-link,
+.naga-brutalist .hero-cinematic-scroll-hint,
+.naga-brutalist .naga-meta,
+.naga-brutalist .text-caption {
+  font-family: var(--font-meta);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
   text-transform: uppercase;
 }
 
@@ -113,17 +122,12 @@
   color: #6e6e6e;
 }
 
-.naga-brutalist .naga-chapter-index,
-.naga-brutalist .naga-chapter-divider {
+.naga-brutalist .naga-chapter-index {
   color: var(--color-hazard);
 }
 
 .naga-brutalist .naga-chapter-divider {
-  color: var(--color-hazard);
-  background: none;
-  width: auto;
-  height: auto;
-  font-family: var(--font-mono);
+  background: color-mix(in srgb, var(--color-hazard) 55%, transparent);
 }
 
 .naga-brutalist .naga-nav-island {
@@ -144,8 +148,7 @@
 
 .naga-brutalist .naga-nav-link {
   color: #9a9a9a;
-  text-transform: uppercase;
-  font-size: 0.6875rem;
+  font-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
 }
 
 .naga-brutalist .naga-nav-link--shop,
@@ -238,6 +241,25 @@
   box-shadow: none;
 }
 
+.naga-brutalist .hero-cinematic::after {
+  background: linear-gradient(180deg, transparent, #0a0a0a);
+}
+
+.naga-brutalist .hero-title {
+  font-family: var(--font-display), "Inter", sans-serif;
+  font-weight: 800;
+  color: var(--color-phosphor);
+  text-transform: uppercase;
+}
+
+.naga-brutalist .hero-title--accent {
+  color: var(--color-hazard);
+}
+
+.naga-brutalist .hero-stat-divider {
+  background: var(--color-hazard) !important;
+}
+
 .naga-brutalist .hero-cinematic-watermark {
   color: color-mix(in srgb, var(--color-phosphor) 3%, transparent);
 }
@@ -309,9 +331,6 @@
 }
 
 .naga-brutalist .naga-drop-filmstrip-label {
-  font-family: var(--font-mono);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
   color: #6e6e6e;
 }
 
@@ -330,9 +349,6 @@
 }
 
 .naga-brutalist .naga-footer-col-title {
-  font-family: var(--font-mono);
-  font-weight: 500;
-  letter-spacing: 0.16em;
   color: var(--color-hazard);
 }
 
@@ -358,9 +374,9 @@
 }
 
 .naga-brutalist .naga-nav-wordmark span:last-child {
-  font-family: var(--font-mono);
+  font-family: var(--font-meta);
   color: var(--color-hazard);
-  letter-spacing: 0.2em;
+  letter-spacing: 0.08em;
 }
 
 .naga-brutalist .naga-nav-dropdown {
@@ -371,20 +387,13 @@
 }
 
 .naga-brutalist .naga-nav-dropdown-link {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
 }
 
 .naga-brutalist .naga-nav-dropdown-link--active,
 .naga-brutalist .naga-nav-dropdown-link:hover {
   background: color-mix(in srgb, var(--color-hazard) 14%, transparent);
   color: var(--color-phosphor);
-}
-
-.naga-brutalist .hero-cinematic-scroll-hint {
-  font-family: var(--font-mono);
 }
 
 .naga-brutalist .hero-cinematic-scroll-line {
@@ -443,4 +452,38 @@
 .naga-brutalist .group:hover .hover\:scale-105,
 .naga-brutalist .hover\:scale-105:hover {
   transform: none;
+}
+
+.naga-brutalist .naga-cursor-ring,
+.naga-brutalist .naga-cursor-bloom,
+.naga-brutalist .naga-cursor-dot {
+  border-radius: 50% !important;
+}
+
+.naga-brutalist .naga-cursor-ring {
+  border-color: var(--color-hazard);
+}
+
+.naga-brutalist .naga-cursor-dot {
+  background: var(--color-phosphor);
+}
+
+.naga-brutalist .naga-cursor-bloom {
+  border-color: var(--color-hazard);
+}
+
+.naga-brutalist .naga-cursor-label {
+  border-radius: 0 !important;
+  border-color: var(--color-hazard);
+  background: #0a0a0a;
+  color: var(--color-phosphor);
+}
+
+.naga-brutalist .naga-nav-search-input:focus-visible,
+.naga-brutalist .naga-mobile-drawer-search-input:focus-visible {
+  box-shadow: inset 0 -2px 0 var(--color-hazard);
+}
+
+.naga-brutalist .naga-mobile-overlay:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--color-hazard);
 }

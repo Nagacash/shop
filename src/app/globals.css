@@ -100,6 +100,12 @@ html {
   }
 }
 
+html.naga-root {
+  color-scheme: dark;
+  -webkit-tap-highlight-color: color-mix(in srgb, #e61919 22%, transparent);
+  touch-action: manipulation;
+}
+
 /* Brand logo — deter casual right-click / drag saves (not foolproof) */
 .protected-logo {
   user-select: none;
@@ -265,6 +271,32 @@ body {
   user-select: none;
 }
 
+.hero-stagger-headline {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.hero-title {
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  font-size: clamp(3.5rem, 14vw, 11rem);
+  text-transform: uppercase;
+}
+
+.hero-stat-value {
+  font-variant-numeric: tabular-nums;
+}
+
+.hero-stat-label {
+  font-family: var(--font-display), "Inter", system-ui, sans-serif;
+  font-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+  font-weight: 500;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
 .hero-cinematic-panel {
   border-radius: 4px;
   border: 1px solid color-mix(in srgb, var(--color-light-100) 10%, transparent);
@@ -335,9 +367,11 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.625rem;
-  font-size: 0.625rem;
+  font-family: var(--font-display), "Inter", system-ui, sans-serif;
+  font-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
   font-weight: 500;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
   text-transform: uppercase;
   color: var(--color-dark-500);
 }
@@ -502,9 +536,11 @@ body {
 }
 
 .naga-lookbook-caption-label {
-  font-size: 0.625rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
+  font-family: var(--font-display), "Inter", system-ui, sans-serif;
+  font-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
   text-transform: uppercase;
   color: var(--color-naga-gold);
 }
@@ -538,6 +574,15 @@ body {
   letter-spacing: -0.03em;
 }
 
+.naga-meta {
+  font-family: var(--font-display), "Inter", system-ui, sans-serif;
+  font-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 .naga-eyebrow {
   display: inline-flex;
   align-items: center;
@@ -546,11 +591,12 @@ body {
   border: 1px solid color-mix(in srgb, var(--color-naga-gold) 35%, transparent);
   background: color-mix(in srgb, var(--color-naga-gold) 8%, transparent);
   padding: 0.375rem 0.75rem;
-  font-size: 0.6875rem;
-  line-height: 1.2;
+  font-family: var(--font-display), "Inter", system-ui, sans-serif;
+  font-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+  line-height: 1.4;
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.08em;
   color: var(--color-naga-gold);
 }
 
@@ -854,6 +900,11 @@ body {
   outline: none;
 }
 
+.naga-nav-search-input:focus-visible {
+  outline: none;
+  box-shadow: inset 0 -2px 0 var(--color-naga-gold);
+}
+
 .naga-nav-search-input::placeholder {
   color: var(--color-dark-500);
 }
@@ -1151,10 +1202,20 @@ body {
   position: fixed;
   inset: 0;
   z-index: 45;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  cursor: pointer;
   background: color-mix(in srgb, var(--color-dark-900) 72%, transparent);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   animation: naga-overlay-in var(--duration-slow) var(--ease-premium) both;
+}
+
+.naga-mobile-overlay:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--color-naga-gold);
 }
 
 .naga-mobile-panel {
@@ -1171,10 +1232,12 @@ body {
 
 .naga-mobile-drawer {
   position: fixed;
-  inset: 0.75rem 0.75rem auto;
+  inset: max(0.75rem, env(safe-area-inset-top)) max(0.75rem, env(safe-area-inset-right)) auto
+    max(0.75rem, env(safe-area-inset-left));
   z-index: 46;
-  max-height: calc(100dvh - 5rem);
+  max-height: calc(100dvh - 5rem - env(safe-area-inset-bottom, 0px));
   overflow-y: auto;
+  overscroll-behavior: contain;
   border-radius: 4px;
   border: 1px solid color-mix(in srgb, var(--color-light-100) 10%, transparent);
   background: color-mix(in srgb, var(--color-dark-900) 94%, transparent);
@@ -1255,6 +1318,11 @@ body {
   font-size: 0.875rem;
   color: var(--color-light-100);
   outline: none;
+}
+
+.naga-mobile-drawer-search-input:focus-visible {
+  outline: none;
+  box-shadow: inset 0 -2px 0 var(--color-naga-gold);
 }
 
 .naga-mobile-drawer-search-input::placeholder {
@@ -1569,6 +1637,160 @@ body {
 
   .filter-drawer-backdrop {
     animation: filter-drawer-fade-in var(--duration-fast) ease both;
+  }
+}
+
+/* Custom cursor — compact circular HUD + reticule */
+.naga-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.naga-cursor-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border: 1.25px solid rgba(230, 25, 25, 0.9);
+  border-radius: 50%;
+  background: transparent;
+  will-change: transform, border-color;
+}
+
+.naga-cursor-cross {
+  position: absolute;
+  inset: -5px;
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.naga-cursor-cross::before,
+.naga-cursor-cross::after {
+  content: "";
+  position: absolute;
+  background: rgba(230, 25, 25, 0.95);
+}
+
+/* Vertical tick */
+.naga-cursor-cross::before {
+  left: 50%;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    to bottom,
+    rgba(230, 25, 25, 0.95) 0%,
+    rgba(230, 25, 25, 0.95) 22%,
+    transparent 22%,
+    transparent 78%,
+    rgba(230, 25, 25, 0.95) 78%,
+    rgba(230, 25, 25, 0.95) 100%
+  );
+}
+
+/* Horizontal tick */
+.naga-cursor-cross::after {
+  top: 50%;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  transform: translateY(-50%);
+  background: linear-gradient(
+    to right,
+    rgba(230, 25, 25, 0.95) 0%,
+    rgba(230, 25, 25, 0.95) 22%,
+    transparent 22%,
+    transparent 78%,
+    rgba(230, 25, 25, 0.95) 78%,
+    rgba(230, 25, 25, 0.95) 100%
+  );
+}
+
+.naga-cursor-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 3px;
+  margin: -1.5px 0 0 -1.5px;
+  border-radius: 50%;
+  background: rgba(234, 234, 234, 0.95);
+  will-change: transform, background-color;
+}
+
+.naga-cursor-bloom {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 22px;
+  height: 22px;
+  margin: -11px 0 0 -11px;
+  border: 1px solid rgba(230, 25, 25, 0.9);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.naga-cursor-label {
+  position: absolute;
+  top: 12px;
+  left: 10px;
+  padding: 0.2rem 0.4rem;
+  border: 1px solid rgba(230, 25, 25, 0.7);
+  background: rgba(10, 10, 10, 0.92);
+  color: #eaeaea;
+  font-family: var(--font-display), "Inter", system-ui, sans-serif;
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+html.naga-has-cursor,
+html.naga-has-cursor * {
+  cursor: none !important;
+}
+
+html.naga-has-cursor input,
+html.naga-has-cursor textarea,
+html.naga-has-cursor select,
+html.naga-has-cursor [contenteditable="true"] {
+  cursor: text !important;
+}
+
+@media (pointer: coarse), (hover: none) {
+  .naga-cursor {
+    display: none !important;
+  }
+
+  html.naga-has-cursor,
+  html.naga-has-cursor * {
+    cursor: auto !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .naga-cursor {
+    display: none !important;
+  }
+
+  html.naga-has-cursor,
+  html.naga-has-cursor * {
+    cursor: auto !important;
   }
 }
 

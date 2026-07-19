@@ -54,6 +54,8 @@ export default function AddToBagButton({
         type="button"
         onClick={handleClick}
         disabled={isDisabled}
+        data-cursor="acquire"
+        data-cursor-label="Acquire"
         className="naga-btn naga-btn-gold w-full focus-ring focus-visible:outline-none sm:w-auto"
         aria-label={
           soldOut

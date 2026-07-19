@@ -77,7 +77,11 @@ const footerLegalLinkClass =
 
 export default function Footer() {
   return (
-    <footer className="naga-footer scroll-layer w-full">
+    <footer
+      className="naga-footer scroll-layer w-full"
+      data-cursor-section
+      data-cursor-label="Naga out"
+    >
       <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
         <div className="grid grid-cols-1 items-start gap-12 md:grid-cols-12">
           <div className="flex flex-col gap-5 md:col-span-3">
@@ -91,7 +95,7 @@ export default function Footer() {
             </Link>
             <p className="naga-eyebrow w-fit">
               <span className="naga-eyebrow-dot" aria-hidden="true" />
-              [ BERLIN · URBAN ]
+              [ HAMBURG · URBAN ]
             </p>
             <p className="max-w-xs text-body leading-relaxed text-light-400">
               Ancient wisdom. Modern hustle. Premium streetwear for the knowledge-loving and

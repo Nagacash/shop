@@ -19,6 +19,9 @@ export default function Woodland360Section({ showCodexCredit = true, className =
     <section
       className={`scroll-layer border-t border-dark-900/8 bg-dark-900 text-light-100 ${className}`}
       aria-labelledby="woodland360-heading"
+      data-cursor-section
+      data-cursor-index="04"
+      data-cursor-label="Woodland 360"
     >
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
         <InViewMotion reveal className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-14 lg:items-start">

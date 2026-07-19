@@ -25,10 +25,9 @@ export default function HeroMotion({ children }: HeroMotionProps) {
       if (!root) return;
 
       if (prefersReducedMotion()) {
-        gsap.set("[data-hero-item]", {
+        gsap.set("[data-hero-word], [data-hero-stat], [data-hero-copy]", {
           opacity: 1,
           y: 0,
-          clipPath: "inset(0% 0% 0% 0%)",
         });
         return;
       }
@@ -38,21 +37,33 @@ export default function HeroMotion({ children }: HeroMotionProps) {
 
       const tl = gsap.timeline({ defaults: { ease: NAGA_EASE } });
 
-      tl.from("[data-hero-panel]", {
-        clipPath: "inset(100% 0% 0% 0%)",
-        duration: 1.05,
+      tl.from("[data-hero-word]", {
+        y: 80,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.12,
         ease: NAGA_EASE_SNAP,
       });
 
       tl.from(
-        "[data-hero-item]",
+        "[data-hero-copy]",
         {
-          y: 44,
+          y: 24,
           opacity: 0,
-          duration: 0.82,
-          stagger: 0.085,
+          duration: 0.72,
         },
-        "-=0.58",
+        "-=0.55",
+      );
+
+      tl.from(
+        "[data-hero-stat]",
+        {
+          y: 20,
+          opacity: 0,
+          duration: 0.6,
+          stagger: 0.08,
+        },
+        "-=0.45",
       );
 
       if (media && section) {
@@ -73,7 +84,7 @@ export default function HeroMotion({ children }: HeroMotionProps) {
   );
 
   return (
-    <div ref={scope} className="relative w-full">
+    <div ref={scope} className="relative h-full w-full">
       {children}
     </div>
   );
