@@ -28,7 +28,7 @@ const productionSecurityHeaders = [
       "media-src 'self'",
       "font-src 'self' data:",
       "connect-src 'self' https://api.stripe.com https://*.stripe.com",
-      "frame-src https://js.stripe.com https://hooks.stripe.com",
+      "frame-src https://js.stripe.com https://hooks.stripe.com https://www.youtube.com https://www.youtube-nocookie.com",
       "object-src 'none'",
       "base-uri 'self'",
       "form-action 'self'",

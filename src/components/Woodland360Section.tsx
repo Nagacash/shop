@@ -17,13 +17,14 @@ export default function Woodland360Section({ showCodexCredit = true, className =
 
   return (
     <section
+      id="woodland-360"
       className={`scroll-layer border-t border-dark-900/8 bg-dark-900 text-light-100 ${className}`}
       aria-labelledby="woodland360-heading"
       data-cursor-section
       data-cursor-index="06"
       data-cursor-label="Woodland 360"
     >
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+      <div className="mx-auto max-w-7xl px-4 py-16 pb-28 sm:px-6 lg:px-8 lg:py-24 lg:pb-28">
         <InViewMotion reveal className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-14 lg:items-start">
           <div>
             <p data-motion-reveal className="naga-eyebrow border-light-100/15 bg-light-100/5">
@@ -103,9 +104,9 @@ export default function Woodland360Section({ showCodexCredit = true, className =
             )}
           </div>
 
-          <div data-motion-reveal className="naga-bezel-dark">
+          <div className="naga-bezel-dark">
             <div className="naga-bezel-dark-inner overflow-hidden p-3 sm:p-4">
-              <div className="mb-3 flex items-start justify-between gap-3 px-1">
+              <div data-motion-reveal className="mb-3 flex items-start justify-between gap-3 px-1">
                 <div>
                   <p className="text-[10px] font-medium uppercase tracking-[0.16em] text-[--color-naga-gold]">
                     Featured episode
@@ -123,14 +124,15 @@ export default function Woodland360Section({ showCodexCredit = true, className =
                 </span>
               </div>
 
-              <div className="aspect-video overflow-hidden rounded-lg border border-light-100/10 bg-black">
+              {/* Keep iframe outside transformed/motion parents — CSS transform kills YouTube click hit-testing */}
+              <div className="naga-podcast-embed aspect-video overflow-hidden rounded-lg border border-light-100/10 bg-black">
                 <iframe
                   src={woodland360EmbedUrl(episode.youtubeId)}
                   title={`${WOODLAND360_PODCAST.name} — ${episode.guest}: ${episode.title}`}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   referrerPolicy="strict-origin-when-cross-origin"
                   allowFullScreen
-                  className="h-full w-full"
+                  className="relative z-[1] h-full w-full"
                   loading="lazy"
                 />
               </div>

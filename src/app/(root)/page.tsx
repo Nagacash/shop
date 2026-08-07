@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { HeroSection, HomeBrandSections } from "@/components";
 import Woodland360Section from "@/components/Woodland360Section";
+import FascherBrosSection from "@/components/FascherBrosSection";
 import BrandLookbookSection from "@/components/BrandLookbookSection";
 import BrandTeaserSection from "@/components/BrandTeaserSection";
 import NagaClubHamburgSection from "@/components/NagaClubHamburgSection";
@@ -61,6 +62,7 @@ export default async function Home() {
       <BrandTeaserSection />
       <NagaClubHamburgSection />
       <Woodland360Section />
+      <FascherBrosSection />
       <JsonLd data={faqJsonLd([...NAGA_FAQS])} />
       <div className="scroll-layer border-t border-dark-900/8 bg-light-100">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">

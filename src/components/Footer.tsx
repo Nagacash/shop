@@ -1,6 +1,6 @@
 import ProtectedLogo from "@/components/ProtectedLogo";
 import { SITE_DOMAIN, SITE_ORIGIN } from "@/lib/seo/site";
-import { NAGA_CODEX_URL, WOODLAND360_PODCAST } from "@/lib/brand/naga-network";
+import { FASCHER_BROS, NAGA_CODEX_URL, WOODLAND360_PODCAST } from "@/lib/brand/naga-network";
 import { Facebook, Instagram, X as XIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -55,6 +55,7 @@ const columns: { title: string; links: FooterLink[] }[] = [
       { label: "Naga Codex", href: NAGA_CODEX_URL },
       { label: WOODLAND360_PODCAST.name, href: "/podcast" },
       { label: "Naga Club", href: "/#naga-club" },
+      { label: FASCHER_BROS.name, href: FASCHER_BROS.url },
     ],
   },
 ];

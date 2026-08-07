@@ -49,6 +49,7 @@ export default function InViewMotion({
           duration: 1,
           ease: NAGA_EASE_SNAP,
           scrollTrigger: trigger,
+          clearProps: "transform",
         });
         gsap.from("[data-motion-right]", {
           x: 72,
@@ -56,6 +57,7 @@ export default function InViewMotion({
           duration: 1,
           ease: NAGA_EASE_SNAP,
           scrollTrigger: trigger,
+          clearProps: "transform",
         });
         gsap.from("[data-motion-stagger]", {
           y: 28,
@@ -64,6 +66,7 @@ export default function InViewMotion({
           stagger: 0.09,
           ease: NAGA_EASE,
           scrollTrigger: inViewScrollTrigger(root, "top 88%"),
+          clearProps: "transform",
         });
       }
 
@@ -75,6 +78,8 @@ export default function InViewMotion({
           stagger: 0.1,
           ease: NAGA_EASE,
           scrollTrigger: trigger,
+          // Leave no transform behind — breaks iframe hit-testing (YouTube embeds).
+          clearProps: "transform",
         });
       }
 
@@ -85,6 +90,7 @@ export default function InViewMotion({
           duration: 0.88,
           ease: NAGA_EASE,
           scrollTrigger: trigger,
+          clearProps: "transform",
         });
       }
     },

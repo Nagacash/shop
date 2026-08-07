@@ -19,6 +19,7 @@ const DISCOVER_LINKS = [
   { label: "Collections", href: "/collections" },
   { label: "Naga Club", href: "/#naga-club" },
   { label: "Podcast", href: "/podcast" },
+  { label: "Fascher Bros", href: "/#fascher-bros" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ] as const;

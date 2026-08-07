@@ -1921,6 +1921,18 @@ html.naga-has-cursor [contenteditable="true"] {
 }
 
 /* Homepage ambient track — floating player */
+.naga-podcast-embed {
+  position: relative;
+  isolation: isolate;
+  z-index: 1;
+  transform: none !important;
+}
+
+.naga-podcast-embed iframe {
+  border: 0;
+  transform: none !important;
+}
+
 .naga-ambient-player {
   position: relative;
   max-width: min(calc(100vw - 2rem), 18rem);
