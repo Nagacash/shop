@@ -21,7 +21,7 @@ export default function HeroSection({ dropCount, collectionCount }: HeroSectionP
     >
       <HeroCinematicBackdrop />
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[6] h-40 bg-gradient-to-b from-transparent to-black sm:h-48" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[6] h-40 bg-gradient-to-b from-transparent to-black md:h-48" />
 
       <HeroMotion>
         <div className="relative z-10 h-full w-full">
@@ -32,19 +32,19 @@ export default function HeroSection({ dropCount, collectionCount }: HeroSectionP
           <div className="hero-stagger-headline pointer-events-none" aria-hidden="true">
             <span
               data-hero-word
-              className="hero-title naga-display absolute left-4 top-[11%] font-medium text-light-100 sm:left-6 sm:top-[18%] md:left-10"
+              className="hero-title naga-display absolute left-4 top-[11%] font-medium text-light-100 md:left-10 md:top-[18%]"
             >
               Ancient
             </span>
             <span
               data-hero-word
-              className="hero-title naga-display absolute right-4 top-[22%] font-medium text-light-100 sm:right-6 sm:top-[38%] md:right-10"
+              className="hero-title naga-display absolute right-4 top-[22%] font-medium text-light-100 md:right-10 md:top-[38%]"
             >
               Your
             </span>
             <span
               data-hero-word
-              className="hero-title hero-title--accent naga-display absolute left-4 top-[33%] font-medium text-light-100 sm:left-[18%] sm:top-[58%] md:left-[28%]"
+              className="hero-title hero-title--accent naga-display absolute left-4 top-[33%] font-medium text-light-100 md:left-[28%] md:top-[58%]"
             >
               Wisdom
             </span>
@@ -52,19 +52,19 @@ export default function HeroSection({ dropCount, collectionCount }: HeroSectionP
 
           <div
             data-hero-copy
-            className="absolute inset-x-4 bottom-[calc(7.5rem+env(safe-area-inset-bottom,0px))] z-20 max-w-md sm:inset-x-auto sm:bottom-auto sm:left-6 sm:top-[46%] sm:max-w-[260px] md:left-10 md:max-w-[280px]"
+            className="absolute inset-x-4 bottom-[calc(10rem+env(safe-area-inset-bottom,0px))] z-20 max-w-md md:inset-x-auto md:bottom-auto md:left-10 md:top-[46%] md:max-w-[280px]"
           >
             <p className="naga-eyebrow w-fit border-light-100/15 bg-light-100/5">
               <span className="naga-eyebrow-dot" aria-hidden="true" />
               [ Naga Apparel ]
             </p>
-            <p className="mt-3 text-pretty text-[0.9375rem] leading-snug text-light-100/90 sm:mt-4 sm:text-[15px]">
+            <p className="mt-3 text-pretty text-[0.9375rem] leading-snug text-light-100/90 md:mt-4 md:text-[15px]">
               {BRAND_SUBTAGLINE}
             </p>
-            <p className="mt-2 text-pretty text-[0.8125rem] leading-snug text-light-100/70 sm:mt-3 sm:text-[13px]">
+            <p className="mt-2 text-pretty text-[0.8125rem] leading-snug text-light-100/70 md:mt-3 md:text-[13px]">
               {BRAND_CLOSER_LINE}
             </p>
-            <div className="mt-5 flex flex-wrap items-center gap-3 sm:mt-6 sm:gap-4">
+            <div className="mt-5 flex flex-wrap items-center gap-3 md:mt-6 md:gap-4">
               <Link
                 href="/products"
                 className="naga-btn naga-btn-gold focus-ring focus-visible:outline-none"
