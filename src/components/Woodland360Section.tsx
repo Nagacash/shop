@@ -20,7 +20,7 @@ export default function Woodland360Section({ showCodexCredit = true, className =
       className={`scroll-layer border-t border-dark-900/8 bg-dark-900 text-light-100 ${className}`}
       aria-labelledby="woodland360-heading"
       data-cursor-section
-      data-cursor-index="05"
+      data-cursor-index="06"
       data-cursor-label="Woodland 360"
     >
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">

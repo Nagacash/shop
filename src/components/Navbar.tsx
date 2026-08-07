@@ -17,6 +17,7 @@ const SHOP_LINKS = [
 
 const DISCOVER_LINKS = [
   { label: "Collections", href: "/collections" },
+  { label: "Naga Club", href: "/#naga-club" },
   { label: "Podcast", href: "/podcast" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
@@ -34,6 +35,8 @@ function isNavActive(href: string, pathname: string, searchParams: URLSearchPara
       !searchParams.get("search")
     );
   }
+  // Hash links (e.g. /#naga-club) are not route-active states.
+  if (href.includes("#")) return false;
   return pathname === href || (href !== "/" && pathname.startsWith(href));
 }
 

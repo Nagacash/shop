@@ -2046,3 +2046,818 @@ html.naga-has-cursor [contenteditable="true"] {
     opacity: 0.9;
   }
 }
+
+/* ——— Naga Club Hamburg legacy ——— */
+.naga-club-legacy {
+  --naga-club-bg: #0a0a0a;
+  --naga-club-gold: #c9b67d;
+  --naga-club-text: #f5f5f3;
+  --naga-club-text-dim: rgba(245, 245, 243, 0.72);
+  --naga-club-border: rgba(201, 182, 125, 0.15);
+  --naga-club-display: var(--font-naga-club-display), "Bebas Neue", sans-serif;
+  --naga-club-mono: var(--font-naga-club-mono), "Space Mono", monospace;
+  --naga-club-body: var(--font-display), "Inter", system-ui, sans-serif;
+  background: var(--naga-club-bg);
+  color: var(--naga-club-text);
+  overflow-x: clip;
+  scroll-margin-top: 5.5rem;
+}
+
+.naga-club-anchor {
+  scroll-margin-top: 5.5rem;
+}
+
+.naga-club-index {
+  border-bottom: 1px solid var(--naga-club-border);
+  padding-block: 1rem 1.15rem;
+  position: sticky;
+  top: 4.75rem;
+  z-index: 20;
+  background: color-mix(in srgb, var(--naga-club-bg) 96%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.naga-club-index .naga-club-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.naga-club-index-list,
+.naga-club-subnav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.naga-club-subnav {
+  margin-top: 0.85rem;
+}
+
+.naga-club-index-tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--naga-club-border);
+  font-family: var(--naga-club-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--naga-club-text-dim);
+  transition:
+    color var(--duration-fast) var(--ease-premium),
+    border-color var(--duration-fast) var(--ease-premium),
+    background-color var(--duration-fast) var(--ease-premium);
+}
+
+.naga-club-index-tag:hover,
+.naga-club-index-tag:focus-visible {
+  color: var(--naga-club-gold);
+  border-color: color-mix(in srgb, var(--naga-club-gold) 55%, transparent);
+  background: color-mix(in srgb, var(--naga-club-gold) 8%, transparent);
+  outline: none;
+}
+
+.naga-club-photos-head {
+  padding-block: 1.25rem 0.85rem;
+}
+
+@media (min-width: 768px) {
+  .naga-club-index .naga-club-wrap {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .naga-club-index-tag {
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+  }
+}
+
+.naga-club-wrap {
+  margin-inline: auto;
+  max-width: 80rem;
+  width: 100%;
+  padding-inline: max(1rem, env(safe-area-inset-left));
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .naga-club-wrap {
+    padding-inline: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .naga-club-wrap {
+    padding-inline: 2rem;
+  }
+}
+
+.naga-club-label {
+  margin: 0;
+  font-family: var(--naga-club-mono);
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--naga-club-gold);
+  overflow-wrap: anywhere;
+}
+
+.naga-club-label--hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.5rem;
+  max-width: 22rem;
+  letter-spacing: 0.14em;
+}
+
+.naga-club-label--hero .naga-club-label-sep {
+  opacity: 0.45;
+}
+
+@media (min-width: 640px) {
+  .naga-club-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.28em;
+  }
+
+  .naga-club-label--hero {
+    max-width: none;
+    letter-spacing: 0.22em;
+  }
+}
+
+/* Hero */
+.naga-club-hero {
+  position: relative;
+  min-height: 70vh;
+  min-height: 70svh;
+  display: flex;
+  align-items: flex-end;
+  isolation: isolate;
+  overflow: hidden;
+  border-bottom: 1px solid var(--naga-club-border);
+}
+
+.naga-club-hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.naga-club-hero-media img {
+  filter: brightness(0.9);
+}
+
+.naga-club-hero-fade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    #0a0a0a 0%,
+    rgba(10, 10, 10, 0.82) 42%,
+    rgba(10, 10, 10, 0.28) 72%,
+    transparent 100%
+  );
+}
+
+.naga-club-hero-copy {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding: 2.5rem max(1rem, env(safe-area-inset-left))
+    max(2rem, env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .naga-club-hero-copy {
+    padding: 3.5rem 1.5rem 2.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .naga-club-hero-copy {
+    padding-inline: 2rem;
+    padding-bottom: 3.5rem;
+  }
+}
+
+.naga-club-headline {
+  margin: 0.75rem 0 0;
+  font-family: var(--naga-club-display);
+  font-size: clamp(2.75rem, 1.4rem + 9vw, 9rem);
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.naga-club-headline-white {
+  color: var(--naga-club-text);
+}
+
+.naga-club-headline-gold {
+  color: var(--naga-club-gold);
+}
+
+/* Stats */
+.naga-club-stats {
+  border-bottom: 1px solid var(--naga-club-border);
+  padding-block: 0;
+}
+
+.naga-club-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.naga-club-stat {
+  padding: 1.1rem 0.9rem;
+  border-right: 1px solid var(--naga-club-border);
+  border-bottom: 1px solid var(--naga-club-border);
+  min-width: 0;
+}
+
+.naga-club-stat:nth-child(2n) {
+  border-right: none;
+}
+
+.naga-club-stat:nth-last-child(-n + 2) {
+  border-bottom: none;
+}
+
+.naga-club-stat-value {
+  margin: 0;
+  font-family: var(--naga-club-display);
+  font-size: clamp(2rem, 1.5rem + 2.5vw, 3.25rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--naga-club-gold);
+}
+
+.naga-club-stat-label {
+  margin: 0.45rem 0 0;
+  font-family: var(--naga-club-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--naga-club-text-dim);
+}
+
+@media (min-width: 768px) {
+  .naga-club-stats {
+    padding-block: 1.75rem;
+  }
+
+  .naga-club-stats-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .naga-club-stat {
+    border-bottom: none;
+    padding: 0.5rem 1.1rem;
+  }
+
+  .naga-club-stat:nth-child(2n) {
+    border-right: 1px solid var(--naga-club-border);
+  }
+
+  .naga-club-stat:last-child {
+    border-right: none;
+  }
+
+  .naga-club-stat-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+  }
+}
+
+/* Story + meta */
+.naga-club-story {
+  border-bottom: 1px solid var(--naga-club-border);
+  padding-block: 2.25rem;
+}
+
+.naga-club-story-grid {
+  display: grid;
+  gap: 2rem;
+  min-width: 0;
+}
+
+.naga-club-body {
+  margin: 0;
+  max-width: 38rem;
+  font-family: var(--naga-club-body);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--naga-club-text-dim);
+  overflow-wrap: break-word;
+}
+
+.naga-club-body--follow {
+  margin-top: 1.1rem;
+}
+
+.naga-club-meta {
+  margin: 0;
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--naga-club-border);
+  min-width: 0;
+}
+
+.naga-club-meta-row {
+  display: grid;
+  gap: 0.35rem;
+  padding-block: 0.9rem;
+  border-bottom: 1px solid var(--naga-club-border);
+  min-width: 0;
+}
+
+.naga-club-meta-row dt {
+  font-family: var(--naga-club-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--naga-club-gold);
+}
+
+.naga-club-meta-row dd {
+  margin: 0;
+  font-family: var(--naga-club-body);
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--naga-club-text-dim);
+  overflow-wrap: break-word;
+}
+
+@media (min-width: 640px) {
+  .naga-club-body {
+    font-size: 1.1rem;
+    line-height: 1.75;
+  }
+
+  .naga-club-meta-row dd {
+    font-size: 0.95rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .naga-club-story {
+    padding-block: 4rem;
+  }
+
+  .naga-club-story-grid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .naga-club-meta-row {
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+    gap: 1rem;
+    align-items: baseline;
+  }
+}
+
+/* Artists — static groups */
+.naga-club-artists {
+  border-bottom: 1px solid var(--naga-club-border);
+  padding-block: 2.25rem;
+}
+
+.naga-club-artist-block {
+  margin-top: 1.5rem;
+}
+
+.naga-club-artist-block + .naga-club-artist-block {
+  margin-top: 1.75rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--naga-club-border);
+}
+
+.naga-club-artist-heading {
+  margin: 0 0 0.85rem;
+  font-family: var(--naga-club-display);
+  font-size: clamp(1.35rem, 1.1rem + 1.2vw, 2rem);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--naga-club-text);
+}
+
+.naga-club-chip-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.naga-club-chip {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+  width: 100%;
+  padding: 0.65rem 0.7rem;
+  border: 1px solid var(--naga-club-border);
+  background: transparent;
+  box-sizing: border-box;
+}
+
+.naga-club-chip-name {
+  font-family: var(--naga-club-display);
+  font-size: 1rem;
+  letter-spacing: 0.03em;
+  line-height: 1.05;
+  text-transform: uppercase;
+  color: var(--naga-club-text);
+  overflow-wrap: anywhere;
+}
+
+.naga-club-chip-origin {
+  font-family: var(--naga-club-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--naga-club-text-dim);
+  overflow-wrap: anywhere;
+}
+
+.naga-club-chip--headliner {
+  border-color: color-mix(in srgb, var(--naga-club-gold) 55%, transparent);
+}
+
+.naga-club-chip--headliner .naga-club-chip-name {
+  color: var(--naga-club-gold);
+}
+
+.naga-club-chip--cancelled {
+  opacity: 0.55;
+}
+
+.naga-club-chip--cancelled .naga-club-chip-name {
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+@media (min-width: 640px) {
+  .naga-club-chip-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .naga-club-chip {
+    width: auto;
+    min-width: 9.5rem;
+    max-width: 100%;
+    padding: 0.7rem 0.85rem;
+  }
+
+  .naga-club-chip-name {
+    font-size: 1.15rem;
+    line-height: 1;
+  }
+
+  .naga-club-chip-origin {
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+  }
+}
+
+@media (min-width: 768px) {
+  .naga-club-artists {
+    padding-block: 4rem;
+  }
+
+  .naga-club-artist-block {
+    margin-top: 1.75rem;
+  }
+
+  .naga-club-artist-block + .naga-club-artist-block {
+    margin-top: 2.25rem;
+    padding-top: 2.25rem;
+  }
+}
+
+/* Tour stops */
+.naga-club-tours {
+  border-bottom: 1px solid var(--naga-club-border);
+  padding-block: 2.25rem;
+}
+
+.naga-club-tours-grid {
+  display: grid;
+  gap: 0;
+  margin-top: 1.25rem;
+}
+
+.naga-club-tour {
+  padding: 1.1rem 0;
+  border-top: 1px solid var(--naga-club-border);
+  min-width: 0;
+}
+
+.naga-club-tour:last-child {
+  border-bottom: 1px solid var(--naga-club-border);
+}
+
+.naga-club-tour-title {
+  margin: 0;
+  font-family: var(--naga-club-display);
+  font-size: 1.45rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--naga-club-gold);
+}
+
+.naga-club-tour-detail {
+  margin: 0.4rem 0 0;
+  font-family: var(--naga-club-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--naga-club-text);
+  overflow-wrap: anywhere;
+}
+
+.naga-club-tour-note {
+  margin: 0.55rem 0 0;
+  font-family: var(--naga-club-body);
+  font-size: 0.92rem;
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--naga-club-text-dim);
+}
+
+@media (min-width: 768px) {
+  .naga-club-tours {
+    padding-block: 4rem;
+  }
+
+  .naga-club-tours-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    margin-top: 1.5rem;
+  }
+
+  .naga-club-tour {
+    padding: 0 1.25rem;
+    border-top: none;
+    border-bottom: none;
+    border-right: 1px solid var(--naga-club-border);
+  }
+
+  .naga-club-tour:first-child {
+    padding-left: 0;
+  }
+
+  .naga-club-tour:last-child {
+    border-right: none;
+    border-bottom: none;
+    padding-right: 0;
+  }
+
+  .naga-club-tour-title {
+    font-size: 1.65rem;
+  }
+
+  .naga-club-tour-detail {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+  }
+
+  .naga-club-tour-note {
+    font-size: 0.95rem;
+  }
+}
+
+/* Photo grid */
+.naga-club-photos {
+  border-bottom: 1px solid var(--naga-club-border);
+}
+
+.naga-club-photo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  background: var(--naga-club-bg);
+}
+
+.naga-club-photo {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  min-height: 0;
+  background: #050505;
+  aspect-ratio: 1 / 1;
+}
+
+.naga-club-photo img {
+  object-fit: cover;
+  filter: brightness(0.85);
+}
+
+.naga-club-photo--main {
+  grid-column: 1 / -1;
+  aspect-ratio: 4 / 3;
+}
+
+@media (min-width: 768px) {
+  .naga-club-photo-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: minmax(160px, 18vh);
+  }
+
+  .naga-club-photo {
+    aspect-ratio: auto;
+  }
+
+  .naga-club-photo--main {
+    grid-column: 1 / span 2;
+    grid-row: 1 / span 3;
+    min-height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .naga-club-photo--a {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .naga-club-photo--b {
+    grid-column: 4;
+    grid-row: 1;
+  }
+
+  .naga-club-photo--c {
+    grid-column: 3;
+    grid-row: 2;
+  }
+
+  .naga-club-photo--d {
+    grid-column: 4;
+    grid-row: 2;
+  }
+
+  .naga-club-photo--e {
+    grid-column: 3;
+    grid-row: 3;
+  }
+
+  .naga-club-photo--f {
+    grid-column: 4;
+    grid-row: 3;
+  }
+
+  .naga-club-photo--g {
+    grid-column: 1;
+    grid-row: 4;
+  }
+
+  .naga-club-photo--h {
+    grid-column: 2;
+    grid-row: 4;
+  }
+
+  .naga-club-photo--i {
+    grid-column: 3;
+    grid-row: 4;
+  }
+
+  .naga-club-photo--j {
+    grid-column: 4;
+    grid-row: 4;
+  }
+}
+
+/* Sponsors */
+.naga-club-sponsors {
+  border-bottom: 1px solid var(--naga-club-border);
+  padding-block: 1.75rem;
+}
+
+.naga-club-sponsors-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.9rem;
+}
+
+.naga-club-sponsor-chips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  width: 100%;
+}
+
+.naga-club-sponsor-chip {
+  padding: 0.6rem 0.85rem;
+  border: 1px solid var(--naga-club-border);
+  font-family: var(--naga-club-display);
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--naga-club-text-dim);
+}
+
+@media (min-width: 768px) {
+  .naga-club-sponsors {
+    padding-block: 2rem;
+  }
+
+  .naga-club-sponsors-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .naga-club-sponsor-chips {
+    width: auto;
+    gap: 0.65rem;
+  }
+
+  .naga-club-sponsor-chip {
+    padding: 0.65rem 1rem;
+    font-size: 1.15rem;
+  }
+}
+
+/* Closing */
+.naga-club-close {
+  padding-block: 2.25rem max(2.75rem, env(safe-area-inset-bottom));
+}
+
+.naga-club-close-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.naga-club-close-line {
+  margin: 0;
+  max-width: 18ch;
+  font-family: var(--naga-club-display);
+  font-size: clamp(1.35rem, 1rem + 2.2vw, 2.4rem);
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--naga-club-gold);
+  text-wrap: balance;
+}
+
+.naga-club-close-meta {
+  margin: 0;
+  font-family: var(--naga-club-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1.7;
+  color: var(--naga-club-text-dim);
+}
+
+@media (min-width: 768px) {
+  .naga-club-close {
+    padding-block: 2.75rem 3.5rem;
+  }
+
+  .naga-club-close-row {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .naga-club-close-line {
+    max-width: 22ch;
+  }
+
+  .naga-club-close-meta {
+    text-align: right;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+  }
+}

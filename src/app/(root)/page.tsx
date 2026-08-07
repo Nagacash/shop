@@ -3,6 +3,7 @@ import { HeroSection, HomeBrandSections } from "@/components";
 import Woodland360Section from "@/components/Woodland360Section";
 import BrandLookbookSection from "@/components/BrandLookbookSection";
 import BrandTeaserSection from "@/components/BrandTeaserSection";
+import NagaClubHamburgSection from "@/components/NagaClubHamburgSection";
 import HoodieStreetSection from "@/components/HoodieStreetSection";
 import FeaturedDropSection from "@/components/FeaturedDropSection";
 import HomeAvailableSection from "@/components/HomeAvailableSection";
@@ -58,6 +59,7 @@ export default async function Home() {
       </Suspense>
       <BrandLookbookSection />
       <BrandTeaserSection />
+      <NagaClubHamburgSection />
       <Woodland360Section />
       <JsonLd data={faqJsonLd([...NAGA_FAQS])} />
       <div className="scroll-layer border-t border-dark-900/8 bg-light-100">

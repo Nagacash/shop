@@ -41,6 +41,7 @@ const columns: { title: string; links: FooterLink[] }[] = [
     title: "Help",
     links: [
       { label: "About Us", href: "/about" },
+      { label: "Naga Club Hamburg", href: "/#naga-club" },
       { label: "Woodland 360", href: "/podcast" },
       { label: "Contact Us", href: "/contact" },
       { label: "Shipping", href: "/contact" },
@@ -53,6 +54,7 @@ const columns: { title: string; links: FooterLink[] }[] = [
     links: [
       { label: "Naga Codex", href: NAGA_CODEX_URL },
       { label: WOODLAND360_PODCAST.name, href: "/podcast" },
+      { label: "Naga Club", href: "/#naga-club" },
     ],
   },
 ];
