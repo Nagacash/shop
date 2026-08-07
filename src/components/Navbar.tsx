@@ -138,6 +138,7 @@ function NavbarInteractive() {
     if (!open) return;
 
     const previouslyFocused = document.activeElement as HTMLElement | null;
+    const menuBtn = menuBtnRef.current;
     closeBtnRef.current?.focus();
 
     const getFocusable = () => {
@@ -177,7 +178,7 @@ function NavbarInteractive() {
     document.addEventListener("keydown", onKeyDown);
     return () => {
       document.removeEventListener("keydown", onKeyDown);
-      (previouslyFocused ?? menuBtnRef.current)?.focus();
+      (previouslyFocused ?? menuBtn)?.focus();
     };
   }, [open]);
 

@@ -32,9 +32,9 @@ function LookbookPlate({
   priority?: boolean;
   sizes: string;
 }) {
-  const fit = "fit" in item && item.fit === "contain" ? "object-contain" : "object-cover";
-  const aspect = "aspect" in item ? item.aspect : undefined;
-  const backdrop = "backdrop" in item ? item.backdrop : "#0a0a0a";
+  const fit = item.fit === "cover" ? "object-cover" : "object-contain";
+  const aspect = item.aspect;
+  const backdrop = item.backdrop;
 
   return (
     <figure className={`${lookbookFrameClass(item)} naga-bezel-light group`}>
@@ -152,7 +152,7 @@ export default function BrandLookbookSection() {
             <a
               href={LOOKBOOK_PDF.href}
               download={LOOKBOOK_PDF.filename}
-              className="naga-btn naga-btn-gold focus-ring focus-visible:outline-none"
+              className="naga-btn naga-btn-gold focus-ring hidden focus-visible:outline-none md:inline-flex"
               data-cursor="acquire"
               data-cursor-label="Download"
             >
@@ -166,7 +166,7 @@ export default function BrandLookbookSection() {
               <FileText className="h-3.5 w-3.5" strokeWidth={1.5} aria-hidden="true" />
               {CTA.businessContact}
             </Link>
-            <p className="naga-meta text-dark-500">{LOOKBOOK_PDF.detail}</p>
+            <p className="naga-meta hidden text-dark-500 md:block">{LOOKBOOK_PDF.detail}</p>
           </div>
         </InViewMotion>
       </div>
