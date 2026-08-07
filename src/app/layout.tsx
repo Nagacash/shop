@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import JsonLd from "@/components/JsonLd";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo/jsonld";
+import { SOCIAL_SHARE_IMAGE } from "@/lib/brand/marketing-images";
 import { absoluteUrl, getSiteUrl, SITE_DESCRIPTION, SITE_KEYWORDS, SITE_NAME } from "@/lib/seo/site";
 import "./globals.css";
 
@@ -14,7 +15,7 @@ const inter = Inter({
 const defaultTitle = `${SITE_NAME} | Urban Streetwear Tees, Sweaters & Sets`;
 
 export const viewport: Viewport = {
-  themeColor: "#0a0a0a",
+  themeColor: "#050505",
   colorScheme: "dark",
 };
 
@@ -35,13 +36,18 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: defaultTitle,
     description: SITE_DESCRIPTION,
-    images: [{ url: absoluteUrl("/logo2.png"), alt: SITE_NAME }],
+    images: [
+      {
+        url: absoluteUrl(SOCIAL_SHARE_IMAGE),
+        alt: "Naga Original black set still life with hangtag and gold hardware",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: defaultTitle,
     description: SITE_DESCRIPTION,
-    images: [absoluteUrl("/logo2.png")],
+    images: [absoluteUrl(SOCIAL_SHARE_IMAGE)],
   },
   icons: { icon: "/logo.png" },
   category: "shopping",

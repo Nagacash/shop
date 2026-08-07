@@ -13,7 +13,7 @@ type NetworkInformation = {
   removeEventListener?(type: "change", listener: () => void): void;
 };
 
-export type BrandVideoTone = "light" | "dark";
+export type BrandVideoTone = "light" | "dark" | "cinematic";
 
 type BrandVideoBackdropProps = {
   clipId: BrandClipId;
@@ -40,14 +40,19 @@ export default function BrandVideoBackdrop({
   useEffect(() => {
     const connection = (navigator as Navigator & { connection?: NetworkInformation })
       .connection;
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     const syncLiteMode = () => {
-      setLitePlayback(Boolean(connection?.saveData));
+      setLitePlayback(Boolean(connection?.saveData) || motionQuery.matches);
     };
 
     syncLiteMode();
     connection?.addEventListener?.("change", syncLiteMode);
-    return () => connection?.removeEventListener?.("change", syncLiteMode);
+    motionQuery.addEventListener("change", syncLiteMode);
+    return () => {
+      connection?.removeEventListener?.("change", syncLiteMode);
+      motionQuery.removeEventListener("change", syncLiteMode);
+    };
   }, []);
 
   const wrapperClass = [
@@ -61,9 +66,11 @@ export default function BrandVideoBackdrop({
   const overlayClass =
     tone === "light"
       ? "brand-video-overlay brand-video-overlay--light"
-      : revealTop
-        ? "brand-video-overlay brand-video-overlay--reveal-top"
-        : "brand-video-overlay brand-video-overlay--dark";
+      : tone === "cinematic"
+        ? "brand-video-overlay brand-video-overlay--cinematic"
+        : revealTop
+          ? "brand-video-overlay brand-video-overlay--reveal-top"
+          : "brand-video-overlay brand-video-overlay--dark";
 
   const mediaClass = revealTop ? "brand-video-media brand-video-media--reveal-top" : "brand-video-media";
 

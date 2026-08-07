@@ -28,9 +28,29 @@ function withCartCheckoutCookieCleared(request: NextRequest, response: NextRespo
 }
 
 export function middleware(request: NextRequest) {
-  if (request.nextUrl.pathname.startsWith("/api/auth")) {
+  const pathname = request.nextUrl.pathname;
+
+  // Public MP3s removed — block residual / direct audio paths
+  if (pathname.endsWith(".mp3") || pathname.endsWith(".wav") || pathname.endsWith(".flac")) {
+    return new NextResponse("Gone", {
+      status: 410,
+      headers: {
+        "Cache-Control": "no-store",
+        "X-Robots-Tag": "noindex, nofollow",
+      },
+    });
+  }
+
+  if (pathname.startsWith("/api/auth")) {
     const ip = clientIp(request);
     if (!rateLimit(`auth:${ip}`, AUTH_RATE_LIMIT, AUTH_RATE_WINDOW_MS)) {
+      return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+    }
+  }
+
+  if (pathname.startsWith("/api/ambient")) {
+    const ip = clientIp(request);
+    if (!rateLimit(`ambient-mw:${ip}`, 180, 60_000)) {
       return NextResponse.json({ error: "Too many requests" }, { status: 429 });
     }
   }

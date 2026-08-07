@@ -36,9 +36,9 @@ export const COLLECTION_COVER_OVERRIDES: Record<string, string> = {
 
 /** Brand photography & product visuals — `/public/new/img`. */
 export const MARKETING_IMAGES = {
-  /** Berlin rooftop golden hour — hood up, city skyline */
-  berlinLifestyle: `${IMG}/cityscraper2.png`,
-  /** Wide cityscape variant */
+  /** Real-logo rooftop cover — black hoodie, golden hour skyline */
+  berlinLifestyle: `${IMG}/Naga%20Cover%20_%20real%20logo%20hoodie%20rooftop.webp`,
+  /** Wide cityscape variant (generated) */
   berlinWide: `${IMG}/cityscraper.png`,
   /** Black tee product shot */
   nagaTee: `${IMG}/tee-black.png`,
@@ -57,14 +57,31 @@ export const MARKETING_IMAGES = {
   /** Lifestyle — Naga Original hoodie in the crowd */
   hoodieStreet1: `${IMG}/NAGA%20hoodie1.png`,
   hoodieStreet2: `${IMG}/NAGA%20hoddie2t.png`,
+  /** Real-logo set still life — black crew + pants + hangtag */
+  setStillLife: `${IMG}/Naga%20Set%20_%20real%20logo%20still%20life.webp`,
+  /** Real-logo tees editorial — duo in concrete corridor */
+  teesEditorial: `${IMG}/Naga%20Tees%20_%20real%20logo%20editorial.webp`,
+  /** Real-logo Angkor crew editorial */
+  angkorCrew: `${IMG}/Naga%20Crew%20_%20real%20logo%20Angkor%20editorial.webp`,
+  /** Poster frame from the AI brand teaser reel */
+  teaserPoster: `${IMG}/naga-teaser-poster.webp`,
 } as const;
 
-export type BrandClipId = "goldDust" | "goldDustWide" | "nagaFashion" | "hoodie";
+export type BrandClipId =
+  | "goldDust"
+  | "goldDustWide"
+  | "nagaFashion"
+  | "hoodie"
+  | "teaser";
 
 /** Native aspect ratios for brand photography (width / height). */
 export const BRAND_IMAGE_ASPECT = {
   cinematic: "3104/1312",
   productDust: "1080/608",
+  coverRooftop: "2752/1536",
+  setStillLife: "2400/1792",
+  teesEditorial: "2528/1696",
+  angkorCrew: "1792/2400",
 } as const;
 
 export type BrandClip = {
@@ -103,6 +120,12 @@ export const BRAND_CLIPS: Record<BrandClipId, BrandClip> = {
     poster: MARKETING_IMAGES.hoodieFlatLay,
     objectPosition: "center",
   },
+  teaser: {
+    id: "teaser",
+    mp4: `${CLIPS}/naga-teaser-15s.mp4`,
+    poster: MARKETING_IMAGES.teaserPoster,
+    objectPosition: "center",
+  },
 };
 
 /** Which clip each page/section uses */
@@ -114,11 +137,12 @@ export const SECTION_CLIPS = {
   shop: "nagaFashion",
   cart: "goldDustWide",
   contact: "goldDust",
+  teaser: "teaser",
 } as const satisfies Record<string, BrandClipId>;
 
 export const MARKETING_ALT = {
   berlinLifestyle:
-    "Silhouette in Naga hoodie on a Berlin rooftop at golden hour, city skyline behind",
+    "Model in a black Naga Original hoodie with real cobra logo on a rooftop at golden hour, city skyline behind",
   berlinWide: "Wide golden-hour view over Berlin rooftops",
   nagaTee: "Black Naga Original graphic tee on clean studio background",
   hoodieFlatLay: "Black Naga Original hoodie flat lay with cobra chest graphic",
@@ -131,6 +155,12 @@ export const MARKETING_ALT = {
     "Model wearing a black Naga Original hoodie with cobra chest logo in a dimly lit crowd",
   hoodieStreet2:
     "Editorial shot of Naga Original hoodie and cobra logo in a nightlife setting",
+  setStillLife:
+    "Black Naga Original crewneck and sweatpants still life with hangtag and gold hardware",
+  teesEditorial:
+    "Two models in black Naga Original graphic tees against raw concrete walls",
+  angkorCrew:
+    "Model in a tan Naga Original crewneck with real cobra logo at an Angkor temple",
 } as const;
 
 /** Homepage street editorial — Naga Original hoodie lifestyle photography. */
@@ -155,37 +185,47 @@ export const HOODIE_STREET_EDITORIAL = [
   },
 ] as const;
 
-/** Homepage editorial lookbook — hero brand photography. */
+/** Homepage editorial lookbook — real-logo brand photography. */
 export const EDITORIAL_LOOKBOOK = [
   {
     src: MARKETING_IMAGES.berlinLifestyle,
     alt: MARKETING_ALT.berlinLifestyle,
-    label: "Golden hour",
-    detail: "Naga on the skyline",
-    layout: "feature",
-    aspect: BRAND_IMAGE_ASPECT.cinematic,
-    fit: "contain",
-    backdrop: "#141210",
-  },
-  {
-    src: MARKETING_IMAGES.productDust,
-    alt: MARKETING_ALT.productDust,
-    label: "Gold dust",
-    detail: "Cobra craft up close",
-    layout: "product",
-    aspect: BRAND_IMAGE_ASPECT.productDust,
-    fit: "contain",
-    backdrop: "#2a2a2a",
-  },
-  {
-    src: MARKETING_IMAGES.berlinWide,
-    alt: MARKETING_ALT.berlinWide,
     label: "Rooftop",
-    detail: "City frequency",
+    detail: "Naga Original on the skyline",
+    layout: "feature",
+    aspect: BRAND_IMAGE_ASPECT.coverRooftop,
+    fit: "cover",
+    backdrop: "#0a0a0a",
+  },
+  {
+    src: MARKETING_IMAGES.setStillLife,
+    alt: MARKETING_ALT.setStillLife,
+    label: "Black set",
+    detail: "Crew + pants, hangtag sharp",
+    layout: "product",
+    aspect: BRAND_IMAGE_ASPECT.setStillLife,
+    fit: "cover",
+    backdrop: "#0a0a0a",
+  },
+  {
+    src: MARKETING_IMAGES.teesEditorial,
+    alt: MARKETING_ALT.teesEditorial,
+    label: "Tees",
+    detail: "Cobra mark, concrete frame",
     layout: "mood",
-    aspect: BRAND_IMAGE_ASPECT.cinematic,
-    fit: "contain",
-    backdrop: "#141210",
+    aspect: BRAND_IMAGE_ASPECT.teesEditorial,
+    fit: "cover",
+    backdrop: "#121212",
+  },
+  {
+    src: MARKETING_IMAGES.angkorCrew,
+    alt: MARKETING_ALT.angkorCrew,
+    label: "Angkor",
+    detail: "Heritage crew, real logo",
+    layout: "heritage",
+    aspect: BRAND_IMAGE_ASPECT.angkorCrew,
+    fit: "cover",
+    backdrop: "#0a0a0a",
   },
 ] as const;
 
@@ -213,9 +253,21 @@ export const LEGACY_GALLERY = [
   },
 ] as const;
 
-/** Site-wide ambient player track — `/public/new`. */
-export const AMBIENT_TRACK = {
-  src: "/new/ShortLord%20-%20Sombra%20de%20Tambora.mp3",
-  title: "Sombra de Tambora",
-  artist: "ShortLord",
+/** Ambient playlist — see `@/lib/ambient/catalog` (streams via signed `/api/ambient`). */
+export {
+  AMBIENT_TRACK,
+  AMBIENT_TRACKS,
+  type AmbientTrackId,
+} from "@/lib/ambient/catalog";
+
+/** Digital lookbook PDF — wholesale / press / business interest. */
+export const LOOKBOOK_PDF = {
+  href: "/new/naga-lookbook.pdf",
+  filename: "naga-lookbook.pdf",
+  label: "Download lookbook",
+  detail: "PDF · for wholesale, press & partners",
 } as const;
+
+/** Default Open Graph / Twitter share image — JPG for broad crawler support. */
+export const SOCIAL_SHARE_IMAGE =
+  "/new/img/Naga Set _ real logo still life.jpg";

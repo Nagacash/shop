@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SOCIAL_SHARE_IMAGE } from "@/lib/brand/marketing-images";
 import { absoluteUrl, canonicalUrl, SITE_DESCRIPTION, SITE_NAME } from "./site";
 
 type PageMetaInput = {
@@ -13,7 +14,7 @@ export function buildPageMetadata({
   title,
   description = SITE_DESCRIPTION,
   path = "/",
-  image = "/logo2.png",
+  image = SOCIAL_SHARE_IMAGE,
   noIndex = false,
 }: PageMetaInput): Metadata {
   const url = canonicalUrl(path);

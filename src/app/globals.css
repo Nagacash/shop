@@ -17,7 +17,7 @@
   --color-green: #007d48;
   --color-red: #d33918;
   --color-orange: #d37918;
-  --color-naga-gold: #d4af37;
+  --color-naga-gold: #c9a84c;
   --color-naga-sage: #8a9a5b;
   --color-naga-sage-light: #a8b07a;
   --color-naga-wood: #3d3428;
@@ -27,41 +27,41 @@
   --font-jost: "Jost", sans-serif;
   --font-display: "Space Grotesk", sans-serif;
 
-  /* Heading sizes */
-  --text-heading-1: 72px;
-  --text-heading-1--line-height: 78px;
+  /* Heading sizes — fluid so mobile never locks to desktop px */
+  --text-heading-1: clamp(2.25rem, 1.35rem + 4.2vw, 4.5rem);
+  --text-heading-1--line-height: 1.08;
   --text-heading-1--font-weight: 700;
 
-  --text-heading-2: 56px;
-  --text-heading-2--line-height: 60px;
+  --text-heading-2: clamp(1.75rem, 1.15rem + 2.8vw, 3.5rem);
+  --text-heading-2--line-height: 1.1;
   --text-heading-2--font-weight: 700;
 
-  --text-heading-3: 24px;
-  --text-heading-3--line-height: 30px;
+  --text-heading-3: clamp(1.25rem, 1.1rem + 0.7vw, 1.5rem);
+  --text-heading-3--line-height: 1.25;
   --text-heading-3--font-weight: 500;
 
   /* Lead */
-  --text-lead: 20px;
-  --text-lead--line-height: 28px;
+  --text-lead: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+  --text-lead--line-height: 1.4;
   --text-lead--font-weight: 500;
 
   /* Body */
-  --text-body: 16px;
-  --text-body--line-height: 24px;
+  --text-body: clamp(0.9375rem, 0.9rem + 0.2vw, 1rem);
+  --text-body--line-height: 1.5;
   --text-body--font-weight: 400;
 
-  --text-body-medium: 16px;
-  --text-body-medium--line-height: 24px;
+  --text-body-medium: clamp(0.9375rem, 0.9rem + 0.2vw, 1rem);
+  --text-body-medium--line-height: 1.5;
   --text-body-medium--font-weight: 500;
 
   /* Caption */
-  --text-caption: 14px;
-  --text-caption--line-height: 20px;
+  --text-caption: clamp(0.8125rem, 0.78rem + 0.15vw, 0.875rem);
+  --text-caption--line-height: 1.4;
   --text-caption--font-weight: 500;
 
   /* Footnote */
-  --text-footnote: 12px;
-  --text-footnote--line-height: 18px;
+  --text-footnote: clamp(0.6875rem, 0.66rem + 0.12vw, 0.75rem);
+  --text-footnote--line-height: 1.45;
   --text-footnote--font-weight: 400;
 
   /* Motion */
@@ -102,7 +102,7 @@ html {
 
 html.naga-root {
   color-scheme: dark;
-  -webkit-tap-highlight-color: color-mix(in srgb, #e61919 22%, transparent);
+  -webkit-tap-highlight-color: color-mix(in srgb, #c9a84c 22%, transparent);
   touch-action: manipulation;
 }
 
@@ -170,6 +170,7 @@ footer.scroll-layer {
 }
 
 body {
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -280,8 +281,16 @@ body {
 .hero-title {
   letter-spacing: -0.04em;
   line-height: 0.95;
-  font-size: clamp(3.5rem, 14vw, 11rem);
+  font-size: clamp(2.5rem, 11.5vw, 11rem);
   text-transform: uppercase;
+  max-width: calc(100vw - 2rem);
+}
+
+@media (min-width: 640px) {
+  .hero-title {
+    font-size: clamp(3.5rem, 14vw, 11rem);
+    max-width: none;
+  }
 }
 
 .hero-stat-value {
@@ -520,8 +529,14 @@ body {
 }
 
 .naga-lookbook-product,
-.naga-lookbook-mood {
+.naga-lookbook-mood,
+.naga-lookbook-heritage {
   min-height: 0;
+}
+
+.naga-lookbook-frame {
+  outline: 1px solid color-mix(in srgb, var(--color-light-100) 10%, transparent);
+  outline-offset: -1px;
 }
 
 .naga-lookbook-caption {
@@ -530,9 +545,14 @@ body {
   bottom: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
-  background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--color-dark-900) 88%, transparent));
-  padding: 2.5rem 1.25rem 1.25rem;
+  gap: 0.25rem;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    color-mix(in srgb, var(--color-dark-900) 55%, transparent) 40%,
+    color-mix(in srgb, var(--color-dark-900) 92%, transparent)
+  );
+  padding: clamp(1.75rem, 4vw, 2.5rem) clamp(0.875rem, 3vw, 1.25rem) clamp(0.875rem, 3vw, 1.25rem);
 }
 
 .naga-lookbook-caption-label {
@@ -548,14 +568,106 @@ body {
 .naga-lookbook-caption-detail {
   font-size: var(--text-body-medium);
   line-height: var(--text-body-medium--line-height);
-  color: var(--color-light-100);
+  color: #eaeaea;
+  text-shadow: 0 1px 2px color-mix(in srgb, var(--color-dark-900) 70%, transparent);
+  text-wrap: pretty;
+  max-width: 36ch;
+}
+
+.naga-lookbook-caption-index {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-family: var(--font-display), "Inter", system-ui, sans-serif;
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-naga-gold) 75%, transparent);
+}
+
+/* Identity strip — digital lookbook HTML cue */
+.naga-lookbook-identity {
+  display: grid;
+  gap: 1px;
+  border: 1px solid color-mix(in srgb, var(--color-dark-900) 12%, transparent);
+  background: color-mix(in srgb, var(--color-dark-900) 12%, transparent);
+}
+
+.naga-lookbook-identity-cell {
+  background: var(--color-light-100);
+  padding: clamp(1rem, 3vw, 1.25rem);
+}
+
+.naga-lookbook-identity-label {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-display), "Inter", system-ui, sans-serif;
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  color: var(--color-naga-gold);
+}
+
+.naga-lookbook-identity-value {
+  margin: 0;
+  font-family: var(--font-display), "Inter", system-ui, sans-serif;
+  font-size: clamp(0.9375rem, 0.9rem + 0.2vw, 1.125rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  text-transform: uppercase;
+  color: var(--color-dark-900);
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.naga-lookbook-business {
+  display: grid;
+  gap: 1.5rem;
+  border-top: 2px solid var(--color-naga-gold);
+  padding-top: 2rem;
+}
+
+.naga-lookbook-business-title {
+  margin: 0.35rem 0 0;
+  font-size: clamp(1.375rem, 1.05rem + 1.4vw, 2.25rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.naga-lookbook-business-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+}
+
+@media (min-width: 768px) {
+  .naga-lookbook-identity {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .naga-lookbook-business {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    align-items: end;
+  }
 }
 
 @media (min-width: 1024px) {
   .naga-lookbook-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     grid-template-rows: auto auto;
     gap: 1rem;
+  }
+
+  .naga-lookbook-feature {
+    grid-column: 1 / -1;
+    grid-row: 1;
   }
 
   .naga-lookbook-product {
@@ -565,6 +677,11 @@ body {
 
   .naga-lookbook-mood {
     grid-column: 2;
+    grid-row: 2;
+  }
+
+  .naga-lookbook-heritage {
+    grid-column: 3;
     grid-row: 2;
   }
 }
@@ -1445,6 +1562,15 @@ body {
   );
 }
 
+.brand-video-overlay--cinematic {
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--color-dark-900) 78%, transparent) 0%,
+    color-mix(in srgb, var(--color-dark-900) 28%, transparent) 42%,
+    transparent 72%
+  );
+}
+
 @media (prefers-reduced-motion: reduce) {
   .brand-video-clip,
   .brand-video-media video {
@@ -1659,7 +1785,7 @@ body {
   width: 14px;
   height: 14px;
   margin: -7px 0 0 -7px;
-  border: 1.25px solid rgba(230, 25, 25, 0.9);
+  border: 1.25px solid rgba(201, 168, 76, 0.9);
   border-radius: 50%;
   background: transparent;
   will-change: transform, border-color;
@@ -1677,7 +1803,7 @@ body {
 .naga-cursor-cross::after {
   content: "";
   position: absolute;
-  background: rgba(230, 25, 25, 0.95);
+  background: rgba(201, 168, 76, 0.95);
 }
 
 /* Vertical tick */
@@ -1689,12 +1815,12 @@ body {
   transform: translateX(-50%);
   background: linear-gradient(
     to bottom,
-    rgba(230, 25, 25, 0.95) 0%,
-    rgba(230, 25, 25, 0.95) 22%,
+    rgba(201, 168, 76, 0.95) 0%,
+    rgba(201, 168, 76, 0.95) 22%,
     transparent 22%,
     transparent 78%,
-    rgba(230, 25, 25, 0.95) 78%,
-    rgba(230, 25, 25, 0.95) 100%
+    rgba(201, 168, 76, 0.95) 78%,
+    rgba(201, 168, 76, 0.95) 100%
   );
 }
 
@@ -1707,12 +1833,12 @@ body {
   transform: translateY(-50%);
   background: linear-gradient(
     to right,
-    rgba(230, 25, 25, 0.95) 0%,
-    rgba(230, 25, 25, 0.95) 22%,
+    rgba(201, 168, 76, 0.95) 0%,
+    rgba(201, 168, 76, 0.95) 22%,
     transparent 22%,
     transparent 78%,
-    rgba(230, 25, 25, 0.95) 78%,
-    rgba(230, 25, 25, 0.95) 100%
+    rgba(201, 168, 76, 0.95) 78%,
+    rgba(201, 168, 76, 0.95) 100%
   );
 }
 
@@ -1735,7 +1861,7 @@ body {
   width: 22px;
   height: 22px;
   margin: -11px 0 0 -11px;
-  border: 1px solid rgba(230, 25, 25, 0.9);
+  border: 1px solid rgba(201, 168, 76, 0.9);
   border-radius: 50%;
   opacity: 0;
   pointer-events: none;
@@ -1746,9 +1872,9 @@ body {
   top: 12px;
   left: 10px;
   padding: 0.2rem 0.4rem;
-  border: 1px solid rgba(230, 25, 25, 0.7);
+  border: 1px solid rgba(201, 168, 76, 0.7);
   background: rgba(10, 10, 10, 0.92);
-  color: #eaeaea;
+  color: #f0ece4;
   font-family: var(--font-display), "Inter", system-ui, sans-serif;
   font-size: 0.625rem;
   font-weight: 500;
@@ -1797,7 +1923,7 @@ html.naga-has-cursor [contenteditable="true"] {
 /* Homepage ambient track — floating player */
 .naga-ambient-player {
   position: relative;
-  max-width: min(calc(100vw - 2.5rem), 18rem);
+  max-width: min(calc(100vw - 2rem), 18rem);
 }
 
 .naga-ambient-player-inner {
@@ -1806,11 +1932,37 @@ html.naga-has-cursor [contenteditable="true"] {
   border-radius: 999px;
   border: 1px solid color-mix(in srgb, var(--color-naga-gold) 35%, transparent);
   background: color-mix(in srgb, var(--color-dark-900) 88%, transparent);
-  padding: 0.65rem 0.85rem 0.65rem 0.65rem;
+  padding: 0.55rem 0.7rem 0.55rem 0.55rem;
   box-shadow:
     0 12px 40px color-mix(in srgb, var(--color-dark-900) 45%, transparent),
     inset 0 1px 0 color-mix(in srgb, var(--color-light-100) 8%, transparent);
   backdrop-filter: blur(14px);
+}
+
+@media (min-width: 640px) {
+  .naga-ambient-player {
+    max-width: min(calc(100vw - 2.5rem), 18rem);
+  }
+
+  .naga-ambient-player-inner {
+    padding: 0.65rem 0.85rem 0.65rem 0.65rem;
+  }
+}
+
+@media (max-width: 639px) {
+  .naga-nav-shell {
+    padding: 0.625rem 0.75rem 0.5rem;
+  }
+
+  .naga-nav-island {
+    height: 3.25rem;
+    gap: 0.5rem;
+    padding-inline: 0.75rem;
+  }
+
+  .naga-ambient-waveform {
+    display: none;
+  }
 }
 
 .naga-ambient-glow {

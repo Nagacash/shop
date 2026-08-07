@@ -25,6 +25,7 @@ const productionSecurityHeaders = [
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob: https:",
+      "media-src 'self'",
       "font-src 'self' data:",
       "connect-src 'self' https://api.stripe.com https://*.stripe.com",
       "frame-src https://js.stripe.com https://hooks.stripe.com",
@@ -39,6 +40,11 @@ const productionSecurityHeaders = [
 const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
+  },
+  // Keep private ambient masters available to the stream route on Vercel.
+  outputFileTracingIncludes: {
+    "/api/ambient/[id]": ["./private/ambient/**/*"],
+    "/api/ambient/token": ["./private/ambient/**/*"],
   },
   // External volumes (/Volumes/*) can break webpack pack renames → missing manifests.
   webpack: (config, { dev }) => {
@@ -57,6 +63,15 @@ const nextConfig: NextConfig = {
         source: "/uploads/:path*",
         headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
       },
+      {
+        source: "/api/ambient/:path*",
+        headers: [
+          { key: "Cache-Control", value: "private, no-store, no-transform" },
+          { key: "X-Robots-Tag", value: "noindex, nofollow" },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
+        ],
+      },
     ];
   },
   async rewrites() {
@@ -72,6 +87,12 @@ const nextConfig: NextConfig = {
       {
         source: "/collections/naga-green",
         destination: "/collections/naga-black",
+        permanent: true,
+      },
+      // Old public beat URLs — gone (files moved out of /public)
+      {
+        source: "/new/:file*.mp3",
+        destination: "/",
         permanent: true,
       },
     ];

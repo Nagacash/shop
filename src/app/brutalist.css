@@ -1,15 +1,15 @@
-/* Tactical Telemetry — Industrial Brutalist UI (Naga Apparel) */
+/* Dark editorial — gold luxury accent (logo-matched) */
 
 .naga-brutalist {
-  --color-urban-canvas: #0a0a0a;
-  --color-naga-gold: #e61919;
-  --color-red: #ff2a2a;
-  --color-hazard: #e61919;
-  --color-phosphor: #eaeaea;
-  --color-panel: #121212;
-  --color-grid-line: #2a2a2a;
-  --hero-light-base: #121212;
-  --focus-ring: 0 0 0 2px #0a0a0a, 0 0 0 3px #e61919;
+  --color-urban-canvas: #050505;
+  --color-naga-gold: #c9a84c;
+  --color-red: #d33918;
+  --color-hazard: #c9a84c;
+  --color-phosphor: #f0ece4;
+  --color-panel: #0d0d0d;
+  --color-grid-line: #1e1e1e;
+  --hero-light-base: #0d0d0d;
+  --focus-ring: 0 0 0 2px #050505, 0 0 0 3px #c9a84c;
   --shadow-card: none;
   --shadow-card-hover: none;
   --shadow-ambient: none;
@@ -28,8 +28,8 @@
     0deg,
     transparent,
     transparent 2px,
-    rgba(0, 0, 0, 0.14) 2px,
-    rgba(0, 0, 0, 0.14) 4px
+    rgba(0, 0, 0, 0.08) 2px,
+    rgba(0, 0, 0, 0.08) 4px
   );
 }
 
@@ -169,7 +169,7 @@
 
 .naga-brutalist .naga-nav-bag {
   background: var(--color-hazard);
-  color: #0a0a0a;
+  color: #050505;
 }
 
 .naga-brutalist .naga-nav-bag-count {
@@ -179,8 +179,8 @@
 }
 
 .naga-brutalist .naga-btn-gold {
-  background: var(--color-hazard);
-  color: #0a0a0a;
+  background: var(--color-naga-gold);
+  color: #050505;
   box-shadow: none;
 }
 
@@ -189,7 +189,7 @@
 }
 
 .naga-brutalist .naga-btn-gold:hover {
-  background: #ff2a2a;
+  background: #e0c06a;
   box-shadow: none;
 }
 
@@ -286,6 +286,39 @@
 
 .naga-brutalist .naga-lookbook-caption-label {
   color: var(--color-hazard);
+}
+
+.naga-brutalist .naga-lookbook-caption-detail {
+  color: var(--color-phosphor);
+}
+
+.naga-brutalist .naga-lookbook-caption-index {
+  color: color-mix(in srgb, var(--color-hazard) 70%, transparent);
+}
+
+.naga-brutalist .naga-lookbook-frame {
+  outline-color: color-mix(in srgb, var(--color-phosphor) 12%, transparent);
+}
+
+.naga-brutalist .naga-lookbook-identity {
+  border-color: var(--color-grid-line);
+  background: var(--color-grid-line);
+}
+
+.naga-brutalist .naga-lookbook-identity-cell {
+  background: #0a0a0a;
+}
+
+.naga-brutalist .naga-lookbook-identity-label {
+  color: var(--color-hazard);
+}
+
+.naga-brutalist .naga-lookbook-identity-value {
+  color: var(--color-phosphor);
+}
+
+.naga-brutalist .naga-lookbook-business {
+  border-top-color: var(--color-hazard);
 }
 
 .naga-brutalist .naga-story-beat {

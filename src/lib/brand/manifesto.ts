@@ -33,6 +33,8 @@ export const CTA = {
   allCollections: "All Collections",
   continueShopping: "Claim More",
   viewDetails: "Learn the History",
+  downloadLookbook: "Download Lookbook",
+  businessContact: "Business inquiry",
 } as const;
 
 /** Featured set — used for homepage featured drop when in stock. */

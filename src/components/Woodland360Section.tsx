@@ -20,7 +20,7 @@ export default function Woodland360Section({ showCodexCredit = true, className =
       className={`scroll-layer border-t border-dark-900/8 bg-dark-900 text-light-100 ${className}`}
       aria-labelledby="woodland360-heading"
       data-cursor-section
-      data-cursor-index="04"
+      data-cursor-index="05"
       data-cursor-label="Woodland 360"
     >
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
@@ -36,7 +36,7 @@ export default function Woodland360Section({ showCodexCredit = true, className =
             <h2
               id="woodland360-heading"
               data-motion-reveal
-              className="naga-display mt-4 text-heading-2 font-bold tracking-tighter text-light-100 sm:text-heading-1"
+              className="naga-display mt-4 text-heading-3 font-bold tracking-tighter text-light-100 text-balance sm:text-heading-2 md:text-heading-1"
             >
               {WOODLAND360_PODCAST.name}
             </h2>
