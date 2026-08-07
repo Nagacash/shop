@@ -153,7 +153,6 @@ export default function AmbientTrackPlayer() {
         preload="none"
         aria-hidden="true"
         controlsList="nodownload noplaybackrate"
-        disablePictureInPicture
         onContextMenu={(event) => event.preventDefault()}
       />
 
