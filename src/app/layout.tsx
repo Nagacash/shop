@@ -12,7 +12,10 @@ const inter = Inter({
   display: "swap",
 });
 
-const defaultTitle = `${SITE_NAME} | Urban Streetwear Tees, Sweaters & Sets`;
+// Carries brand + category + city + reach. The previous title named the
+// product types but not where the brand is from or that it ships beyond
+// Germany, so it could realistically only compete on brand-name searches.
+const defaultTitle = `${SITE_NAME} — Streetwear Brand from Hamburg | Shipping Worldwide`;
 
 export const viewport: Viewport = {
   themeColor: "#050505",
@@ -31,7 +34,7 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
   openGraph: {
     type: "website",
-    locale: "en_DE",
+    locale: "en_GB",
     url: absoluteUrl("/"),
     siteName: SITE_NAME,
     title: defaultTitle,

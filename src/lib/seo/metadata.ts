@@ -29,7 +29,7 @@ export function buildPageMetadata({
       : { index: true, follow: true, googleBot: { index: true, follow: true } },
     openGraph: {
       type: "website",
-      locale: "en_DE",
+      locale: "en_GB",
       url,
       siteName: SITE_NAME,
       title: `${title} | ${SITE_NAME}`,
