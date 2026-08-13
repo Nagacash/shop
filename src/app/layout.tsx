@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import JsonLd from "@/components/JsonLd";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo/jsonld";
 import { SOCIAL_SHARE_IMAGE } from "@/lib/brand/marketing-images";
@@ -68,6 +69,7 @@ export default function RootShell({
       >
         <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
         {children}
+        <Analytics />
       </body>
     </html>
   );
