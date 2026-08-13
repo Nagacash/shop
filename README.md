@@ -29,7 +29,7 @@ Naga Apparel storefront. A full commercial system rather than a demo: live Strip
 payments, real inventory, order fulfilment and an internal admin surface.
 
 Part of the Naga ecosystem, alongside **[Naga Codex](https://nagacodex.cloud)** (AI agents,
-web development) and **[Naga Films](https://nagafilms-studio.vercel.app/)** (generative cinema).
+web development) and **[Naga Films](https://www.naga-films.com/)** (generative cinema).
 
 ---
 

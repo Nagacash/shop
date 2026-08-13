@@ -66,7 +66,8 @@ ${faqs}
 ## Related
 
 Part of the Naga ecosystem: Naga Codex (AI agents and web development,
-https://nagacodex.cloud) and Naga Films (generative cinema).
+https://nagacodex.cloud) and Naga Films (generative cinema,
+https://www.naga-films.com).
 
 ## Usage
 
