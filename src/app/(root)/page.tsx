@@ -22,9 +22,14 @@ import { parseFilterParams } from "@/lib/utils/query";
 
 export const revalidate = 120;
 
+// The homepage title previously carried only the brand tagline, which meant
+// the site's highest-value page competed for the tagline and nothing else.
+// The template appends "| Naga Apparel", so the brand name is still present —
+// this spends the visible characters on what people actually search for:
+// the category, the city and the fact that it ships internationally.
 export const metadata = buildPageMetadata({
-  title: BRAND_TAGLINE,
-  description: `${BRAND_SUBTAGLINE} ${BRAND_CLOSER_LINE}`,
+  title: "Streetwear Brand from Hamburg — Shipping Worldwide",
+  description: `${BRAND_TAGLINE} Independent streetwear from Hamburg — premium heavyweight tees, sweaters, hoodies and sets. ${BRAND_CLOSER_LINE}`,
   path: "/",
   image: SOCIAL_SHARE_IMAGE,
 });
