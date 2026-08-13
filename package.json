@@ -1,7 +1,10 @@
 {
-  "name": "e-commerce",
+  "name": "naga-apparel-store",
   "version": "0.1.0",
   "private": true,
+  "license": "UNLICENSED",
+  "description": "Proprietary e-commerce platform for Naga Apparel (www.nagaclub.de).",
+  "homepage": "https://www.nagaclub.de",
   "scripts": {
     "clean": "bash scripts/clean-cache.sh",
     "dev": "next dev",

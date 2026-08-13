@@ -1,186 +1,164 @@
 <div align="center">
-  <br />
-    <a href="https://youtu.be/fZdTYswuZjU" target="_blank">
-      <img src="public/readme/hero.webp" alt="Project Banner">
-    </a>
-  <br />
 
-  <div>
-    <img src="https://img.shields.io/badge/-TypeScript-black?style=for-the-badge&logoColor=white&logo=typescript&color=3178C6"/>
-    <img alt="Static Badge" src="https://img.shields.io/badge/Devin AI-FFF?style=for-the-badge&logo=devin&logoColor=white">
-    <img src="https://img.shields.io/badge/-Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
-    <br/>
-    <img src="https://img.shields.io/badge/Next.js-000?style=for-the-badge&logo=next.js&logoColor=white">
-    <img src="https://img.shields.io/badge/-Better Auth-black?style=for-the-badge&logoColor=white&logo=betterauth&color=black"/>
-    <img src="https://img.shields.io/badge/-Drizzle-black?style=for-the-badge&logoColor=C5F74F&logo=drizzle&color=black"/>
+# Naga Apparel — Online Store
 
-  </div>
+**Technical streetwear from Hamburg. Shipping worldwide.**
 
-  <h3 align="center">Nike Ecommerce w/ Devin AI</h3>
+[![Live](https://img.shields.io/badge/Live-www.nagaclub.de-000000?style=for-the-badge&logo=vercel)](https://www.nagaclub.de/)
+[![License](https://img.shields.io/badge/License-Proprietary-B3242B?style=for-the-badge)](./LICENSE)
+[![Next.js](https://img.shields.io/badge/Next.js_15-000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Stripe](https://img.shields.io/badge/Stripe-635BFF?style=for-the-badge&logo=stripe&logoColor=white)](https://stripe.com)
 
-   <div align="center">
-     Build this project step by step with our detailed tutorial on <a href="https://www.youtube.com/watch?v=XUkNR-JfHwo" target="_blank"><b>JavaScript Mastery</b></a> YouTube. Join the JSM family!
-    </div>
 </div>
 
-## 📋 <a name="table">Table of Contents</a>
+---
 
-1. ✨ [Introduction](#introduction)
-2. ⚙️ [Tech Stack](#tech-stack)
-3. 🔋 [Features](#features)
-4. 🤸 [Quick Start](#quick-start)
-5. 🔗 [Assets](#links)
-6. 🚀 [More](#more)
+> [!IMPORTANT]
+> **This is proprietary production source code — not a template, starter or tutorial.**
+> It runs a live commercial storefront processing real orders and payments.
+> Copying, redistributing or deploying it, in whole or in part, is not permitted.
+> See [LICENSE](./LICENSE).
 
-## 🚨 Tutorial
+---
 
-This repository contains the code corresponding to an in-depth tutorial available on our YouTube channel, <a href="" target="_blank"><b>JavaScript Mastery</b></a>.
+## What this is
 
-If you prefer visual learning, this is the perfect resource for you. Follow our tutorial to learn how to build projects like these step-by-step in a beginner-friendly manner!
+The production e-commerce platform behind **[www.nagaclub.de](https://www.nagaclub.de/)** — the
+Naga Apparel storefront. A full commercial system rather than a demo: live Stripe
+payments, real inventory, order fulfilment and an internal admin surface.
 
-<a href="https://youtu.be/fZdTYswuZjU" target="_blank"><img src="https://github.com/sujatagunale/EasyRead/assets/151519281/1736fca5-a031-4854-8c09-bc110e3bc16d" /></a>
+Part of the Naga ecosystem, alongside **[Naga Codex](https://nagacodex.cloud)** (AI agents,
+web development) and **[Naga Films](https://nagafilms-studio.vercel.app/)** (generative cinema).
 
-## <a name="introduction">✨ Introduction</a>
+---
 
-Nike-style eCommerce built with Devin AI, Next.js, Drizzle ORM, and Better Auth. In this project, you’ll master prompting as Devin helps generate sleek product pages powered by Next.js 15, TypeScript, and TailwindCSS. The backend runs on Neon PostgreSQL with Drizzle ORM, authentication is handled with Better Auth, and Zustand manages state — all packaged in a clean, modular UI to help you ship faster.
+## Capabilities
 
-If you're getting started and need assistance or face any bugs, join our active Discord community with over **50k+** members. It's a place where people help each other out.
+**Storefront**
+- Product catalogue with collections, variants and per-tier retail pricing
+- Cart and checkout with shipping-inclusive price handling
+- Digital products served alongside physical apparel
+- Ambient audio streaming over signed, expiring media URLs
+- Editorial pages — about, contact, podcast, terms, privacy
 
-<a href="https://discord.com/invite/n6EdbFJ" target="_blank"><img src="https://github.com/sujatagunale/EasyRead/assets/151519281/618f4872-1e10-42da-8213-1d69e486d02e" /></a>
+**Commerce**
+- Stripe payments with webhook-driven order state
+- Inventory tracking with sold-out handling
+- Shipping address capture and rate handling
+- Transactional email via Resend for confirmations and receipts
 
-## <a name="tech-stack">⚙️ Tech Stack</a>
+**Accounts & admin**
+- Email/password auth plus optional GitHub and Google OAuth (Better Auth)
+- Admin order management restricted to an allow-listed set of addresses
+- Server-side validation and security layer
 
-- **[Better Auth](https://www.better-auth.com/)** is a framework-agnostic authentication and authorization library for TypeScript. It provides built-in support for email and password authentication, social sign-on (Google, GitHub, Apple, and more), and multi-factor authentication, simplifying user authentication and account management.
+**Platform**
+- Next.js 15 App Router on React 19 server components
+- Neon serverless PostgreSQL via Drizzle ORM with generated migrations
+- Structured SEO metadata layer
+- GSAP-driven motion and pre-encoded hero video
 
-- **[Devin AI](https://docs.devin.ai/get-started/devin-intro)** is an autonomous AI software engineer by Cognition Labs that independently plans, writes, debugs, and deploys full applications from natural language prompts. It integrates with tools like Slack, Linear, and Jira to manage tasks and pull requests, and learns new technologies on the fly by reading documentation.
+---
 
-- **[Drizzle ORM](https://orm.drizzle.team/)** is a lightweight and performant TypeScript ORM designed with developer experience in mind. It provides a seamless interface between application code and database operations while maintaining high performance and reliability.
+## Tech stack
 
-- **[Neon](https://neon.com/)** is a fully managed, serverless PostgreSQL database platform. It offers features like instant provisioning, autoscaling, and database branching, enabling developers to build scalable applications without managing infrastructure.
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 15 (App Router), React 19 |
+| Language | TypeScript |
+| Styling | Tailwind CSS |
+| Database | Neon serverless PostgreSQL |
+| ORM | Drizzle ORM + Drizzle Kit |
+| Payments | Stripe (Checkout + webhooks) |
+| Auth | Better Auth (credentials + OAuth) |
+| Email | Resend |
+| State | Zustand |
+| Validation | Zod |
+| Motion | GSAP |
+| Hosting | Vercel |
 
-- **[Next.js](https://nextjs.org/docs)** is a powerful React framework for building full-stack web applications. It simplifies development with features like server-side rendering, static site generation, and API routes, enabling developers to focus on building products and shipping quickly.
+---
 
-- **[TailwindCSS](https://tailwindcss.com/)** is a utility-first CSS framework that allows developers to build custom, responsive designs quickly without leaving their HTML. It provides pre-defined classes for layout, typography, colors, and more.
+## Running locally
 
-- **[TypeScript](https://www.typescriptlang.org/)** is a superset of JavaScript that adds static typing, providing better tooling, code quality, and error detection for developers. It is ideal for building large-scale applications and enhances the development experience.
-
-- **[Zustand](https://zustand-demo.pmnd.rs)** is a minimal, hook-based state management library for React. It lets you manage global state with zero boilerplate, no context providers, and excellent performance through selective state subscriptions.
-
-## <a name="features">🔋 Features</a>
-
-👉 **Landing Page**: A fast, engaging homepage that introduces your brand and products with smooth animations and clear calls to action.
-
-👉 **Product Listing Page**: Browse all products with filters, sorting, and real-time availability—powered by Devin AI-generated content for dynamic updates.
-
-👉 **Product Details Page**: Detailed product info, images, and reviews with AI-enhanced descriptions to help customers make confident buying decisions.
-
-👉 **Auth Pages**: Secure and seamless user signup, login, and password recovery using Better Auth, ensuring smooth access without backend hassles.
-
-And many more, including code architecture and reusability.
-
-## <a name="quick-start">🤸 Quick Start</a>
-
-Follow these steps to set up the project locally on your machine.
-
-**Prerequisites**
-
-Make sure you have the following installed on your machine:
-
-- [Git](https://git-scm.com/)
-- [Node.js](https://nodejs.org/en)
-- [npm](https://www.npmjs.com/) (Node Package Manager)
-
-**Cloning the Repository**
-
-```bash
-git clone https://github.com/JavaScript-Mastery-Pro/e-commerce.git
-cd e-commerce
-```
-
-**Installation**
-
-Install the project dependencies using npm:
+> Restricted to authorised maintainers. Valid Neon, Stripe and Resend
+> credentials are required — the store will not run without them.
 
 ```bash
 npm install
-```
-
-**Set Up Environment Variables**
-
-Create a new file named `.env` in the root of your project and add the following content:
-
-```env
-# Database
-DATABASE_URL="postgresql://username:password@host:port/database"
-
-# Better Auth
-BETTER_AUTH_SECRET="your-secret-key-here"
-BETTER_AUTH_URL="http://localhost:3000"
-
-# GitHub OAuth (optional)
-GITHUB_CLIENT_ID=""
-GITHUB_CLIENT_SECRET=""
-
-# Google OAuth (optional)
-GOOGLE_CLIENT_ID=""
-GOOGLE_CLIENT_SECRET=""
-```
-
-Replace the placeholder values with your credentials. You can get these by signing up at: [**NeonDB**](https://neon.com/), [**Better-Auth**](https://www.better-auth.com/).
-
-**Running the Project**
-
-```bash
+cp .env.example .env.local   # fill in real values
+npm run db:migrate
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser to view the project.
+Runs on `http://localhost:3000`.
 
-## 📁 Project Structure
+### Required environment
 
+| Variable | Purpose |
+|---|---|
+| `DATABASE_URL` | Neon PostgreSQL connection string |
+| `BETTER_AUTH_SECRET` | Session signing secret |
+| `BETTER_AUTH_URL` | Auth callback base URL |
+| `NEXT_PUBLIC_SITE_URL` | Public site origin (`https://www.nagaclub.de`) |
+| `STRIPE_SECRET_KEY` | Stripe API key |
+| `STRIPE_WEBHOOK_SECRET` | Stripe webhook signature secret |
+| `RESEND_API_KEY` | Transactional email |
+| `RESEND_FROM_EMAIL` | Sender address |
+| `ADMIN_EMAILS` | Comma-separated admin allow-list |
+| `AMBIENT_MEDIA_SECRET` | Signs ambient stream URLs (falls back to the auth secret) |
+
+OAuth (`GITHUB_*`, `GOOGLE_*`) is optional.
+
+**Never commit a real `.env`.** `.gitignore` excludes `.env*` apart from the
+example — keep it that way.
+
+---
+
+## Operational scripts
+
+Catalogue and media tooling lives in `scripts/`, exposed through npm:
+
+```bash
+npm run db:generate      # generate migrations from schema changes
+npm run db:migrate       # apply migrations
+npm run db:studio        # inspect the database
+npm run db:seed          # seed the catalogue
+npm run lint             # lint
+npm run build            # production build
 ```
-src/
-├── app/
-│   ├── api/auth/[...all]/route.ts  # Better Auth API routes
-│   └── page.tsx                    # Homepage
-├── lib/
-│   ├── auth/
-│   │   └── index.ts               # Better Auth configuration
-│   └── db/
-│       ├── index.ts               # Database connection
-│       └── schema.ts              # Database schema
-└── store/
-    ├── auth.ts                    # Authentication state
-    └── cart.ts                    # Shopping cart state
-```
 
-## 🗄️ Database Schema
+Product-specific tasks — adding a drop, adjusting pricing tiers, pruning the
+catalogue, regenerating imagery — each have a dedicated `db:*` or `generate:*`
+script. See `package.json`.
 
-The application includes the following tables:
+---
 
-- **users**: User accounts and profiles
-- **sessions**: User sessions for Better Auth
-- **accounts**: OAuth accounts and credentials
-- **verifications**: Email verification tokens
-- **products**: Product catalog
-- **orders**: Customer orders
-- **order_items**: Individual items in orders
+## License
 
-## <a name="links">🔗 Assets</a>
+**© 2026 Naga Apparel / Maurice Holda. All rights reserved.**
 
-Assets and snippets used in the project can be found in the **[video kit](https://jsm.dev/nikecom-kit)**.
+Proprietary source, published for reference and portfolio purposes only.
+This is **not** open source.
 
-<a href="https://jsm.dev/nikecom-kit" target="_blank">
-  <img src="public/readme/videokit.webp" alt="Video Kit Banner">
-</a>
+You may **not**:
+- Copy, clone or reuse this code, in whole or in part
+- Redistribute, sublicense or resell it
+- Deploy it, modified or unmodified, as your own store
+- Reuse the Naga Apparel brand, product imagery, copy or design
 
-## <a name="more">🚀 More</a>
+Brand assets, product photography and written copy are protected independently
+of the code.
 
-**Advance your skills with Next.js Pro Course**
+Licensing and commercial enquiries: **chosenfewrecords@hotmail.de**
 
-Enjoyed creating this project? Dive deeper into our PRO courses for a richer learning adventure. They're packed with
-detailed explanations, cool features, and exercises to boost your skills. Give it a go!
+Full terms in [LICENSE](./LICENSE).
 
-<a href="https://jsm.dev/nikecom-jsmpro" target="_blank">
-  <img src="public/readme/jsmpro.webp" alt="Project Banner">
-</a>
+---
+
+<div align="center">
+
+**Built in Hamburg** · [www.nagaclub.de](https://www.nagaclub.de/) · Part of the Naga ecosystem
+
+</div>
