@@ -63,6 +63,13 @@ export default function RootShell({
 }>) {
   return (
     <html lang="en" className="naga-root">
+      <head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3046731118429407"
+          crossOrigin="anonymous"
+        ></script>
+      </head>
       <body
         className={`${inter.className} ${inter.variable} naga-site naga-brutalist min-h-full antialiased`}
       >
