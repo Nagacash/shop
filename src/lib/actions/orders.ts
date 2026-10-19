@@ -54,8 +54,12 @@ export async function getOrderForCheckoutSuccess(
     }
   }
 
-  const cookieStore = await cookies();
-  cookieStore.delete(CHECKOUT_SESSION_COOKIE);
+  try {
+    const cookieStore = await cookies();
+    cookieStore.delete(CHECKOUT_SESSION_COOKIE);
+  } catch {
+    // Called during success-page render, where Next.js rejects cookie writes.
+  }
 
   return order;
 }

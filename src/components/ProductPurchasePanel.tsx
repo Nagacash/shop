@@ -27,6 +27,7 @@ type Props = {
   variants: PurchaseVariant[];
   galleryVariants: GalleryVariant[];
   allSoldOut: boolean;
+  purchaseBlocked?: boolean;
 };
 
 const SIZE_ORDER = ["xs", "s", "m", "l", "xl", "xxl"];
@@ -42,6 +43,7 @@ export default function ProductPurchasePanel({
   variants,
   galleryVariants,
   allSoldOut,
+  purchaseBlocked = false,
 }: Props) {
   const initialized = useRef(false);
   const colorIndex = useVariantStore((s) => s.getSelected(productId, 0));
@@ -140,7 +142,7 @@ export default function ProductPurchasePanel({
             variantId={selectedVariant.id}
             productName={productName}
             soldOut={variantSoldOut}
-            disabled={needsSize}
+            disabled={needsSize || purchaseBlocked}
           />
         )}
       </div>

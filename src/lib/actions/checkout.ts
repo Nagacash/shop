@@ -14,6 +14,8 @@ import { validateCartStock } from "@/lib/inventory/stock";
 import { getSiteUrl } from "@/lib/seo/site";
 import { rateLimit } from "@/lib/security/rate-limit";
 import { getClientIpFromHeaders } from "@/lib/security/request-client";
+import { isProducerPackSku } from "@/lib/digital/pack";
+import { readProducerPackFile } from "@/lib/digital/files";
 import { getStripeClient, toMinorUnits } from "@/lib/stripe/client";
 import {
   buildCheckoutShippingOptions,
@@ -60,6 +62,13 @@ export async function createStripeCheckoutSession() {
   const stockCheck = await validateCartStock(cartId);
   if (!stockCheck.ok) {
     throw new Error(stockCheck.message);
+  }
+
+  if (cart.items.some((item) => isProducerPackSku(item.sku))) {
+    const pack = readProducerPackFile();
+    if (!pack.ok) {
+      throw new Error(pack.message);
+    }
   }
 
   const subtotalEur = cartSubtotalEur(cart.items);

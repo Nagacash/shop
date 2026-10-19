@@ -25,6 +25,7 @@
     "db:add-naga-green": "tsx scripts/add-naga-green.ts",
     "db:add-golden-hoodie": "tsx scripts/add-golden-hoodie.ts",
     "db:add-live-test-product": "tsx scripts/add-live-test-product.ts",
+    "db:add-producer-pack": "tsx scripts/add-producer-pack.ts",
     "db:rename-manifesto": "tsx scripts/rename-catalog-manifesto.ts",
     "db:adjust-shipping-prices": "tsx scripts/adjust-shipping-inclusive-prices.ts",
     "db:set-retail-prices": "tsx scripts/set-retail-tier-prices.ts",

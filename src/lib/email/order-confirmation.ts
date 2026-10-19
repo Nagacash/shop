@@ -20,10 +20,15 @@ function buildOrderConfirmationHtml(order: OrderView): string {
                 .join(", ")})`
             : "");
 
+        const download = item.downloadUrl
+          ? `<div style="margin-top:6px;"><a href="${absoluteUrl(item.downloadUrl)}" style="color:#111111;">Download your pack</a></div>`
+          : "";
+
         return `
         <tr>
           <td style="padding:8px 0;border-bottom:1px solid #e5e5e5;">
             ${label}
+            ${download}
           </td>
           <td style="padding:8px 0;border-bottom:1px solid #e5e5e5;text-align:center;">${item.quantity}</td>
           <td style="padding:8px 0;border-bottom:1px solid #e5e5e5;text-align:right;">
@@ -49,7 +54,11 @@ function buildOrderConfirmationHtml(order: OrderView): string {
     <h1 style="margin:0 0 16px;font-size:24px;">Thank you for your order</h1>
     <p style="margin:0 0 24px;color:#757575;line-height:1.6;">
       Your ${SITE_NAME} order <strong>#${order.id.slice(0, 8).toUpperCase()}</strong> is confirmed.
-      We'll email you when it ships.
+      ${
+        order.items.some((item) => item.downloadUrl)
+          ? "Your download link is below. It works because Stripe marked this order paid."
+          : "We'll email you when it ships."
+      }
     </p>
 
     <table style="width:100%;border-collapse:collapse;margin-bottom:24px;">
@@ -73,8 +82,12 @@ function buildOrderConfirmationHtml(order: OrderView): string {
     </div>
 
     <div style="margin-bottom:24px;">
-      <p style="margin:0 0 8px;font-weight:600;">Shipping to</p>
-      <div style="color:#757575;line-height:1.6;">${shippingLines}</div>
+      <p style="margin:0 0 8px;font-weight:600;">${order.shippingAddress ? "Shipping to" : "Delivery"}</p>
+      <div style="color:#757575;line-height:1.6;">${
+        order.shippingAddress
+          ? shippingLines
+          : "No shipping. The download link above is available because Stripe marked this order paid. Google's installer is not in the zip."
+      }</div>
     </div>
 
     <a href="${absoluteUrl("/products")}" style="display:inline-block;background:#111111;color:#ffffff;text-decoration:none;padding:12px 24px;border-radius:999px;font-weight:500;">

@@ -21,6 +21,9 @@ import { getProductCraftSpec, getProductStoryBeats } from "@/lib/brand/product-s
 import { CTA } from "@/lib/brand/manifesto";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { breadcrumbJsonLd, productJsonLd } from "@/lib/seo/jsonld";
+import DigitalPackNotice from "@/components/DigitalPackNotice";
+import { isProducerPackSku } from "@/lib/digital/pack";
+import { readProducerPackFile } from "@/lib/digital/files";
 import { formatPrice, SHIPPING_INCLUDED_MESSAGE } from "@/lib/utils/currency";
 
 type GalleryVariant = { color: string; images: string[]; variantId: string };
@@ -208,6 +211,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   const schemaPrice = displayPrice ?? 0;
   const storyBeats = getProductStoryBeats(product.name);
   const craftSpec = getProductCraftSpec(product.category?.slug);
+  const isProducerPack = variants.some((variant) => isProducerPackSku(variant.sku));
+  const producerPack = isProducerPack ? readProducerPackFile() : null;
 
   return (
     <>
@@ -324,6 +329,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             </div>
           )}
 
+          {isProducerPack && <DigitalPackNotice fileReady={producerPack?.ok === true} />}
+
           {purchaseVariants.length > 0 && (
             <ProductPurchasePanel
               productId={product.id}
@@ -332,6 +339,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               variants={purchaseVariants}
               galleryVariants={galleryVariants}
               allSoldOut={soldOut}
+              purchaseBlocked={isProducerPack && producerPack?.ok !== true}
             />
           )}
 
@@ -349,8 +357,15 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             )}
           </CollapsibleSection>
 
-          <CollapsibleSection title="Shipping & Returns">
-            <p>{SHIPPING_INCLUDED_MESSAGE} 30-day returns on unworn items with tags attached.</p>
+          <CollapsibleSection title={product.isDigital ? "Delivery" : "Shipping & Returns"}>
+            {product.isDigital ? (
+              <p>
+                No shipping. After Stripe marks the order paid, the success page and confirmation
+                email include a private download link. Google&apos;s installer is not in the zip.
+              </p>
+            ) : (
+              <p>{SHIPPING_INCLUDED_MESSAGE} 30-day returns on unworn items with tags attached.</p>
+            )}
           </CollapsibleSection>
 
           <Suspense
@@ -365,7 +380,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         </div>
       </section>
 
-      <ProductStoryBeats beats={storyBeats} craft={craftSpec} />
+      {!isProducerPack && <ProductStoryBeats beats={storyBeats} craft={craftSpec} />}
 
       <Suspense
         fallback={

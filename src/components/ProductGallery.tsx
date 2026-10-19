@@ -2,7 +2,7 @@
 
 import FlatLayFrame from "@/components/FlatLayFrame";
 import ProductImage from "@/components/ProductImage";
-import { isFlatLayProductImage } from "@/lib/utils/images";
+import { isFlatLayProductImage, isWideArtwork } from "@/lib/utils/images";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, ImageOff } from "lucide-react";
 import { useVariantStore } from "@/store/variant";
@@ -41,6 +41,7 @@ export default function ProductGallery({
 
   const images = validVariants[variantIndex]?.images?.filter(isValidSrc) ?? [];
   const flatLay = images.some(isFlatLayProductImage);
+  const wideArt = images.some(isWideArtwork);
   const showNav = images.length > 1;
   const [activeIndex, setActiveIndex] = useState(0);
   const mainRef = useRef<HTMLDivElement>(null);
@@ -117,13 +118,13 @@ export default function ProductGallery({
               )}
             </div>
           ) : (
-            <div className="relative h-[500px] bg-light-200">
+            <div className={wideArt ? "relative aspect-video bg-[#070605]" : "relative h-[500px] bg-light-200"}>
               <ProductImage
                 src={images[activeIndex]}
                 alt="Product image"
                 fill
                 sizes="(min-width:1024px) 720px, 100vw"
-                className="object-cover"
+                className={wideArt ? "object-contain" : "object-cover"}
                 priority
               />
               {showNav && (

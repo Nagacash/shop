@@ -37,6 +37,11 @@ export default function OrderSuccess({ order }: { order: OrderView }) {
                         .join(" · ")}`
                     : ""}
                 </p>
+                {item.downloadUrl && (
+                  <a href={item.downloadUrl} className="mt-1 inline-block text-body-medium text-dark-900 underline">
+                    Download Naga Producer Pack Volume1
+                  </a>
+                )}
               </div>
               <p className="text-dark-900">
                 {formatPriceFromCents(Math.round(item.priceAtPurchase * 100) * item.quantity)}
@@ -51,10 +56,16 @@ export default function OrderSuccess({ order }: { order: OrderView }) {
               <span>{formatPrice(order.subtotalAmount)}</span>
             </div>
           )}
-          {order.shippingAmount != null && (
+          {order.shippingAddress && order.shippingAmount != null && (
             <div className="flex items-center justify-between text-dark-700">
               <span>Shipping</span>
               <span>{order.shippingAmount === 0 ? "Included" : formatPrice(order.shippingAmount)}</span>
+            </div>
+          )}
+          {!order.shippingAddress && order.items.some((item) => item.isDigital) && (
+            <div className="flex items-center justify-between text-dark-700">
+              <span>Shipping</span>
+              <span>No shipping — digital download</span>
             </div>
           )}
           {order.taxAmount != null && order.taxAmount > 0 && (

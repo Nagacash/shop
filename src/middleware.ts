@@ -31,7 +31,7 @@ export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   // Public MP3s removed — block residual / direct audio paths
-  if (pathname.endsWith(".mp3") || pathname.endsWith(".wav") || pathname.endsWith(".flac")) {
+  if (/\.(mp3|wav|flac|dmg|zip|fmx)$/i.test(pathname)) {
     return new NextResponse("Gone", {
       status: 410,
       headers: {
@@ -51,6 +51,13 @@ export function middleware(request: NextRequest) {
   if (pathname.startsWith("/api/ambient")) {
     const ip = clientIp(request);
     if (!rateLimit(`ambient-mw:${ip}`, 180, 60_000)) {
+      return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+    }
+  }
+
+  if (pathname.startsWith("/api/downloads")) {
+    const ip = clientIp(request);
+    if (!rateLimit(`download-mw:${ip}`, 30, 60_000)) {
       return NextResponse.json({ error: "Too many requests" }, { status: 429 });
     }
   }

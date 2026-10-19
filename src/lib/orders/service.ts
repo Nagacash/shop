@@ -23,6 +23,8 @@ import { parseSessionAmounts } from "@/lib/stripe/checkout-amounts";
 import { loadFulfillmentLineItems } from "@/lib/stripe/session-line-items";
 import { saveShippingAddressFromSession, type ShippingAddressView } from "@/lib/stripe/shipping";
 import { maybeSendOrderConfirmationEmail } from "@/lib/email/order-confirmation";
+import { isProducerPackSku } from "@/lib/digital/pack";
+import { producerPackDownloadPath } from "@/lib/digital/grant";
 import type { OrderView } from "@/lib/orders/types";
 
 function formatAmount(cents: number): string {
@@ -65,13 +67,17 @@ function mapOrderView(
   order: typeof orders.$inferSelect,
   rows: Array<{
     id: string;
+    variantId: string;
     quantity: number;
     priceAtPurchase: string | number;
     productName: string;
+    sku: string;
+    isDigital: boolean;
     sizeName: string | null;
     colorName: string | null;
   }>,
   shippingAddress: ShippingAddressView | null,
+  paid: boolean,
 ): OrderView {
   const totalAmount = Number(order.totalAmount);
   const totalCents = Math.round(totalAmount * 100);
@@ -94,6 +100,11 @@ function mapOrderView(
       priceAtPurchase: Number(row.priceAtPurchase),
       size: row.sizeName,
       color: row.colorName,
+      isDigital: row.isDigital,
+      downloadUrl:
+        paid && row.isDigital && isProducerPackSku(row.sku)
+          ? producerPackDownloadPath(order.id, row.variantId)
+          : null,
     })),
   };
 }
@@ -105,9 +116,12 @@ export async function getOrderById(orderId: string): Promise<OrderView | null> {
   const rows = await db
     .select({
       id: orderItems.id,
+      variantId: orderItems.productVariantId,
       quantity: orderItems.quantity,
       priceAtPurchase: orderItems.priceAtPurchase,
       productName: products.name,
+      sku: productVariants.sku,
+      isDigital: products.isDigital,
       sizeName: sizes.name,
       colorName: colors.name,
     })
@@ -118,9 +132,16 @@ export async function getOrderById(orderId: string): Promise<OrderView | null> {
     .leftJoin(colors, eq(colors.id, productVariants.colorId))
     .where(eq(orderItems.orderId, orderId));
 
-  const shippingAddress = await loadShippingAddress(order.shippingAddressId);
+  const [payment] = await db
+    .select({ status: payments.status })
+    .from(payments)
+    .where(eq(payments.orderId, orderId))
+    .limit(1);
 
-  return mapOrderView(order, rows, shippingAddress);
+  const shippingAddress = await loadShippingAddress(order.shippingAddressId);
+  const paid = order.status === "paid" && payment?.status === "completed";
+
+  return mapOrderView(order, rows, shippingAddress, paid);
 }
 
 export async function getOrderByStripeSessionId(

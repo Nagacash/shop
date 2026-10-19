@@ -11,6 +11,11 @@ export const FALLBACK_PRODUCT_IMAGE = "/uploads/naga/placeholder.svg";
 /** Dark studio backdrop — lets the product photo's natural tones read cleanly */
 export const FLAT_LAY_IMAGE_BG = "#12100e";
 
+/** Wide campaign art, such as the producer pack, should not be cropped to a portrait frame. */
+export function isWideArtwork(url: string | null | undefined): boolean {
+  return Boolean(url?.includes("naga-producer-pack"));
+}
+
 export function isFlatLayProductImage(url: string | null | undefined): boolean {
   if (!url) return false;
   return (

@@ -7,6 +7,9 @@ export type OrderItemView = {
   priceAtPurchase: number;
   size?: string | null;
   color?: string | null;
+  isDigital?: boolean;
+  /** Relative path. Present only after the order is paid. */
+  downloadUrl?: string | null;
 };
 
 export type OrderView = {

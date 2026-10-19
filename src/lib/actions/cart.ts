@@ -32,6 +32,7 @@ export type CartItemView = {
   productId: string;
   quantity: number;
   name: string;
+  sku: string;
   price: number;
   imageUrl: string | null;
   size?: string | null;
@@ -175,6 +176,7 @@ export async function getCartWithItems(cartId: string): Promise<CartView> {
       price: productVariants.salePrice,
       basePrice: productVariants.price,
       productName: products.name,
+      sku: productVariants.sku,
       isDigital: products.isDigital,
       sizeName: sizes.name,
       colorName: colors.name,
@@ -197,6 +199,7 @@ export async function getCartWithItems(cartId: string): Promise<CartView> {
     productId: row.productId,
     quantity: row.quantity,
     name: row.productName,
+    sku: row.sku,
     price: Number(row.price ?? row.basePrice),
     imageUrl: normalizeImageUrl(row.imageUrl),
     size: row.sizeName,
