@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Pause, Play, SkipForward, Volume2 } from "lucide-react";
 import { AMBIENT_TRACKS } from "@/lib/ambient/catalog";
+import { STOP_SITE_MUSIC_EVENT } from "@/lib/ambient/control";
 
 async function mintStreamUrl(trackId: string, signal?: AbortSignal): Promise<string> {
   const res = await fetch(`/api/ambient/token?id=${encodeURIComponent(trackId)}`, {
@@ -79,6 +80,12 @@ export default function AmbientTrackPlayer() {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    const onStop = () => stop();
+    window.addEventListener(STOP_SITE_MUSIC_EVENT, onStop);
+    return () => window.removeEventListener(STOP_SITE_MUSIC_EVENT, onStop);
+  }, [stop]);
 
   useEffect(() => {
     const audio = audioRef.current;

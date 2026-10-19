@@ -3,6 +3,8 @@ export const PRODUCER_PACK_NAME = "Naga Producer Pack Volume1";
 export const PRODUCER_PACK_SKU = "NAGA-PRODUCER-PACK-V1";
 export const PRODUCER_PACK_PRICE = "20.00";
 export const PRODUCER_PACK_FILENAME = "naga-producer-pack-volume1.zip";
+export const PRODUCER_PACK_PROMO_SRC = "/uploads/naga/naga-producer-pack-promo.mp4";
+export const PRODUCER_PACK_PROMO_POSTER = "/uploads/naga/naga-producer-pack-promo.jpg";
 
 export const FLOW_PLAYER_HELP_URL =
   "https://support.google.com/flow/answer/18631279";

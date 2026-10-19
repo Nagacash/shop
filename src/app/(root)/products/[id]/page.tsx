@@ -28,6 +28,7 @@ import {
   PRODUCER_PACK_TAGLINE,
   PRODUCER_PACK_TITLE,
 } from "@/lib/digital/pack";
+import PackPromoVideo from "@/components/PackPromoVideo";
 import { readProducerPackFile } from "@/lib/digital/files";
 import { formatPrice, SHIPPING_INCLUDED_MESSAGE } from "@/lib/utils/currency";
 
@@ -296,7 +297,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             {galleryVariants.length > 0 && (
               <ProductGallery productId={product.id} variants={galleryVariants} className="order-1 w-full lg:order-none" />
             )}
-            <div className="order-3 border-t border-light-300 pt-10 lg:order-none">
+            <PackPromoVideo />
+            <div className="order-4 border-t border-light-300 pt-10 lg:order-none">
               <DigitalPackNotice fileReady={producerPack?.ok === true} />
             </div>
           </div>
