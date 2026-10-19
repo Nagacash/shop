@@ -22,7 +22,12 @@ import { CTA } from "@/lib/brand/manifesto";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { breadcrumbJsonLd, productJsonLd } from "@/lib/seo/jsonld";
 import DigitalPackNotice from "@/components/DigitalPackNotice";
-import { isProducerPackSku } from "@/lib/digital/pack";
+import {
+  isProducerPackSku,
+  PRODUCER_PACK_NAME,
+  PRODUCER_PACK_TAGLINE,
+  PRODUCER_PACK_TITLE,
+} from "@/lib/digital/pack";
 import { readProducerPackFile } from "@/lib/digital/files";
 import { formatPrice, SHIPPING_INCLUDED_MESSAGE } from "@/lib/utils/currency";
 
@@ -52,7 +57,7 @@ export async function generateMetadata({
     ) ?? FALLBACK_PRODUCT_IMAGE;
 
   return buildPageMetadata({
-    title: data.product.name,
+    title: data.product.name === PRODUCER_PACK_NAME ? PRODUCER_PACK_TITLE : data.product.name,
     description: data.product.description,
     path: `/products/${id}`,
     image,
@@ -224,7 +229,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             { name: product.name, path: `/products/${product.id}` },
           ]),
           productJsonLd({
-            name: product.name,
+            name: isProducerPack ? PRODUCER_PACK_TITLE : product.name,
             description: product.description,
             path: `/products/${product.id}`,
             image: schemaImage,
@@ -239,8 +244,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           page="product"
           size="slim"
           eyebrow="Naga piece"
-          title={product.name}
-          subtitle={subtitle}
+          title={isProducerPack ? PRODUCER_PACK_TITLE : product.name}
+          subtitle={isProducerPack ? PRODUCER_PACK_TAGLINE : subtitle}
         />
       )}
 
@@ -285,12 +290,23 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         </nav>
       )}
 
-      <section className={`grid grid-cols-1 gap-10 ${isFlatLay ? "py-8 lg:grid-cols-[1.15fr_420px]" : "lg:grid-cols-[1fr_480px]"}`}>
-        {galleryVariants.length > 0 && (
-          <ProductGallery productId={product.id} variants={galleryVariants} className="lg:sticky lg:top-6" />
+      <section className={`grid grid-cols-1 items-start gap-10 ${isFlatLay ? "py-8 lg:grid-cols-[1.15fr_420px]" : "lg:grid-cols-[1fr_480px]"}`}>
+        {isProducerPack ? (
+          <div className="contents lg:flex lg:flex-col lg:gap-12">
+            {galleryVariants.length > 0 && (
+              <ProductGallery productId={product.id} variants={galleryVariants} className="order-1 w-full lg:order-none" />
+            )}
+            <div className="order-3 border-t border-light-300 pt-10 lg:order-none">
+              <DigitalPackNotice fileReady={producerPack?.ok === true} />
+            </div>
+          </div>
+        ) : (
+          galleryVariants.length > 0 && (
+            <ProductGallery productId={product.id} variants={galleryVariants} className="w-full lg:sticky lg:top-6 lg:self-start" />
+          )
         )}
 
-        <div className="flex flex-col gap-6">
+        <div className={`flex flex-col gap-6 ${isProducerPack ? "order-2 lg:order-none" : ""}`}>
           {!isFlatLay && (
             <div className="flex items-center gap-3">
               <p className="text-lead text-dark-900">{formatPrice(displayPrice)}</p>
@@ -329,8 +345,6 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             </div>
           )}
 
-          {isProducerPack && <DigitalPackNotice fileReady={producerPack?.ok === true} />}
-
           {purchaseVariants.length > 0 && (
             <ProductPurchasePanel
               productId={product.id}
@@ -348,6 +362,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             Favorite
           </button>
 
+          {!isProducerPack && (
           <CollapsibleSection title="Product Details" defaultOpen>
             <p>{product.description}</p>
             {product.category?.slug === "sets" && (
@@ -356,6 +371,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               </p>
             )}
           </CollapsibleSection>
+          )}
 
           <CollapsibleSection title={product.isDigital ? "Delivery" : "Shipping & Returns"}>
             {product.isDigital ? (

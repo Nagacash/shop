@@ -114,7 +114,7 @@ export default function ProductPurchasePanel({
 
   return (
     <>
-      {galleryVariants.length > 0 && (
+      {galleryVariants.length > 1 && (
         <ColorSwatches productId={productId} variants={galleryVariants} />
       )}
       {showSizePicker && (
