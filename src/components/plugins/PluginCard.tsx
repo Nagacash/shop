@@ -32,14 +32,14 @@ export default function PluginCard({ plugin }: Props) {
     <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-light-300 bg-light-100 ring-1 ring-light-300 transition hover:border-dark-500/30">
       <Link
         href={`/plugins/${plugin.slug}`}
-        className="group relative block aspect-[16/10] overflow-hidden bg-[#12100e] focus:outline-none focus-visible:ring-2 focus-visible:ring-[--color-dark-500]"
+        className="group relative block aspect-video overflow-hidden bg-[#12100e] focus:outline-none focus-visible:ring-2 focus-visible:ring-[--color-dark-500]"
       >
         <ProductImage
           src={hero}
           alt={plugin.screenshots[0]?.alt ?? `${plugin.name} interface`}
           fill
           sizes="(min-width:1024px) 400px, 90vw"
-          className="object-contain transition duration-300 group-hover:scale-[1.02]"
+          className="object-contain p-2 transition duration-300 group-hover:scale-[1.02]"
         />
         <span
           className={`absolute right-3 top-3 rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] ${badge.tone}`}

@@ -38,27 +38,27 @@ export default function PluginScreenshotGallery({ screenshots, productName }: Pr
               aria-label={`Screenshot ${i + 1}`}
               aria-current={i === activeIndex ? "true" : undefined}
               onClick={() => setActiveIndex(i)}
-              className={`relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg ring-1 ring-light-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[--color-dark-500] ${i === activeIndex ? "ring-[--color-dark-500]" : ""}`}
+              className={`relative h-[52px] w-[92px] flex-shrink-0 overflow-hidden rounded-lg bg-[#12100e] ring-1 ring-light-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[--color-dark-500] ${i === activeIndex ? "ring-[--color-dark-500]" : ""}`}
             >
               <ProductImage
                 src={shot.src}
                 alt=""
                 fill
-                sizes="64px"
-                className="object-cover"
+                sizes="92px"
+                className="object-contain p-0.5"
               />
             </button>
           ))}
         </div>
       )}
 
-      <div className="order-1 relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-[#12100e] ring-1 ring-light-300 lg:order-2 lg:min-h-[420px]">
+      <div className="order-1 relative aspect-video w-full overflow-hidden rounded-2xl bg-[#12100e] ring-1 ring-light-300 lg:order-2 lg:max-h-[min(72vh,520px)]">
         <ProductImage
           src={active.src}
           alt={active.alt}
           fill
           sizes="(min-width:1024px) 720px, 100vw"
-          className="object-contain"
+          className="object-contain p-2 sm:p-4"
           priority
         />
         {showNav && (

@@ -19,6 +19,8 @@ export type NagaPluginScreenshot = {
 };
 
 export type NagaPlugin = {
+  /** When false, hidden from /plugins and sitemap (data kept for a future launch). */
+  published: boolean;
   slug: string;
   name: string;
   tagline: string;
@@ -41,6 +43,7 @@ export type NagaPlugin = {
 
 export const NAGA_PLUGINS: readonly NagaPlugin[] = [
   {
+    published: false,
     slug: "naga-glue-vol-1",
     name: "Naga Glue Vol. 1",
     tagline: "VCA bus glue for tight, cohesive mixes",
@@ -98,6 +101,7 @@ export const NAGA_PLUGINS: readonly NagaPlugin[] = [
     ],
   },
   {
+    published: true,
     slug: "naga-glue-vol-2",
     name: "Naga Glue Vol. 2",
     tagline: "VCA bus compressor with harmonic drive and wide mode",
@@ -105,7 +109,7 @@ export const NAGA_PLUGINS: readonly NagaPlugin[] = [
     maker: "Naga Audio DSP",
     formats: ["VST3", "AU (macOS)", "Standalone app"],
     pricing: { kind: "free" },
-    ogImage: "/images/vst/naga-glue-vol2-ui.png",
+    ogImage: "/images/vst/naga-glue-vol2-og.png",
     downloadEnvKeys: {
       macVst3Au: "NEXT_PUBLIC_NAGA_GLUE_V2_DOWNLOAD_MAC_VST3AU",
       winVst3: "NEXT_PUBLIC_NAGA_GLUE_V2_DOWNLOAD_WIN_VST3",
@@ -114,16 +118,20 @@ export const NAGA_PLUGINS: readonly NagaPlugin[] = [
     screenshots: [
       {
         src: "/images/vst/naga-glue-vol2-ui.png",
-        alt: "Naga Glue Vol. 2 plugin interface with VU meters and compression curve",
+        alt: "Naga Glue Vol. 2 full interface — VCA bus compressor with harmonic drive and wide mode",
+      },
+      {
+        src: "/images/vst/naga-glue-vol2-curve.png",
+        alt: "Live input/output compression curve display on Naga Glue Vol. 2",
       },
       {
         src: "/images/vst/naga-glue-vol2-meters.png",
-        alt: "LED output meters and gain reduction in Naga Glue Vol. 2",
+        alt: "Gain-reduction VU and stereo LED output meters on Naga Glue Vol. 2",
       },
     ],
     shortDescription: [
-      "Everything in Vol. 1, plus harmonic drive and a wide bus mode when you want glue that still breathes.",
-      "Free download — same Naga DSP lineage, built for urban productions that need weight without mud.",
+      "VCA bus glue with harmonic drive when you want cohesion that still hits.",
+      "Free download — live curve, VU gain reduction, and stereo LEDs. Built for urban mixes that need weight without mud.",
     ],
     features: [
       "VCA bus compression with optional harmonic drive for edge on drums and bass",
@@ -165,10 +173,15 @@ export const NAGA_PLUGINS: readonly NagaPlugin[] = [
   },
 ] as const;
 
-export function getNagaPlugin(slug: string): NagaPlugin | undefined {
-  return NAGA_PLUGINS.find((p) => p.slug === slug);
+export const NAGA_PLUGINS_PUBLISHED: readonly NagaPlugin[] = NAGA_PLUGINS.filter((p) => p.published);
+
+export function getNagaPlugin(slug: string, { includeUnpublished = false } = {}): NagaPlugin | undefined {
+  const found = NAGA_PLUGINS.find((p) => p.slug === slug);
+  if (!found) return undefined;
+  if (!found.published && !includeUnpublished) return undefined;
+  return found;
 }
 
 export function getOtherNagaPlugins(slug: string): NagaPlugin[] {
-  return NAGA_PLUGINS.filter((p) => p.slug !== slug);
+  return NAGA_PLUGINS_PUBLISHED.filter((p) => p.slug !== slug);
 }

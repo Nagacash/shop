@@ -7,7 +7,7 @@ import PluginScreenshotGallery from "@/components/plugins/PluginScreenshotGaller
 import PluginDownloadActions from "@/components/plugins/PluginDownloadActions";
 import MoreFromNagaPlugins from "@/components/plugins/MoreFromNagaPlugins";
 import { formatPrice } from "@/lib/utils/currency";
-import { getNagaPlugin, getOtherNagaPlugins, NAGA_PLUGINS } from "@/lib/audio/plugins";
+import { getNagaPlugin, getOtherNagaPlugins, NAGA_PLUGINS_PUBLISHED } from "@/lib/audio/plugins";
 import { resolvePluginDownloads, resolvePluginPurchaseUrl } from "@/lib/audio/downloads";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { breadcrumbJsonLd, softwareApplicationJsonLd } from "@/lib/seo/jsonld";
@@ -15,7 +15,7 @@ import { breadcrumbJsonLd, softwareApplicationJsonLd } from "@/lib/seo/jsonld";
 type PageProps = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
-  return NAGA_PLUGINS.map((p) => ({ slug: p.slug }));
+  return NAGA_PLUGINS_PUBLISHED.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps) {
@@ -69,12 +69,12 @@ export default async function PluginDetailPage({ params }: PageProps) {
       />
 
       <PageHero
-        imageSrc={plugin.ogImage}
+        imageSrc={plugin.screenshots[0]?.src ?? plugin.ogImage}
         imageFit="contain"
         eyebrow={plugin.maker}
         title={plugin.name}
         subtitle={plugin.tagline}
-        size="slim"
+        size="compact"
       />
 
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
@@ -89,9 +89,33 @@ export default async function PluginDetailPage({ params }: PageProps) {
           / <span className="text-dark-900">{plugin.name}</span>
         </nav>
 
-        <section className="mt-10 grid grid-cols-1 items-start gap-10 lg:grid-cols-[1fr_400px]">
+        <section className="mt-10 grid grid-cols-1 items-start gap-10 lg:grid-cols-[1fr_480px]">
           <div className="space-y-10">
             <PluginScreenshotGallery screenshots={plugin.screenshots} productName={plugin.name} />
+
+            <aside className="rounded-2xl border border-light-300 bg-light-100 p-6 lg:hidden">
+              <div className="flex flex-wrap items-center gap-3">
+                <p className="text-lead text-dark-900">{priceLabel}</p>
+                {isFree && (
+                  <span className="rounded-full border border-[--color-naga-sage]/40 bg-[--color-naga-sage]/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-[--color-naga-sage-light]">
+                    Free
+                  </span>
+                )}
+              </div>
+              <p className="mt-2 text-caption text-dark-700">
+                v{plugin.version} · {plugin.formats.join(" · ")}
+              </p>
+              <div className="mt-6">
+                <PluginDownloadActions
+                  pluginSlug={plugin.slug}
+                  pluginName={plugin.name}
+                  free={isFree}
+                  downloads={downloads}
+                  purchaseUrl={purchaseUrl}
+                  priceLabel={priceLabel}
+                />
+              </div>
+            </aside>
 
             <div className="space-y-4">
               {plugin.shortDescription.map((para) => (
@@ -134,7 +158,7 @@ export default async function PluginDetailPage({ params }: PageProps) {
             </div>
           </div>
 
-          <aside className="flex flex-col gap-6 lg:sticky lg:top-6">
+          <aside className="hidden flex-col gap-6 lg:sticky lg:top-6 lg:flex">
             <div className="rounded-2xl border border-light-300 bg-light-100 p-6">
               <div className="flex flex-wrap items-center gap-3">
                 <p className="text-lead text-dark-900">{priceLabel}</p>
