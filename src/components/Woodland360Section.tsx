@@ -117,7 +117,7 @@ export default function Woodland360Section({ showCodexCredit = true, className =
                   <p className="mt-1 text-caption text-light-400">
                     {episode.title}
                   </p>
-                  <p className="text-caption text-light-100/50">{episode.part}</p>
+                    <p className="text-caption text-light-100/50">{episode.part}</p>
                 </div>
                 <span className="shrink-0 rounded-full border border-[--color-naga-gold]/30 bg-[--color-naga-gold]/10 px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.14em] text-[--color-naga-gold]">
                   On air

@@ -29,7 +29,7 @@ export const SITE_NAME = "Naga Apparel";
  * matched no search intent beyond the brand name itself.
  */
 export const SITE_DESCRIPTION =
-  "Naga Apparel — independent streetwear brand from Hamburg. Premium heavyweight tees, sweaters and sets. Ancient Wisdom, Modern Hustle. Shipping worldwide.";
+  "Naga Apparel Hamburg — Streetwear & Cuban Link Ketten (gold plattiert), Miami Cuban chains, free Naga Glue VST, Woodland 360 podcast. Versand aus Deutschland, worldwide.";
 
 /**
  * Note: Google has ignored the keywords meta tag since 2009, so this is not a
@@ -62,6 +62,26 @@ export const SITE_KEYWORDS = [
   "Get Smart Tee",
   "Amazonian Syndicate Set",
   "Angkor Heavyweight Crew",
+  "Cuban link chain",
+  "KRKC Miami Cuban chain",
+  "Cuban Link Kette",
+  "Cuban Link Kette kaufen",
+  "Miami Cuban Kette",
+  "Herrenkette gold",
+  "Kettenschmuck Hamburg",
+  "goldene Kette Edelstahl",
+  "Kette online kaufen Deutschland",
+  "Cuban Link Deutschland",
+  "Cuban Link Chain kaufen",
+  // Audio / media
+  "Naga Audio DSP",
+  "Naga Glue",
+  "VST3 bus compressor",
+  "AU plugin",
+  "free VST plugin",
+  "mix bus compressor",
+  "Woodland 360 podcast",
+  "Naga Codex",
 ];
 
 export const SOCIAL = {

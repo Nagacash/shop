@@ -147,7 +147,7 @@ const CATEGORY_BEATS: Record<string, ProductStoryBeat[]> = {
     {
       label: "Line",
       title: "A section for chains",
-      body: "Cuban link chains live here, with room for the next styles as they arrive.",
+      body: "Miami Cuban link chains (Cuban Link Ketten) live here — gold-plated stainless steel, shipped from Hamburg. More styles as they arrive.",
     },
     {
       label: "Metal",

@@ -18,7 +18,27 @@ export const NAGA_FAQS = [
   {
     question: "What products does Naga Apparel sell?",
     answer:
-      `The current drop includes ${BLACK_TEE_NAME}, The Wisdom & Hustle Tee, The Angkor Heavyweight Crew, The Empire Roots Crew, The Cobra Wisdom Hoodie, The Golden Empire Hoodie, and The Amazonian Syndicate Set. Shop by category: Tees, Sweaters, Hoodies, or Sets.`,
+      `The current drop includes ${BLACK_TEE_NAME}, The Wisdom & Hustle Tee, The Angkor Heavyweight Crew, The Empire Roots Crew, The Cobra Wisdom Hoodie, The Golden Empire Hoodie, Cuban link chains, and sets such as The Amazonian Syndicate Set. Shop by category: Tees, Sweaters, Hoodies, Sets, or Chains.`,
+  },
+  {
+    question: "Verkauft Naga Cuban Link Ketten in Deutschland?",
+    answer:
+      "Ja — Miami Cuban Link Ketten bei Naga Apparel: goldfarben plattiertes Edelstahl, Versand aus Hamburg. Im Shop unter Chains / Ketten: nagaclub.de/products?category=chains. Weitere Kettenstile kommen dazu, sobald sie lieferbar sind.",
+  },
+  {
+    question: "Does Naga sell Cuban link chains from Germany?",
+    answer:
+      "Yes. Naga Apparel ships Miami Cuban link chains from Hamburg, Germany — gold-plated stainless steel (KRKC-style Miami Cuban). Shop the Chains category at nagaclub.de/products?category=chains; more link styles land in the same section.",
+  },
+  {
+    question: "Does Naga offer free VST or AU audio plugins?",
+    answer:
+      "Yes — Naga Audio DSP publishes mix tools at nagaclub.de/plugins. Naga Glue Vol. 2 is a free VCA bus compressor for macOS (VST3 and AU) and Standalone, with harmonic drive, sidechain HPF, wide mode, and 20 factory presets. Windows VST3 builds roll out as they ship.",
+  },
+  {
+    question: "What is the Woodland 360 podcast?",
+    answer:
+      "Woodland 360 is Naga's urban-culture podcast — street-level conversations on creative sovereignty, counter-culture, tech, and Hamburg life. Watch episodes in-page at nagaclub.de/podcast (including guests such as Haji Brown and Lyn T) or on YouTube through Naga Codex.",
   },
   {
     question: "Is The Amazonian Syndicate Set in stock?",
@@ -27,4 +47,4 @@ export const NAGA_FAQS = [
   },
 ] as const;
 
-export const FAQ_INTRO = `${BRAND_SUBTAGLINE} Quick answers about Naga Apparel, shipping from Germany, and the current drop.`;
+export const FAQ_INTRO = `${BRAND_SUBTAGLINE} Quick answers about Naga Apparel, shipping from Germany, the current drop, Naga Glue plugins, and Woodland 360.`;

@@ -3,6 +3,11 @@ import ProductsShop from "@/components/ProductsShop";
 import { BLACK_TEE_NAME, BRAND_SUBTAGLINE } from "@/lib/brand/manifesto";
 import { SECTION_CLIPS } from "@/lib/brand/marketing-images";
 import { parseFilterParams } from "@/lib/utils/query";
+import {
+  CHAINS_HERO_SUBTITLE,
+  CHAINS_SEO_DESCRIPTION,
+  CHAINS_SEO_TITLE,
+} from "@/lib/seo/chains";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import type { Metadata } from "next";
 
@@ -36,10 +41,9 @@ const CATEGORY_SEO: Record<string, { title: string; description: string; subtitl
     subtitle: "Wear your wisdom.",
   },
   chains: {
-    title: "Chains",
-    description:
-      "Cuban link chains from Naga Apparel. Gold plated stainless steel, with more chain styles landing in this section.",
-    subtitle: "Cuban links now. More chains as they land.",
+    title: CHAINS_SEO_TITLE,
+    description: CHAINS_SEO_DESCRIPTION,
+    subtitle: CHAINS_HERO_SUBTITLE,
   },
 };
 
@@ -71,7 +75,7 @@ export async function generateMetadata({
 
   return buildPageMetadata({
     title: "Shop the Drop",
-    description: `${BRAND_SUBTAGLINE} Tees, sweaters, hoodies, and sets — claim yours.`,
+    description: `${BRAND_SUBTAGLINE} Tees, sweaters, hoodies, sets, and Cuban Link Ketten — Versand aus Hamburg.`,
     path: "/products",
   });
 }
@@ -92,7 +96,8 @@ export default async function ProductsPage({
     : categorySeo?.title ?? "Shop the Drop";
   const heroSubtitle = searchQuery
     ? "Filter by size, color, and price."
-    : categorySeo?.subtitle ?? "Tees, sweaters, hoodies, and sets — filter by size, color, and price.";
+    : categorySeo?.subtitle ??
+      "Tees, sweaters, hoodies, sets, Cuban link chains — filter by size, color, and price.";
 
   return (
     <>

@@ -4,6 +4,11 @@ https://www.nagaclub.de/products?category=tees
 https://www.nagaclub.de/products?category=sweaters
 https://www.nagaclub.de/products?category=sets
 https://www.nagaclub.de/products?category=hoodies
+https://www.nagaclub.de/products?category=chains
+https://www.nagaclub.de/plugins
+https://www.nagaclub.de/plugins/naga-glue-vol-2
+https://www.nagaclub.de/podcast
+https://www.nagaclub.de/about
 https://www.nagaclub.de/collections
 https://www.nagaclub.de/collections/naga-original
 https://www.nagaclub.de/collections/naga-black

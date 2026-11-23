@@ -29,7 +29,20 @@ export function organizationJsonLd() {
       name: SITE_NAME,
       logo: absoluteUrl("/logo2.png"),
     },
-    knowsAbout: ["Streetwear", "Apparel", "Fashion", "Independent clothing brands"],
+    knowsAbout: [
+      "Streetwear",
+      "Apparel",
+      "Fashion",
+      "Jewelry",
+      "Cuban link chains",
+      "Cuban Link Ketten",
+      "Jewelry shipping from Germany",
+      "Audio plugins",
+      "VST3",
+      "Music production",
+      "Podcasts",
+      "Independent clothing brands",
+    ],
     knowsLanguage: ["en", "de"],
     contactPoint: {
       "@type": "ContactPoint",
@@ -160,7 +173,29 @@ export function softwareApplicationJsonLd(input: {
       url: absoluteUrl(input.path),
       priceCurrency: CURRENCY_CODE,
       price: input.price.toFixed(2),
+      availability: "https://schema.org/InStock",
     },
+  };
+}
+
+export function itemListJsonLd(input: {
+  name: string;
+  path: string;
+  items: Array<{ name: string; path: string; image?: string }>;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: input.name,
+    url: absoluteUrl(input.path),
+    numberOfItems: input.items.length,
+    itemListElement: input.items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      url: absoluteUrl(item.path),
+      ...(item.image ? { image: absoluteUrl(item.image) } : {}),
+    })),
   };
 }
 

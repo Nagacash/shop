@@ -20,7 +20,7 @@ export const revalidate = 120;
 
 export const metadata = buildPageMetadata({
   title: "About Naga Apparel",
-  description: `${BRAND_TAGLINE} ${BRAND_SUBTAGLINE}`,
+  description: `${BRAND_TAGLINE} ${BRAND_SUBTAGLINE} Hamburg streetwear, chains, Naga Audio DSP plugins, and the Woodland 360 podcast — one independent brand ecosystem.`,
   path: "/about",
   image: MARKETING_IMAGES.productDust,
 });

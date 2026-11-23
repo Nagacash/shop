@@ -29,8 +29,8 @@ export const revalidate = 120;
 // this spends the visible characters on what people actually search for:
 // the category, the city and the fact that it ships internationally.
 export const metadata = buildPageMetadata({
-  title: "Streetwear Brand from Hamburg — Shipping Worldwide",
-  description: `${BRAND_TAGLINE} Independent streetwear from Hamburg — premium heavyweight tees, sweaters, hoodies and sets. ${BRAND_CLOSER_LINE}`,
+  title: "Streetwear, Chains & Free VST Plugins from Hamburg",
+  description: `${BRAND_TAGLINE} Streetwear & Cuban Link Ketten aus Hamburg — Miami Cuban chains (gold plattiert), plus free Naga Glue Vol. 2 (VST3/AU) and Woodland 360. ${BRAND_CLOSER_LINE}`,
   path: "/",
   image: SOCIAL_SHARE_IMAGE,
 });

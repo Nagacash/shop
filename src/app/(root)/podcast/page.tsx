@@ -12,11 +12,15 @@ import { MARKETING_IMAGES, SECTION_CLIPS } from "@/lib/brand/marketing-images";
 
 export const revalidate = 120;
 
-const featured = WOODLAND360_PODCAST.featuredEpisode;
+function episodeJumpLabel(ep: Woodland360Episode): string {
+  if (ep.youtubeId === "kFymYp734yk") return "Lyn T — Part 1";
+  if (ep.youtubeId === "BsEP785EpBE") return "Lyn T — Part 2";
+  return ep.guest;
+}
 
 export const metadata = buildPageMetadata({
-  title: "Woodland 360 Podcast",
-  description: `${WOODLAND360_PODCAST.name} — ${WOODLAND360_PODCAST.tagline}. Episodes with ${featured.guest} and more. Hosted on Naga Codex.`,
+  title: "Woodland 360 Podcast — Hamburg Urban Culture",
+  description: `${WOODLAND360_PODCAST.name} — ${WOODLAND360_PODCAST.tagline}. Watch Haji Brown, Lyn T (Parts 1 & 2), and more in-page. Creative sovereignty, counter-culture, and city life from Naga Apparel.`,
   path: "/podcast",
   image: MARKETING_IMAGES.productDust,
 });
@@ -40,7 +44,7 @@ function EpisodeBlock({
         <div className="naga-bezel-light-inner overflow-hidden p-3 sm:p-4">
           <div className="aspect-video overflow-hidden rounded-lg bg-dark-900">
             <iframe
-              src={woodland360EmbedUrl(episode.youtubeId)}
+              src={woodland360EmbedUrl(episode.youtubeId, episode.youtubeStartSeconds)}
               title={`${WOODLAND360_PODCAST.name} — ${episode.guest}: ${episode.title}`}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerPolicy="strict-origin-when-cross-origin"
@@ -107,7 +111,7 @@ export default function PodcastPage() {
                 href={`#${ep.youtubeId}`}
                 className="rounded-full border border-light-300 bg-light-100 px-3 py-1.5 text-caption text-dark-900 transition hover:border-dark-500 focus-ring focus-visible:outline-none"
               >
-                {ep.guest}
+                {episodeJumpLabel(ep)}
               </a>
             ))}
           </nav>

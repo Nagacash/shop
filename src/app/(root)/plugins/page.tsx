@@ -5,14 +5,14 @@ import JsonLd from "@/components/JsonLd";
 import { NAGA_PLUGINS_PUBLISHED } from "@/lib/audio/plugins";
 import { MARKETING_IMAGES } from "@/lib/brand/marketing-images";
 import { buildPageMetadata } from "@/lib/seo/metadata";
-import { breadcrumbJsonLd } from "@/lib/seo/jsonld";
+import { breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo/jsonld";
 
 export const revalidate = 120;
 
 export const metadata = buildPageMetadata({
-  title: "Naga Audio DSP Plugins",
+  title: "Free Naga Glue VST3 & AU Bus Compressor",
   description:
-    "Naga Glue Vol. 2 — free VCA bus compressor with harmonic drive and wide mode. VST3, AU, and Standalone from Naga Audio DSP.",
+    "Download Naga Glue Vol. 2 — free VCA mix-bus compressor with harmonic drive, sidechain HPF, wide mode, and 20 presets. macOS VST3, AU, and Standalone from Naga Audio DSP in Hamburg.",
   path: "/plugins",
   image: NAGA_PLUGINS_PUBLISHED[0]?.ogImage ?? MARKETING_IMAGES.productDust,
 });
@@ -21,10 +21,21 @@ export default function PluginsPage() {
   return (
     <>
       <JsonLd
-        data={breadcrumbJsonLd([
-          { name: "Home", path: "/" },
-          { name: "Plugins", path: "/plugins" },
-        ])}
+        data={[
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Plugins", path: "/plugins" },
+          ]),
+          itemListJsonLd({
+            name: "Naga Audio DSP Plugins",
+            path: "/plugins",
+            items: NAGA_PLUGINS_PUBLISHED.map((p) => ({
+              name: p.name,
+              path: `/plugins/${p.slug}`,
+              image: p.ogImage,
+            })),
+          }),
+        ]}
       />
       <PageHero
         imageSrc={

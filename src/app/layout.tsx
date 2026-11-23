@@ -15,7 +15,7 @@ const inter = Inter({
 // Carries brand + category + city + reach. The previous title named the
 // product types but not where the brand is from or that it ships beyond
 // Germany, so it could realistically only compete on brand-name searches.
-const defaultTitle = `${SITE_NAME} — Streetwear Brand from Hamburg | Shipping Worldwide`;
+const defaultTitle = `${SITE_NAME} — Streetwear, VST Plugins & Podcast from Hamburg | Worldwide`;
 
 export const viewport: Viewport = {
   themeColor: "#050505",

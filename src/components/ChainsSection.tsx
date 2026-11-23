@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import InViewMotion from "@/components/motion/InViewMotion";
 import SectionChapterLabel from "@/components/SectionChapterLabel";
+import { CHAINS_DE_BLUF } from "@/lib/seo/chains";
 
 const FACTS = [
   { label: "Link", detail: "Miami Cuban" },
@@ -37,6 +38,9 @@ export default function ChainsSection() {
             <p data-motion-reveal className="mt-3 text-body text-light-400">
               A shop section for link chains. Miami Cuban links open the line. More styles
               go here as soon as they are ready to ship.
+            </p>
+            <p data-motion-reveal className="mt-2 text-caption text-light-500">
+              {CHAINS_DE_BLUF}
             </p>
             <Link
               href="/products?category=chains"

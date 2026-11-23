@@ -20,6 +20,8 @@ export type Woodland360Episode = {
   watchUrl: string;
   /** When the round is hosted by someone other than the show default */
   episodeHost?: string;
+  /** YouTube embed start offset in seconds */
+  youtubeStartSeconds?: number;
 };
 
 export const WOODLAND360_EPISODES: readonly Woodland360Episode[] = [
@@ -39,6 +41,15 @@ export const WOODLAND360_EPISODES: readonly Woodland360Episode[] = [
     youtubeId: "kFymYp734yk",
     watchUrl: "https://www.youtube.com/watch?v=kFymYp734yk",
   },
+  {
+    guest: "Lyn T",
+    title: "How Run-D.M.C. Shocked Him & Changed His Life at 7 Years Old",
+    part: "Woodland 360 — Part 2",
+    episodeHost: "Maurice Holda",
+    youtubeId: "BsEP785EpBE",
+    watchUrl: "https://www.youtube.com/watch?v=BsEP785EpBE&t=7s",
+    youtubeStartSeconds: 7,
+  },
 ] as const;
 
 export const WOODLAND360_PODCAST = {
@@ -53,6 +64,7 @@ export const WOODLAND360_PODCAST = {
   featuredEpisode: WOODLAND360_EPISODES[0],
 } as const;
 
-export function woodland360EmbedUrl(youtubeId: string): string {
-  return `https://www.youtube-nocookie.com/embed/${youtubeId}?rel=0&modestbranding=1&playsinline=1`;
+export function woodland360EmbedUrl(youtubeId: string, startSeconds?: number): string {
+  const start = startSeconds && startSeconds > 0 ? `&start=${startSeconds}` : "";
+  return `https://www.youtube-nocookie.com/embed/${youtubeId}?rel=0&modestbranding=1&playsinline=1${start}`;
 }

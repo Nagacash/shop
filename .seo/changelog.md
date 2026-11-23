@@ -1,5 +1,25 @@
 # SEO changelog
 
+## 2026-11-23 — Plugins, chains (DE), podcast
+
+Updated:
+- `src/lib/seo/chains.ts` — shared chains titles/descriptions (EN + DE search terms)
+- German FAQ (`Verkauft Naga Cuban Link Ketten…`) + English chains-from-Germany FAQ
+- `SITE_KEYWORDS` — Cuban Link Kette, kaufen, Hamburg, Edelstahl, etc.
+- `/products?category=chains` meta + hero; homepage + `SITE_DESCRIPTION`; ChainsSection DE blurb
+- Organization `knowsAbout` — Cuban Link Ketten
+- Global `SITE_DESCRIPTION`, `SITE_KEYWORDS`, and layout default title — streetwear + chains + Naga Glue VST/AU + Woodland 360
+- Homepage, about, contact, `/plugins`, and `/podcast` meta descriptions
+- `NAGA_FAQS` — chains in catalogue answer; new entries for free VST/AU plugins and Woodland 360
+- Organization `knowsAbout` — jewelry, audio plugins, podcasts
+- `/plugins` — `ItemList` JSON-LD for published plugins
+- `/llms.txt` — plugin catalogue lines, podcast episode list, aligned with `SITE_DESCRIPTION`
+- `.seo/pages.txt` — chains category, plugins, podcast, about
+
+User action:
+- Request indexing in GSC for `/plugins`, `/plugins/naga-glue-vol-2`, and `/podcast`
+- Rich-results test: `https://www.nagaclub.de/plugins/naga-glue-vol-2` (SoftwareApplication)
+
 ## 2026-07-07 — Production audit iteration 2
 
 Fixed:

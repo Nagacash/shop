@@ -1,7 +1,9 @@
 import { NAGA_FAQS } from "@/lib/seo/faq";
 import { BRAND_STORY, BRAND_TAGLINE } from "@/lib/brand/manifesto";
+import { NAGA_PLUGINS_PUBLISHED } from "@/lib/audio/plugins";
+import { WOODLAND360_PODCAST } from "@/lib/brand/naga-network";
 import { SHIPPING_INCLUDED_MESSAGE } from "@/lib/utils/currency";
-import { canonicalUrl, SITE_NAME, SOCIAL, SUPPORT_EMAIL } from "@/lib/seo/site";
+import { canonicalUrl, SITE_DESCRIPTION, SITE_NAME, SOCIAL, SUPPORT_EMAIL } from "@/lib/seo/site";
 
 /**
  * /llms.txt — a plain-text brand summary for AI assistants.
@@ -20,11 +22,17 @@ export const revalidate = 86_400; // regenerate daily
 
 function buildLlmsTxt(): string {
   const faqs = NAGA_FAQS.map((f) => `### ${f.question}\n${f.answer}`).join("\n\n");
+  const pluginLines = NAGA_PLUGINS_PUBLISHED.map(
+    (p) =>
+      `- [${p.name}](${canonicalUrl(`/plugins/${p.slug}`)}): ${p.tagline} (${p.formats.join(", ")})`,
+  ).join("\n");
+  const episodeLines = WOODLAND360_PODCAST.episodes
+    .map((ep) => `- **${ep.guest}** — ${ep.title} (${ep.part})`)
+    .join("\n");
 
   return `# ${SITE_NAME}
 
-> ${BRAND_TAGLINE} An independent streetwear brand based in Hamburg, Germany,
-> selling premium heavyweight tees, sweaters, hoodies, sets, and chains. Ships worldwide.
+> ${BRAND_TAGLINE} ${SITE_DESCRIPTION}
 
 ## About
 
@@ -38,9 +46,20 @@ ${BRAND_STORY.trim()}
 - **Ships**: Worldwide, including the United States and the EU
 - **Shipping cost**: ${SHIPPING_INCLUDED_MESSAGE}
 - **Currency**: EUR
-- **Categories**: Tees, Sweaters, Hoodies, Sets, Chains
+- **Categories**: Tees, Sweaters, Hoodies, Sets, Chains (Cuban link / Cuban Link Ketten, Miami Cuban, gold-plated stainless steel, ships from Hamburg, Germany)
+- **Chains (DE)**: Cuban Link Kette, Miami Cuban Kette, Kettenschmuck — shop at /products?category=chains
+- **Audio**: Naga Audio DSP — free & paid VST3/AU mix tools (see Plugins)
+- **Media**: ${WOODLAND360_PODCAST.name} podcast — ${WOODLAND360_PODCAST.tagline}
 - **Languages**: English, German
 - **Contact**: ${SUPPORT_EMAIL}
+
+## Audio plugins (Naga Audio DSP)
+
+${pluginLines || "_No public plugins listed._"}
+
+## Woodland 360 podcast
+
+${episodeLines}
 
 ## Pages
 
@@ -48,8 +67,8 @@ ${BRAND_STORY.trim()}
 - [All products](${canonicalUrl("/products")}): Full catalogue
 - [Collections](${canonicalUrl("/collections")}): Curated drops
 - [About](${canonicalUrl("/about")}): Brand story and origins
-- [Plugins](${canonicalUrl("/plugins")}): Naga Audio DSP (Naga Glue bus compressors)
-- [Podcast](${canonicalUrl("/podcast")}): Brand podcast
+- [Plugins](${canonicalUrl("/plugins")}): Naga Audio DSP — Naga Glue bus compressors (VST3, AU, Standalone)
+- [Podcast](${canonicalUrl("/podcast")}): ${WOODLAND360_PODCAST.name} — in-page YouTube embeds
 - [Contact](${canonicalUrl("/contact")}): Customer support
 - [Terms](${canonicalUrl("/terms")}): Terms of sale
 - [Privacy](${canonicalUrl("/privacy")}): Privacy policy

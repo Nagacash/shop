@@ -15,7 +15,7 @@ export const revalidate = 120;
 export const metadata = buildPageMetadata({
   title: "Contact Naga Apparel",
   description:
-    `Contact Naga Apparel in Germany — orders, shipping, collabs, and support. Email ${SUPPORT_EMAIL}. We reply within 24 hours.`,
+    `Contact Naga Apparel in Hamburg — orders, worldwide shipping, chains, Naga Glue plugin downloads, Woodland 360, and collabs. Email ${SUPPORT_EMAIL}. Reply within 24 hours.`,
   path: "/contact",
   image: MARKETING_IMAGES.logoDetail,
 });
