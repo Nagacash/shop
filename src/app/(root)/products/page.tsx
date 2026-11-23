@@ -35,6 +35,12 @@ const CATEGORY_SEO: Record<string, { title: string; description: string; subtitl
       "The Cobra Wisdom Hoodie and The Golden Empire Hoodie — fleece interior, cobra chest graphics, unapologetic street fit.",
     subtitle: "Wear your wisdom.",
   },
+  chains: {
+    title: "Chains",
+    description:
+      "Cuban link chains from Naga Apparel. Gold plated stainless steel, with more chain styles landing in this section.",
+    subtitle: "Cuban links now. More chains as they land.",
+  },
 };
 
 export async function generateMetadata({

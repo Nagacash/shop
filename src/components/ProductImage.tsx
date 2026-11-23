@@ -1,7 +1,7 @@
 "use client";
 
 import Image, { type ImageProps } from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { normalizeImageUrl, FALLBACK_PRODUCT_IMAGE } from "@/lib/utils/images";
 
 const FALLBACK = FALLBACK_PRODUCT_IMAGE;
@@ -12,8 +12,12 @@ type ProductImageProps = Omit<ImageProps, "src" | "alt"> & {
 };
 
 export default function ProductImage({ src, alt, className, priority, loading, ...props }: ProductImageProps) {
-  const initial = normalizeImageUrl(src) ?? FALLBACK;
-  const [imgSrc, setImgSrc] = useState(initial);
+  const resolved = normalizeImageUrl(src) ?? FALLBACK;
+  const [imgSrc, setImgSrc] = useState(resolved);
+
+  useEffect(() => {
+    setImgSrc(resolved);
+  }, [resolved]);
 
   return (
     <Image

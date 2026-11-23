@@ -5,7 +5,7 @@ import { collections, productCollections, products } from "@/lib/db/schema";
 import { excludeInternalTestProducts } from "@/lib/seo/internal-test-product";
 import { getSiteUrl } from "@/lib/seo/site";
 
-const SHOP_CATEGORIES = ["tees", "sweaters", "sets", "hoodies"] as const;
+const SHOP_CATEGORIES = ["tees", "sweaters", "sets", "hoodies", "chains"] as const;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = getSiteUrl();

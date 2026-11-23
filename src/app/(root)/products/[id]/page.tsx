@@ -43,7 +43,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { id } = await params;
   const data = await getCachedProduct(id);
-  if (!data) {
+  if (!data || !data.product.isPublished) {
     return buildPageMetadata({
       title: "Product Not Found",
       description: "This Naga Apparel product could not be found.",
@@ -150,7 +150,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   const { id } = await params;
   const data = await getCachedProduct(id);
 
-  if (!data) {
+  if (!data || !data.product.isPublished) {
     return (
       <>
         <PageHero page="product" size="slim" title="Product not found" />
@@ -215,7 +215,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   const isFlatLay = isFlatLayProductImage(primaryImage);
   const schemaImage = primaryImage ?? FALLBACK_PRODUCT_IMAGE;
   const schemaPrice = displayPrice ?? 0;
-  const storyBeats = getProductStoryBeats(product.name);
+  const storyBeats = getProductStoryBeats(product.name, product.category?.slug);
   const craftSpec = getProductCraftSpec(product.category?.slug);
   const isProducerPack = variants.some((variant) => isProducerPackSku(variant.sku));
   const producerPack = isProducerPack ? readProducerPackFile() : null;

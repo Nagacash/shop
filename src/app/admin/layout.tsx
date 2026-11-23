@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { requireAdmin } from "@/lib/auth/admin";
+import { DROPSHIP_STOCK_ADMIN_NOTE } from "@/lib/inventory/dropship";
 
 export const dynamic = "force-dynamic";
 
@@ -23,6 +24,11 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           </nav>
         </div>
       </header>
+      <div className="border-b border-light-300 bg-light-100">
+        <p className="mx-auto max-w-7xl px-4 py-2 text-caption text-dark-700 sm:px-6 lg:px-8">
+          {DROPSHIP_STOCK_ADMIN_NOTE}
+        </p>
+      </div>
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">{children}</main>
     </div>
   );

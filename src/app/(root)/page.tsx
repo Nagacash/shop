@@ -7,6 +7,7 @@ import BrandTeaserSection from "@/components/BrandTeaserSection";
 import NagaClubHamburgSection from "@/components/NagaClubHamburgSection";
 import HoodieStreetSection from "@/components/HoodieStreetSection";
 import FeaturedDropSection from "@/components/FeaturedDropSection";
+import ChainsSection from "@/components/ChainsSection";
 import HomeAvailableSection from "@/components/HomeAvailableSection";
 import FaqSection from "@/components/FaqSection";
 import JsonLd from "@/components/JsonLd";
@@ -60,6 +61,7 @@ export default async function Home() {
       <Suspense fallback={<SectionSkeleton tall />}>
         <FeaturedDropSection />
       </Suspense>
+      <ChainsSection />
       <Suspense fallback={<SectionSkeleton />}>
         <HomeBrandSections />
       </Suspense>

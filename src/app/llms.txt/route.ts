@@ -24,7 +24,7 @@ function buildLlmsTxt(): string {
   return `# ${SITE_NAME}
 
 > ${BRAND_TAGLINE} An independent streetwear brand based in Hamburg, Germany,
-> selling premium heavyweight tees, sweaters, hoodies and sets. Ships worldwide.
+> selling premium heavyweight tees, sweaters, hoodies, sets, and chains. Ships worldwide.
 
 ## About
 
@@ -38,7 +38,7 @@ ${BRAND_STORY.trim()}
 - **Ships**: Worldwide, including the United States and the EU
 - **Shipping cost**: ${SHIPPING_INCLUDED_MESSAGE}
 - **Currency**: EUR
-- **Categories**: Tees, Sweaters, Hoodies, Sets
+- **Categories**: Tees, Sweaters, Hoodies, Sets, Chains
 - **Languages**: English, German
 - **Contact**: ${SUPPORT_EMAIL}
 

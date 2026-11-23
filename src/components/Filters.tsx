@@ -30,6 +30,7 @@ export default function Filters() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const search = useMemo(() => `?${searchParams.toString()}`, [searchParams]);
+  const showApparelFit = searchParams.get("category") !== "chains";
 
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState<Record<GroupKey, boolean>>({
@@ -108,6 +109,8 @@ export default function Filters() {
           </button>
         </div>
 
+        {showApparelFit && (
+        <>
         <Group title={`Gender ${activeCounts.gender ? `(${activeCounts.gender})` : ""}`} k="gender">
           <ul className="space-y-2">
             {GENDERS.map((g) => {
@@ -150,6 +153,8 @@ export default function Filters() {
             })}
           </ul>
         </Group>
+        </>
+        )}
 
         <Group title={`Color ${activeCounts.color ? `(${activeCounts.color})` : ""}`} k="color">
           <ul className="grid grid-cols-2 gap-2">
@@ -221,6 +226,8 @@ export default function Filters() {
             </div>
             {/* Reuse the same desktop content by rendering the component again */}
             <div className="md:hidden">
+              {showApparelFit && (
+              <>
               <Group title="Gender" k="gender">
                 <ul className="space-y-2">
                   {GENDERS.map((g) => {
@@ -263,6 +270,8 @@ export default function Filters() {
                   })}
                 </ul>
               </Group>
+              </>
+              )}
 
               <Group title="Color" k="color">
                 <ul className="grid grid-cols-2 gap-2">

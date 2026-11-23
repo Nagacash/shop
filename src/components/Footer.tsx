@@ -26,6 +26,7 @@ const columns: { title: string; links: FooterLink[] }[] = [
       { label: "Tees", href: "/products?category=tees" },
       { label: "Sweaters", href: "/products?category=sweaters" },
       { label: "Sets", href: "/products?category=sets" },
+      { label: "Chains", href: "/products?category=chains" },
       { label: "Shop the Drop", href: "/products" },
     ],
   },

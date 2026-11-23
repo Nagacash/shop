@@ -191,6 +191,7 @@ async function seed() {
       { name: 'Headwear', slug: 'headwear', parentId: null },
       { name: 'Sweaters', slug: 'sweaters', parentId: null },
       { name: 'Sets', slug: 'sets', parentId: null },
+      { name: 'Chains', slug: 'chains', parentId: null },
     ].map((c) => insertCategorySchema.parse(c));
     for (const row of catRows) {
       const exists = await db.select().from(categories).where(eq(categories.slug, row.slug)).limit(1);

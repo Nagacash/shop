@@ -13,6 +13,7 @@ const SHOP_LINKS = [
   { label: "Sweaters", href: "/products?category=sweaters" },
   { label: "Sets", href: "/products?category=sets" },
   { label: "Headwear", href: "/products?category=headwear" },
+  { label: "Chains", href: "/products?category=chains" },
 ] as const;
 
 const DISCOVER_LINKS = [

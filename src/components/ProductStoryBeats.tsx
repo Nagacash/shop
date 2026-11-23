@@ -21,7 +21,7 @@ export default function ProductStoryBeats({ beats, craft, className = "" }: Prop
           id="product-story-heading"
           className="naga-display mt-4 text-heading-3 font-bold tracking-tighter text-dark-900 sm:text-heading-2"
         >
-          Wear your wisdom
+          {craft.storyHeading ?? "Wear your wisdom"}
         </h2>
 
         <div className="mt-10 grid gap-4 lg:grid-cols-3">
@@ -36,15 +36,15 @@ export default function ProductStoryBeats({ beats, craft, className = "" }: Prop
 
         <dl className="naga-craft-strip mt-10 grid gap-px overflow-hidden rounded-sm border border-dark-900/8 bg-dark-900/8 sm:grid-cols-3">
           <div className="naga-craft-cell">
-            <dt>Fabric</dt>
+            <dt>{craft.labels?.fabric ?? "Fabric"}</dt>
             <dd>{craft.fabric}</dd>
           </div>
           <div className="naga-craft-cell">
-            <dt>Fit</dt>
+            <dt>{craft.labels?.fit ?? "Fit"}</dt>
             <dd>{craft.fit}</dd>
           </div>
           <div className="naga-craft-cell">
-            <dt>Print</dt>
+            <dt>{craft.labels?.print ?? "Print"}</dt>
             <dd>{craft.print}</dd>
           </div>
         </dl>

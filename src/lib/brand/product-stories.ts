@@ -10,6 +10,12 @@ export type ProductCraftSpec = {
   fabric: string;
   fit: string;
   print: string;
+  labels?: {
+    fabric: string;
+    fit: string;
+    print: string;
+  };
+  storyHeading?: string;
 };
 
 const DEFAULT_BEATS: ProductStoryBeat[] = [
@@ -136,6 +142,26 @@ const PRODUCT_BEATS: Record<string, ProductStoryBeat[]> = {
   ],
 };
 
+const CATEGORY_BEATS: Record<string, ProductStoryBeat[]> = {
+  chains: [
+    {
+      label: "Line",
+      title: "A section for chains",
+      body: "Cuban link chains live here, with room for the next styles as they arrive.",
+    },
+    {
+      label: "Metal",
+      title: "Gold plated stainless steel",
+      body: "The plating is gold tone over a stainless steel base. Keep it dry and wipe it after wearing to keep the shine.",
+    },
+    {
+      label: "Wear",
+      title: "Layer it with the drop",
+      body: "A chain sits with a tee, a crew, or on its own. Length is called out on each piece.",
+    },
+  ],
+};
+
 const CATEGORY_CRAFT: Record<string, ProductCraftSpec> = {
   tees: {
     fabric: "Heavyweight cotton jersey",
@@ -162,6 +188,13 @@ const CATEGORY_CRAFT: Record<string, ProductCraftSpec> = {
     fit: "Adjustable street fit",
     print: "Embroidered cobra mark",
   },
+  chains: {
+    fabric: "Gold plated stainless steel",
+    fit: "Cuban link",
+    print: "Polished finish. Wipe after wearing.",
+    labels: { fabric: "Metal", fit: "Link", print: "Care" },
+    storyHeading: "The chain",
+  },
 };
 
 const DEFAULT_CRAFT: ProductCraftSpec = {
@@ -170,8 +203,15 @@ const DEFAULT_CRAFT: ProductCraftSpec = {
   print: "Cobra brand graphic",
 };
 
-export function getProductStoryBeats(productName: string): ProductStoryBeat[] {
-  return PRODUCT_BEATS[productName] ?? DEFAULT_BEATS;
+export function getProductStoryBeats(
+  productName: string,
+  categorySlug?: string | null,
+): ProductStoryBeat[] {
+  return (
+    PRODUCT_BEATS[productName] ??
+    (categorySlug ? CATEGORY_BEATS[categorySlug] : undefined) ??
+    DEFAULT_BEATS
+  );
 }
 
 export function getProductCraftSpec(categorySlug?: string | null): ProductCraftSpec {

@@ -74,10 +74,14 @@ async function ProductGrid({ sp }: { sp: SearchParams }) {
               <p className="text-body-medium text-dark-900">
                 {searchQuery
                   ? `No products found for "${searchQuery}".`
-                  : "No products match your filters."}
+                  : parsed.categorySlugs.includes("chains") && !hasActiveFilters
+                    ? "Chains are on the way."
+                    : "No products match your filters."}
               </p>
               <p className="mt-2 text-body text-dark-700">
-                Try adjusting your filters or browse the full catalog.
+                {parsed.categorySlugs.includes("chains") && !hasActiveFilters && !searchQuery
+                  ? "This section is open. Pieces show up here once they are ready to ship."
+                  : "Try adjusting your filters or browse the full catalog."}
               </p>
               <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
                 {hasActiveFilters && (
