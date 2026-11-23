@@ -11,15 +11,18 @@ import { MARKETING_IMAGES, SECTION_CLIPS } from "@/lib/brand/marketing-images";
 
 export const revalidate = 120;
 
+const featured = WOODLAND360_PODCAST.featuredEpisode;
+const archive = WOODLAND360_PODCAST.episodes.slice(1);
+
 export const metadata = buildPageMetadata({
   title: "Woodland 360 Podcast",
-  description: `${WOODLAND360_PODCAST.name} — ${WOODLAND360_PODCAST.tagline}. Featured: Lyn T. Hosted by Maurice Holda on Naga Codex.`,
+  description: `${WOODLAND360_PODCAST.name} — ${WOODLAND360_PODCAST.tagline}. Latest: ${featured.guest}. Hosted on Naga Codex.`,
   path: "/podcast",
   image: MARKETING_IMAGES.productDust,
 });
 
 export default function PodcastPage() {
-  const episode = WOODLAND360_PODCAST.featuredEpisode;
+  const episodeHost = featured.episodeHost ?? WOODLAND360_PODCAST.host;
 
   return (
     <>
@@ -28,7 +31,7 @@ export default function PodcastPage() {
         imageSrc={MARKETING_IMAGES.productDust}
         eyebrow="Hamburg // on air"
         title={WOODLAND360_PODCAST.name}
-        subtitle={`feat. ${episode.guest} — ${episode.title}. ${WOODLAND360_PODCAST.description}`}
+        subtitle={`feat. ${featured.guest} — ${featured.title}. ${WOODLAND360_PODCAST.description}`}
         headingAs="h1"
       />
 
@@ -41,12 +44,14 @@ export default function PodcastPage() {
         </nav>
 
         <article className="mt-10 space-y-6">
+          <p className="text-caption uppercase tracking-[0.14em] text-[--color-naga-gold]">Latest episode</p>
+
           <div className="naga-bezel-light">
             <div className="naga-bezel-light-inner overflow-hidden p-3 sm:p-4">
               <div className="aspect-video overflow-hidden rounded-lg bg-dark-900">
                 <iframe
-                  src={woodland360EmbedUrl(episode.youtubeId)}
-                  title={`${WOODLAND360_PODCAST.name} — ${episode.guest}: ${episode.title}`}
+                  src={woodland360EmbedUrl(featured.youtubeId)}
+                  title={`${WOODLAND360_PODCAST.name} — ${featured.guest}: ${featured.title}`}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   referrerPolicy="strict-origin-when-cross-origin"
                   allowFullScreen
@@ -58,17 +63,18 @@ export default function PodcastPage() {
 
           <div>
             <h2 className="naga-display text-heading-3 font-bold tracking-tighter text-dark-900">
-              {episode.guest}: {episode.title}
+              {featured.guest}: {featured.title}
             </h2>
             <p className="mt-2 text-caption uppercase tracking-[0.14em] text-dark-700">
-              {episode.part} · {WOODLAND360_PODCAST.name}
+              {featured.part} · {WOODLAND360_PODCAST.name}
+              {featured.episodeHost ? ` · ${episodeHost}` : ""}
             </p>
             <p className="mt-4 text-body leading-relaxed text-dark-700">
-              {WOODLAND360_PODCAST.description} This episode features {episode.guest} — a
-              long-form conversation from the Woodland 360 round, hosted by {WOODLAND360_PODCAST.host}.
+              {WOODLAND360_PODCAST.description} This episode features {featured.guest}, hosted by{" "}
+              {episodeHost}.
             </p>
             <a
-              href={episode.watchUrl}
+              href={featured.watchUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="naga-btn naga-btn-dark mt-6 inline-flex focus-ring focus-visible:outline-none"
@@ -77,6 +83,41 @@ export default function PodcastPage() {
               <ExternalLink className="h-4 w-4" strokeWidth={1.5} aria-hidden="true" />
             </a>
           </div>
+
+          {archive.length > 0 && (
+            <section className="border-t border-light-300 pt-10" aria-labelledby="podcast-archive">
+              <h3 id="podcast-archive" className="naga-display text-body-medium text-dark-900">
+                More episodes
+              </h3>
+              <ul className="mt-4 space-y-4">
+                {archive.map((ep) => {
+                  const host = ep.episodeHost ?? WOODLAND360_PODCAST.host;
+                  return (
+                    <li
+                      key={ep.youtubeId}
+                      className="rounded-xl border border-light-300 bg-light-100 p-4"
+                    >
+                      <p className="naga-display text-body-medium text-dark-900">
+                        {ep.guest}: {ep.title}
+                      </p>
+                      <p className="mt-1 text-caption text-dark-700">
+                        {ep.part} · {host}
+                      </p>
+                      <a
+                        href={ep.watchUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-3 inline-flex items-center gap-1.5 text-body-medium text-dark-900 underline focus-ring focus-visible:outline-none"
+                      >
+                        Watch on YouTube
+                        <ExternalLink className="h-3.5 w-3.5" aria-hidden />
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+          )}
 
           <section className="rounded-xl border border-light-300 bg-light-100 p-6">
             <h3 className="naga-display text-body-medium text-dark-900">About the show</h3>
