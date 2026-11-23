@@ -33,10 +33,16 @@ function DownloadLink({
   free: boolean;
 }) {
   const external = href.startsWith("http");
+  const releaseZip = href.includes("/downloads/plugins/") && href.endsWith(".zip");
+  const fileName = releaseZip ? href.split("/").pop()! : undefined;
   return (
     <a
       href={href}
-      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : { download: true })}
+      {...(external
+        ? { target: "_blank", rel: "noopener noreferrer" }
+        : releaseZip && fileName
+          ? { download: fileName }
+          : {})}
       className="naga-btn naga-btn-dark flex w-full items-center justify-center gap-2 focus-ring focus-visible:outline-none"
       onClick={() => trackPluginDownload({ pluginSlug, format, free })}
     >

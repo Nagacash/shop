@@ -7,7 +7,8 @@
 import { execFileSync } from "node:child_process";
 import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { PLUGIN_DIST_DIR } from "@/lib/audio/plugin-files";
+import { PLUGIN_DIST_DIR, PLUGIN_PUBLIC_RELEASE_DIR } from "@/lib/audio/plugin-files";
+import { copyFileSync } from "node:fs";
 
 const VST3_SRC =
   process.env.NAGA_GLUE_V2_VST3_SRC?.trim() ??
@@ -24,8 +25,13 @@ function main() {
   mkdirSync(STAGE, { recursive: true });
   mkdirSync(PLUGIN_DIST_DIR, { recursive: true });
 
-  execFileSync("ditto", [VST3_SRC, path.join(STAGE, "Naga Glue Vol. 2.vst3")], { stdio: "inherit" });
-  execFileSync("ditto", [AU_SRC, path.join(STAGE, "Naga Glue Vol. 2.component")], { stdio: "inherit" });
+  const env = { ...process.env, COPYFILE_DISABLE: "1" };
+  execFileSync("ditto", [VST3_SRC, path.join(STAGE, "Naga Glue Vol. 2.vst3")], { stdio: "inherit", env });
+  execFileSync("ditto", [AU_SRC, path.join(STAGE, "Naga Glue Vol. 2.component")], {
+    stdio: "inherit",
+    env,
+  });
+  execFileSync("find", [STAGE, "-name", "._*", "-delete"], { stdio: "inherit" });
 
   writeFileSync(
     path.join(STAGE, "INSTALL.txt"),
@@ -43,10 +49,16 @@ If macOS shows "unidentified developer", right-click the plugin → Open once.
   );
 
   rmSync(OUT_ZIP, { force: true });
-  execFileSync("zip", ["-r", OUT_ZIP, "."], { cwd: STAGE, stdio: "inherit" });
+  execFileSync("find", [STAGE, "-name", "._*", "-delete"], { stdio: "inherit" });
+  execFileSync("zip", ["-r", "-X", OUT_ZIP, ".", "-x", "*/._*", "-x", "._*"], { cwd: STAGE, stdio: "inherit" });
   rmSync(STAGE, { recursive: true, force: true });
 
+  mkdirSync(PLUGIN_PUBLIC_RELEASE_DIR, { recursive: true });
+  const PUBLIC_ZIP = path.join(PLUGIN_PUBLIC_RELEASE_DIR, "naga-glue-vol-2-macos-vst3-au.zip");
+  copyFileSync(OUT_ZIP, PUBLIC_ZIP);
+
   console.log(`[package-naga-glue-vol2-mac] wrote ${OUT_ZIP}`);
+  console.log(`[package-naga-glue-vol2-mac] copied deploy zip → ${PUBLIC_ZIP}`);
 }
 
 main();

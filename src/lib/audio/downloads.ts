@@ -1,14 +1,10 @@
 import type { NagaPlugin, NagaPluginDownloads, PluginDownloadKey } from "@/lib/audio/plugins";
-import { hostedArtifactReady } from "@/lib/audio/plugin-files";
+import { resolveHostedArtifact } from "@/lib/audio/plugin-files";
 
 function envUrl(key: string | undefined): string | null {
   if (!key) return null;
   const value = process.env[key]?.trim();
   return value && value.length > 0 ? value : null;
-}
-
-function hostedDownloadPath(slug: string, format: PluginDownloadKey): string {
-  return `/api/plugins/${slug}/download?format=${format}`;
 }
 
 export function resolvePluginDownloads(plugin: NagaPlugin): NagaPluginDownloads {
@@ -24,8 +20,10 @@ export function resolvePluginDownloads(plugin: NagaPlugin): NagaPluginDownloads 
   if (plugin.pricing.kind === "free") {
     for (const slot of Object.keys(plugin.downloadEnvKeys) as PluginDownloadKey[]) {
       if (out[slot]) continue;
-      if (hostedArtifactReady(plugin.slug, slot)) {
-        out[slot] = hostedDownloadPath(plugin.slug, slot);
+
+      const artifact = resolveHostedArtifact(plugin.slug, slot);
+      if (artifact) {
+        out[slot] = artifact.publicUrl;
       }
     }
   }
