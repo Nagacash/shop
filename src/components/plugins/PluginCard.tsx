@@ -14,8 +14,12 @@ function pricingBadge(plugin: NagaPlugin): { label: string; tone: string } {
       tone: "border-[--color-naga-sage]/40 bg-[--color-naga-sage]/15 text-[--color-naga-sage-light]",
     };
   }
+  if (plugin.pricing.kind !== "paid") {
+    return { label: "FREE", tone: "border-[--color-naga-sage]/40 bg-[--color-naga-sage]/15 text-[--color-naga-sage-light]" };
+  }
+  const paid = plugin.pricing;
   return {
-    label: formatPrice(plugin.pricing.priceEur),
+    label: formatPrice(paid.priceEur) ?? `€${paid.priceEur}`,
     tone: "border-[--color-naga-gold]/40 bg-[--color-naga-gold]/10 text-[--color-naga-gold]",
   };
 }

@@ -40,7 +40,7 @@ export default async function PluginDetailPage({ params }: PageProps) {
   const downloads = resolvePluginDownloads(plugin);
   const purchaseUrl = resolvePluginPurchaseUrl(plugin);
   const isFree = plugin.pricing.kind === "free";
-  const priceSchema = isFree ? 0 : plugin.pricing.priceEur;
+  const priceSchema = plugin.pricing.kind === "paid" ? plugin.pricing.priceEur : 0;
   const priceLabel =
     plugin.pricing.kind === "paid" ? formatPrice(plugin.pricing.priceEur) : "Free";
 
