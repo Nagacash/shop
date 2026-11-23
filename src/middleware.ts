@@ -30,9 +30,8 @@ function withCartCheckoutCookieCleared(request: NextRequest, response: NextRespo
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
-  // Public MP3s removed — block residual / direct audio paths (allow plugin release zips)
-  const isPluginReleaseZip = /^\/downloads\/plugins\/.+\.zip$/i.test(pathname);
-  if (!isPluginReleaseZip && /\.(mp3|wav|flac|dmg|zip|fmx)$/i.test(pathname)) {
+  // Public MP3s removed — block residual / direct audio paths (plugin zips live under /downloads/plugins/)
+  if (/\.(mp3|wav|flac|dmg|fmx)$/i.test(pathname)) {
     return new NextResponse("Gone", {
       status: 410,
       headers: {
