@@ -104,8 +104,8 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     * All routes except Next static assets and common static files.
+     * All routes except Next static assets, plugin release zips, and common static files.
      */
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|txt|xml)$).*)",
+    "/((?!_next/static|_next/image|favicon.ico|downloads/plugins/|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|txt|xml)$).*)",
   ],
 };

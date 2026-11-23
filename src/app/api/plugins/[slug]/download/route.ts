@@ -3,8 +3,8 @@ import { Readable } from "node:stream";
 import { NextResponse } from "next/server";
 import { getNagaPlugin } from "@/lib/audio/plugins";
 import {
-  hostedArtifactPath,
   resolveHostedArtifact,
+  resolveHostedArtifactFile,
   type HostedPluginArtifact,
 } from "@/lib/audio/plugin-files";
 import { rateLimit } from "@/lib/security/rate-limit";
@@ -40,7 +40,14 @@ export async function GET(
     return new NextResponse("This format is not available yet.", { status: 404 });
   }
 
-  const filePath = hostedArtifactPath(artifact);
+  const filePath = resolveHostedArtifactFile(artifact);
+  if (!filePath) {
+    return new NextResponse(
+      "The macOS build has not been uploaded yet. Add the ZIP under public/downloads/plugins/ or run npm run package:glue-v2-mac.",
+      { status: 503 },
+    );
+  }
+
   let size: number;
   try {
     size = statSync(filePath).size;

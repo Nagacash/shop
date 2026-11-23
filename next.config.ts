@@ -66,6 +66,17 @@ const nextConfig: NextConfig = {
         headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
       },
       {
+        source: "/downloads/plugins/:file",
+        headers: [
+          { key: "Content-Type", value: "application/zip" },
+          {
+            key: "Content-Disposition",
+            value: 'attachment; filename="Naga-Glue-Vol-2-macOS-VST3-AU.zip"',
+          },
+          { key: "Cache-Control", value: "public, max-age=3600" },
+        ],
+      },
+      {
         source: "/api/ambient/:path*",
         headers: [
           { key: "Cache-Control", value: "private, no-store, no-transform" },

@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { and, eq, sql } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { collections, productCollections, products } from "@/lib/db/schema";
-import { NAGA_PLUGINS } from "@/lib/audio/plugins";
+import { NAGA_PLUGINS_PUBLISHED } from "@/lib/audio/plugins";
 import { excludeInternalTestProducts } from "@/lib/seo/internal-test-product";
 import { getSiteUrl } from "@/lib/seo/site";
 
@@ -58,7 +58,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     }));
 
-    const pluginPages: MetadataRoute.Sitemap = NAGA_PLUGINS.map((p) => ({
+    const pluginPages: MetadataRoute.Sitemap = NAGA_PLUGINS_PUBLISHED.map((p) => ({
       url: `${base}/plugins/${p.slug}`,
       lastModified: now,
       changeFrequency: "weekly",
@@ -67,7 +67,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     return [...staticPages, ...categoryPages, ...pluginPages, ...productPages, ...collectionPages];
   } catch {
-    const pluginPages: MetadataRoute.Sitemap = NAGA_PLUGINS.map((p) => ({
+    const pluginPages: MetadataRoute.Sitemap = NAGA_PLUGINS_PUBLISHED.map((p) => ({
       url: `${base}/plugins/${p.slug}`,
       lastModified: now,
       changeFrequency: "weekly",
