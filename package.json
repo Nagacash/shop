@@ -30,6 +30,7 @@
     "db:adjust-shipping-prices": "tsx scripts/adjust-shipping-inclusive-prices.ts",
     "db:set-retail-prices": "tsx scripts/set-retail-tier-prices.ts",
     "db:migrate-digital": "tsx scripts/migrate-digital-products.ts",
+    "package:glue-v2-mac": "tsx scripts/package-naga-glue-vol2-mac.ts",
     "db:prune-catalog": "tsx scripts/prune-catalog.ts",
     "db:update-black-tee-image": "tsx scripts/update-black-tee-image.ts",
     "db:update-white-tee-image": "tsx scripts/update-white-tee-image.ts",

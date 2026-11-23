@@ -46,6 +46,7 @@ const nextConfig: NextConfig = {
     "/api/ambient/[id]": ["./private/ambient/**/*"],
     "/api/ambient/token": ["./private/ambient/**/*"],
     "/api/downloads/[orderId]": ["./private/digital/**/*"],
+    "/api/plugins/[slug]/download": ["./private/digital/**/*"],
   },
   // External volumes (/Volumes/*) can break webpack pack renames → missing manifests.
   webpack: (config, { dev }) => {

@@ -48,6 +48,7 @@ ${BRAND_STORY.trim()}
 - [All products](${canonicalUrl("/products")}): Full catalogue
 - [Collections](${canonicalUrl("/collections")}): Curated drops
 - [About](${canonicalUrl("/about")}): Brand story and origins
+- [Plugins](${canonicalUrl("/plugins")}): Naga Audio DSP (Naga Glue bus compressors)
 - [Podcast](${canonicalUrl("/podcast")}): Brand podcast
 - [Contact](${canonicalUrl("/contact")}): Customer support
 - [Terms](${canonicalUrl("/terms")}): Terms of sale

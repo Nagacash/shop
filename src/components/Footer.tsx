@@ -54,6 +54,7 @@ const columns: { title: string; links: FooterLink[] }[] = [
     title: "Studio",
     links: [
       { label: "Naga Codex", href: NAGA_CODEX_URL },
+      { label: "Audio plugins", href: "/plugins" },
       { label: WOODLAND360_PODCAST.name, href: "/podcast" },
       { label: "Naga Club", href: "/#naga-club" },
       { label: FASCHER_BROS.name, href: FASCHER_BROS.url },

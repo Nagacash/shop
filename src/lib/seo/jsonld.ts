@@ -130,6 +130,40 @@ export function productJsonLd(input: {
   };
 }
 
+export function softwareApplicationJsonLd(input: {
+  name: string;
+  description: string;
+  path: string;
+  image: string;
+  version: string;
+  price: number;
+  operatingSystem: string;
+  applicationCategory?: string;
+  author?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: input.name,
+    applicationCategory: input.applicationCategory ?? "MultimediaApplication",
+    operatingSystem: input.operatingSystem,
+    softwareVersion: input.version,
+    description: input.description,
+    image: absoluteUrl(input.image),
+    url: absoluteUrl(input.path),
+    author: {
+      "@type": "Organization",
+      name: input.author ?? "Naga Audio DSP",
+    },
+    offers: {
+      "@type": "Offer",
+      url: absoluteUrl(input.path),
+      priceCurrency: CURRENCY_CODE,
+      price: input.price.toFixed(2),
+    },
+  };
+}
+
 export function faqJsonLd(faqs: Array<{ question: string; answer: string }>) {
   return {
     "@context": "https://schema.org",

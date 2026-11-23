@@ -18,6 +18,7 @@ const SHOP_LINKS = [
 
 const DISCOVER_LINKS = [
   { label: "Collections", href: "/collections" },
+  { label: "Plugins", href: "/plugins" },
   { label: "Naga Club", href: "/#naga-club" },
   { label: "Podcast", href: "/podcast" },
   { label: "Fascher Bros", href: "/#fascher-bros" },

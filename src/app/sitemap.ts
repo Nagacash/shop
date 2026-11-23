@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { and, eq, sql } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { collections, productCollections, products } from "@/lib/db/schema";
+import { NAGA_PLUGINS } from "@/lib/audio/plugins";
 import { excludeInternalTestProducts } from "@/lib/seo/internal-test-product";
 import { getSiteUrl } from "@/lib/seo/site";
 
@@ -16,6 +17,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/products`, lastModified: now, changeFrequency: "daily", priority: 0.9 },
     { url: `${base}/collections`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
     { url: `${base}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.75 },
+    { url: `${base}/plugins`, lastModified: now, changeFrequency: "weekly", priority: 0.72 },
     { url: `${base}/podcast`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: `${base}/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/terms`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
@@ -56,8 +58,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     }));
 
-    return [...staticPages, ...categoryPages, ...productPages, ...collectionPages];
+    const pluginPages: MetadataRoute.Sitemap = NAGA_PLUGINS.map((p) => ({
+      url: `${base}/plugins/${p.slug}`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.7,
+    }));
+
+    return [...staticPages, ...categoryPages, ...pluginPages, ...productPages, ...collectionPages];
   } catch {
-    return [...staticPages, ...categoryPages];
+    const pluginPages: MetadataRoute.Sitemap = NAGA_PLUGINS.map((p) => ({
+      url: `${base}/plugins/${p.slug}`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.7,
+    }));
+    return [...staticPages, ...categoryPages, ...pluginPages];
   }
 }
