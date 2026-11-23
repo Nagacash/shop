@@ -109,13 +109,17 @@ export const NAGA_PLUGINS: readonly NagaPlugin[] = [
     maker: "Naga Audio DSP",
     formats: ["VST3", "AU (macOS)", "Standalone app"],
     pricing: { kind: "free" },
-    ogImage: "/images/vst/naga-glue-vol2-og.png",
+    ogImage: "/images/vst/naga-glue-vol2-hero.png",
     downloadEnvKeys: {
       macVst3Au: "NEXT_PUBLIC_NAGA_GLUE_V2_DOWNLOAD_MAC_VST3AU",
       winVst3: "NEXT_PUBLIC_NAGA_GLUE_V2_DOWNLOAD_WIN_VST3",
       standalone: "NEXT_PUBLIC_NAGA_GLUE_V2_DOWNLOAD_STANDALONE",
     },
     screenshots: [
+      {
+        src: "/images/vst/naga-glue-vol2-hero.png",
+        alt: "Naga Glue Vol. 2 on a Naga studio backdrop — VCA bus compressor with harmonic drive",
+      },
       {
         src: "/images/vst/naga-glue-vol2-ui.png",
         alt: "Naga Glue Vol. 2 full interface — VCA bus compressor with harmonic drive and wide mode",
