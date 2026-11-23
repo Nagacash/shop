@@ -163,18 +163,24 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
   const { product, variants, images } = data;
 
+  const sortGalleryImages = (
+    a: (typeof images)[number],
+    b: (typeof images)[number],
+  ) => {
+    if (a.isPrimary && !b.isPrimary) return -1;
+    if (!a.isPrimary && b.isPrimary) return 1;
+    return (a.sortOrder ?? 0) - (b.sortOrder ?? 0);
+  };
+
   const galleryVariants: GalleryVariant[] = variants.map((v) => {
     const imgs = images
       .filter((img) => img.variantId === v.id)
+      .sort(sortGalleryImages)
       .map((img) => normalizeImageUrl(img.url)!);
 
     const fallback = images
       .filter((img) => img.variantId === null)
-      .sort((a, b) => {
-        if (a.isPrimary && !b.isPrimary) return -1;
-        if (!a.isPrimary && b.isPrimary) return 1;
-        return (a.sortOrder ?? 0) - (b.sortOrder ?? 0);
-      })
+      .sort(sortGalleryImages)
       .map((img) => normalizeImageUrl(img.url)!);
 
     return {
