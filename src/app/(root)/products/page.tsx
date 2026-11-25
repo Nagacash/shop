@@ -17,15 +17,15 @@ export const revalidate = 120;
 
 const CATEGORY_SEO: Record<string, { title: string; description: string; subtitle: string }> = {
   tees: {
-    title: "Get Smart Tees",
+    title: "Naga Tees",
     description:
-      `${BLACK_TEE_NAME} and The Wisdom & Hustle Tee — heavyweight cotton, cobra chest graphics, built for the hustle.`,
+      `${BLACK_TEE_NAME} — heavyweight cotton, regular cobra crest, built for the hustle.`,
     subtitle: "Knowledge is power. Dress like it.",
   },
   sweaters: {
-    title: "Empire Crews",
+    title: "Naga Sweaters",
     description:
-      "The Angkor Heavyweight Crew and The Empire Roots Crew — premium knit streetwear rooted in ancient wisdom.",
+      "Naga Original Sweater and Naga Golden Edition Sweater — premium knit with the Naga cobra crest, regular and gold.",
     subtitle: "Ancient craft. Modern hustle.",
   },
   sets: {
@@ -35,9 +35,9 @@ const CATEGORY_SEO: Record<string, { title: string; description: string; subtitl
     subtitle: "Raise the cobra. Get smart.",
   },
   hoodies: {
-    title: "Cobra Hoodies",
+    title: "Naga Hoodies",
     description:
-      "The Cobra Wisdom Hoodie and The Golden Empire Hoodie — fleece interior, cobra chest graphics, unapologetic street fit.",
+      "Naga Original Hoodie and Naga Golden Edition Hoodie — fleece interior, cobra crest, unapologetic street fit.",
     subtitle: "Wear your wisdom.",
   },
   chains: {

@@ -21,7 +21,13 @@ export const BRAND_STORY = `The snake runs deep. From our roots in the Amazon to
 We are for the knowledge-lovers, the system-breakers, and the unapologetic rebels. We don't just wear clothes; we wear our history. Built for those who hustle hard, think critically, and refuse to bow to a broken, racist system. Raise the cobra. Get smart. Wear your wisdom.`;
 
 /** Black tee — manifesto product name. */
-export const BLACK_TEE_NAME = "The Get Smart Tee";
+export const BLACK_TEE_NAME = "Naga Original Tee";
+
+/** Core lineup: Naga Original (regular cobra logo) and Naga Golden Edition (gold logo). */
+export const NAGA_ORIGINAL_HOODIE_NAME = "Naga Original Hoodie";
+export const NAGA_ORIGINAL_SWEATER_NAME = "Naga Original Sweater";
+export const NAGA_GOLDEN_HOODIE_NAME = "Naga Golden Edition Hoodie";
+export const NAGA_GOLDEN_SWEATER_NAME = "Naga Golden Edition Sweater";
 
 export const CTA = {
   shopTheDrop: "Shop the Drop",
@@ -60,12 +66,12 @@ export const PRODUCT_RENAMES: Record<string, { name: string; description?: strin
   "Naga Original Black Tee": {
     name: BLACK_TEE_NAME,
     description:
-      "The Get Smart Tee in black. Heavyweight cotton, cobra chest graphic, unapologetic fit. Wear your wisdom. Get smart.",
+      "Naga Original Tee in black. Heavyweight cotton, regular Naga cobra crest on the chest. Wear your wisdom. Get smart.",
   },
   "The Anti-System Strike Tee": {
     name: BLACK_TEE_NAME,
     description:
-      "The Get Smart Tee in black. Heavyweight cotton, cobra chest graphic, unapologetic fit. Wear your wisdom. Get smart.",
+      "Naga Original Tee in black. Heavyweight cotton, regular Naga cobra crest on the chest. Wear your wisdom. Get smart.",
   },
   "Naga Original White Tee": {
     name: "The Wisdom & Hustle Tee",
@@ -73,9 +79,14 @@ export const PRODUCT_RENAMES: Record<string, { name: string; description?: strin
       "The Wisdom & Hustle Tee in white. Premium cotton, Naga cobra graphic, clean street cut. Knowledge is power — dress like it.",
   },
   "Naga Original Grey Sweater": {
-    name: "The Angkor Heavyweight Crew",
+    name: NAGA_ORIGINAL_SWEATER_NAME,
     description:
-      "The Angkor Heavyweight Crew in grey. Inspired by ancient empire craft — premium knit, cobra graphic, built for the hustle.",
+      "Naga Original Sweater in black. Premium knit with the regular Naga cobra crest on the chest. Built for the hustle.",
+  },
+  "The Angkor Heavyweight Crew": {
+    name: NAGA_ORIGINAL_SWEATER_NAME,
+    description:
+      "Naga Original Sweater in black. Premium knit with the regular Naga cobra crest on the chest. Built for the hustle.",
   },
   "Naga Original Light Brown Sweater": {
     name: "The Empire Roots Crew",
@@ -83,13 +94,23 @@ export const PRODUCT_RENAMES: Record<string, { name: string; description?: strin
       "The Empire Roots Crew in light brown. Premium knit streetwear rooted in ancient wisdom — cobra mark, heavyweight comfort.",
   },
   "Naga Original Cream Hoodie": {
-    name: "The Cobra Wisdom Hoodie",
+    name: NAGA_ORIGINAL_HOODIE_NAME,
     description:
-      "The Cobra Wisdom Hoodie in cream. Fleece interior, cobra chest graphic, drawstring hood. Ancient wisdom, modern hustle.",
+      "Naga Original Hoodie in black. Fleece interior, regular Naga cobra crest, drawstring hood. Ancient wisdom, modern hustle.",
+  },
+  "The Cobra Wisdom Hoodie": {
+    name: NAGA_ORIGINAL_HOODIE_NAME,
+    description:
+      "Naga Original Hoodie in black. Fleece interior, regular Naga cobra crest, drawstring hood. Ancient wisdom, modern hustle.",
   },
   "Golden Naga Hoodie": {
-    name: "The Golden Empire Hoodie",
+    name: NAGA_GOLDEN_HOODIE_NAME,
     description:
-      "The Golden Empire Hoodie. Gold cobra graphic on premium fleece — unapologetic presence for the knowledge-loving.",
+      "Naga Golden Edition Hoodie. Black fleece with the gold Naga cobra crest — unapologetic presence for the knowledge-loving.",
+  },
+  "The Golden Empire Hoodie": {
+    name: NAGA_GOLDEN_HOODIE_NAME,
+    description:
+      "Naga Golden Edition Hoodie. Black fleece with the gold Naga cobra crest — unapologetic presence for the knowledge-loving.",
   },
 };

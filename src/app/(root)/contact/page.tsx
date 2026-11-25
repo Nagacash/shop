@@ -7,7 +7,7 @@ import JsonLd from "@/components/JsonLd";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { faqJsonLd } from "@/lib/seo/jsonld";
 import { NAGA_FAQS } from "@/lib/seo/faq";
-import { LEGAL_OPERATOR, SUPPORT_EMAIL } from "@/lib/seo/site";
+import { CONTACT_EMAIL_NAGA_CODEX, LEGAL_OPERATOR, SUPPORT_EMAIL } from "@/lib/seo/site";
 import { LEGACY_MARKETING_IMAGES, MARKETING_IMAGES, SECTION_CLIPS } from "@/lib/brand/marketing-images";
 
 export const revalidate = 120;
@@ -24,7 +24,7 @@ const contactDetails = [
   {
     icon: Mail,
     title: "Email",
-    lines: [SUPPORT_EMAIL, "We reply within 24 hours"],
+    lines: [SUPPORT_EMAIL, CONTACT_EMAIL_NAGA_CODEX, "We reply within 24 hours"],
   },
   {
     icon: Phone,
@@ -89,8 +89,8 @@ export default function ContactPage() {
                 <ul className="mt-4 space-y-1 text-body text-dark-700">
                   {item.lines.map((line) => (
                     <li key={line}>
-                      {item.title === "Email" ? (
-                        <a href={`mailto:${SUPPORT_EMAIL}`} className="text-dark-900 underline">
+                      {item.title === "Email" && line.includes("@") ? (
+                        <a href={`mailto:${line}`} className="text-dark-900 underline">
                           {line}
                         </a>
                       ) : item.title === "Phone" && "href" in item && item.href ? (

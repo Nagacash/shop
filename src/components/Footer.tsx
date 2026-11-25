@@ -12,10 +12,8 @@ const columns: { title: string; links: FooterLink[] }[] = [
   {
     title: "Collections",
     links: [
-      { label: "Hustle Hard Drip", href: "/collections/hustle-hard-drip" },
       { label: "Naga Original", href: "/collections/naga-original" },
-      { label: "Naga Black", href: "/collections/naga-black" },
-      { label: "Black & Gold Edition", href: "/collections/black-gold-edition" },
+      { label: "Golden Edition", href: "/collections/black-gold-edition" },
       { label: "All Collections", href: "/collections" },
     ],
   },
@@ -25,7 +23,6 @@ const columns: { title: string; links: FooterLink[] }[] = [
       { label: "Hoodies", href: "/products?category=hoodies" },
       { label: "Tees", href: "/products?category=tees" },
       { label: "Sweaters", href: "/products?category=sweaters" },
-      { label: "Sets", href: "/products?category=sets" },
       { label: "Chains", href: "/products?category=chains" },
       { label: "Shop the Drop", href: "/products" },
     ],

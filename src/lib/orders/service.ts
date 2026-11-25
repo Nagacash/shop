@@ -22,7 +22,10 @@ import { getStripeClient, centsToDollars } from "@/lib/stripe/client";
 import { parseSessionAmounts } from "@/lib/stripe/checkout-amounts";
 import { loadFulfillmentLineItems } from "@/lib/stripe/session-line-items";
 import { saveShippingAddressFromSession, type ShippingAddressView } from "@/lib/stripe/shipping";
-import { maybeSendOrderConfirmationEmail } from "@/lib/email/order-confirmation";
+import {
+  maybeSendOrderConfirmationEmail,
+  sendOwnerOrderNotification,
+} from "@/lib/email/order-confirmation";
 import { isProducerPackSku } from "@/lib/digital/pack";
 import { producerPackDownloadPath } from "@/lib/digital/grant";
 import type { OrderView } from "@/lib/orders/types";
@@ -269,6 +272,8 @@ export async function createOrderFromStripeSession(stripeSessionId: string): Pro
     throw new Error("Failed to load order.");
   }
 
+  // Alert the owner first (never throws), then confirm to the customer.
+  await sendOwnerOrderNotification(orderView);
   await maybeSendOrderConfirmationEmail(orderView);
 
   return orderView;
