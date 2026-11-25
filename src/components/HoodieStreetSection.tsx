@@ -13,12 +13,12 @@ export default function HoodieStreetSection() {
       aria-labelledby="hoodie-street-heading"
       data-cursor-section
       data-cursor-index="02"
-      data-cursor-label="In the crowd"
+      data-cursor-label="The hoodies"
     >
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
         <InViewMotion reveal className="mb-10 flex flex-wrap items-end justify-between gap-6">
           <div className="max-w-xl">
-            <SectionChapterLabel index="02" title="In the crowd" tone="dark" className="mb-5" />
+            <SectionChapterLabel index="02" title="The hoodies" tone="dark" className="mb-5" />
             <p data-motion-reveal className="naga-eyebrow w-fit border-light-100/15 bg-light-100/5">
               <span className="naga-eyebrow-dot" aria-hidden="true" />
               [ Naga Original ]
@@ -31,7 +31,7 @@ export default function HoodieStreetSection() {
               Wear it where the night moves
             </h2>
             <p data-motion-reveal className="mt-3 text-body text-light-400">
-              Black hoodie, cobra chest mark, city frequency — Naga Original shot in the wild.
+              Black hoodie, cobra chest mark — Naga Original and the Golden Edition.
             </p>
           </div>
           <Link

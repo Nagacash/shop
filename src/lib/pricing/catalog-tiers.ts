@@ -16,12 +16,12 @@ export type RetailTierId = "tee" | "set" | "sweater" | "sweaterPremium" | "hoodi
 
 /** Customer-facing all-in EUR prices */
 export const RETAIL_TIER_EUR: Record<RetailTierId, number> = {
-  tee: 68,
+  tee: 59,
   set: 89,
-  sweater: 98,
-  sweaterPremium: 108,
-  hoodie: 118,
-  hoodiePremium: 128,
+  sweater: 89,
+  sweaterPremium: 99,
+  hoodie: 109,
+  hoodiePremium: 119,
 };
 
 /** Maps live product names → retail tier */
