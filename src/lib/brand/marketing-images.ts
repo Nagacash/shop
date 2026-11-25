@@ -166,19 +166,19 @@ export const MARKETING_ALT = {
 /** Homepage street editorial — Naga Original hoodie lifestyle photography. */
 export const HOODIE_STREET_EDITORIAL = [
   {
-    src: MARKETING_IMAGES.hoodieStreet1,
-    alt: MARKETING_ALT.hoodieStreet1,
-    label: "Night crowd",
-    detail: "Naga Original in the room",
+    src: "/uploads/naga/home-hoodie-original.jpg",
+    alt: "Black Naga Original hoodie with the regular cobra crest on a dark concrete floor",
+    label: "Naga Original",
+    detail: "Regular cobra crest",
     aspect: "3/2",
     fit: "cover",
     backdrop: "#0a0a0a",
   },
   {
-    src: MARKETING_IMAGES.hoodieStreet2,
-    alt: MARKETING_ALT.hoodieStreet2,
-    label: "Street frequency",
-    detail: "Cobra mark, front and center",
+    src: "/uploads/naga/home-hoodie-golden.jpg",
+    alt: "Black Naga Golden Edition hoodie with the gold cobra crest on a dark concrete floor",
+    label: "Golden Edition",
+    detail: "Gold cobra crest",
     aspect: "3/2",
     fit: "cover",
     backdrop: "#0a0a0a",
@@ -216,16 +216,6 @@ export const EDITORIAL_LOOKBOOK = [
     aspect: BRAND_IMAGE_ASPECT.teesEditorial,
     fit: "cover",
     backdrop: "#121212",
-  },
-  {
-    src: MARKETING_IMAGES.angkorCrew,
-    alt: MARKETING_ALT.angkorCrew,
-    label: "Angkor",
-    detail: "Heritage crew, real logo",
-    layout: "heritage",
-    aspect: BRAND_IMAGE_ASPECT.angkorCrew,
-    fit: "cover",
-    backdrop: "#0a0a0a",
   },
 ] as const;
 

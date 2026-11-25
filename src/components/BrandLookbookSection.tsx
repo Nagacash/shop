@@ -17,7 +17,6 @@ const LOOKBOOK_IDENTITY = [
 function lookbookFrameClass(item: LookbookItem) {
   if (item.layout === "feature") return "naga-lookbook-feature";
   if (item.layout === "product") return "naga-lookbook-product";
-  if (item.layout === "heritage") return "naga-lookbook-heritage";
   return "naga-lookbook-mood";
 }
 
@@ -67,7 +66,7 @@ function LookbookPlate({
 }
 
 export default function BrandLookbookSection() {
-  const [feature, product, mood, heritage] = EDITORIAL_LOOKBOOK;
+  const [feature, product, mood] = EDITORIAL_LOOKBOOK;
 
   return (
     <section
@@ -93,8 +92,8 @@ export default function BrandLookbookSection() {
               Wear the mark
             </h2>
             <p data-motion-reveal className="mt-3 text-pretty text-body text-dark-700">
-              Rooftop cover, black set still life, concrete tees, and Angkor crew — shot with the
-              real Naga Original cobra.
+              Rooftop cover, black set still life, and concrete tees — shot with the real Naga
+              Original cobra.
             </p>
           </div>
           <Link
@@ -131,9 +130,6 @@ export default function BrandLookbookSection() {
           </div>
           <div data-motion-stagger>
             <LookbookPlate item={mood} index="03" sizes="(max-width: 1024px) 100vw, 33vw" />
-          </div>
-          <div data-motion-stagger>
-            <LookbookPlate item={heritage} index="04" sizes="(max-width: 1024px) 100vw, 33vw" />
           </div>
         </InViewMotion>
 
