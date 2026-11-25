@@ -18,7 +18,7 @@ export const NAGA_FAQS = [
   {
     question: "What products does Naga Apparel sell?",
     answer:
-      `The current drop includes ${BLACK_TEE_NAME}, The Wisdom & Hustle Tee, The Angkor Heavyweight Crew, The Empire Roots Crew, The Cobra Wisdom Hoodie, The Golden Empire Hoodie, Cuban link chains, and sets such as The Amazonian Syndicate Set. Shop by category: Tees, Sweaters, Hoodies, Sets, or Chains.`,
+      `The current drop includes ${BLACK_TEE_NAME}, Naga Original Hoodie, Naga Original Sweater, Naga Golden Edition Hoodie, Naga Golden Edition Sweater, and Cuban link chains. Shop by category: Tees, Sweaters, Hoodies, or Chains.`,
   },
   {
     question: "Verkauft Naga Cuban Link Ketten in Deutschland?",

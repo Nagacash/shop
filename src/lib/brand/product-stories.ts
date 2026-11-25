@@ -1,4 +1,9 @@
-import { BLACK_TEE_NAME, FEATURED_SET_NAME } from "@/lib/brand/manifesto";
+import {
+  BLACK_TEE_NAME,
+  FEATURED_SET_NAME,
+  NAGA_GOLDEN_HOODIE_NAME,
+  NAGA_ORIGINAL_HOODIE_NAME,
+} from "@/lib/brand/manifesto";
 
 export type ProductStoryBeat = {
   label: string;
@@ -100,12 +105,12 @@ const PRODUCT_BEATS: Record<string, ProductStoryBeat[]> = {
         "Clean street silhouette, crisp print, everyday rotation piece that still reads premium.",
     },
   ],
-  "The Cobra Wisdom Hoodie": [
+  [NAGA_ORIGINAL_HOODIE_NAME]: [
     {
       label: "Roots",
       title: "Fleece temple",
       body:
-        "The hoodie is modern armor — cream fleece, cobra chest, drawstring hood. Ancient wisdom in a silhouette everyone understands.",
+        "The hoodie is modern armor — black fleece, cobra chest, drawstring hood. Ancient wisdom in a silhouette everyone understands.",
     },
     {
       label: "Symbol",
@@ -120,7 +125,7 @@ const PRODUCT_BEATS: Record<string, ProductStoryBeat[]> = {
         "Heavy fleece interior, structured hood, built for Berlin rooftops and Hamburg night frequency alike.",
     },
   ],
-  "The Golden Empire Hoodie": [
+  [NAGA_GOLDEN_HOODIE_NAME]: [
     {
       label: "Roots",
       title: "Empire gold",
@@ -131,7 +136,7 @@ const PRODUCT_BEATS: Record<string, ProductStoryBeat[]> = {
       label: "Symbol",
       title: "Unapologetic presence",
       body:
-        "This isn't subtle streetwear. The Golden Empire Hoodie announces before you speak.",
+        "This isn't subtle streetwear. The Naga Golden Edition Hoodie announces before you speak.",
     },
     {
       label: "Street",

@@ -12,6 +12,9 @@ export const LEGAL_OPERATOR = {
 
 export const SUPPORT_EMAIL = LEGAL_OPERATOR.email;
 
+/** Additional contact address shown on the contact page. */
+export const CONTACT_EMAIL_NAGA_CODEX = "maurice@nagacodex.cloud";
+
 export const LEGAL_OPERATOR_CONTACT_BLOCK = [
   LEGAL_OPERATOR.name,
   LEGAL_OPERATOR.addressLine,
@@ -59,9 +62,11 @@ export const SITE_KEYWORDS = [
   "streetwear worldwide shipping",
   "European streetwear brand",
   // Products
-  "Get Smart Tee",
-  "Amazonian Syndicate Set",
-  "Angkor Heavyweight Crew",
+  "Naga Original Tee",
+  "Naga Original Hoodie",
+  "Naga Original Sweater",
+  "Naga Golden Edition Hoodie",
+  "Naga Golden Edition Sweater",
   "Cuban link chain",
   "KRKC Miami Cuban chain",
   "Cuban Link Kette",

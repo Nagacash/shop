@@ -26,18 +26,11 @@ export const RETAIL_TIER_EUR: Record<RetailTierId, number> = {
 
 /** Maps live product names → retail tier */
 export const PRODUCT_RETAIL_TIER: Record<string, RetailTierId> = {
-  "The Get Smart Tee": "tee",
-  "The Anti-System Strike Tee": "tee",
-  "The Wisdom & Hustle Tee": "tee",
-  "The Amazonian Syndicate Set": "set",
-  "Naga Black Set": "set",
-  "The Angkor Heavyweight Crew": "sweater",
-  "The Empire Roots Crew": "sweater",
-  "The Golden Empire Crew": "sweaterPremium",
-  "The Cobra Wisdom Hoodie": "hoodie",
-  "Naga Original Cream Hoodie": "hoodie",
-  "The Golden Empire Hoodie": "hoodiePremium",
-  "Golden Naga Hoodie": "hoodiePremium",
+  "Naga Original Tee": "tee",
+  "Naga Original Sweater": "sweater",
+  "Naga Golden Edition Sweater": "sweaterPremium",
+  "Naga Original Hoodie": "hoodie",
+  "Naga Golden Edition Hoodie": "hoodiePremium",
 };
 
 export function retailPriceForProduct(productName: string): number | null {

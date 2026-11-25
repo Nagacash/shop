@@ -1,8 +1,8 @@
 /**
- * Add The Golden Empire Crew — black knit sweater with the gold Naga crest
- * (sweater counterpart of The Golden Empire Hoodie).
+ * Add Naga Golden Edition Sweater — black knit sweater with the gold Naga crest
+ * (sweater counterpart of Naga Golden Edition Hoodie).
  *
- * Copies category and brand from The Angkor Heavyweight Crew and mirrors its sizes.
+ * Copies category and brand from Naga Original Sweater and mirrors its sizes.
  * Price comes from the sweaterPremium tier in src/lib/pricing/catalog-tiers.ts.
  *
  * Run: npm run db:add-golden-empire-crew
@@ -18,7 +18,7 @@ import {
 import { retailPriceForProduct } from '@/lib/pricing/catalog-tiers';
 import { eq } from 'drizzle-orm';
 
-const PRODUCT_NAME = 'The Golden Empire Crew';
+const PRODUCT_NAME = 'Naga Golden Edition Sweater';
 const IMAGE_URL = '/uploads/naga/golden-empire-sweater.jpg';
 const APPAREL_SIZES = ['xs', 's', 'm', 'l', 'xl', 'xxl'];
 
@@ -35,9 +35,9 @@ async function main() {
   const [sibling] = await db
     .select({ categoryId: products.categoryId, brandId: products.brandId, genderId: products.genderId })
     .from(products)
-    .where(eq(products.name, 'The Angkor Heavyweight Crew'))
+    .where(eq(products.name, 'Naga Original Sweater'))
     .limit(1);
-  if (!sibling) throw new Error('The Angkor Heavyweight Crew not found');
+  if (!sibling) throw new Error('Naga Original Sweater not found');
 
   const [gold] = await db.select().from(colors).where(eq(colors.slug, 'gold')).limit(1);
   if (!gold) throw new Error('Gold color not found');
@@ -50,7 +50,7 @@ async function main() {
     .values({
       name: PRODUCT_NAME,
       description:
-        'The Golden Empire Crew. Black premium knit with the gold Naga cobra crest on the chest. Built for the hustle, made to be worn with the Golden Empire Hoodie.',
+        'Naga Golden Edition Sweater. Black premium knit with the gold Naga cobra crest on the chest. Built for the hustle.',
       categoryId: sibling.categoryId,
       brandId: sibling.brandId,
       genderId: sibling.genderId,
