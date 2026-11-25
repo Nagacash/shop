@@ -172,7 +172,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     return (a.sortOrder ?? 0) - (b.sortOrder ?? 0);
   };
 
-  const galleryVariants: GalleryVariant[] = variants.map((v) => {
+  const variantGalleries: GalleryVariant[] = variants.map((v) => {
     const imgs = images
       .filter((img) => img.variantId === v.id)
       .sort(sortGalleryImages)
@@ -189,6 +189,15 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
       variantId: v.id,
     };
   }).filter((gv) => gv.images.length > 0);
+
+  // One gallery entry (and color swatch) per color, not per size. When several variants
+  // share a color, prefer the default variant's entry.
+  const galleryVariants = variantGalleries.reduce<GalleryVariant[]>((acc, gv) => {
+    const i = acc.findIndex((x) => x.color === gv.color);
+    if (i === -1) acc.push(gv);
+    else if (gv.variantId === product.defaultVariantId) acc[i] = gv;
+    return acc;
+  }, []);
 
   const purchaseVariants: PurchaseVariant[] = variants.map((v) => ({
     id: v.id,
