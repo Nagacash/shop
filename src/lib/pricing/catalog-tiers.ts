@@ -12,13 +12,14 @@
 
 import { SHIPPING_INCLUDED_EUR } from "@/lib/shipping/rates";
 
-export type RetailTierId = "tee" | "set" | "sweater" | "hoodie" | "hoodiePremium";
+export type RetailTierId = "tee" | "set" | "sweater" | "sweaterPremium" | "hoodie" | "hoodiePremium";
 
 /** Customer-facing all-in EUR prices */
 export const RETAIL_TIER_EUR: Record<RetailTierId, number> = {
   tee: 68,
   set: 89,
   sweater: 98,
+  sweaterPremium: 108,
   hoodie: 118,
   hoodiePremium: 128,
 };
@@ -32,6 +33,7 @@ export const PRODUCT_RETAIL_TIER: Record<string, RetailTierId> = {
   "Naga Black Set": "set",
   "The Angkor Heavyweight Crew": "sweater",
   "The Empire Roots Crew": "sweater",
+  "The Golden Empire Crew": "sweaterPremium",
   "The Cobra Wisdom Hoodie": "hoodie",
   "Naga Original Cream Hoodie": "hoodie",
   "The Golden Empire Hoodie": "hoodiePremium",
