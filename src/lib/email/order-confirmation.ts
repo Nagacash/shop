@@ -6,7 +6,7 @@ import { escapeHtml } from "@/lib/email/escape-html";
 import { formatPrice, formatPriceFromCents } from "@/lib/utils/currency";
 import { formatShippingAddress } from "@/lib/stripe/shipping";
 import { getResendClient, getResendFromAddress } from "@/lib/email/resend";
-import { SITE_NAME, SUPPORT_EMAIL, absoluteUrl } from "@/lib/seo/site";
+import { CONTACT_EMAIL_NAGA_CODEX, SITE_NAME, SUPPORT_EMAIL, absoluteUrl } from "@/lib/seo/site";
 
 function buildOrderConfirmationHtml(order: OrderView): string {
   const itemsHtml = order.items
@@ -146,4 +146,87 @@ export async function maybeSendOrderConfirmationEmail(order: OrderView): Promise
   if (row?.sentAt) return;
 
   await sendOrderConfirmationEmail(order);
+}
+
+/** Who gets the "new order" alert. Override with ORDER_NOTIFY_EMAILS (comma-separated). */
+function getOwnerNotifyEmails(): string[] {
+  const fromEnv = process.env.ORDER_NOTIFY_EMAILS?.split(",")
+    .map((email) => email.trim())
+    .filter(Boolean);
+  return fromEnv?.length ? fromEnv : [SUPPORT_EMAIL, CONTACT_EMAIL_NAGA_CODEX];
+}
+
+function buildOwnerOrderHtml(order: OrderView): string {
+  const rows = order.items
+    .map((item) => {
+      const variant = [item.color, item.size ? `Size ${item.size}` : null].filter(Boolean).join(", ");
+      return `<tr>
+        <td style="padding:6px 0;border-bottom:1px solid #e5e5e5;">${escapeHtml(item.name)}${variant ? ` (${escapeHtml(variant)})` : ""}</td>
+        <td style="padding:6px 0;border-bottom:1px solid #e5e5e5;text-align:center;">${item.quantity}</td>
+        <td style="padding:6px 0;border-bottom:1px solid #e5e5e5;text-align:right;">${formatPriceFromCents(Math.round(item.priceAtPurchase * 100) * item.quantity)}</td>
+      </tr>`;
+    })
+    .join("");
+
+  const shipping = order.shippingAddress
+    ? formatShippingAddress(order.shippingAddress)
+        .map((line) => `<div>${escapeHtml(line)}</div>`)
+        .join("")
+    : "<div>No shipping (digital order)</div>";
+
+  return `<!DOCTYPE html>
+<html>
+<body style="font-family:Arial,sans-serif;background:#f5f5f5;margin:0;padding:24px;color:#111111;">
+  <div style="max-width:560px;margin:0 auto;background:#ffffff;border:1px solid #e5e5e5;border-radius:12px;padding:28px;">
+    <p style="margin:0 0 6px;font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:#c9a227;">New order</p>
+    <h1 style="margin:0 0 4px;font-size:22px;">#${order.id.slice(0, 8).toUpperCase()} — ${formatPriceFromCents(order.totalCents)}</h1>
+    <p style="margin:0 0 20px;color:#757575;">Customer: ${order.customerEmail ? escapeHtml(order.customerEmail) : "—"}</p>
+    <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
+      <thead><tr>
+        <th style="text-align:left;font-size:12px;color:#757575;">Item</th>
+        <th style="text-align:center;font-size:12px;color:#757575;">Qty</th>
+        <th style="text-align:right;font-size:12px;color:#757575;">Total</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <p style="margin:0 0 6px;font-weight:600;">${order.shippingAddress ? "Ship to" : "Delivery"}</p>
+    <div style="color:#444444;line-height:1.6;margin-bottom:20px;">${shipping}</div>
+    <a href="${absoluteUrl("/admin/orders")}" style="display:inline-block;background:#111111;color:#ffffff;text-decoration:none;padding:10px 22px;border-radius:999px;">Open orders</a>
+  </div>
+</body>
+</html>`;
+}
+
+/**
+ * Alert the shop owner about a new paid order. Never throws, so a mail problem
+ * can't break order fulfillment. Returns true when Resend accepted the message.
+ */
+export async function sendOwnerOrderNotification(
+  order: OrderView,
+  options: { test?: boolean } = {},
+): Promise<boolean> {
+  try {
+    const resend = getResendClient();
+    if (!resend) {
+      console.warn("[email] RESEND_API_KEY not configured, owner order alert skipped");
+      return false;
+    }
+
+    const { error } = await resend.emails.send({
+      from: getResendFromAddress(),
+      to: getOwnerNotifyEmails(),
+      subject: `${options.test ? "[TEST] " : ""}New order #${order.id.slice(0, 8).toUpperCase()} — ${formatPriceFromCents(order.totalCents)}`,
+      html: buildOwnerOrderHtml(order),
+      ...(order.customerEmail ? { replyTo: order.customerEmail } : {}),
+    });
+
+    if (error) {
+      console.error("[email] Owner order alert failed:", error);
+      return false;
+    }
+    return true;
+  } catch (err) {
+    console.error("[email] Owner order alert threw:", err);
+    return false;
+  }
 }
