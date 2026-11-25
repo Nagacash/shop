@@ -30,6 +30,8 @@ export const PRODUCT_RETAIL_TIER: Record<string, RetailTierId> = {
   "Naga Original Sweater": "sweater",
   "Naga Golden Edition Sweater": "sweaterPremium",
   "Naga Original Hoodie": "hoodie",
+  "Chosen Few Records Tee": "tee",
+  "Chosen Few Records Hoodie": "hoodie",
   "Naga Golden Edition Hoodie": "hoodiePremium",
 };
 

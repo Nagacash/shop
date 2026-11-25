@@ -28,6 +28,7 @@
     "db:add-producer-pack": "tsx scripts/add-producer-pack.ts",
     "db:add-lion-clasp-miami-cuban": "tsx scripts/add-lion-clasp-miami-cuban.ts",
     "db:add-golden-empire-crew": "tsx scripts/add-golden-empire-crew.ts",
+    "db:add-chosen-few-records": "tsx scripts/add-chosen-few-records.ts",
     "db:rename-manifesto": "tsx scripts/rename-catalog-manifesto.ts",
     "db:adjust-shipping-prices": "tsx scripts/adjust-shipping-inclusive-prices.ts",
     "db:set-retail-prices": "tsx scripts/set-retail-tier-prices.ts",
